@@ -1,0 +1,63 @@
+name: Run Tests
+
+on:
+  pull_request:
+  push:
+    branches-ignore:
+      - indev
+      - gh-pages
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+      
+      - name: Install Node v12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run ESLint
+        run: npx gulp lint
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+      
+      - name: Install Node v12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Build package
+        run: npx gulp build
+
+  test:
+    name: Jest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+      
+      - name: Install Node v12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Run tests
+        run: npm test

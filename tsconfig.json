@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es2017",
+        "lib": ["es2017"],
+        "sourceMap": true,
+        "declaration": true,
+        "removeComments": false,
+        "experimentalDecorators": true,
+        "strict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "skipLibCheck": true
+    },
+    "include": [
+		"src/**/*.ts",
+		"src/**/*.test.ts",
+		"./gulpfile.js",
+		"scripts/**/*"
+	],
+    "exclude": [
+        "**/node_modules",
+        "**/bin"
+	]
+}

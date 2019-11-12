@@ -1,0 +1,58 @@
+{
+	"name": "@discord-sambo/command",
+	"version": "0.1.0",
+	"description": "Command module for Discord-Sambo",
+	"main": "bin/index.js",
+	"scripts": {
+		"test": "jest --passWithNoTests"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/discord-sambo/command.git"
+	},
+	"author": "Zack Campbell",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/discord-sambo/command/issues"
+	},
+	"homepage": "https://github.com/discord-sambo/command#readme",
+	"devDependencies": {
+		"@discord-sambo/eslint-config": "discord-sambo/eslint-config",
+		"@discord-sambo/typedoc-themes": "discord-sambo/typedoc-themes",
+		"@types/glob": "^7.1.1",
+		"@types/jest": "^24.0.18",
+		"@types/node": "^12.7.8",
+		"@typescript-eslint/eslint-plugin": "^2.4.0",
+		"@typescript-eslint/parser": "^2.4.0",
+		"del": "^5.1.0",
+		"eslint": "^6.5.1",
+		"gulp": "^4.0.2",
+		"gulp-eslint": "^6.0.0",
+		"gulp-sourcemaps": "^2.6.5",
+		"gulp-typescript": "^5.0.1",
+		"jest": "^24.9.0",
+		"run-sequence": "^2.2.1",
+		"ts-jest": "^24.1.0",
+		"typedoc": "^0.15.0",
+		"typescript": "^3.7.1-rc"
+	},
+	"dependencies": {
+		"glob": "^7.1.5"
+	},
+	"peerDependencies": {
+		"discord.js": "discordjs/discord.js"
+	},
+	"eslintConfig": {
+		"extends": "@discord-sambo"
+	},
+	"jest": {
+		"roots": [
+			"<rootDir>/src"
+		],
+		"transform": {
+			"^.+\\.ts$": "ts-jest"
+		},
+		"testRegex": "/__test__/.+\\.test\\.ts$",
+		"verbose": true
+	}
+}

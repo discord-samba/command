@@ -1,0 +1,17 @@
+.github/*
+.vscode/*
+examples/*
+scripts/*
+src/*
+
+bin/__test__/*
+
+.gitignore
+
+README.md
+
+gulpfile.js
+tsconfig.json
+yarn.lock
+
+config.json
