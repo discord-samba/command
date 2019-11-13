@@ -1,8 +1,9 @@
-/* eslint-disable no-console, capitalized-comments, lines-around-comment */
+/* eslint-disable no-console, capitalized-comments, lines-around-comment, sort-imports */
 import { CommandArgumentSpec } from '../CommandArgumentSpec';
 import { InputParser } from '../parsing/InputParser';
 import { ParserOutput } from '../parsing/ParserOutput';
 import { StringReader } from '../parsing/StringReader';
+import { CommandArguments } from '../CommandArguments';
 // import { CommandArgumentSpecOperand } from '../types/CommandArgumentSpecOperand';
 
 const spec: CommandArgumentSpec = new CommandArgumentSpec();
@@ -24,8 +25,12 @@ console.log(spec.get('c'));
 console.log(spec.get('d'));
 console.log(spec.get('dog'));
 
-const parsed: ParserOutput = InputParser.parse('-aaabf bar \n--boo \n1 -d foo "baz boo" "foo \\"bar\\" baz"', spec);
+const parsed: ParserOutput = InputParser.parse('-aaabf bar \n--boo \n1 -d foo "baz boo" "foo \\"bar\\" baz" buh', spec);
+const args: CommandArguments = new CommandArguments(parsed);
 console.log(parsed);
+console.log((args as any)._operands);
+console.log((args as any)._options.values());
+console.log((args as any)._optionArgs.values());
 
 const reader: StringReader = new StringReader('--');
 console.log(/^--$/.test(reader.peekSegment(5)));

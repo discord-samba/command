@@ -204,8 +204,8 @@ export class InputParser
 
 				if (optArgValUndef && state.reader.eoi())
 				{
-					// De-increment the nodeIndex because it's pointing to the next node which
-					// doesn't exist. We want it to point to the opt-arg that received no argument
+					// De-increment the index because it's pointing to the next node which doesn't
+					// exist. We want it to point to the opt-arg that received no argument
 					state.index--;
 					throw new InputParseError(InputParseErrorKind.OptionArgumentMissingArgument, state);
 				}

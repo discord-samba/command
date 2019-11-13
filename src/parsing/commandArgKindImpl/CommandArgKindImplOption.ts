@@ -1,10 +1,10 @@
 import { CommandArgumentKind } from '../../types/CommandArgumentKind';
-import { CommandArgumentOption } from '../../types/CommandArgumentOption';
+import { ICommandArgumentKindOption } from '../interfaces/ICommandArgumentKindOption';
 
 /**
  * @private
  */
-export class CommandArgKindImplOption implements CommandArgumentOption
+export class CommandArgKindImplOption implements ICommandArgumentKindOption
 {
 	public kind: CommandArgumentKind = CommandArgumentKind.Option;
 	public ident: string;

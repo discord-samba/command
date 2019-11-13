@@ -1,12 +1,12 @@
 import { CommandArgumentKind } from '../../types/CommandArgumentKind';
-import { CommandArgumentOperand } from '../../types/CommandArgumentOperand';
+import { ICommandArgumentKindOperand } from '../interfaces/ICommandArgumentKindOperand';
 
 /**
  * Represents an operand as parsed from the input. If it has no identifier
  * then it was not declared
  * @private
  */
-export class CommandArgKindImplOperand implements CommandArgumentOperand
+export class CommandArgKindImplOperand implements ICommandArgumentKindOperand
 {
 	public kind: CommandArgumentKind = CommandArgumentKind.Operand;
 	public type: string;
