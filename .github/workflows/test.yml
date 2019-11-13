@@ -39,7 +39,9 @@ jobs:
           node-version: 12
       
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm install
+          npm install discordjs/discord.js
       
       - name: Build package
         run: npx gulp build
