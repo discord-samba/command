@@ -14,6 +14,7 @@ spec.defineOperand('foo', 'Number');
 spec.defineOperand('bar', 'String');
 spec.defineOption('a');
 spec.defineOption('b');
+spec.defineOption('g');
 spec.defineOptionArgument('c', 'String');
 spec.defineOptionArgument('d', 'String', { long: 'dog', optional: false });
 spec.defineOptionArgument('f', 'String', { long: 'fog', optional: false });
@@ -25,8 +26,19 @@ console.log(spec.get('c'));
 console.log(spec.get('d'));
 console.log(spec.get('dog'));
 
+function now(): number
+{
+	type NSFunction = (hr?: [number, number]) => number;
+	const ns: NSFunction = (hr = process.hrtime()) => hr[0] * 1e9 + hr[1];
+	return (ns() - (ns() - (process.uptime() * 1e9))) / 1e6;
+}
+const start: number = now();
 const parsed: ParserOutput = InputParser.parse('-aaabf bar \n--boo \n1 -d foo "baz boo" "foo \\"bar\\" baz" buh', spec);
-const args: CommandArguments = new CommandArguments(parsed);
+const args: CommandArguments = new CommandArguments(spec, parsed);
+const end: number = now();
+
+console.log(end - start);
+
 console.log(parsed);
 console.log((args as any)._operands);
 console.log((args as any)._options.values());

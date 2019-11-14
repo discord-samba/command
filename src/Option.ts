@@ -4,7 +4,7 @@ import { CommandArgument } from './CommandArgument';
  * Represents an option type argument. The `value` field will be true if the option
  * was passed in the command input
  */
-export class CommandArgumentOption extends CommandArgument
+export class Option extends CommandArgument
 {
 	/**
 	 * How many times this option was passed

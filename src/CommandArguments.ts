@@ -1,57 +1,121 @@
-import { CommandArgumentOperand } from './CommandArgumentOperand';
-import { CommandArgumentOption } from './CommandArgumentOption';
-import { CommandArgumentOptionArgument } from './CommandArgumentOptionArgument';
+import { CommandArgument } from './CommandArgument';
+import { CommandArgumentError } from './CommandArgumentError';
+import { CommandArgumentErrorKind } from './types/CommandArgumentErrorKind';
+import { CommandArgumentSpec } from './CommandArgumentSpec';
+import { Operand } from './Operand';
+import { Option } from './Option';
+import { OptionArgument } from './OptionArgument';
 import { ParserOutput } from './parsing/ParserOutput';
 
 // TODO: Write class that takes ParserOutput and a command argument spec and assembles usable runtime arguments.
 //
-//       - Parsed arguments that do not match a defined spec can be discarded, excluding operands
-//         which will always be made available by index if an identifier does not exist
-//
 //       - Kept arguments should have their values run through resolvers to resolve their runtime
 //         type based on the type declared in the spec for that argument.
-//
-//       - Valid (defined) option types should have their occurrences summed.
 
+/**
+ * Container for all compiled arguments passed to a Command at call-time
+ */
 export class CommandArguments
 {
-	private _operands: CommandArgumentOperand[];
-	private _options: Map<string, CommandArgumentOption>;
-	private _optionArgs: Map<string, CommandArgumentOptionArgument>;
+	public operands: Operand[];
+	public options: Map<string, Option>;
+	public optionArguments: Map<string, OptionArgument>;
 
-	public constructor(parsedArgs: ParserOutput)
+	public constructor(spec: CommandArgumentSpec, parsedArgs: ParserOutput)
 	{
-		this._operands = [];
-		this._options = new Map();
-		this._optionArgs = new Map();
+		this.operands = [];
+		this.options = new Map();
+		this.optionArguments = new Map();
 
+		// Compile operands
 		for (const operand of parsedArgs.operands)
-			this._operands.push(new CommandArgumentOperand(operand.value, operand.ident, operand.type));
+			this.operands.push(new Operand(operand.value, operand.ident, operand.type));
 
+		// Check for missing non-optional operands
+		for (const operand of spec.operands)
+		{
+			if (!this.operands.some(o => o.ident === operand.ident) && !operand.optional)
+				throw new CommandArgumentError(
+					CommandArgumentErrorKind.MissingRequiredArgument,
+					operand.kind,
+					operand.ident
+				);
+		}
+
+		// Compile options
 		for (const option of parsedArgs.options.values())
 		{
-			const optionArgument: CommandArgumentOption = this._options.has(option.ident)
-				? this._options.get(option.ident)!
-				: new CommandArgumentOption(option.ident);
+			const optionArgument: Option = this.options.has(option.ident)
+				? this.options.get(option.ident)!
+				: new Option(option.ident);
 
 			optionArgument.increment();
 
-			if (!this._options.has(option.ident))
-				this._options.set(option.ident, optionArgument);
+			if (!this.options.has(option.ident))
+				this.options.set(option.ident, optionArgument);
 		}
 
+		// Compile missing options using the declared options from spec
+		for (const option of spec.options.values())
+			if (!this.options.has(option.ident))
+				this.options.set(option.ident, new Option(option.ident));
+
+		// Compile option-arguments
 		for (const optionArg of parsedArgs.optionArguments.values())
-			this._optionArgs.set(
+			this.optionArguments.set(
 				optionArg.ident,
-				new CommandArgumentOptionArgument(optionArg.ident, optionArg.value, optionArg.type)
+				new OptionArgument(optionArg.ident, optionArg.value, optionArg.type)
 			);
 
-		// TODO: Take command spec in constructor params so we can check for
-		//       args declared as not optional that were not received, and so
-		//       we can add args for options that were not received so they
-		//       will have a `false` value at command call-time
+		// Check for missing non-optional option-arguments
+		for (const optionArgument of spec.optionArguments.values())
+			if (!this.optionArguments.has(optionArgument.ident) && !optionArgument.optional)
+				throw new CommandArgumentError(
+					CommandArgumentErrorKind.MissingRequiredArgument,
+					optionArgument.kind,
+					optionArgument.ident
+				);
 	}
 
-	// TODO: Write method for fetching arguments by identifier. Must also be
-	//       able to take index for fetching operands
+	/**
+	 * Gets a Command argument by identifier. Extra operands that were not
+	 * declared in the spec can be retrieved by numerical index which will
+	 * first contain the declared operands.
+	 *
+	 * So for example, if you have 2 declared operands and 1 undeclared operand
+	 * passed to the Command at call-time, the declared operands will be at
+	 * indices `0` and `1` and the undeclared operand will be at index `2`
+	 *
+	 * You can also just access the entire set of operands passed to the Command
+	 * via the `operands` field
+	 *
+	 * Options and Option-arguments can also be accessed via the `options` and
+	 * `optionArguments` fields, respectively
+	 */
+	public get<T extends CommandArgument>(ident: string | number): T | undefined
+	{
+		let result: CommandArgument | undefined;
+
+		// Get operand by index
+		if (typeof ident === 'number')
+		{
+			result = this.operands[ident];
+			return result as T;
+		}
+
+		// Check for operand by ident
+		const operand: CommandArgument = this.operands.find(o => o.ident === ident)!;
+		if (typeof operand !== 'undefined')
+			result = operand;
+
+		// Check options for the identifier
+		if (this.options.has(ident))
+			result = this.options.get(ident);
+
+		// Otherwise check option-arguments
+		if (this.optionArguments.has(ident) && typeof result === 'undefined')
+			result = this.optionArguments.get(ident);
+
+		return result as T;
+	}
 }

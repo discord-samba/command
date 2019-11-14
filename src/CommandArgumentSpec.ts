@@ -133,7 +133,7 @@ export class CommandArgumentSpec
 		if (options.long?.length! < 2)
 			throw new RangeError('Long option-argument must be at least 2 characters');
 
-		if (typeof this.operands.find(o => o.ident === options.long) !== 'undefined')
+		if (this.operands.some(o => o.ident === options.long))
 			throw new Error('Long option-argument conflicts with existing operand');
 
 		const optArg: CommandArgumentSpecOptionArgument = {
@@ -150,24 +150,17 @@ export class CommandArgumentSpec
 	}
 
 	/**
-	 * Returns an argument spec for the given identifier.
+	 * Returns an option or option-argument spec for the given identifier.
 	 *
-	 * **NOTE:** Operand specs should be retrieved by shifting operands array
-	 * of a cloned spec.
+	 * **NOTE:** Operand specs should be retrieved by shifting the operands
+	 * array of a cloned spec.
 	 *
 	 * **WARNING:** Be sure to only operate on cloned specs. We do not want
 	 * to shift the operand specs out of the original specification
 	 */
-	public get<T extends { kind: CommandArgumentKind }>(ident: string | number): T | undefined
+	public get<T extends { kind: CommandArgumentKind }>(ident: string): T | undefined
 	{
 		let result: { kind: CommandArgumentKind } | undefined;
-
-		// Get operand by index
-		if (typeof ident === 'number')
-		{
-			result = this.operands[ident];
-			return result as T;
-		}
 
 		// Check options for the identifier
 		if (this.options.has(ident))
