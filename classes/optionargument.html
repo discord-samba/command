@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>CommandArgKindImplOptionArgument | @discord-sambo/command</title>
+	<title>OptionArgument | @discord-sambo/command</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -2408,25 +2408,8 @@ img {
 		<li class=" tsd-kind-class tsd-is-private">
 			<a href="commandargkindimploption.html" class="tsd-kind-icon">Command<wbr>Arg<wbr>Kind<wbr>Impl<wbr>Option</a>
 		</li>
-		<li class="current tsd-kind-class tsd-is-private">
+		<li class=" tsd-kind-class tsd-is-private">
 			<a href="commandargkindimploptionargument.html" class="tsd-kind-icon">Command<wbr>Arg<wbr>Kind<wbr>Impl<wbr>Option<wbr>Argument</a>
-			<ul>
-				<li class=" tsd-kind-constructor tsd-parent-kind-class">
-					<a href="commandargkindimploptionargument.html#constructor" class="tsd-kind-icon">constructor</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="commandargkindimploptionargument.html#ident" class="tsd-kind-icon">ident</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="commandargkindimploptionargument.html#kind" class="tsd-kind-icon">kind</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="commandargkindimploptionargument.html#type" class="tsd-kind-icon">type</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="commandargkindimploptionargument.html#value" class="tsd-kind-icon">value</a>
-				</li>
-			</ul>
 		</li>
 		<li class=" tsd-kind-class">
 			<a href="commandargument.html" class="tsd-kind-icon">Command<wbr>Argument</a>
@@ -2458,8 +2441,19 @@ img {
 		<li class=" tsd-kind-class">
 			<a href="option.html" class="tsd-kind-icon">Option</a>
 		</li>
-		<li class=" tsd-kind-class">
+		<li class="current tsd-kind-class">
 			<a href="optionargument.html" class="tsd-kind-icon">Option<wbr>Argument</a>
+			<ul>
+				<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+					<a href="optionargument.html#constructor" class="tsd-kind-icon">constructor</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a href="optionargument.html#ident" class="tsd-kind-icon">ident</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a href="optionargument.html#value" class="tsd-kind-icon">value</a>
+				</li>
+			</ul>
 		</li>
 		<li class=" tsd-kind-class tsd-is-private">
 			<a href="parseroutput.html" class="tsd-kind-icon">Parser<wbr>Output</a>
@@ -2500,20 +2494,23 @@ img {
 	<div class="content-wrap">
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
+				<div class="lead">
+					<p>Represents an option-argument type argument. An option-argument is an option
+					that takes its own argument, like <code>-f foo</code> or <code>--bar baz</code>.</p>
+				</div>
 			</div>
 		</section>
 		<section class="tsd-panel tsd-hierarchy">
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<span class="target">CommandArgKindImplOptionArgument</span>
+					<a href="commandargument.html" class="tsd-signature-type">CommandArgument</a>
+					<ul class="tsd-hierarchy">
+						<li>
+							<span class="target">OptionArgument</span>
+						</li>
+					</ul>
 				</li>
-			</ul>
-		</section>
-		<section class="tsd-panel">
-			<h3>Implements</h3>
-			<ul class="tsd-hierarchy">
-				<li><a href="../interfaces/icommandargumentkindoptionargument.html" class="tsd-signature-type">ICommandArgumentKindOptionArgument</a></li>
 			</ul>
 		</section>
 		<section class="tsd-panel-group tsd-index-group">
@@ -2523,16 +2520,14 @@ img {
 					<section class="tsd-index-section ">
 						<h3>Constructors</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="commandargkindimploptionargument.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="optionargument.html#constructor" class="tsd-kind-icon">constructor</a></li>
 						</ul>
 					</section>
-					<section class="tsd-index-section ">
+					<section class="tsd-index-section tsd-is-inherited">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="commandargkindimploptionargument.html#ident" class="tsd-kind-icon">ident</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="commandargkindimploptionargument.html#kind" class="tsd-kind-icon">kind</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="commandargkindimploptionargument.html#type" class="tsd-kind-icon">type</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="commandargkindimploptionargument.html#value" class="tsd-kind-icon">value</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="optionargument.html#ident" class="tsd-kind-icon">ident</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="optionargument.html#value" class="tsd-kind-icon">value</a></li>
 						</ul>
 					</section>
 				</div>
@@ -2540,17 +2535,18 @@ img {
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Constructors</h2>
-			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
-				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>Command<wbr>Arg<wbr>Kind<wbr>Impl<wbr>Option<wbr>Argument<span class="tsd-signature-symbol">(</span>ident<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="commandargkindimploptionargument.html" class="tsd-signature-type">CommandArgKindImplOptionArgument</a></li>
+				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Option<wbr>Argument<span class="tsd-signature-symbol">(</span>ident<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, _type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="optionargument.html" class="tsd-signature-type">OptionArgument</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
+							<p>Overrides <a href="commandargument.html">CommandArgument</a>.<a href="commandargument.html#constructor">constructor</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/discord-sambo/command/blob/f0d5296/src/parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts#L12">parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts:12</a></li>
+								<li>Defined in <a href="https://github.com/discord-sambo/command/blob/f0d5296/src/OptionArgument.ts#L8">OptionArgument.ts:8</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2559,59 +2555,53 @@ img {
 								<h5>ident: <span class="tsd-signature-type">string</span></h5>
 							</li>
 							<li>
-								<h5>type: <span class="tsd-signature-type">string</span></h5>
+								<h5>value: <span class="tsd-signature-type">any</span></h5>
+							</li>
+							<li>
+								<h5>_type: <span class="tsd-signature-type">string</span></h5>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="commandargkindimploptionargument.html" class="tsd-signature-type">CommandArgKindImplOptionArgument</a></h4>
+						<h4 class="tsd-returns-title">Returns <a href="optionargument.html" class="tsd-signature-type">OptionArgument</a></h4>
 					</li>
 				</ul>
 			</section>
 		</section>
-		<section class="tsd-panel-group tsd-member-group ">
+		<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
 			<h2>Properties</h2>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 				<a name="ident" class="tsd-anchor"></a>
 				<h3>ident</h3>
 				<div class="tsd-signature tsd-kind-icon">ident<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
-					<p>Implementation of <a href="../interfaces/icommandargumentkindoptionargument.html">ICommandArgumentKindOptionArgument</a>.<a href="../interfaces/icommandargumentkindoptionargument.html#ident">ident</a></p>
+					<p>Inherited from <a href="commandargument.html">CommandArgument</a>.<a href="commandargument.html#ident">ident</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/discord-sambo/command/blob/f0d5296/src/parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts#L10">parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts:10</a></li>
+						<li>Defined in <a href="https://github.com/discord-sambo/command/blob/f0d5296/src/CommandArgument.ts#L11">CommandArgument.ts:11</a></li>
 					</ul>
 				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The identifier for this argument. This will be the identifier specified
+						in the Command&#39;s arguments specification within your custom commands</p>
+					</div>
+				</div>
 			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="kind" class="tsd-anchor"></a>
-				<h3>kind</h3>
-				<div class="tsd-signature tsd-kind-icon">kind<span class="tsd-signature-symbol">:</span> <a href="../enums/commandargumentkind.html" class="tsd-signature-type">CommandArgumentKind</a><span class="tsd-signature-symbol"> =&nbsp;CommandArgumentKind.OptionArgument</span></div>
-				<aside class="tsd-sources">
-					<p>Implementation of <a href="../interfaces/icommandargumentkindoptionargument.html">ICommandArgumentKindOptionArgument</a>.<a href="../interfaces/icommandargumentkindoptionargument.html#kind">kind</a></p>
-					<ul>
-						<li>Defined in <a href="https://github.com/discord-sambo/command/blob/f0d5296/src/parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts#L9">parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts:9</a></li>
-					</ul>
-				</aside>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="type" class="tsd-anchor"></a>
-				<h3>type</h3>
-				<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-				<aside class="tsd-sources">
-					<p>Implementation of <a href="../interfaces/icommandargumentkindoptionargument.html">ICommandArgumentKindOptionArgument</a>.<a href="../interfaces/icommandargumentkindoptionargument.html#type">type</a></p>
-					<ul>
-						<li>Defined in <a href="https://github.com/discord-sambo/command/blob/f0d5296/src/parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts#L11">parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts:11</a></li>
-					</ul>
-				</aside>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 				<a name="value" class="tsd-anchor"></a>
 				<h3>value</h3>
-				<div class="tsd-signature tsd-kind-icon">value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<div class="tsd-signature tsd-kind-icon">value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 				<aside class="tsd-sources">
-					<p>Implementation of <a href="../interfaces/icommandargumentkindoptionargument.html">ICommandArgumentKindOptionArgument</a>.<a href="../interfaces/icommandargumentkindoptionargument.html#value">value</a></p>
+					<p>Inherited from <a href="commandargument.html">CommandArgument</a>.<a href="commandargument.html#value">value</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/discord-sambo/command/blob/f0d5296/src/parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts#L12">parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts:12</a></li>
+						<li>Defined in <a href="https://github.com/discord-sambo/command/blob/f0d5296/src/CommandArgument.ts#L18">CommandArgument.ts:18</a></li>
 					</ul>
 				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The value this argument holds. You can expect the type of the value to
+							be whatever you specified when in the Command&#39;s arguments specification
+						as long as there is a matching resolver for the specified type</p>
+					</div>
+				</div>
 			</section>
 		</section>
 		<footer class="with-border-bottom">

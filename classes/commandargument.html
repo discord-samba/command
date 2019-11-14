@@ -2381,11 +2381,17 @@ img {
 </header>
 <nav class="tsd-navigation secondary">
 	<ul>
-		<li class=" tsd-kind-enum tsd-is-private">
+		<li class=" tsd-kind-enum">
+			<a href="../enums/commandargumenterrorkind.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Error<wbr>Kind</a>
+		</li>
+		<li class=" tsd-kind-enum">
 			<a href="../enums/commandargumentkind.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Kind</a>
 		</li>
 		<li class=" tsd-kind-enum">
 			<a href="../enums/commandargumentparsingstrategy.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Parsing<wbr>Strategy</a>
+		</li>
+		<li class=" tsd-kind-enum">
+			<a href="../enums/commanddispatcherrorkind.html" class="tsd-kind-icon">Command<wbr>Dispatch<wbr>Error<wbr>Kind</a>
 		</li>
 		<li class=" tsd-kind-enum">
 			<a href="../enums/inputparseerrorkind.html" class="tsd-kind-icon">Input<wbr>Parse<wbr>Error<wbr>Kind</a>
@@ -2420,13 +2426,7 @@ img {
 			</ul>
 		</li>
 		<li class=" tsd-kind-class">
-			<a href="commandargumentoperand.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Operand</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="commandargumentoption.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Option</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="commandargumentoptionargument.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Option<wbr>Argument</a>
+			<a href="commandargumenterror.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Error</a>
 		</li>
 		<li class=" tsd-kind-class">
 			<a href="commandargumentspec.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Spec</a>
@@ -2438,10 +2438,22 @@ img {
 			<a href="commandcache.html" class="tsd-kind-icon">Command<wbr>Cache</a>
 		</li>
 		<li class=" tsd-kind-class">
+			<a href="commanddispatcherror.html" class="tsd-kind-icon">Command<wbr>Dispatch<wbr>Error</a>
+		</li>
+		<li class=" tsd-kind-class">
 			<a href="inputparseerror.html" class="tsd-kind-icon">Input<wbr>Parse<wbr>Error</a>
 		</li>
 		<li class=" tsd-kind-class tsd-is-private">
 			<a href="inputparser.html" class="tsd-kind-icon">Input<wbr>Parser</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="operand.html" class="tsd-kind-icon">Operand</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="option.html" class="tsd-kind-icon">Option</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="optionargument.html" class="tsd-kind-icon">Option<wbr>Argument</a>
 		</li>
 		<li class=" tsd-kind-class tsd-is-private">
 			<a href="parseroutput.html" class="tsd-kind-icon">Parser<wbr>Output</a>
@@ -2495,13 +2507,13 @@ img {
 					<span class="target">CommandArgument</span>
 					<ul class="tsd-hierarchy">
 						<li>
-							<a href="commandargumentoperand.html" class="tsd-signature-type">CommandArgumentOperand</a>
+							<a href="operand.html" class="tsd-signature-type">Operand</a>
 						</li>
 						<li>
-							<a href="commandargumentoption.html" class="tsd-signature-type">CommandArgumentOption</a>
+							<a href="option.html" class="tsd-signature-type">Option</a>
 						</li>
 						<li>
-							<a href="commandargumentoptionargument.html" class="tsd-signature-type">CommandArgumentOptionArgument</a>
+							<a href="optionargument.html" class="tsd-signature-type">OptionArgument</a>
 						</li>
 					</ul>
 				</li>
@@ -2539,7 +2551,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/discord-sambo/command/blob/d48470f/src/CommandArgument.ts#L18">CommandArgument.ts:18</a></li>
+								<li>Defined in <a href="https://github.com/discord-sambo/command/blob/f0d5296/src/CommandArgument.ts#L18">CommandArgument.ts:18</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2564,7 +2576,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">ident<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/discord-sambo/command/blob/d48470f/src/CommandArgument.ts#L11">CommandArgument.ts:11</a></li>
+						<li>Defined in <a href="https://github.com/discord-sambo/command/blob/f0d5296/src/CommandArgument.ts#L11">CommandArgument.ts:11</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2580,7 +2592,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/discord-sambo/command/blob/d48470f/src/CommandArgument.ts#L18">CommandArgument.ts:18</a></li>
+						<li>Defined in <a href="https://github.com/discord-sambo/command/blob/f0d5296/src/CommandArgument.ts#L18">CommandArgument.ts:18</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
