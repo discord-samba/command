@@ -42,7 +42,9 @@ jobs:
         run: git clone https://${{ github.actor }}:${{ secrets.DOCS_TOKEN }}@github.com/${{ github.repository }}.git -b gh-pages ../gh-pages
 
       - name: Prepare docs build
-        run: npx gulp gh-docs-prepare
+        run: |
+          npx gulp gh-docs-prepare
+          cp README.md ../gh-pages/_includes/README.md
 
       - name: Check if commit is needed
         id: git_status
@@ -56,7 +58,6 @@ jobs:
           cd ../gh-pages
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor}}@users.noreply.github.com"
-          touch .nojekyll
           git add --all
           git commit -m "Build docs from master: ${{ github.sha }}"
           git push origin gh-pages

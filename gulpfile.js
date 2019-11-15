@@ -35,16 +35,16 @@ gulp.task('build', () =>
 gulp.task('gh-docs-prepare', cb =>
 {
 	del.sync([
-		'../gh-pages/**/*.*',
-		'../gh-pages/.*',
-		'!../gh-pages',
+		'../gh-pages/docs/**/*.*',
+		'../gh-pages/docs/.*',
+		'!../gh-pages/docs',
 		'!../gh-pages/.git',
 		'!../gh-pages/.git/**'
 	], { force: true });
 
 	gulp
 		.src('../docs/**/*.*')
-		.pipe(gulp.dest('../gh-pages'));
+		.pipe(gulp.dest('../gh-pages/docs'));
 
 	return cb();
 });
