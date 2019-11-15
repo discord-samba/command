@@ -9,7 +9,7 @@ import { CommandArgumentSpecOperand } from '../types/CommandArgumentSpecOperand'
 import { CommandArgumentSpecOption } from '../types/CommandArgumentSpecOption';
 import { CommandArgumentSpecOptionArgument } from '../types/CommandArgumentSpecOptionArgument';
 import { InputParseError } from './InputParseError';
-import { InputParseErrorKind } from './InputParseErrorKind';
+import { InputParseErrorKind } from '../types/InputParseErrorKind';
 import { InputStringChunkKind } from '../types/InputStringChunkKind';
 import { ParserOutput } from './ParserOutput';
 import { ParserState } from '../types/ParserState';

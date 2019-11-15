@@ -1,4 +1,4 @@
-import { InputParseErrorKind } from './InputParseErrorKind';
+import { InputParseErrorKind } from '../types/InputParseErrorKind';
 import { ParserState } from '../types/ParserState';
 
 /**
