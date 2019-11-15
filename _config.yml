@@ -1,0 +1,29 @@
+title: sambo-site
+description: >
+  A Discord.js-powered Discord client framework
+baseurl: "/"
+url: "https://discord-sambo.github.io/command"
+
+collections:
+  guides:
+    permalink: /guides/:title/
+    output: true
+
+# Build settings
+markdown: kramdown
+
+plugins:
+  - jekyll-redirect-from
+
+sass:
+  style: compressed
+
+include:
+  - "*.html" # Needed to include files that start with underscore
+
+exclude:
+  - images/edit
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - typedoc
