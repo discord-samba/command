@@ -23,10 +23,10 @@ if (typeof project !== 'undefined')
 		[
 			{
 				label: 'Logger',
-				url: 'https://discord-sambo.github.io/logger'
+				url: 'https://discord-sambo.github.io/logger/docs'
 			}, {
 				label: 'Localization',
-				url: 'https://discord-sambo.github.io/localization'
+				url: 'https://discord-sambo.github.io/localization/docs'
 			}
 		]
 	);
