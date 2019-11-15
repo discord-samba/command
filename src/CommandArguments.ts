@@ -7,18 +7,26 @@ import { Option } from './Option';
 import { OptionArgument } from './OptionArgument';
 import { ParserOutput } from './parsing/ParserOutput';
 
-// TODO: Write class that takes ParserOutput and a command argument spec and assembles usable runtime arguments.
-//
-//       - Kept arguments should have their values run through resolvers to resolve their runtime
-//         type based on the type declared in the spec for that argument.
+// TODO: Run argument values through resolvers for the type specified in that argument's spec
 
 /**
  * Container for all compiled arguments passed to a Command at call-time
  */
 export class CommandArguments
 {
+	/**
+	 * Array containing every Operand passed to the Command
+	 */
 	public operands: Operand[];
+
+	/**
+	 * Map of Option identifiers to Option instances
+	 */
 	public options: Map<string, Option>;
+
+	/**
+	 * Map of OptionArgument identifiers to OptionArgument instances
+	 */
 	public optionArguments: Map<string, OptionArgument>;
 
 	public constructor(spec: CommandArgumentSpec, parsedArgs: ParserOutput)
