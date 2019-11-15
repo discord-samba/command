@@ -1,8 +1,8 @@
 title: sambo-site
 description: >
   A Discord.js-powered Discord client framework
-baseurl: "/command/"
-url: "https://discord-sambo.github.io/command/"
+baseurl: "/command"
+url: "https://discord-sambo.github.io/"
 
 collections:
   guides:
