@@ -7,8 +7,6 @@ import { Option } from './Option';
 import { OptionArgument } from './OptionArgument';
 import { ParserOutput } from './parsing/ParserOutput';
 
-// TODO: Run argument values through resolvers for the type specified in that argument's spec
-
 /**
  * Container for all compiled arguments passed to a Command at call-time
  */
