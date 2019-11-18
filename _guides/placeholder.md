@@ -2,6 +2,8 @@
 layout: 'guide'
 title: 'Placeholder'
 menuOrder: 1
+redirect_from:
+  - /guides/default
 ---
 
 
