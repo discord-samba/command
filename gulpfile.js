@@ -37,6 +37,8 @@ gulp.task('gh-docs-prepare', cb =>
 	del.sync([
 		'../gh-pages/docs/**/*.*',
 		'../gh-pages/docs/.*',
+		'../gh-pages/_guides/*.md',
+		'!../gh-pages/_guides',
 		'!../gh-pages/docs',
 		'!../gh-pages/.git',
 		'!../gh-pages/.git/**'
@@ -45,6 +47,10 @@ gulp.task('gh-docs-prepare', cb =>
 	gulp
 		.src('../docs/**/*.*')
 		.pipe(gulp.dest('../gh-pages/docs'));
+
+	gulp
+		.src('./guides/*.md')
+		.pipe(gulp.dest('../gh-pages/_guides'));
 
 	return cb();
 });
