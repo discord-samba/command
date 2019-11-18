@@ -28,13 +28,11 @@ if (typeof project !== 'undefined')
 			},
 			{
 				label: 'Localization',
-				url: 'https://discord-sambo.github.io/localization/docs',
-				current: false
+				url: 'https://discord-sambo.github.io/localization/docs'
 			},
 			{
 				label: 'Logger',
-				url: 'https://discord-sambo.github.io/logger/docs',
-				current: false
+				url: 'https://discord-sambo.github.io/logger/docs'
 			}
 		]
 	);
