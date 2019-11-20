@@ -10,9 +10,9 @@ import { CommandArgument } from './CommandArgument';
  * `<CommandContext>.args.get(index: number)`. An undeclared operand will
  * default to being parsed as a string
  */
-export class Operand extends CommandArgument
+export class Operand<T> extends CommandArgument<T>
 {
-	public constructor(value: any, ident: string | undefined, _type: string)
+	public constructor(value: T | undefined, ident: string | undefined, _type: string)
 	{
 		// TODO: Run operand value through resolver for the specified type
 

@@ -2,7 +2,7 @@
  * Base Command argument class that all argument types (operand, option, option-argument)
  * inherit from
  */
-export class CommandArgument
+export class CommandArgument<T>
 {
 	/**
 	 * The identifier for this argument. This will be the identifier specified
@@ -15,7 +15,7 @@ export class CommandArgument
 	 * be whatever you specified when in the Command's arguments specification
 	 * as long as there is a matching resolver for the specified type
 	 */
-	public value: any;
+	public value: T;
 
 	public constructor(ident: string, value: any)
 	{

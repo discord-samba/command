@@ -15,7 +15,7 @@ export class CommandArguments
 	/**
 	 * Array containing every Operand passed to the Command
 	 */
-	public operands: Operand[];
+	public operands: Operand<any>[];
 
 	/**
 	 * Map of Option identifiers to Option instances
@@ -25,7 +25,7 @@ export class CommandArguments
 	/**
 	 * Map of OptionArgument identifiers to OptionArgument instances
 	 */
-	public optionArguments: Map<string, OptionArgument>;
+	public optionArguments: Map<string, OptionArgument<any>>;
 
 	public constructor(spec: CommandArgumentSpec, parsedArgs: ParserOutput)
 	{
@@ -98,9 +98,9 @@ export class CommandArguments
 	 * Options and Option-arguments can also be accessed via the `options` and
 	 * `optionArguments` fields, respectively
 	 */
-	public get<T extends CommandArgument>(ident: string | number): T | undefined
+	public get<T extends CommandArgument<any>>(ident: string | number): T | undefined
 	{
-		let result: CommandArgument | undefined;
+		let result: CommandArgument<any> | undefined;
 
 		// Get operand by index
 		if (typeof ident === 'number')
@@ -110,7 +110,7 @@ export class CommandArguments
 		}
 
 		// Check for operand by ident
-		const operand: CommandArgument = this.operands.find(o => o.ident === ident)!;
+		const operand: CommandArgument<any> = this.operands.find(o => o.ident === ident)!;
 		if (typeof operand !== 'undefined')
 			result = operand;
 
