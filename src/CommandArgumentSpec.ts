@@ -78,28 +78,55 @@ export class CommandArgumentSpec
 	}
 
 	/**
-	 * Defines an option flag (like `-o`) for your Command's arguments specification.
-	 * Must be given a single letter identifier.
+	 * Defines an option flag (like `-o` or `--out`) for your Command's arguments
+	 * specification.
+	 *
+	 * If given an identifier, it may be a single character or a long identifier.
+	 * If given an optional long identifier in the options object parameter,
+	 * in addition to the identifier as the first parameter, the first paramater
+	 * may only be a single character.
 	 *
 	 * **NOTE:**, If an option is found and the parsing strategy is not set to
-	 * `Advanced` (`2`) then it will be treated as an operand. If an argument that
-	 * can be parsed as an option is found in a command's input but the option
-	 * is not declared then it will be ignored
+	 * `Advanced` (`2`) then it will be treated as an operand
 	 */
-	public defineOption(ident: string): void
+	public defineOption(ident: string, options: { long?: string } = {}): void
 	{
-		if (ident.length > 1)
-			throw new RangeError('Options must not exceed 1 character');
+		if (typeof options.long === 'undefined')
+		{
+			if (ident.length === 1 && !/[a-zA-Z]/.test(ident))
+				throw new Error('Short option identifiers must match pattern /[a-zA-Z]/');
 
-		if (!/[a-zA-Z]/.test(ident))
-			throw new Error('Options must match pattern [a-zA-Z]');
+			if (ident.length >= 2 && !/[a-zA-Z][\w-]+/.test(ident))
+				throw new Error('Long option identifiers must match pattern /[a-zA-Z][\\w-]+/');
+		}
+		else
+		{
+			if (ident.length > 1)
+				throw new RangeError('Short option identifiers must not exceed 1 character');
 
-		if (this.optionArguments.has(ident))
+			if (options.long.length < 2)
+				throw new RangeError('Long option identifiers must be at least 2 characters');
+
+			if (!/[a-zA-Z][\w-]+/.test(options.long))
+				throw new Error('Long option identifiers must match pattern /[a-zA-Z][\\w-]+/');
+		}
+
+		if (this.options.has(options.long!))
+			throw new Error('Long option identifier conflicts with existing option');
+
+		for (const option of this.options.values())
+		{
+			if (option.long === ident)
+				throw new Error('Option conflicts with existing option');
+		}
+
+		if (this.optionArguments.has(ident) || this.optionArguments.has(options.long!))
 			throw new Error('Option conflicts with existing option-argument');
 
 		this.options.set(ident, {
 			kind: CommandArgumentKind.Option,
 			ident,
+			long: options.long
 		});
 	}
 
@@ -112,8 +139,8 @@ export class CommandArgumentSpec
 	 * **NOTE:** If an option-argument is found and the parsing strategy is not set to
 	 * `Advanced` (`2`) then it will be treated as an operand. If an argument that can be
 	 * parsed as an option-argument is found in a Command's input but the option-argument
-	 * is not declared then it will be ignored and the argument passed to it will be treated
-	 * as an operand
+	 * is not declared then it will be treated as a long option and the argument passed to
+	 * it will be treated as an operand
 	 */
 	public defineOptionArgument(
 		ident: string,
@@ -163,11 +190,17 @@ export class CommandArgumentSpec
 		let result: { kind: CommandArgumentKind } | undefined;
 
 		// Check options for the identifier
-		if (this.options.has(ident))
-			result = this.options.get(ident);
+		for (const option of this.options.values())
+		{
+			if (option.ident === ident || option.long === ident)
+			{
+				result = option;
+				break;
+			}
+		}
 
 		// Otherwise check option-arguments
-		if (this.optionArguments.has(ident) && typeof result === 'undefined')
+		if (typeof result === 'undefined' && this.optionArguments.has(ident))
 			result = this.optionArguments.get(ident);
 
 		return result as T;

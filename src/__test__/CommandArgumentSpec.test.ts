@@ -4,112 +4,120 @@ import { CommandArgumentSpec } from '../CommandArgumentSpec';
 
 describe('CommandArgumentSpec', () =>
 {
-	const spec: CommandArgumentSpec = new CommandArgumentSpec();
-
 	it('Should successfully define an operand', () =>
 	{
+		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 		expect(() => spec.defineOperand('foo', 'String')).not.toThrow();
 	});
 
 	it('Should successfully define an option', () =>
 	{
+		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 		expect(() => spec.defineOption('a')).not.toThrow();
 	});
 
 	it('Should successfully define an option-argument', () =>
 	{
+		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 		expect(() => spec.defineOptionArgument('b', 'Number')).not.toThrow();
 	});
 
 	it('Should return the expected operand', () =>
 	{
-		const localSpec: CommandArgumentSpec = new CommandArgumentSpec();
+		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 		const kind: CommandArgumentKind = CommandArgumentKind.Operand;
-		localSpec.defineOperand('foo', 'Number', { optional: true });
+		spec.defineOperand('foo', 'Number', { optional: true });
 
-		expect(localSpec.operands.shift()).toEqual({ kind, ident: 'foo', type: 'Number', optional: true });
+		expect(spec.operands.shift()).toEqual({ kind, ident: 'foo', type: 'Number', optional: true });
 	});
 
 	it('Should return the expected option', () =>
 	{
-		const localSpec: CommandArgumentSpec = new CommandArgumentSpec();
+		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 		const kind: CommandArgumentKind = CommandArgumentKind.Option;
-		localSpec.defineOption('f');
+		spec.defineOption('f', { long: 'foo' });
 
-		expect(localSpec.get('f')).toEqual({ kind, ident: 'f' });
+		expect(spec.get('f')).toEqual({ kind, ident: 'f', long: 'foo' });
+		expect(spec.get('foo')).toEqual({ kind, ident: 'f', long: 'foo' });
 	});
 
 	it('Should return the expected option-argument', () =>
 	{
-		const localSpec: CommandArgumentSpec = new CommandArgumentSpec();
+		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 		const kind: CommandArgumentKind = CommandArgumentKind.OptionArgument;
-		localSpec.defineOptionArgument('f', 'String', { long: 'foo' });
+		spec.defineOptionArgument('f', 'String', { long: 'foo' });
 
-		expect(localSpec.get('f')).toEqual({ kind, ident: 'f', long: 'foo', type: 'String', optional: true });
-		expect(localSpec.get('foo')).toEqual({ kind, ident: 'f', long: 'foo', type: 'String', optional: true });
+		expect(spec.get('f')).toEqual({ kind, ident: 'f', long: 'foo', type: 'String', optional: true });
+		expect(spec.get('foo')).toEqual({ kind, ident: 'f', long: 'foo', type: 'String', optional: true });
 
-		localSpec.defineOptionArgument('b', 'Number', { optional: false });
+		spec.defineOptionArgument('b', 'Number', { optional: false });
 
-		expect(localSpec.get('b')).toEqual({ kind, ident: 'b', long: undefined, type: 'Number', optional: false });
+		expect(spec.get('b')).toEqual({ kind, ident: 'b', long: undefined, type: 'Number', optional: false });
 	});
 
 	it('Should return nothing if no spec exists by the given identifier', () =>
 	{
-		const localSpec: CommandArgumentSpec = new CommandArgumentSpec();
-		expect(localSpec.get('foo')).toBe(undefined);
+		const spec: CommandArgumentSpec = new CommandArgumentSpec();
+		expect(spec.get('foo')).toBe(undefined);
 	});
 
 	it('Should error on duplicate identifiers', () =>
 	{
-		let localSpec: CommandArgumentSpec = new CommandArgumentSpec();
-		localSpec.defineOperand('foo', 'String');
-		localSpec.defineOption('b');
+		let spec: CommandArgumentSpec = new CommandArgumentSpec();
+		spec.defineOperand('foo', 'String');
+		spec.defineOption('b');
 
-		expect(() => localSpec.defineOptionArgument('f', 'Number', { long: 'foo' }))
+		expect(() => spec.defineOptionArgument('f', 'Number', { long: 'foo' }))
 			.toThrow('Long option-argument conflicts with existing operand');
 
-		expect(() => localSpec.defineOptionArgument('b', 'String'))
+		expect(() => spec.defineOptionArgument('b', 'String'))
 			.toThrow('Option-argument conflicts with existing option');
 
-		localSpec = new CommandArgumentSpec();
-		localSpec.defineOptionArgument('f', 'String', { long: 'foo' });
+		spec = new CommandArgumentSpec();
+		spec.defineOptionArgument('f', 'String', { long: 'foo' });
 
-		expect(() => localSpec.defineOperand('foo', 'Number'))
+		expect(() => spec.defineOperand('foo', 'Number'))
 			.toThrow('Operand conflicts with existing long option-argument');
 
-		expect(() => localSpec.defineOption('f'))
+		expect(() => spec.defineOption('f'))
 			.toThrow('Option conflicts with existing option-argument');
 	});
 
 	it('Should error on invalid identifiers', () =>
 	{
-		const localSpec: CommandArgumentSpec = new CommandArgumentSpec();
+		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 
-		expect(() => localSpec.defineOperand('f', 'String'))
+		expect(() => spec.defineOperand('f', 'String'))
 			.toThrow('Operands must be at least 2 characters');
 
-		expect(() => localSpec.defineOption('foo'))
-			.toThrow('Options must not exceed 1 character');
+		expect(() => spec.defineOption('foo', { long: 'bar' }))
+			.toThrow('Short option identifiers must not exceed 1 character');
 
-		expect(() => localSpec.defineOption('1'))
-			.toThrow('Options must match pattern [a-zA-Z]');
+		expect(() => spec.defineOption('f', { long: 'b' }))
+			.toThrow('Long option identifiers must be at least 2 characters');
 
-		expect(() => localSpec.defineOptionArgument('1', 'String'))
+		expect(() => spec.defineOption('1'))
+			.toThrow('Short option identifiers must match pattern /[a-zA-Z]/');
+
+		expect(() => spec.defineOption('1a'))
+			.toThrow('Long option identifiers must match pattern /[a-zA-Z][\\w-]+/');
+
+		expect(() => spec.defineOptionArgument('1', 'String'))
 			.toThrow('Option-arguments must match pattern [a-zA-Z]');
 
-		expect(() => localSpec.defineOptionArgument('foo', 'String'))
+		expect(() => spec.defineOptionArgument('foo', 'String'))
 			.toThrow('Option-arguments must not exceed 1 character');
 
-		expect(() => localSpec.defineOptionArgument('f', 'String', { long: 'b' }))
+		expect(() => spec.defineOptionArgument('f', 'String', { long: 'b' }))
 			.toThrow('Long option-argument must be at least 2 characters');
 	});
 
 	it('Should error on non-optional operands following optional operands', () =>
 	{
-		const localSpec: CommandArgumentSpec = new CommandArgumentSpec();
-		localSpec.defineOperand('foo', 'String', { optional: true });
+		const spec: CommandArgumentSpec = new CommandArgumentSpec();
+		spec.defineOperand('foo', 'String', { optional: true });
 
-		expect(() => localSpec.defineOperand('bar', 'String', { optional: false }))
+		expect(() => spec.defineOperand('bar', 'String', { optional: false }))
 			.toThrow('Non-optional operands may not follow optional operands');
 	});
 });

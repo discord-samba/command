@@ -59,6 +59,9 @@ export class CommandArguments
 
 			if (!this.options.has(option.ident))
 				this.options.set(option.ident, optionArgument);
+
+			if (typeof option.long !== 'undefined' && !this.options.has(option.long))
+				this.options.set(option.long, optionArgument);
 		}
 
 		// Compile missing options using the declared options from spec

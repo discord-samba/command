@@ -316,7 +316,7 @@ export class InputParser
 	}
 
 	/**
-	 * Consumes a long option-argument, appending it to the parser output
+	 * Consumes a long option or long option-argument, appending it to the parser output
 	 */
 	private static _consumeAppendLongOptionArgument(state: ParserState, out: ParserOutput): void
 	{
@@ -327,13 +327,28 @@ export class InputParser
 		while (!/\s/.test(state.reader.peek()) && !state.reader.eoi())
 			ident += state.reader.consume();
 
-		const spec: CommandArgumentSpecOptionArgument | undefined = state.spec.get(ident);
+		const spec: CommandArgumentSpecOptionArgument | CommandArgumentSpecOption | undefined =
+			state.spec.get(ident);
 
-		// Discard the long opt-arg if it hasn't been defined in the spec.
-		// The following argument will be treated as an operand ny nature
-		// of not being preceded by an option-argument
+		// Treat the long identifier as an option if it hasn't been defined
+		// in the spec. The following argument will be treated as an operand
+		// by nature of not being preceded by an option-argument
 		if (typeof spec === 'undefined')
+		{
+			const option: CommandArgKindImplOption = new CommandArgKindImplOption(ident);
+			out.options.push(option);
+			state.nodes.push(option);
 			return;
+		}
+
+		// Handle long options
+		if (spec.kind === CommandArgumentKind.Option)
+		{
+			const option: CommandArgKindImplOption = new CommandArgKindImplOption(spec.ident, ident);
+			out.options.push(option);
+			state.nodes.push(option);
+			return;
+		}
 
 		const optArgs: CommandArgKindImplOptionArgument[] = [
 			new CommandArgKindImplOptionArgument(ident, spec.type),

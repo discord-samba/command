@@ -285,13 +285,15 @@ describe('InputParser', () =>
 		});
 	});
 
-	it('Should discard undeclared long option-arguments', () =>
+	it('Should treat undeclared long option-arguments as long options', () =>
 	{
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 		spec.setParsingStrategy(2);
 
 		expect(InputParser.parse('foo --bar baz', spec)).toEqual({
-			options: [],
+			options: [
+				{ kind: 0, ident: 'bar' }
+			],
 			optionArguments: [],
 			operands: [
 				{ kind: 2, type: 'String', value: 'foo' },
@@ -300,7 +302,9 @@ describe('InputParser', () =>
 		});
 
 		expect(InputParser.parse('--bar', spec)).toEqual({
-			options: [],
+			options: [
+				{ kind: 0, ident: 'bar' }
+			],
 			optionArguments: [],
 			operands: []
 		});

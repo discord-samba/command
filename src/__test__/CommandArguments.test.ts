@@ -40,12 +40,15 @@ describe('CommandArguments', () =>
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 
 		spec.setParsingStrategy(2);
-		spec.defineOption('a');
+		spec.defineOption('a', { long: 'apple' });
+		spec.defineOption('bar');
 
-		const parserOutput: ParserOutput = InputParser.parse('-aa', spec);
+		const parserOutput: ParserOutput = InputParser.parse('-aa --apple --bar', spec);
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
 
-		expect(args.get('a')).toEqual({ ident: 'a', value: true, occurrences: 2 });
+		expect(args.get('a')).toEqual({ ident: 'a', value: true, occurrences: 3 });
+		expect(args.get('apple')).toEqual({ ident: 'a', value: true, occurrences: 3 });
+		expect(args.get('bar')).toEqual({ ident: 'bar', value: true, occurrences: 1 });
 	});
 
 	it('Should compile passed undeclared options', () =>
@@ -54,13 +57,14 @@ describe('CommandArguments', () =>
 
 		spec.setParsingStrategy(2);
 
-		const parserOutput: ParserOutput = InputParser.parse('-aa', spec);
+		const parserOutput: ParserOutput = InputParser.parse('-aa --apple', spec);
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
 
 		expect(args.get('a')).toEqual({ ident: 'a', value: true, occurrences: 2 });
+		expect(args.get('apple')).toEqual({ ident: 'apple', value: true, occurrences: 1 });
 	});
 
-	it('Should allow compile missing declared options', () =>
+	it('Should compile missing declared options', () =>
 	{
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 

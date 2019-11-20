@@ -1,4 +1,4 @@
-/* eslint-disable no-console, capitalized-comments, lines-around-comment, sort-imports */
+/* eslint-disable no-console, capitalized-comments, lines-around-comment, sort-imports, no-mixed-operators */
 import { CommandArgumentSpec } from '../CommandArgumentSpec';
 import { InputParser } from '../parsing/InputParser';
 import { ParserOutput } from '../parsing/ParserOutput';
@@ -30,7 +30,7 @@ function now(): number
 {
 	type NSFunction = (hr?: [number, number]) => number;
 	const ns: NSFunction = (hr = process.hrtime()) => hr[0] * 1e9 + hr[1];
-	return (ns() - (ns() - (process.uptime() * 1e9))) / 1e6;
+	return (ns() - (ns() - process.uptime() * 1e9)) / 1e6;
 }
 const start: number = now();
 const parsed: ParserOutput = InputParser.parse('-aaabf bar \n--boo \n1 -d foo "baz boo" "foo \\"bar\\" baz" buh', spec);
@@ -40,9 +40,9 @@ const end: number = now();
 console.log(end - start);
 
 console.log(parsed);
-console.log((args as any)._operands);
-console.log((args as any)._options.values());
-console.log((args as any)._optionArgs.values());
+console.log(args.operands);
+console.log(args.options.values());
+console.log(args.optionArguments.values());
 
 const reader: StringReader = new StringReader('--');
 console.log(/^--$/.test(reader.peekSegment(5)));
