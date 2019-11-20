@@ -294,6 +294,7 @@ export class InputParser
 			const spec: CommandArgumentSpecOption | CommandArgumentSpecOptionArgument | undefined =
 				state.spec.get(ident);
 
+			// Handle option arguments
 			if (spec?.kind === CommandArgumentKind.OptionArgument)
 			{
 				const optArgs: CommandArgKindImplOptionArgument[] = [
@@ -306,6 +307,8 @@ export class InputParser
 				out.optionArguments.push(...optArgs);
 				state.nodes.push(...optArgs);
 			}
+
+			// Handle regular options
 			else
 			{
 				const argument: CommandArgKindImplOption = new CommandArgKindImplOption(ident);
