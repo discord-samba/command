@@ -1,4 +1,4 @@
-import { CommandArgument } from './CommandArgument';
+import { Argument } from './Argument';
 
 /**
  * Represents an operand type argument. These are the positional arguments in
@@ -10,7 +10,7 @@ import { CommandArgument } from './CommandArgument';
  * `<CommandContext>.args.get(index: number)`. An undeclared operand will
  * default to being parsed as a string
  */
-export class Operand<T> extends CommandArgument<T>
+export class Operand<T> extends Argument<T>
 {
 	public constructor(value: T | undefined, ident: string | undefined, _type: string)
 	{

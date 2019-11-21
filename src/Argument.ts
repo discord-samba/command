@@ -2,7 +2,7 @@
  * Base Command argument class that all argument types (operand, option, option-argument)
  * inherit from
  */
-export class CommandArgument<T>
+export class Argument<T>
 {
 	/**
 	 * The identifier for this argument. This will be the identifier specified
@@ -21,5 +21,13 @@ export class CommandArgument<T>
 	{
 		this.ident = ident;
 		this.value = value;
+	}
+
+	/**
+	 * Returns whether or not this argument holds a `value`
+	 */
+	public isSome(): boolean
+	{
+		return typeof this.value !== 'undefined';
 	}
 }
