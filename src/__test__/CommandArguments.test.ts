@@ -2,6 +2,9 @@ import { CommandArgumentSpec } from '../CommandArgumentSpec';
 import { CommandArguments } from '../CommandArguments';
 import { InputParser } from '../parsing/InputParser';
 import { ParserOutput } from '../parsing/ParserOutput';
+import { Operand } from '../Operand';
+import { Option } from '../Option';
+import { OptionArgument } from '../OptionArgument';
 
 describe('CommandArguments', () =>
 {
@@ -161,5 +164,33 @@ describe('CommandArguments', () =>
 
 		expect(getErr(() => new CommandArguments(spec, parserOutput)))
 			.toEqual({ error: 0, kind: 1, ident: 'a' });
+	});
+
+	// Should fail until option arguments can be defined with a long ident
+	// without also having a short ident
+	it('Should return correct values for isSome()', () =>
+	{
+		const spec: CommandArgumentSpec = new CommandArgumentSpec();
+
+		spec.setParsingStrategy(2);
+		spec.defineOperand('foo', 'String');
+		spec.defineOperand('bar', 'String', { optional: true });
+		spec.defineOption('baz');
+		spec.defineOption('boo');
+		spec.defineOptionArgument('far', 'Number', { optional: false });
+		spec.defineOptionArgument('faz', 'Number');
+
+		const parserOutput: ParserOutput = InputParser.parse('foo --baz --far 1', spec);
+		const args: CommandArguments = new CommandArguments(spec, parserOutput);
+
+		expect(args.get<Operand<string>>('foo')?.isSome()).toBe(true);
+		expect(args.get<Operand<string>>('bar')?.isSome()).toBe(false);
+		expect(args.get<Option>('baz')?.isSome()).toBe(true);
+
+		// Should be true because unpassed options still hold `false`
+		expect(args.get<Option>('boo')?.isSome()).toBe(true);
+
+		expect(args.get<OptionArgument<number>>('far')?.isSome()).toBe(true);
+		expect(args.get<OptionArgument<number>>('faz')?.isSome()).toBe(false);
 	});
 });
