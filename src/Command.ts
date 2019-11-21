@@ -1,4 +1,5 @@
 import { Client } from 'discord.js';
+import { CommandArgumentSpec } from './CommandArgumentSpec';
 import { CommandContext } from './types/CommandContext';
 
 /**
@@ -9,11 +10,13 @@ export abstract class Command<T extends Client = Client>
 {
 	public readonly name: string;
 	public readonly aliases: string[];
+	public readonly arguments: CommandArgumentSpec;
 
 	public constructor(name: string, ...aliases: string[])
 	{
 		this.name = name;
 		this.aliases = aliases;
+		this.arguments = new CommandArgumentSpec();
 	}
 
 	/**
