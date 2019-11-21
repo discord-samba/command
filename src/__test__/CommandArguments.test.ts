@@ -32,6 +32,23 @@ describe('CommandArguments', () =>
 		]);
 	});
 
+	it('Should compile missing declared optional operands', () =>
+	{
+		const spec: CommandArgumentSpec = new CommandArgumentSpec();
+		spec.defineOperand('foo', 'String');
+		spec.defineOperand('bar', 'String', { optional: true });
+		spec.defineOperand('baz', 'String', { optional: true });
+
+		const parserOutput: ParserOutput = InputParser.parse('foo bar', spec);
+		const args: CommandArguments = new CommandArguments(spec, parserOutput);
+
+		expect(args.operands).toEqual([
+			{ ident: 'foo', value: 'foo' },
+			{ ident: 'bar', value: 'bar' },
+			{ ident: 'baz' }
+		]);
+	});
+
 	// TODO: Write operand type tests after base resolvers are written
 	//       or maybe just write a test suite for the resolvers themselves
 

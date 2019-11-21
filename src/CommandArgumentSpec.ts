@@ -34,7 +34,7 @@ export class CommandArgumentSpec
 	 * 	0 - Basic. All words are counted as separate operands
 	 * 	1 - Allow Quoting. Same as basic, but multiple arguments can be quoted
 	 * 	    to create a single operand
-	 * 	3 - Advanced. Includes basic and quoting, adds option flags and options
+	 * 	2 - Advanced. Includes basic and quoting, adds option flags and options
 	 * 	    with arguments
 	 */
 	public setParsingStrategy(strategy: CommandArgumentParsingStrategy): void

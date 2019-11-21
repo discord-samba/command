@@ -1,4 +1,4 @@
-import { CommandArgument } from './CommandArgument';
+import { Argument } from './Argument';
 import { CommandArgumentError } from './CommandArgumentError';
 import { CommandArgumentErrorKind } from './types/CommandArgumentErrorKind';
 import { CommandArgumentSpec } from './CommandArgumentSpec';
@@ -37,15 +37,21 @@ export class CommandArguments
 		for (const operand of parsedArgs.operands)
 			this.operands.push(new Operand(operand.value, operand.ident, operand.type));
 
-		// Check for missing non-optional operands
+		// Check for missing non-optional operands and compile missing optional operands
 		for (const operand of spec.operands)
 		{
-			if (!this.operands.some(o => o.ident === operand.ident) && !operand.optional)
-				throw new CommandArgumentError(
-					CommandArgumentErrorKind.MissingRequiredArgument,
-					operand.kind,
-					operand.ident
-				);
+			if (!this.operands.some(o => o.ident === operand.ident))
+			{
+				if (!operand.optional)
+					throw new CommandArgumentError(
+						CommandArgumentErrorKind.MissingRequiredArgument,
+						operand.kind,
+						operand.ident
+					);
+
+				let value!: any;
+				this.operands.push(new Operand(value, operand.ident, operand.type));
+			}
 		}
 
 		// Compile options
@@ -101,9 +107,9 @@ export class CommandArguments
 	 * Options and Option-arguments can also be accessed via the `options` and
 	 * `optionArguments` fields, respectively
 	 */
-	public get<T extends CommandArgument<any>>(ident: string | number): T | undefined
+	public get<T extends Argument<any>>(ident: string | number): T | undefined
 	{
-		let result: CommandArgument<any> | undefined;
+		let result: Argument<any> | undefined;
 
 		// Get operand by index
 		if (typeof ident === 'number')
@@ -113,7 +119,7 @@ export class CommandArguments
 		}
 
 		// Check for operand by ident
-		const operand: CommandArgument<any> = this.operands.find(o => o.ident === ident)!;
+		const operand: Argument<any> = this.operands.find(o => o.ident === ident)!;
 		if (typeof operand !== 'undefined')
 			result = operand;
 
