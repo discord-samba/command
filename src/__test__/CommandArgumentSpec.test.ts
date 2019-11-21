@@ -65,35 +65,106 @@ describe('CommandArgumentSpec', () =>
 	{
 		let spec: CommandArgumentSpec = new CommandArgumentSpec();
 		spec.defineOperand('foo', 'String');
-		spec.defineOption('b');
 
-		expect(() => spec.defineOptionArgument('f', 'Number', { long: 'foo' }))
-			.toThrow('Long option-argument conflicts with existing operand');
+		expect(() => spec.defineOperand('foo', 'String'))
+			.toThrow('Operand identifier conflicts with existing operand');
 
-		expect(() => spec.defineOptionArgument('b', 'String'))
-			.toThrow('Option-argument conflicts with existing option');
+		expect(() => spec.defineOption('foo'))
+			.toThrow('Option identifier conflicts with existing operand');
+
+		expect(() => spec.defineOption('f', { long: 'foo' }))
+			.toThrow('Option identifier conflicts with existing operand');
+
+		expect(() => spec.defineOptionArgument('foo', 'String'))
+			.toThrow('Option-argument identifier conflicts with existing operand');
+
+		expect(() => spec.defineOptionArgument('f', 'String', { long: 'foo' }))
+			.toThrow('Option-argument identifier conflicts with existing operand');
+
+		spec = new CommandArgumentSpec();
+		spec.defineOption('foo');
+
+		expect(() => spec.defineOperand('foo', 'string'))
+			.toThrow('Operand identifier conflicts with existing option');
+
+		expect(() => spec.defineOption('foo'))
+			.toThrow('Option identifier conflicts with existing option');
+
+		expect(() => spec.defineOption('f', { long: 'foo' }))
+			.toThrow('Option identifier conflicts with existing option');
+
+		expect(() => spec.defineOptionArgument('foo', 'String'))
+			.toThrow('Option-argument identifier conflicts with existing option');
+
+		expect(() => spec.defineOptionArgument('f', 'String', { long: 'foo' }))
+			.toThrow('Option-argument identifier conflicts with existing option');
+
+		spec = new CommandArgumentSpec();
+		spec.defineOption('f', { long: 'foo' });
+
+		expect(() => spec.defineOperand('foo', 'string'))
+			.toThrow('Operand identifier conflicts with existing option');
+
+		expect(() => spec.defineOption('foo'))
+			.toThrow('Option identifier conflicts with existing option');
+
+		expect(() => spec.defineOption('f', { long: 'foo' }))
+			.toThrow('Option identifier conflicts with existing option');
+
+		expect(() => spec.defineOptionArgument('foo', 'String'))
+			.toThrow('Option-argument identifier conflicts with existing option');
+
+		expect(() => spec.defineOptionArgument('f', 'String', { long: 'foo' }))
+			.toThrow('Option-argument identifier conflicts with existing option');
+
+		spec = new CommandArgumentSpec();
+		spec.defineOptionArgument('foo', 'String');
+
+		expect(() => spec.defineOperand('foo', 'string'))
+			.toThrow('Operand identifier conflicts with existing option-argument');
+
+		expect(() => spec.defineOption('foo'))
+			.toThrow('Option identifier conflicts with existing option-argument');
+
+		expect(() => spec.defineOption('f', { long: 'foo' }))
+			.toThrow('Option identifier conflicts with existing option-argument');
+
+		expect(() => spec.defineOptionArgument('foo', 'String'))
+			.toThrow('Option-argument identifier conflicts with existing option-argument');
+
+		expect(() => spec.defineOptionArgument('f', 'String', { long: 'foo' }))
+			.toThrow('Option-argument identifier conflicts with existing option-argument');
 
 		spec = new CommandArgumentSpec();
 		spec.defineOptionArgument('f', 'String', { long: 'foo' });
 
-		expect(() => spec.defineOperand('foo', 'Number'))
-			.toThrow('Operand conflicts with existing long option-argument');
+		expect(() => spec.defineOperand('foo', 'string'))
+			.toThrow('Operand identifier conflicts with existing option-argument');
 
-		expect(() => spec.defineOption('f'))
-			.toThrow('Option conflicts with existing option-argument');
+		expect(() => spec.defineOption('foo'))
+			.toThrow('Option identifier conflicts with existing option-argument');
+
+		expect(() => spec.defineOption('f', { long: 'foo' }))
+			.toThrow('Option identifier conflicts with existing option-argument');
+
+		expect(() => spec.defineOptionArgument('foo', 'String'))
+			.toThrow('Option-argument identifier conflicts with existing option-argument');
+
+		expect(() => spec.defineOptionArgument('f', 'String', { long: 'foo' }))
+			.toThrow('Option-argument identifier conflicts with existing option-argument');
 	});
 
 	it('Should error on invalid identifiers', () =>
 	{
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 
-		expect(() => spec.defineOperand('f', 'String'))
+		expect(() => spec.defineOperand('a', 'String'))
 			.toThrow('Operands must be at least 2 characters');
 
 		expect(() => spec.defineOption('foo', { long: 'bar' }))
 			.toThrow('Short option identifiers must not exceed 1 character');
 
-		expect(() => spec.defineOption('f', { long: 'b' }))
+		expect(() => spec.defineOption('a', { long: 'b' }))
 			.toThrow('Long option identifiers must be at least 2 characters');
 
 		expect(() => spec.defineOption('1'))
@@ -102,14 +173,23 @@ describe('CommandArgumentSpec', () =>
 		expect(() => spec.defineOption('1a'))
 			.toThrow('Long option identifiers must match pattern /[a-zA-Z][\\w-]+/');
 
+		expect(() => spec.defineOption('a', { long: '1a' }))
+			.toThrow('Long option identifiers must match pattern /[a-zA-Z][\\w-]+/');
+
+		expect(() => spec.defineOptionArgument('aa', 'String', { long: 'foo' }))
+			.toThrow('Short option-argument identifiers must not exceed 1 character');
+
+		expect(() => spec.defineOptionArgument('a', 'String', { long: 'b' }))
+			.toThrow('Long option-argument identifiers must be at least 2 characters');
+
 		expect(() => spec.defineOptionArgument('1', 'String'))
-			.toThrow('Option-arguments must match pattern [a-zA-Z]');
+			.toThrow('Short option-argument identifiers must match pattern /[a-zA-Z]/');
 
-		expect(() => spec.defineOptionArgument('foo', 'String'))
-			.toThrow('Option-arguments must not exceed 1 character');
+		expect(() => spec.defineOptionArgument('1a', 'String'))
+			.toThrow('Long option-argument identifiers must match pattern /[a-zA-Z][\\w-]+/');
 
-		expect(() => spec.defineOptionArgument('f', 'String', { long: 'b' }))
-			.toThrow('Long option-argument must be at least 2 characters');
+		expect(() => spec.defineOptionArgument('a', 'String', { long: '1a' }))
+			.toThrow('Long option-argument identifiers must match pattern /[a-zA-Z][\\w-]+/');
 	});
 
 	it('Should error on non-optional operands following optional operands', () =>

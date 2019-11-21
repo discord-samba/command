@@ -1,5 +1,6 @@
 import { CommandArgumentKind } from './types/CommandArgumentKind';
 import { CommandArgumentParsingStrategy } from './types/CommandArgumentParsingStrategy';
+import { CommandArgumentSpecConflict } from './types/CommandArgumentSpecConflict';
 import { CommandArgumentSpecOperand } from './types/CommandArgumentSpecOperand';
 import { CommandArgumentSpecOption } from './types/CommandArgumentSpecOption';
 import { CommandArgumentSpecOptionArgument } from './types/CommandArgumentSpecOptionArgument';
@@ -43,6 +44,36 @@ export class CommandArgumentSpec
 	}
 
 	/**
+	 * Returns whether or not the given identifier (or long identifier) conflicts
+	 * with any existing identifiers.
+	 */
+	private _conflicts(ident: string, long: string = ''): CommandArgumentSpecConflict
+	{
+		if (this.operands.some(o => o.ident === ident || o.ident === long))
+			return CommandArgumentSpecConflict.Operand;
+
+		for (const option of this.options.values())
+		{
+			if (option.ident === ident
+				|| option.long === ident
+				|| option.ident === long
+				|| option.long === long)
+				return CommandArgumentSpecConflict.Option;
+		}
+
+		for (const optionArgument of this.optionArguments.values())
+		{
+			if (optionArgument.ident === ident
+				|| optionArgument.long === ident
+				|| optionArgument.ident === long
+				|| optionArgument.long === long)
+				return CommandArgumentSpecConflict.OptionArgument;
+		}
+
+		return CommandArgumentSpecConflict.None;
+	}
+
+	/**
 	 * Defines a positional operand argument declaration for your Command's arguments specification.
 	 * Must be given an identifier and a type, and can be declared optional (`false` by default).
 	 * Optional operands must be added last and may not be followed by a non-optional operand.
@@ -61,9 +92,6 @@ export class CommandArgumentSpec
 		if (ident.length < 2)
 			throw new Error('Operands must be at least 2 characters');
 
-		if (this.optionArguments.has(ident))
-			throw new Error('Operand conflicts with existing long option-argument');
-
 		const operand: CommandArgumentSpecOperand = {
 			kind: CommandArgumentKind.Operand,
 			ident,
@@ -71,10 +99,23 @@ export class CommandArgumentSpec
 			type
 		};
 
-		if (this.operands[this.operands.length - 1]?.optional === true && operand.optional === false)
+		if (this.operands[this.operands.length - 1]?.optional && !operand.optional)
 			throw new Error('Non-optional operands may not follow optional operands');
 
-		this.operands.push(operand);
+		switch (this._conflicts(ident))
+		{
+			case CommandArgumentSpecConflict.Operand:
+				throw new Error('Operand identifier conflicts with existing operand');
+
+			case CommandArgumentSpecConflict.Option:
+				throw new Error('Operand identifier conflicts with existing option');
+
+			case CommandArgumentSpecConflict.OptionArgument:
+				throw new Error('Operand identifier conflicts with existing option-argument');
+
+			case CommandArgumentSpecConflict.None:
+				this.operands.push(operand);
+		}
 	}
 
 	/**
@@ -111,23 +152,24 @@ export class CommandArgumentSpec
 				throw new Error('Long option identifiers must match pattern /[a-zA-Z][\\w-]+/');
 		}
 
-		if (this.options.has(options.long!))
-			throw new Error('Long option identifier conflicts with existing option');
-
-		for (const option of this.options.values())
+		switch (this._conflicts(ident, options.long))
 		{
-			if (option.long === ident)
-				throw new Error('Option conflicts with existing option');
+			case CommandArgumentSpecConflict.Operand:
+				throw new Error('Option identifier conflicts with existing operand');
+
+			case CommandArgumentSpecConflict.Option:
+				throw new Error('Option identifier conflicts with existing option');
+
+			case CommandArgumentSpecConflict.OptionArgument:
+				throw new Error('Option identifier conflicts with existing option-argument');
+
+			case CommandArgumentSpecConflict.None:
+				this.options.set(ident, {
+					kind: CommandArgumentKind.Option,
+					ident,
+					long: options.long
+				});
 		}
-
-		if (this.optionArguments.has(ident) || this.optionArguments.has(options.long!))
-			throw new Error('Option conflicts with existing option-argument');
-
-		this.options.set(ident, {
-			kind: CommandArgumentKind.Option,
-			ident,
-			long: options.long
-		});
 	}
 
 	/**
@@ -148,32 +190,46 @@ export class CommandArgumentSpec
 		options: { long?: string, optional?: boolean} = {}
 	): void
 	{
-		if (ident.length > 1)
-			throw new RangeError('Option-arguments must not exceed 1 character');
+		if (typeof options.long === 'undefined')
+		{
+			if (ident.length === 1 && !/[a-zA-Z]/.test(ident))
+				throw new Error('Short option-argument identifiers must match pattern /[a-zA-Z]/');
 
-		if (!/[a-zA-Z]/.test(ident))
-			throw new Error('Option-arguments must match pattern [a-zA-Z]');
+			if (ident.length >= 2 && !/[a-zA-Z][\w-]+/.test(ident))
+				throw new Error('Long option-argument identifiers must match pattern /[a-zA-Z][\\w-]+/');
+		}
+		else
+		{
+			if (ident.length > 1)
+				throw new RangeError('Short option-argument identifiers must not exceed 1 character');
 
-		if (this.options.has(ident))
-			throw new Error('Option-argument conflicts with existing option');
+			if (options.long.length < 2)
+				throw new RangeError('Long option-argument identifiers must be at least 2 characters');
 
-		if (options.long?.length! < 2)
-			throw new RangeError('Long option-argument must be at least 2 characters');
+			if (!/[a-zA-Z][\w-]+/.test(options.long))
+				throw new Error('Long option-argument identifiers must match pattern /[a-zA-Z][\\w-]+/');
+		}
 
-		if (this.operands.some(o => o.ident === options.long))
-			throw new Error('Long option-argument conflicts with existing operand');
+		switch (this._conflicts(ident, options.long))
+		{
+			case CommandArgumentSpecConflict.Operand:
+				throw new Error('Option-argument identifier conflicts with existing operand');
 
-		const optArg: CommandArgumentSpecOptionArgument = {
-			kind: CommandArgumentKind.OptionArgument,
-			ident,
-			long: options.long,
-			type,
-			optional: options.optional ?? true
-		};
+			case CommandArgumentSpecConflict.Option:
+				throw new Error('Option-argument identifier conflicts with existing option');
 
-		this.optionArguments.set(ident, optArg);
-		if (typeof options.long !== 'undefined')
-			this.optionArguments.set(options.long, optArg);
+			case CommandArgumentSpecConflict.OptionArgument:
+				throw new Error('Option-argument identifier conflicts with existing option-argument');
+
+			case CommandArgumentSpecConflict.None:
+				this.optionArguments.set(ident, {
+					kind: CommandArgumentKind.OptionArgument,
+					ident,
+					long: options.long,
+					type,
+					optional: options.optional ?? true
+				});
+		}
 	}
 
 	/**
@@ -200,8 +256,17 @@ export class CommandArgumentSpec
 		}
 
 		// Otherwise check option-arguments
-		if (typeof result === 'undefined' && this.optionArguments.has(ident))
-			result = this.optionArguments.get(ident);
+		if (typeof result === 'undefined')
+		{
+			for (const optArg of this.optionArguments.values())
+			{
+				if (optArg.ident === ident || optArg.long === ident)
+				{
+					result = optArg;
+					break;
+				}
+			}
+		}
 
 		return result as T;
 	}

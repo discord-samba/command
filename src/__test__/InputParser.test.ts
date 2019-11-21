@@ -320,8 +320,7 @@ describe('InputParser', () =>
 			options: [],
 			operands: [],
 			optionArguments: [
-				{ kind: 1, type: 'Number', value: '1', ident: 'b' },
-				{ kind: 1, type: 'Number', value: '1', ident: 'bar' }
+				{ kind: 1, type: 'Number', value: '1', ident: 'b', long: 'bar' }
 			]
 		});
 
@@ -329,8 +328,7 @@ describe('InputParser', () =>
 			options: [],
 			operands: [],
 			optionArguments: [
-				{ kind: 1, type: 'Number', value: '1', ident: 'bar' },
-				{ kind: 1, type: 'Number', value: '1', ident: 'b' },
+				{ kind: 1, type: 'Number', value: '1', ident: 'b', long: 'bar' }
 			]
 		});
 	});

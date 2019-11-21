@@ -1,10 +1,10 @@
 import { CommandArgumentSpec } from '../CommandArgumentSpec';
 import { CommandArguments } from '../CommandArguments';
 import { InputParser } from '../parsing/InputParser';
-import { ParserOutput } from '../parsing/ParserOutput';
 import { Operand } from '../Operand';
 import { Option } from '../Option';
 import { OptionArgument } from '../OptionArgument';
+import { ParserOutput } from '../parsing/ParserOutput';
 
 describe('CommandArguments', () =>
 {
@@ -108,7 +108,7 @@ describe('CommandArguments', () =>
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
 
 		expect(args.get('a')).toEqual({ ident: 'a', value: 'foo' });
-		expect(args.get('apple')).toEqual({ ident: 'apple', value: 'foo' });
+		expect(args.get('apple')).toEqual({ ident: 'a', value: 'foo' });
 	});
 
 	// TODO: Write option-argument type tests after base resolvers are written
@@ -128,7 +128,7 @@ describe('CommandArguments', () =>
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
 
 		expect(args.get('a')).toEqual({ ident: 'a', value: 'foo' });
-		expect(args.get('apple')).toEqual({ ident: 'apple', value: 'foo' });
+		expect(args.get('apple')).toEqual({ ident: 'a', value: 'foo' });
 		expect(args.get('b')).toEqual({ ident: 'b', value: true, occurrences: 1 });
 		expect(args.get('c')).toEqual({ ident: 'c', value: false, occurrences: 0 });
 		expect(args.get('foo')).toEqual({ ident: 'foo', value: 'bar' });
@@ -166,8 +166,6 @@ describe('CommandArguments', () =>
 			.toEqual({ error: 0, kind: 1, ident: 'a' });
 	});
 
-	// Should fail until option arguments can be defined with a long ident
-	// without also having a short ident
 	it('Should return correct values for isSome()', () =>
 	{
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
@@ -192,5 +190,33 @@ describe('CommandArguments', () =>
 
 		expect(args.get<OptionArgument<number>>('far')?.isSome()).toBe(true);
 		expect(args.get<OptionArgument<number>>('faz')?.isSome()).toBe(false);
+	});
+
+	it('Should get option by long or short identifier', () =>
+	{
+		const spec: CommandArgumentSpec = new CommandArgumentSpec();
+
+		spec.setParsingStrategy(2);
+		spec.defineOption('f', { long: 'foo' });
+
+		const parserOutput: ParserOutput = InputParser.parse('--foo', spec);
+		const args: CommandArguments = new CommandArguments(spec, parserOutput);
+
+		expect(args.get<Option>('f')).toEqual({ ident: 'f', value: true, occurrences: 1 });
+		expect(args.get<Option>('foo')).toEqual({ ident: 'f', value: true, occurrences: 1 });
+	});
+
+	it('Should get option-argument by long or short identifier', () =>
+	{
+		const spec: CommandArgumentSpec = new CommandArgumentSpec();
+
+		spec.setParsingStrategy(2);
+		spec.defineOptionArgument('f', 'String', { long: 'foo' });
+
+		const parserOutput: ParserOutput = InputParser.parse('--foo bar', spec);
+		const args: CommandArguments = new CommandArguments(spec, parserOutput);
+
+		expect(args.get<OptionArgument<string>>('f')).toEqual({ ident: 'f', value: 'bar' });
+		expect(args.get<OptionArgument<string>>('foo')).toEqual({ ident: 'f', value: 'bar' });
 	});
 });

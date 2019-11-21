@@ -10,10 +10,12 @@ export class CommandArgKindImplOptionArgument implements ICommandArgumentKindOpt
 	public ident: string;
 	public type: string;
 	public value!: string;
+	public long?: string;
 
-	public constructor(ident: string, type: string)
+	public constructor(ident: string, type: string, long?: string)
 	{
 		this.ident = ident;
 		this.type = type;
+		this.long = long;
 	}
 }

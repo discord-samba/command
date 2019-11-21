@@ -37,7 +37,7 @@ export class CommandArguments
 		for (const operand of parsedArgs.operands)
 			this.operands.push(new Operand(operand.value, operand.ident, operand.type));
 
-		// Check for missing non-optional operands and compile missing optional operands
+		// Check for missing non-optional operands and compile missing optional operands from spec
 		for (const operand of spec.operands)
 		{
 			if (!this.operands.some(o => o.ident === operand.ident))
@@ -55,19 +55,18 @@ export class CommandArguments
 		}
 
 		// Compile options
-		for (const option of parsedArgs.options.values())
+		for (const parsedOption of parsedArgs.options.values())
 		{
-			const optionArgument: Option = this.options.has(option.ident)
-				? this.options.get(option.ident)!
-				: new Option(option.ident);
+			const option: Option = this.options.get(parsedOption.ident)
+				?? new Option(parsedOption.ident);
 
-			optionArgument.increment();
+			option.increment();
 
-			if (!this.options.has(option.ident))
-				this.options.set(option.ident, optionArgument);
+			if (!this.options.has(parsedOption.ident))
+				this.options.set(parsedOption.ident, option);
 
-			if (typeof option.long !== 'undefined' && !this.options.has(option.long))
-				this.options.set(option.long, optionArgument);
+			if (typeof parsedOption.long !== 'undefined' && !this.options.has(parsedOption.long))
+				this.options.set(parsedOption.long, option);
 		}
 
 		// Compile missing options using the declared options from spec
@@ -76,20 +75,36 @@ export class CommandArguments
 				this.options.set(option.ident, new Option(option.ident));
 
 		// Compile option-arguments
-		for (const optionArg of parsedArgs.optionArguments.values())
-			this.optionArguments.set(
-				optionArg.ident,
-				new OptionArgument(optionArg.ident, optionArg.value, optionArg.type)
-			);
+		for (const parsedOptionArg of parsedArgs.optionArguments.values())
+		{
+			const optionArgument: OptionArgument<any> =
+				new OptionArgument(parsedOptionArg.ident, parsedOptionArg.value, parsedOptionArg.type);
 
-		// Check for missing non-optional option-arguments
+			this.optionArguments.set(parsedOptionArg.ident, optionArgument);
+
+			if (typeof parsedOptionArg.long !== 'undefined')
+				this.optionArguments.set(parsedOptionArg.long, optionArgument);
+		}
+
+		// Check for missing non-optional option-arguments and compile missing option option-arguments from spec
 		for (const optionArgument of spec.optionArguments.values())
-			if (!this.optionArguments.has(optionArgument.ident) && !optionArgument.optional)
-				throw new CommandArgumentError(
-					CommandArgumentErrorKind.MissingRequiredArgument,
-					optionArgument.kind,
-					optionArgument.ident
+		{
+			if (!this.optionArguments.has(optionArgument.ident))
+			{
+				if (!optionArgument.optional)
+					throw new CommandArgumentError(
+						CommandArgumentErrorKind.MissingRequiredArgument,
+						optionArgument.kind,
+						optionArgument.ident
+					);
+
+				let value!: any;
+				this.optionArguments.set(
+					optionArgument.ident,
+					new OptionArgument(optionArgument.ident, value, optionArgument.type)
 				);
+			}
+		}
 	}
 
 	/**

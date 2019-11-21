@@ -122,6 +122,9 @@ export class InputParser
 			// Parse operands
 			else if (kind === InputStringChunkKind.Operand)
 			{
+				// TODO: Redo this bit, because we no longer duplicate option-arguments to
+				//       cover both identifiers so this is overkill
+
 				// Capture the last two nodes
 				const lastNodes: CommandArgKindImplOptionArgument[] =
 					state.nodes.slice(-2) as CommandArgKindImplOptionArgument[];
@@ -297,21 +300,19 @@ export class InputParser
 			// Handle option arguments
 			if (spec?.kind === CommandArgumentKind.OptionArgument)
 			{
-				const optArgs: CommandArgKindImplOptionArgument[] = [
-					new CommandArgKindImplOptionArgument(ident, spec.type ?? 'String')
-				];
+				const optionArgument: CommandArgKindImplOptionArgument =
+					new CommandArgKindImplOptionArgument(spec.ident, spec.type, spec.long);
 
-				if (typeof spec.long !== 'undefined')
-					optArgs.push(new CommandArgKindImplOptionArgument(spec.long, spec.type ?? 'String'));
-
-				out.optionArguments.push(...optArgs);
-				state.nodes.push(...optArgs);
+				out.optionArguments.push(optionArgument);
+				state.nodes.push(optionArgument);
 			}
 
 			// Handle regular options
 			else
 			{
-				const argument: CommandArgKindImplOption = new CommandArgKindImplOption(ident);
+				const argument: CommandArgKindImplOption =
+					new CommandArgKindImplOption(ident, spec?.long);
+
 				out.options.push(argument);
 				state.nodes.push(argument);
 			}
@@ -353,13 +354,11 @@ export class InputParser
 			return;
 		}
 
-		const optArgs: CommandArgKindImplOptionArgument[] = [
-			new CommandArgKindImplOptionArgument(ident, spec.type),
-			new CommandArgKindImplOptionArgument(spec.ident, spec.type)
-		];
+		const optionArgument: CommandArgKindImplOptionArgument =
+			new CommandArgKindImplOptionArgument(spec.ident, spec.type, spec.long);
 
-		out.optionArguments.push(...optArgs);
-		state.nodes.push(...optArgs);
+		out.optionArguments.push(optionArgument);
+		state.nodes.push(optionArgument);
 	}
 
 	/**
