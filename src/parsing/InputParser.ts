@@ -122,35 +122,19 @@ export class InputParser
 			// Parse operands
 			else if (kind === InputStringChunkKind.Operand)
 			{
-				// TODO: Redo this bit, because we no longer duplicate option-arguments to
-				//       cover both identifiers so this is overkill
+				const lastNode: CommandArgumentSpecEntry = state.nodes[state.nodes.length - 1];
+				const followsOptArg: boolean = lastNode?.kind === CommandArgumentKind.OptionArgument;
+				const optArgValUndef: boolean = followsOptArg
+					&& typeof (lastNode as CommandArgKindImplOptionArgument).value === 'undefined';
 
-				// Capture the last two nodes
-				const lastNodes: CommandArgKindImplOptionArgument[] =
-					state.nodes.slice(-2) as CommandArgKindImplOptionArgument[];
-
-				const areOptArgs: boolean[] = lastNodes.map(n => n.kind === CommandArgumentKind.OptionArgument);
-				const optArgsValueUndef: boolean[] = lastNodes
-					.map((n, i) => areOptArgs[i] && typeof n.value === 'undefined');
-
-				// Determine if the operand should be counted as an option-argument value
-				// based on whether or not *at least* the previous node is an option-argument
-				const isOptArgValue: boolean = lastNodes.length > 0
-					&& areOptArgs[areOptArgs.length - 1]
-					&& optArgsValueUndef[optArgsValueUndef.length - 1];
-
-				// Assign operand as previous option-argument values if following an option-argument.
-				// The second-to-last node will be ignored if it's not also an option-argument
-				if (isOptArgValue)
+				// Assign operand as previous option-argument value if following an option-argument
+				if (optArgValUndef)
 				{
 					const value: string = /['"`]/.test(state.reader.peek())
 						? InputParser._consumeQuotedOperand(state)
 						: InputParser._consumeOperand(state);
 
-					for (const [i, n] of lastNodes.entries())
-						if (optArgsValueUndef[i])
-							n.value = value;
-
+					(lastNode as CommandArgKindImplOptionArgument).value = value;
 					InputParser._discardWhitespace(state);
 				}
 
@@ -197,8 +181,6 @@ export class InputParser
 					InputParser._discardWhitespace(state);
 				}
 
-				state.index++;
-
 				// Check if the last node was an option-argument and error if we see EOI
 				const lastNode: CommandArgumentSpecEntry = state.nodes[state.nodes.length - 1];
 				const followsOptArg: boolean = lastNode?.kind === CommandArgumentKind.OptionArgument;
@@ -206,12 +188,9 @@ export class InputParser
 					&& typeof (lastNode as CommandArgKindImplOptionArgument).value === 'undefined';
 
 				if (optArgValUndef && state.reader.eoi())
-				{
-					// De-increment the index because it's pointing to the next node which doesn't
-					// exist. We want it to point to the opt-arg that received no argument
-					state.index--;
 					throw new InputParseError(InputParseErrorKind.OptionArgumentMissingArgument, state);
-				}
+
+				state.index++;
 			}
 		}
 	}
