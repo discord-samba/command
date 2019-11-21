@@ -2395,6 +2395,9 @@ img {
 		<li class=" tsd-kind-enum">
 			<a href="../enums/commandargumentparsingstrategy.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Parsing<wbr>Strategy</a>
 		</li>
+		<li class=" tsd-kind-enum tsd-is-private">
+			<a href="../enums/commandargumentspecconflict.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Spec<wbr>Conflict</a>
+		</li>
 		<li class=" tsd-kind-enum">
 			<a href="../enums/commanddispatcherrorkind.html" class="tsd-kind-icon">Command<wbr>Dispatch<wbr>Error<wbr>Kind</a>
 		</li>
@@ -2427,6 +2430,9 @@ img {
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
 					<a href="commandargkindimploptionargument.html#kind" class="tsd-kind-icon">kind</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="commandargkindimploptionargument.html#long" class="tsd-kind-icon">long</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
 					<a href="commandargkindimploptionargument.html#type" class="tsd-kind-icon">type</a>
@@ -2536,6 +2542,7 @@ img {
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="commandargkindimploptionargument.html#ident" class="tsd-kind-icon">ident</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="commandargkindimploptionargument.html#kind" class="tsd-kind-icon">kind</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="commandargkindimploptionargument.html#long" class="tsd-kind-icon">long</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="commandargkindimploptionargument.html#type" class="tsd-kind-icon">type</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="commandargkindimploptionargument.html#value" class="tsd-kind-icon">value</a></li>
 						</ul>
@@ -2549,13 +2556,13 @@ img {
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
 				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>Command<wbr>Arg<wbr>Kind<wbr>Impl<wbr>Option<wbr>Argument<span class="tsd-signature-symbol">(</span>ident<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="commandargkindimploptionargument.html" class="tsd-signature-type">CommandArgKindImplOptionArgument</a></li>
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Command<wbr>Arg<wbr>Kind<wbr>Impl<wbr>Option<wbr>Argument<span class="tsd-signature-symbol">(</span>ident<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, long<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="commandargkindimploptionargument.html" class="tsd-signature-type">CommandArgKindImplOptionArgument</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/discord-sambo/command/blob/9ad5d38/src/parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts#L12">parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts:12</a></li>
+								<li>Defined in <a href="https://github.com/discord-sambo/command/blob/a104e3b/src/parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts#L13">parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts:13</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2565,6 +2572,9 @@ img {
 							</li>
 							<li>
 								<h5>type: <span class="tsd-signature-type">string</span></h5>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> long: <span class="tsd-signature-type">string</span></h5>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <a href="commandargkindimploptionargument.html" class="tsd-signature-type">CommandArgKindImplOptionArgument</a></h4>
@@ -2581,7 +2591,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Implementation of <a href="../interfaces/icommandargumentkindoptionargument.html">ICommandArgumentKindOptionArgument</a>.<a href="../interfaces/icommandargumentkindoptionargument.html#ident">ident</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/discord-sambo/command/blob/9ad5d38/src/parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts#L10">parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts:10</a></li>
+						<li>Defined in <a href="https://github.com/discord-sambo/command/blob/a104e3b/src/parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts#L10">parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts:10</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2592,7 +2602,17 @@ img {
 				<aside class="tsd-sources">
 					<p>Implementation of <a href="../interfaces/icommandargumentkindoptionargument.html">ICommandArgumentKindOptionArgument</a>.<a href="../interfaces/icommandargumentkindoptionargument.html#kind">kind</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/discord-sambo/command/blob/9ad5d38/src/parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts#L9">parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts:9</a></li>
+						<li>Defined in <a href="https://github.com/discord-sambo/command/blob/a104e3b/src/parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts#L9">parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts:9</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="long" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> long</h3>
+				<div class="tsd-signature tsd-kind-icon">long<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/discord-sambo/command/blob/a104e3b/src/parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts#L13">parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts:13</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2603,7 +2623,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Implementation of <a href="../interfaces/icommandargumentkindoptionargument.html">ICommandArgumentKindOptionArgument</a>.<a href="../interfaces/icommandargumentkindoptionargument.html#type">type</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/discord-sambo/command/blob/9ad5d38/src/parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts#L11">parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts:11</a></li>
+						<li>Defined in <a href="https://github.com/discord-sambo/command/blob/a104e3b/src/parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts#L11">parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts:11</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2614,7 +2634,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Implementation of <a href="../interfaces/icommandargumentkindoptionargument.html">ICommandArgumentKindOptionArgument</a>.<a href="../interfaces/icommandargumentkindoptionargument.html#value">value</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/discord-sambo/command/blob/9ad5d38/src/parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts#L12">parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts:12</a></li>
+						<li>Defined in <a href="https://github.com/discord-sambo/command/blob/a104e3b/src/parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts#L12">parsing/commandArgKindImpl/CommandArgKindImplOptionArgument.ts:12</a></li>
 					</ul>
 				</aside>
 			</section>

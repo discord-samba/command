@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>CommandDispatchErrorKind | @discord-sambo/command</title>
+	<title>CommandArgumentSpecConflict | @discord-sambo/command</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -2395,10 +2395,24 @@ img {
 		<li class=" tsd-kind-enum">
 			<a href="commandargumentparsingstrategy.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Parsing<wbr>Strategy</a>
 		</li>
-		<li class=" tsd-kind-enum tsd-is-private">
+		<li class="current tsd-kind-enum tsd-is-private">
 			<a href="commandargumentspecconflict.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Spec<wbr>Conflict</a>
+			<ul>
+				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+					<a href="commandargumentspecconflict.html#none" class="tsd-kind-icon">None</a>
+				</li>
+				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+					<a href="commandargumentspecconflict.html#operand" class="tsd-kind-icon">Operand</a>
+				</li>
+				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+					<a href="commandargumentspecconflict.html#option" class="tsd-kind-icon">Option</a>
+				</li>
+				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+					<a href="commandargumentspecconflict.html#optionargument" class="tsd-kind-icon">Option<wbr>Argument</a>
+				</li>
+			</ul>
 		</li>
-		<li class="current tsd-kind-enum">
+		<li class=" tsd-kind-enum">
 			<a href="commanddispatcherrorkind.html" class="tsd-kind-icon">Command<wbr>Dispatch<wbr>Error<wbr>Kind</a>
 		</li>
 		<li class=" tsd-kind-enum">
@@ -2491,11 +2505,66 @@ img {
 	<div class="content-wrap">
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
-				<div class="lead">
-					<p>Enum containing the different kinds of errors we can expect to encounter
-					during Command dispatch</p>
-				</div>
 			</div>
+		</section>
+		<section class="tsd-panel-group tsd-index-group">
+			<h2>Index</h2>
+			<section class="tsd-panel tsd-index-panel">
+				<div class="tsd-index-content">
+					<section class="tsd-index-section ">
+						<h3>Enumeration members</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="commandargumentspecconflict.html#none" class="tsd-kind-icon">None</a></li>
+							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="commandargumentspecconflict.html#operand" class="tsd-kind-icon">Operand</a></li>
+							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="commandargumentspecconflict.html#option" class="tsd-kind-icon">Option</a></li>
+							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="commandargumentspecconflict.html#optionargument" class="tsd-kind-icon">Option<wbr>Argument</a></li>
+						</ul>
+					</section>
+				</div>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group ">
+			<h2>Enumeration members</h2>
+			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+				<a name="none" class="tsd-anchor"></a>
+				<h3>None</h3>
+				<div class="tsd-signature tsd-kind-icon">None<span class="tsd-signature-symbol">:</span> </div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/discord-sambo/command/blob/a104e3b/src/types/CommandArgumentSpecConflict.ts#L9">types/CommandArgumentSpecConflict.ts:9</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+				<a name="operand" class="tsd-anchor"></a>
+				<h3>Operand</h3>
+				<div class="tsd-signature tsd-kind-icon">Operand<span class="tsd-signature-symbol">:</span> </div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/discord-sambo/command/blob/a104e3b/src/types/CommandArgumentSpecConflict.ts#L6">types/CommandArgumentSpecConflict.ts:6</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+				<a name="option" class="tsd-anchor"></a>
+				<h3>Option</h3>
+				<div class="tsd-signature tsd-kind-icon">Option<span class="tsd-signature-symbol">:</span> </div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/discord-sambo/command/blob/a104e3b/src/types/CommandArgumentSpecConflict.ts#L7">types/CommandArgumentSpecConflict.ts:7</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+				<a name="optionargument" class="tsd-anchor"></a>
+				<h3>Option<wbr>Argument</h3>
+				<div class="tsd-signature tsd-kind-icon">Option<wbr>Argument<span class="tsd-signature-symbol">:</span> </div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/discord-sambo/command/blob/a104e3b/src/types/CommandArgumentSpecConflict.ts#L8">types/CommandArgumentSpecConflict.ts:8</a></li>
+					</ul>
+				</aside>
+			</section>
 		</section>
 		<footer class="with-border-bottom">
 			<div class="container">
