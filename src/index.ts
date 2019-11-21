@@ -1,5 +1,5 @@
 export { Command } from './Command';
-export { CommandContext } from './types/CommandContext';
+export { CommandContext } from './CommandContext';
 export { Operand } from './Operand';
 export { Option } from './Option';
 export { OptionArgument } from './OptionArgument';

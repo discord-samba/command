@@ -1,6 +1,6 @@
 import { Client } from 'discord.js';
 import { CommandArgumentSpec } from './CommandArgumentSpec';
-import { CommandContext } from './types/CommandContext';
+import { CommandContext } from './CommandContext';
 
 /**
  * The base Command class you will extend when creating Commands for your
