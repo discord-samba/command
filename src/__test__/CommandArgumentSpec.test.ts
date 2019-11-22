@@ -181,10 +181,10 @@ describe('CommandArgumentSpec', () =>
 			.toThrow(`Long option identifiers must match pattern ${longIdentPattern}`);
 
 		expect(() => spec.defineOption('foo-'))
-			.toThrow(`Long option-argument identifiers must match pattern ${longIdentPattern}`);
+			.toThrow(`Long option identifiers must match pattern ${longIdentPattern}`);
 
 		expect(() => spec.defineOption('foo_'))
-			.toThrow(`Long option-argument identifiers must match pattern ${longIdentPattern}`);
+			.toThrow(`Long option identifiers must match pattern ${longIdentPattern}`);
 
 		expect(() => spec.defineOption('a', { long: '1a' }))
 			.toThrow(`Long option identifiers must match pattern ${longIdentPattern}`);
