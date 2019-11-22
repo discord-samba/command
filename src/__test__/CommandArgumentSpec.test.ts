@@ -14,12 +14,18 @@ describe('CommandArgumentSpec', () =>
 	{
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 		expect(() => spec.defineOption('a')).not.toThrow();
+		expect(() => spec.defineOption('foo')).not.toThrow();
+		expect(() => spec.defineOption('foo_bar')).not.toThrow();
+		expect(() => spec.defineOption('foo-bar')).not.toThrow();
 	});
 
 	it('Should successfully define an option-argument', () =>
 	{
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 		expect(() => spec.defineOptionArgument('b', 'Number')).not.toThrow();
+		expect(() => spec.defineOptionArgument('bar', 'Number')).not.toThrow();
+		expect(() => spec.defineOptionArgument('bar_baz', 'Number')).not.toThrow();
+		expect(() => spec.defineOptionArgument('bar-baz', 'Number')).not.toThrow();
 	});
 
 	it('Should return the expected operand', () =>
@@ -157,9 +163,10 @@ describe('CommandArgumentSpec', () =>
 	it('Should error on invalid identifiers', () =>
 	{
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
+		const longIdentPattern: string = '/^(?=[a-zA-Z][\\w-]*[a-zA-Z0-9]$)[\\w-]+/';
 
 		expect(() => spec.defineOperand('a', 'String'))
-			.toThrow('Operands must be at least 2 characters');
+			.toThrow('Operand identifiers must be at least 2 characters');
 
 		expect(() => spec.defineOption('foo', { long: 'bar' }))
 			.toThrow('Short option identifiers must not exceed 1 character');
@@ -171,10 +178,16 @@ describe('CommandArgumentSpec', () =>
 			.toThrow('Short option identifiers must match pattern /[a-zA-Z]/');
 
 		expect(() => spec.defineOption('1a'))
-			.toThrow('Long option identifiers must match pattern /[a-zA-Z][\\w-]+/');
+			.toThrow(`Long option identifiers must match pattern ${longIdentPattern}`);
+
+		expect(() => spec.defineOption('foo-'))
+			.toThrow(`Long option-argument identifiers must match pattern ${longIdentPattern}`);
+
+		expect(() => spec.defineOption('foo_'))
+			.toThrow(`Long option-argument identifiers must match pattern ${longIdentPattern}`);
 
 		expect(() => spec.defineOption('a', { long: '1a' }))
-			.toThrow('Long option identifiers must match pattern /[a-zA-Z][\\w-]+/');
+			.toThrow(`Long option identifiers must match pattern ${longIdentPattern}`);
 
 		expect(() => spec.defineOptionArgument('aa', 'String', { long: 'foo' }))
 			.toThrow('Short option-argument identifiers must not exceed 1 character');
@@ -186,10 +199,16 @@ describe('CommandArgumentSpec', () =>
 			.toThrow('Short option-argument identifiers must match pattern /[a-zA-Z]/');
 
 		expect(() => spec.defineOptionArgument('1a', 'String'))
-			.toThrow('Long option-argument identifiers must match pattern /[a-zA-Z][\\w-]+/');
+			.toThrow(`Long option-argument identifiers must match pattern ${longIdentPattern}`);
+
+		expect(() => spec.defineOptionArgument('foo-', 'String'))
+			.toThrow(`Long option-argument identifiers must match pattern ${longIdentPattern}`);
+
+		expect(() => spec.defineOptionArgument('foo_', 'String'))
+			.toThrow(`Long option-argument identifiers must match pattern ${longIdentPattern}`);
 
 		expect(() => spec.defineOptionArgument('a', 'String', { long: '1a' }))
-			.toThrow('Long option-argument identifiers must match pattern /[a-zA-Z][\\w-]+/');
+			.toThrow(`Long option-argument identifiers must match pattern ${longIdentPattern}`);
 	});
 
 	it('Should error on non-optional operands following optional operands', () =>

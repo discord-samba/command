@@ -16,6 +16,8 @@ export class CommandArgumentSpec
 	public optionArguments: Map<string, CommandArgumentSpecOptionArgument> = new Map();
 	public parsingStrategy: CommandArgumentParsingStrategy = CommandArgumentParsingStrategy.Basic;
 
+	private static _longIdent: RegExp = /^(?=[a-zA-Z][\w-]*[a-zA-Z0-9]$)[\w-]+/;
+
 	/**
 	 * Returns a clone of this CommandArgumentSpec
 	 */
@@ -90,7 +92,7 @@ export class CommandArgumentSpec
 	public defineOperand(ident: string, type: string, options: { optional?: boolean} = {}): void
 	{
 		if (ident.length < 2)
-			throw new Error('Operands must be at least 2 characters');
+			throw new Error('Operand identifiers must be at least 2 characters');
 
 		const operand: CommandArgumentSpecOperand = {
 			kind: CommandArgumentKind.Operand,
@@ -123,7 +125,7 @@ export class CommandArgumentSpec
 	 * specification.
 	 *
 	 * If given an identifier, it may be a single character or a long identifier.
-	 * If given an optional long identifier in the options object parameter,
+	 * If given an optional long identifier in the options object parameter
 	 * in addition to the identifier as the first parameter, the first paramater
 	 * may only be a single character.
 	 *
@@ -137,8 +139,8 @@ export class CommandArgumentSpec
 			if (ident.length === 1 && !/[a-zA-Z]/.test(ident))
 				throw new Error('Short option identifiers must match pattern /[a-zA-Z]/');
 
-			if (ident.length >= 2 && !/[a-zA-Z][\w-]+/.test(ident))
-				throw new Error('Long option identifiers must match pattern /[a-zA-Z][\\w-]+/');
+			if (ident.length >= 2 && !CommandArgumentSpec._longIdent.test(ident))
+				throw new Error(`Long option identifiers must match pattern ${CommandArgumentSpec._longIdent}`);
 		}
 		else
 		{
@@ -148,8 +150,8 @@ export class CommandArgumentSpec
 			if (options.long.length < 2)
 				throw new RangeError('Long option identifiers must be at least 2 characters');
 
-			if (!/[a-zA-Z][\w-]+/.test(options.long))
-				throw new Error('Long option identifiers must match pattern /[a-zA-Z][\\w-]+/');
+			if (!CommandArgumentSpec._longIdent.test(options.long))
+				throw new Error(`Long option identifiers must match pattern ${CommandArgumentSpec._longIdent}`);
 		}
 
 		switch (this._conflicts(ident, options.long))
@@ -174,9 +176,12 @@ export class CommandArgumentSpec
 
 	/**
 	 * Defines an option that takes an argument (like `-f value`) for your Command's arguments
-	 * specification. Must be given a 1-char identifier and a type for the argument to be
-	 * parsed as, and can be declared optional (`true` by default), as well as given an
-	 * optional longer identifier for use with `--` like `--foo value`
+	 * specification.
+	 *
+	 * If given an identifier, it may be a single character or a long identifier.
+	 * If given an optional long identifier in the options object parameter
+	 * in addition to the identifier as the first parameter, the first paramater
+	 * may only be a single character.
 	 *
 	 * **NOTE:** If an option-argument is found and the parsing strategy is not set to
 	 * `Advanced` (`2`) then it will be treated as an operand. If an argument that can be
@@ -195,8 +200,10 @@ export class CommandArgumentSpec
 			if (ident.length === 1 && !/[a-zA-Z]/.test(ident))
 				throw new Error('Short option-argument identifiers must match pattern /[a-zA-Z]/');
 
-			if (ident.length >= 2 && !/[a-zA-Z][\w-]+/.test(ident))
-				throw new Error('Long option-argument identifiers must match pattern /[a-zA-Z][\\w-]+/');
+			if (ident.length >= 2 && !CommandArgumentSpec._longIdent.test(ident))
+				throw new Error(
+					`Long option-argument identifiers must match pattern ${CommandArgumentSpec._longIdent}`
+				);
 		}
 		else
 		{
@@ -206,8 +213,10 @@ export class CommandArgumentSpec
 			if (options.long.length < 2)
 				throw new RangeError('Long option-argument identifiers must be at least 2 characters');
 
-			if (!/[a-zA-Z][\w-]+/.test(options.long))
-				throw new Error('Long option-argument identifiers must match pattern /[a-zA-Z][\\w-]+/');
+			if (!CommandArgumentSpec._longIdent.test(options.long))
+				throw new Error(
+					`Long option-argument identifiers must match pattern ${CommandArgumentSpec._longIdent}`
+				);
 		}
 
 		switch (this._conflicts(ident, options.long))
