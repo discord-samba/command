@@ -1,4 +1,5 @@
 import { Command } from './Command';
+import { CommandContext } from './CommandContext';
 import { CommandDispatchErrorKind } from './types/CommandDispatchErrorKind';
 
 /**
@@ -13,13 +14,24 @@ export class CommandDispatchError
 	public kind: CommandDispatchErrorKind;
 
 	/**
-	 * The Command that triggered the dispatch error
+	 * The Command called that triggered the dispatch error
 	 */
 	public command: Command;
 
-	public constructor(kind: CommandDispatchErrorKind, command: Command)
+	/**
+	 * The CommandContext that would have been given to the Command call that
+	 * triggered the dispatch error
+	 */
+	public commandCtx: CommandContext;
+
+	public constructor(kind: CommandDispatchErrorKind, command: Command, commandCtx: CommandContext)
 	{
 		this.kind = kind;
 		this.command = command;
+		this.commandCtx = commandCtx;
+
+		// TODO: Include some sort of additional context for the error. For example,
+		//       client permission errors will need to have the permissions that were
+		//       expected or nothing meaningful can be reported. Same for user perms.
 	}
 }

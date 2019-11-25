@@ -4,6 +4,7 @@ import { CommandArgumentSpecConflict } from './types/CommandArgumentSpecConflict
 import { CommandArgumentSpecOperand } from './types/CommandArgumentSpecOperand';
 import { CommandArgumentSpecOption } from './types/CommandArgumentSpecOption';
 import { CommandArgumentSpecOptionArgument } from './types/CommandArgumentSpecOptionArgument';
+import { CommandModule } from './CommandModule';
 
 /**
  * Used for defining the specification for what a Command's given arguments should
@@ -93,6 +94,9 @@ export class CommandArgumentSpec
 	{
 		if (ident.length < 2)
 			throw new Error('Operand identifiers must be at least 2 characters');
+
+		if (!CommandModule.resolvers.has(type))
+			throw new Error(`A resolver could not be found for type: ${type}`);
 
 		const operand: CommandArgumentSpecOperand = {
 			kind: CommandArgumentKind.Operand,
@@ -218,6 +222,9 @@ export class CommandArgumentSpec
 					`Long option-argument identifiers must match pattern ${CommandArgumentSpec._longIdent}`
 				);
 		}
+
+		if (!CommandModule.resolvers.has(type))
+			throw new Error(`A resolver could not be found for type: ${type}`);
 
 		switch (this._conflicts(ident, options.long))
 		{

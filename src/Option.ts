@@ -4,7 +4,7 @@ import { Argument } from './Argument';
  * Represents an option type argument. The `value` field will be true if the option
  * was passed in the command input
  */
-export class Option extends Argument<boolean>
+export class Option extends Argument<boolean, string>
 {
 	/**
 	 * How many times this option was passed

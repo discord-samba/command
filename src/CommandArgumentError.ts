@@ -1,10 +1,10 @@
+import { CommandArgumentErrorContext } from './CommandArgumentErrorContext';
 import { CommandArgumentErrorKind } from './types/CommandArgumentErrorKind';
-import { CommandArgumentKind } from './types/CommandArgumentKind';
 
 /**
  * Represents an error encountered while compiling Command arguments at call-time.
- * Holds an error kind, an argument kind, and the identifier of the argument that
- * triggered the error
+ * Holds an error kind, and a context object containing all the information available
+ * that you can use to build an error message of some kind to send to Discord
  */
 export class CommandArgumentError
 {
@@ -14,19 +14,13 @@ export class CommandArgumentError
 	public error: CommandArgumentErrorKind;
 
 	/**
-	 * The kind of argument that triggered the error
+	 * Context for the error
 	 */
-	public kind: CommandArgumentKind;
+	public ctx: CommandArgumentErrorContext;
 
-	/**
-	 * The identifier of the argument that triggered the error
-	 */
-	public ident: string;
-
-	public constructor(errorKind: CommandArgumentErrorKind, argKind: CommandArgumentKind, ident: string)
+	public constructor(errorKind: CommandArgumentErrorKind, ctx: CommandArgumentErrorContext)
 	{
 		this.error = errorKind;
-		this.kind = argKind;
-		this.ident = ident;
+		this.ctx = ctx;
 	}
 }

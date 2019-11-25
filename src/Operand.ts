@@ -1,4 +1,9 @@
 import { Argument } from './Argument';
+import { ArgumentContext } from './ArgumentContext';
+import { CommandArgumentKind } from './types/CommandArgumentKind';
+import { CommandContext } from './CommandContext';
+import { CommandModule } from './CommandModule';
+import { Resolver } from './resolving/Resolver';
 
 /**
  * Represents an operand type argument. These are the positional arguments in
@@ -12,10 +17,23 @@ import { Argument } from './Argument';
  */
 export class Operand<T> extends Argument<T>
 {
-	public constructor(value: T | undefined, ident: string | undefined, _type: string)
-	{
-		// TODO: Run operand value through resolver for the specified type
+	public type: string;
 
-		super(ident!, value);
+	public constructor(value: string, ident: string | undefined, type: string)
+	{
+		super(ident, value);
+		this.type = type;
+	}
+
+	public async resolveType(ctx: CommandContext): Promise<void>
+	{
+		const resolver: Resolver = CommandModule.resolvers.get(this.type)!;
+
+		const value: T = await resolver.resolve(
+			new ArgumentContext(CommandArgumentKind.Operand, this.ident!, this.value as any),
+			ctx
+		);
+
+		this.value = value;
 	}
 }

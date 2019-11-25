@@ -1,11 +1,19 @@
 /**
  * Enum containing the different kinds of errors we can expect to encounter
  * when compiling command arguments at call-time
- *
- * 	0 - Missing required argument: An argument was declared non-optional but
- * 	    was not given when the command was called
  */
 export enum CommandArgumentErrorKind
 {
-	MissingRequiredArgument
+
+	/**
+	 * Missing required argument: An argument was declared non-optional but was
+	 * not given when the command was called
+	 */
+	MissingRequiredArgument,
+
+	/**
+	 * Argument resolution error: An error occurred while attempting to resolve
+	 * a specific type from an argument's value
+	 */
+	ArgumentResolutionError
 }

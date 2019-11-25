@@ -1,13 +1,23 @@
 /**
- * Enum containing the different Command argument parsing strategies.
- *
- * 	0 - Basic: Every word is parsed as an individual operand
- * 	1 - Allow quoting: Same as basic, but multiple words can be grouped with quotes
- * 	2 - Advanced: 0 & 1, plus options and option-arguments (ex. `-f`, `-f foo`, `--foo bar`)
+ * Enum containing the different Command argument parsing strategies
  */
 export enum CommandArgumentParsingStrategy
 {
+
+	/**
+	 * Every word is parsed as an individual operand
+	 */
 	Basic,
+
+	/**
+	 * Same as basic, but multiple words can be grouped with quotes, like
+	 * `foo "bar baz"` will produce operands of `"foo"`, and `"bar baz"`
+	 */
 	AllowQuoting,
+
+	/**
+	 * Includes Basic and AllowQuoting, adds options and option-arguments
+	 * (ex. options: `-f` or `--foo`, option-arguments: `-f bar` or `--foo bar`)
+	 */
 	Advanced
 }

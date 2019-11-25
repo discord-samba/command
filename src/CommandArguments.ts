@@ -1,5 +1,6 @@
 import { Argument } from './Argument';
 import { CommandArgumentError } from './CommandArgumentError';
+import { CommandArgumentErrorContext } from './CommandArgumentErrorContext';
 import { CommandArgumentErrorKind } from './types/CommandArgumentErrorKind';
 import { CommandArgumentSpec } from './CommandArgumentSpec';
 import { Operand } from './Operand';
@@ -45,8 +46,7 @@ export class CommandArguments
 				if (!operand.optional)
 					throw new CommandArgumentError(
 						CommandArgumentErrorKind.MissingRequiredArgument,
-						operand.kind,
-						operand.ident
+						new CommandArgumentErrorContext(operand.kind, operand.ident, operand.type)
 					);
 
 				let value!: any;
@@ -94,8 +94,7 @@ export class CommandArguments
 				if (!optionArgument.optional)
 					throw new CommandArgumentError(
 						CommandArgumentErrorKind.MissingRequiredArgument,
-						optionArgument.kind,
-						optionArgument.ident
+						new CommandArgumentErrorContext(optionArgument.kind, optionArgument.ident, optionArgument.type)
 					);
 
 				let value!: any;

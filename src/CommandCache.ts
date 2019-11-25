@@ -1,7 +1,7 @@
 import { Command } from './Command';
 
 /**
- * @private
+ * Cache for all Commands your client will use
  */
 export class CommandCache
 {
@@ -19,26 +19,54 @@ export class CommandCache
 
 	private static get _instance(): CommandCache
 	{
-		return CommandCache._instance ?? new CommandCache();
+		return CommandCache._staticInstance ?? new CommandCache();
 	}
 
-	public static get(key: string): Command | undefined
+	/**
+	 * Returns a Command from the cache using the given identifier. Can be the
+	 * Command name or an alias
+	 */
+	public static get(ident: string): Command | undefined
 	{
-		return CommandCache._instance._cache.get(key);
+		return CommandCache._instance._cache.get(ident);
 	}
 
-	public static set(key: string, command: Command): void
+	/**
+	 * Adds a Command to the cache. Pass the Command child class itself and an
+	 * instance will be created and cached
+	 */
+	public static add(CommandClass: new () => Command): void
 	{
-		CommandCache._instance._cache.set(key, command);
+		const command: Command = new CommandClass();
+
+		if (CommandCache.has(command.name))
+			throw new Error(`Command name '${command.name} conflicts with existing Command`);
+
+		CommandCache._instance._cache.set(command.name, command);
+
+		for (const alias of command.aliases)
+		{
+			if (CommandCache.has(alias))
+				throw new Error(`Command name '${command.name}', alias '${alias}' conflicts with existing Command`);
+
+			CommandCache._instance._cache.set(alias, command);
+		}
 	}
 
-	public static has(key: string): boolean
+	/**
+	 * Returns whether or not the cache has the given identifier. Can be command
+	 * name or alias
+	 */
+	public static has(ident: string): boolean
 	{
-		return CommandCache._instance._cache.has(key);
+		return CommandCache._instance._cache.has(ident);
 	}
 
-	public static commands(): IterableIterator<Command>
+	/**
+	 * Returns a Set of all cached Commands.
+	 */
+	public static commands(): Set<Command>
 	{
-		return CommandCache._instance._cache.values();
+		return new Set(Array.from(CommandCache._instance._cache.values()));
 	}
 }

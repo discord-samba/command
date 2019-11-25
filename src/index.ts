@@ -12,3 +12,5 @@ export { CommandDispatchErrorKind } from './types/CommandDispatchErrorKind';
 
 export { InputParseError } from './parsing/InputParseError';
 export { InputParseErrorKind } from './types/InputParseErrorKind';
+
+export { CommandModule } from './CommandModule';
