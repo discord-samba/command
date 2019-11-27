@@ -5,10 +5,7 @@ import { Command } from './Command';
  */
 export class CommandCache
 {
-	/** @internal */
 	private static _staticInstance: CommandCache;
-
-	/** @internal */
 	private readonly _cache: Map<string, Command>;
 
 	private constructor()
@@ -20,7 +17,6 @@ export class CommandCache
 		CommandCache._staticInstance = this;
 	}
 
-	/** @internal */
 	private static get _instance(): CommandCache
 	{
 		return CommandCache._staticInstance ?? new CommandCache();

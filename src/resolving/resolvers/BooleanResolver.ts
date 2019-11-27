@@ -7,10 +7,7 @@ import { Resolver } from '../Resolver';
 /** @hidden */
 export class BooleanResolver extends Resolver
 {
-	/** @internal */
 	private static _truthyValues: Set<string> = new Set(['true', 'yes', 'on', 'enable', '1']);
-
-	/** @internal */
 	private static _falseyValues: Set<string> = new Set(['false', 'no', 'off', 'disable', '0']);
 
 	public constructor()
