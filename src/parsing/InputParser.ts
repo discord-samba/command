@@ -15,9 +15,7 @@ import { ParserOutput } from './ParserOutput';
 import { ParserState } from '../types/ParserState';
 import { StringReader } from './StringReader';
 
-/**
- * @private
- */
+/** @internal */
 export class InputParser
 {
 	/**

@@ -4,6 +4,7 @@ import { CommandArgumentErrorContext } from '../../CommandArgumentErrorContext';
 import { CommandArgumentErrorKind } from '../../types/CommandArgumentErrorKind';
 import { Resolver } from '../Resolver';
 
+/** @hidden */
 export class NumberResolver extends Resolver
 {
 	public constructor()

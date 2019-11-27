@@ -5,7 +5,10 @@ import { Resolver } from './Resolver';
  */
 export class ResolverCache
 {
+	/** @internal */
 	private static _staticInstance: ResolverCache;
+
+	/** @internal */
 	private readonly _cache: Map<string, Resolver>;
 
 	private constructor()
@@ -17,6 +20,7 @@ export class ResolverCache
 		ResolverCache._staticInstance = this;
 	}
 
+	/** @internal */
 	private static get _instance(): ResolverCache
 	{
 		return ResolverCache._staticInstance ?? new ResolverCache();

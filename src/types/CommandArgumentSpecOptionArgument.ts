@@ -2,7 +2,7 @@ import { CommandArgumentKind } from './CommandArgumentKind';
 
 /**
  * Represents a defined option-argument within `CommandArgumentSpec`
- * @private
+ * @internal
  */
 export interface CommandArgumentSpecOptionArgument
 {

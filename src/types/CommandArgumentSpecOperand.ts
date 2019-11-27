@@ -2,7 +2,7 @@ import { CommandArgumentKind } from './CommandArgumentKind';
 
 /**
  * Represents a defined operand within `CommandArgumentSpec`
- * @private
+ * @internal
  */
 export interface CommandArgumentSpecOperand
 {

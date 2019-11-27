@@ -10,7 +10,8 @@
         "strict": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "skipLibCheck": true
+		"skipLibCheck": true,
+		"stripInternal": true
     },
     "include": [
 		"src/**/*.ts",

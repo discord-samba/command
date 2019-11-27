@@ -2,6 +2,6 @@ import { CommandArgumentKind } from './CommandArgumentKind';
 
 /**
  * Represents any value retrieved from `CommandArgumentSpec`
- * @private
+ * @internal
  */
 export type CommandArgumentSpecEntry = { kind: CommandArgumentKind } | undefined;

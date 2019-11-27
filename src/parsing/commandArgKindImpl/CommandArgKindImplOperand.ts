@@ -2,9 +2,9 @@ import { CommandArgumentKind } from '../../types/CommandArgumentKind';
 import { ICommandArgumentKindOperand } from '../interfaces/ICommandArgumentKindOperand';
 
 /**
- * Represents an operand as parsed from the input. If it has no identifier
+ * Represents an uncompiled operand as parsed from the input. If it has no identifier
  * then it was not declared
- * @private
+ * @internal
  */
 export class CommandArgKindImplOperand implements ICommandArgumentKindOperand
 {

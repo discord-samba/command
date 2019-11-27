@@ -4,7 +4,7 @@ import { CommandArgKindImplOptionArgument } from './commandArgKindImpl/CommandAr
 
 /**
  * Container class for the argument values parsed from Command input
- * @private
+ * @internal
  */
 export class ParserOutput
 {

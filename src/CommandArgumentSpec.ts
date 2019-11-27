@@ -17,6 +17,7 @@ export class CommandArgumentSpec
 	public optionArguments: Map<string, CommandArgumentSpecOptionArgument> = new Map();
 	public parsingStrategy: CommandArgumentParsingStrategy = CommandArgumentParsingStrategy.Basic;
 
+	/** @internal */
 	private static _longIdent: RegExp = /^(?=[a-zA-Z][\w-]*[a-zA-Z0-9]$)[\w-]+/;
 
 	/**
@@ -49,6 +50,7 @@ export class CommandArgumentSpec
 	/**
 	 * Returns whether or not the given identifier (or long identifier) conflicts
 	 * with any existing identifiers.
+	 * @internal
 	 */
 	private _conflicts(ident: string, long: string = ''): CommandArgumentSpecConflict
 	{

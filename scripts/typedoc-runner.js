@@ -3,6 +3,7 @@
 const { Application } = require('typedoc');
 
 const app = new Application({
+	tsconfig: 'tsconfig.json',
 	target: 'es2017',
 	mode: 'file',
 	module: 'commonjs',

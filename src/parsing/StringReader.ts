@@ -1,6 +1,4 @@
-/**
- * @private
- */
+/** @internal */
 export class StringReader
 {
 	private _input: string;

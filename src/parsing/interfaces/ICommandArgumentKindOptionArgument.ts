@@ -2,7 +2,7 @@ import { CommandArgumentKind } from '../../types/CommandArgumentKind';
 
 /**
  * Interface representing an option-argument Command argument at parse-time
- * @private
+ * @internal
  */
 export interface ICommandArgumentKindOptionArgument
 {

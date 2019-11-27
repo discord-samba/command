@@ -25,7 +25,12 @@ export class Operand<T> extends Argument<T>
 		this.type = type;
 	}
 
-	public async resolveType(ctx: CommandContext): Promise<void>
+	/**
+	 * Runs the initial string value through the registered resolver for the
+	 * declared type for this argument
+	 * @internal
+	 */
+	public async _resolveType(ctx: CommandContext): Promise<void>
 	{
 		const resolver: Resolver = CommandModule.resolvers.get(this.type)!;
 

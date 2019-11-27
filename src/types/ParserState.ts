@@ -3,7 +3,7 @@ import { CommandArgumentSpec } from '../CommandArgumentSpec';
 import { StringReader } from '../parsing/StringReader';
 
 /**
- * @private
+ * @internal
  */
 export interface ParserState
 {

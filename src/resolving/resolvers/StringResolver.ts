@@ -1,6 +1,7 @@
 import { ArgumentContext } from '../../ArgumentContext';
 import { Resolver } from '../Resolver';
 
+/** @hidden */
 export class StringResolver extends Resolver
 {
 	public constructor()
