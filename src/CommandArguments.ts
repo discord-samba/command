@@ -3,6 +3,7 @@ import { CommandArgumentError } from './CommandArgumentError';
 import { CommandArgumentErrorContext } from './CommandArgumentErrorContext';
 import { CommandArgumentErrorKind } from './types/CommandArgumentErrorKind';
 import { CommandArgumentSpec } from './CommandArgumentSpec';
+import { CommandContext } from './CommandContext';
 import { Operand } from './Operand';
 import { Option } from './Option';
 import { OptionArgument } from './OptionArgument';
@@ -107,6 +108,20 @@ export class CommandArguments
 	}
 
 	/**
+	 * Runs all operand and option-argument type resolvers for their values
+	 * @internal
+	 */
+	public async _resolveArguments(ctx: CommandContext): Promise<void>
+	{
+		const resolutions: Promise<void>[] = [
+			...this.operands.map(async o => o._resolveType(ctx)),
+			...Array.from(this.optionArguments.values()).map(async o => o._resolveType(ctx))
+		];
+
+		await Promise.all(resolutions);
+	}
+
+	/**
 	 * Gets a Command argument by identifier. Extra operands that were not
 	 * declared in the spec can be retrieved by numerical index which will
 	 * first contain the declared operands.
@@ -138,11 +153,11 @@ export class CommandArguments
 			result = operand;
 
 		// Check options for the identifier
-		if (this.options.has(ident))
+		if (typeof result === 'undefined' && this.options.has(ident))
 			result = this.options.get(ident);
 
 		// Otherwise check option-arguments
-		if (this.optionArguments.has(ident) && typeof result === 'undefined')
+		if (typeof result === 'undefined' && this.optionArguments.has(ident))
 			result = this.optionArguments.get(ident);
 
 		return result as T;

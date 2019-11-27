@@ -4,27 +4,7 @@ import { InputParser } from '../parsing/InputParser';
 import { ParserOutput } from '../parsing/ParserOutput';
 import { StringReader } from '../parsing/StringReader';
 import { CommandArguments } from '../CommandArguments';
-// import { CommandArgumentSpecOperand } from '../types/CommandArgumentSpecOperand';
-
-const spec: CommandArgumentSpec = new CommandArgumentSpec();
-
-spec.setParsingStrategy(2);
-
-spec.defineOperand('foo', 'Number');
-spec.defineOperand('bar', 'String');
-spec.defineOption('a');
-spec.defineOption('b');
-spec.defineOption('g');
-spec.defineOptionArgument('c', 'String');
-spec.defineOptionArgument('d', 'String', { long: 'dog', optional: false });
-spec.defineOptionArgument('f', 'String', { long: 'fog', optional: false });
-spec.defineOptionArgument('z', 'String', { long: 'boo' });
-
-console.log(spec.get('a'));
-console.log(spec.get('b'));
-console.log(spec.get('c'));
-console.log(spec.get('d'));
-console.log(spec.get('dog'));
+import { CommandContext } from '../CommandContext';
 
 function now(): number
 {
@@ -32,17 +12,46 @@ function now(): number
 	const ns: NSFunction = (hr = process.hrtime()) => hr[0] * 1e9 + hr[1];
 	return (ns() - (ns() - process.uptime() * 1e9)) / 1e6;
 }
-const start: number = now();
-const parsed: ParserOutput = InputParser.parse('-aaabf bar \n--boo \n1 -d foo "baz boo" "foo \\"bar\\" baz" buh', spec);
-const args: CommandArguments = new CommandArguments(spec, parsed);
-const end: number = now();
 
-console.log(end - start);
+async function main(): Promise<void>
+{
+	const spec: CommandArgumentSpec = new CommandArgumentSpec();
 
-console.log(parsed);
-console.log(args.operands);
-console.log(args.options.values());
-console.log(args.optionArguments.values());
+	spec.setParsingStrategy(2);
 
-const reader: StringReader = new StringReader('--');
-console.log(/^--$/.test(reader.peekSegment(5)));
+	spec.defineOperand('foo', 'Number');
+	spec.defineOperand('bar', 'String');
+	spec.defineOption('a');
+	spec.defineOption('b');
+	spec.defineOption('g');
+	spec.defineOptionArgument('c', 'String');
+	spec.defineOptionArgument('d', 'String', { long: 'dog', optional: false });
+	spec.defineOptionArgument('f', 'String', { long: 'fog', optional: false });
+	spec.defineOptionArgument('z', 'String', { long: 'boo' });
+
+	console.log(spec.get('a'));
+	console.log(spec.get('b'));
+	console.log(spec.get('c'));
+	console.log(spec.get('d'));
+	console.log(spec.get('dog'));
+
+	const start: number = now();
+	const parsed: ParserOutput = InputParser.parse('-aaabf bar \n--boo \n1 -d foo "1" "foo \\"bar\\" baz" buh', spec);
+	const args: CommandArguments = new CommandArguments(spec, parsed);
+	const end: number = now();
+
+	console.log(end - start);
+
+	await args._resolveArguments(new CommandContext({} as any, {} as any, args));
+	console.log('arguments resolved');
+
+	console.log(parsed);
+	console.log(args.operands);
+	console.log(args.options.values());
+	console.log(args.optionArguments.values());
+
+	const reader: StringReader = new StringReader('--');
+	console.log(/^--$/.test(reader.peekSegment(5)));
+}
+
+main().catch(e => console.log(e));

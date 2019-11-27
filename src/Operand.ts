@@ -32,6 +32,9 @@ export class Operand<T> extends Argument<T>
 	 */
 	public async _resolveType(ctx: CommandContext): Promise<void>
 	{
+		if (typeof this.value !== 'string')
+			return;
+
 		const resolver: Resolver = CommandModule.resolvers.get(this.type)!;
 
 		const value: T = await resolver.resolve(
