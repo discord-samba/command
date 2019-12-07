@@ -13,6 +13,9 @@
 
 		get author()
 		{
+			if (!this.hasAttribute('author'))
+				return 'User';
+
 			return this.getAttribute('author');
 		}
 
