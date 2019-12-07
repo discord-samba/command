@@ -2,3 +2,4 @@
 {% include discord/message.html %}
 {% include discord/author.html %}
 {% include discord/mention.html %}
+{% include discord/embed.html %}

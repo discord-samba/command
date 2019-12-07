@@ -69,9 +69,9 @@
 		}
 	});
 
+	/** @this {HTMLElement} */
 	function discordMessageTemplate(compact, author, avatar, bot, roleColor, highlight, edited)
 	{
-		console.log(highlight);
 		const shadow = this.attachShadow({ mode: 'open' });
 		shadow.innerHTML = `
 			<style>
@@ -329,6 +329,14 @@
 			}
 			contentDiv.appendChild(messageBodyDiv);
 			// </div>
+
+			// <slot name="embeds">
+			const embedsSlot = document.createElement('slot');
+			{
+				embedsSlot.setAttribute('name', 'embeds');
+			}
+			contentDiv.appendChild(embedsSlot);
+			// </slot>
 		}
 		shadow.appendChild(contentDiv);
 		// </div>
