@@ -12,11 +12,15 @@ This is a placeholder guide so I remember how to add guides when I actually star
 
 {% include discord/mod %}
 
-<discord-messages>
-	<discord-message author="User" avatar="https://i.imgur.com/0TeacfY.png" role-color="#DEADBEEF" bot>
-		boo <b>far</b> faz
+<discord-messages light>
+	<discord-message author="User" role-color="#DEADBEEF">
+		Foo bar baz!
+	</discord-message>
+	<discord-message author="Pest" avatar="orange" edited bot>
+		Wow!<br>
+		Ooh!
 	</discord-message>
 	<discord-message author="zajrik" avatar="https://i.imgur.com/MSZsLzb.png">
-		foo bar baz
+		But what about boo far faz?
 	</discord-message>
 </discord-messages>

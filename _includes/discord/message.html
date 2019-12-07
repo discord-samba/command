@@ -1,12 +1,12 @@
 <script>
 	customElements.define('discord-message', class extends HTMLElement
 	{
-		get isCompactMode()
+		get compact()
 		{
 			return this.parentElement.hasAttribute('compact');
 		}
 
-		get isBotUser()
+		get bot()
 		{
 			return this.hasAttribute('bot');
 		}
@@ -18,6 +18,13 @@
 
 		get avatar()
 		{
+			if (!this.hasAttribute('avatar'))
+				return '{{ site.baseurl }}/images/discord/blue.png';
+
+			const avatar = this.getAttribute('avatar');
+			if (['blue', 'gray', 'green', 'orange', 'red'].includes(avatar))
+				return `{{ site.baseurl }}/images/discord/${avatar}.png`;
+
 			return this.getAttribute('avatar');
 		}
 
@@ -34,29 +41,33 @@
 			return this.hasAttribute('highlight');
 		}
 
+		get edited()
+		{
+			return this.hasAttribute('edited');
+		}
+
 		connectedCallback()
 		{
 			this.classList.add('discord-message');
 
-			if (this.isCompactMode)
+			if (this.compact)
 				this.classList.add('discord-compact-mode');
 
 			discordMessageTemplate.call(
 				this,
-				this.isCompactMode,
+				this.compact,
 				this.author,
 				this.avatar,
-				this.isBotUser,
+				this.bot,
 				this.roleColor,
-				this.highlight
+				this.highlight,
+				this.edited
 			);
 		}
 	});
 
-	function discordMessageTemplate(compact, author, avatar, bot, roleColor, highlight)
+	function discordMessageTemplate(compact, author, avatar, bot, roleColor, highlight, edited)
 	{
-		console.log([compact, author, avatar, bot, roleColor, highlight]);
-
 		const shadow = this.attachShadow({ mode: 'open' });
 		shadow.innerHTML = `
 		<style>
@@ -68,6 +79,9 @@
 			}
 			:host-context(.discord-light-theme):host(.discord-message) {
 				border-color: #eceeef;
+			}
+			:host-context(.discord-light-theme):host(.discord-message) .discord-message-body {
+				color: #2e3338;
 			}
 			:host(.discord-message:last-of-type) {
 				border-bottom-width: 0;
@@ -105,18 +119,21 @@
 				color: #fff3;
 				font-size: 10px;
 			}
+			:host-context(.discord-light-theme):host(.discord-message) .discord-message-edited {
+				color: #99aab5;
+			}
 			:host(.discord-message) .discord-message-content {
 				width: 100%;
-				line-height: 160%;
-				font-weight: normal;
+				line-height: 150%;
 			}
 			:host(.discord-message) .discord-message-body {
 				position: relative;
+				font-weight: 300;
 			}
 			:host-context(.discord-light-theme):host(.discord-message) .discord-message-timestamp,
 			:host-context(.discord-compact-mode):host(.discord-message:hover) .discord-message-timestamp,
 			:host-context(.discord-compact-mode):host-context(.discord-light-theme):host(.discord-message:hover) .discord-message-timestamp {
-				color: #99aab5;
+				color: #747f8d;
 			}
 			:host-context(.discord-compact-mode):host-context(.discord-light-theme):host(.discord-message) .discord-message-timestamp {
 				color: #d1d9de;
@@ -134,8 +151,8 @@
 		</style>
 		`
 		
+		// <div class="discord-author-avatar">
 		const avatarDiv = document.createElement('div');
-		shadow.appendChild(avatarDiv);
 		{
 			avatarDiv.classList.add('discord-author-avatar');
 
@@ -145,18 +162,22 @@
 
 			avatarDiv.appendChild(avatarImg);
 		}
+		shadow.appendChild(avatarDiv);
+		// </div>
 		
+		// <div class="discord-message-content">
 		const contentDiv = document.createElement('div');
-		shadow.appendChild(contentDiv);
 		{
 			contentDiv.classList.add('discord-message-content');
 
+			// Append non-compact author-info if not in compact mode
 			if (!compact)
 			{
+				// <div>
 				const authorInfoDiv = document.createElement('div');
 				{
-					console.log('creating author-info element');
-					const authorInfo = document.createElement('AUTHOR-INFO');
+					// <author-info>
+					const authorInfo = document.createElement('author-info');
 					{
 						authorInfo.setAttribute('author', author);
 
@@ -169,25 +190,84 @@
 						authorInfo.innerText = author;
 					}
 					authorInfoDiv.appendChild(authorInfo);
+					// </author-info>
 
+					// <span class="discord-message-timestamp">
 					const timestampSpan = document.createElement('span');
 					{
 						timestampSpan.classList.add('discord-message-timestamp');
-						timestampSpan.innerHTML = new Date().toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' });
+						const date = new Date();
+						const hour = `${date.getHours() > 12 ? date.getHours() - 12 : date.getHours()}`;
+						const amPm = date.getHours > 12 || date.getHours() !== 0 ? 'PM' : 'AM'
+						timestampSpan.innerText = `Today at ${hour.padStart(2, 0)}:${date.getMinutes()} ${amPm}`;
 					}
 					authorInfoDiv.appendChild(timestampSpan);
+					// </span>
 
 				}
 				contentDiv.appendChild(authorInfoDiv);
+				// </div>
 			}
 
+			// <div class="discord-message-body">
+			const messageBodyDiv = document.createElement('div');
+			{
+				messageBodyDiv.classList.add('discord-message-body');
+	
+				// Append compact author-info if in compact mode
+				if (compact)
+				{
+					// <span class="discord-message-timestamp">
+					const timestampSpan = document.createElement('span');
+					{
+						timestampSpan.classList.add('discord-message-timestamp');
+						const date = new Date();
+						const hour = `${date.getHours() > 12 ? date.getHours() - 12 : date.getHours()}`;
+						const amPm = date.getHours > 12 || date.getHours() !== 0 ? 'PM' : 'AM'
+						timestampSpan.innerText = `${hour.padStart(2, 0)}:${date.getMinutes()} ${amPm}`;
+					}
+					messageBodyDiv.appendChild(timestampSpan);
+					// </span>
 
+					// <author-info>
+					const authorInfo = document.createElement('author-info');
+					{
+						authorInfo.setAttribute('author', author);
 
-			// TODO: add discord-message-body element which will contain highlight class, timestamp element, and author-info element
-			//       Move slot into this element
+						if (bot)
+							authorInfo.setAttribute('bot', bot);
+	
+						if (typeof roleColor !== 'undefined')
+							authorInfo.setAttribute('role-color', roleColor);
 
-			const slot = document.createElement('slot');
-			contentDiv.appendChild(slot);
+						authorInfo.innerText = author;
+					}
+					messageBodyDiv.appendChild(authorInfo);
+					// </author-info>
+				}
+
+				// <slot>
+				const slot = document.createElement('slot');
+				messageBodyDiv.appendChild(slot);
+				// </slot>
+
+				// Add edited indicator if message is marked as edited
+				if (edited)
+				{
+					// <span class="discord-message-edited">
+					const editedSpan = document.createElement('span');
+					{
+						editedSpan.classList.add('discord-message-edited');
+						editedSpan.innerText = '(edited)';
+					}
+					messageBodyDiv.appendChild(editedSpan);
+					// </span>
+				}
+			}
+			contentDiv.appendChild(messageBodyDiv);
+			// </div>
 		}
+		shadow.appendChild(contentDiv);
+		// </div>
 	}
 </script>

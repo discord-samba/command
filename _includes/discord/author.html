@@ -13,9 +13,10 @@
 
 		get roleColor()
 		{
-			return this.hasAttribute('role-color')
-				? this.getAttribute('role-color')
-				: '#FFFFFF';
+			if (!this.hasAttribute('role-color'))
+				return;
+
+			return this.getAttribute('role-color');
 		}
 
 		connectedCallback()
@@ -33,8 +34,6 @@
 
 	function discordAuthorTemplate(author, bot, roleColor)
 	{
-		console.log([author, bot, roleColor]);
-
 		const shadow = this.attachShadow({ mode: 'open' });
 
 		shadow.innerHTML = `
@@ -45,12 +44,13 @@
 					font-size: 15px;
 				}
 				:host-context(.discord-message) .discord-author-info .discord-author-username {
-					font-size: 1.1em;
-					font-weight: 500;
+					font-size: 14.4px;
+					font-weight: 400;
 					letter-spacing: 0.5px;
 				}
 				:host-context(.discord-light-theme):host-context(.discord-message) .discord-author-info .discord-author-username {
-					color: #23262a;
+					color: #060607;
+					font-weight: 500;
 				}
 				:host-context(.discord-message) .discord-author-info .discord-bot-tag {
 					background-color: #7289da;
@@ -74,7 +74,7 @@
 				}
 				:host-context(.discord-compact-mode):host-context(.discord-message) .discord-author-info .discord-bot-tag {
 					margin-left: 0;
-					margin-right: 5px;
+					margin-right: 0;
 					padding-left: 3px;
 					padding-right: 3px;
 					font-size: 0.6em;
@@ -82,30 +82,39 @@
 			</style>
 		`;
 
+		// <span class="discord-author-info"
 		const authorSpan = document.createElement('span')
 		{
 			authorSpan.classList.add('discord-author-info');
 			
+			// <span class="discord-author-username">
 			const usernameSpan = document.createElement('span')
 			{
 				usernameSpan.classList.add('discord-author-username');
-				usernameSpan.setAttribute('color', roleColor);
+
+				if (typeof this.roleColor !== 'undefined');
+					usernameSpan.setAttribute('style', `color: ${roleColor}`);
 
 				const slot = document.createElement('slot');
 				usernameSpan.appendChild(slot);
 			}
 			authorSpan.appendChild(usernameSpan);
+			// </span>
 
+			// Add bot tag if author is marked as bot
 			if (bot)
 			{
+				// <span class="discord-bot-tag">
 				const botSpan = document.createElement('span');
 				{
 					botSpan.classList.add('discord-bot-tag');
 					botSpan.innerText = 'Bot'
 				}
 				authorSpan.appendChild(botSpan);
+				// </span>
 			}
 		}
 		shadow.appendChild(authorSpan);
+		// </span>
 	}
 </script>
