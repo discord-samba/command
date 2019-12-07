@@ -13,8 +13,8 @@ This is a placeholder guide so I remember how to add guides when I actually star
 {% include discord/mod %}
 
 <discord-messages light>
-	<discord-message author="User" role-color="#DEADBEEF">
-		Foo bar baz!
+	<discord-message author="User" role-color="#DEADBEEF" highlight>
+		Foo bar baz! <discord-mention role-color="#DEADBEEF">test</discord-mention>
 	</discord-message>
 	<discord-message author="Pest" avatar="orange" edited bot>
 		Wow!<br>

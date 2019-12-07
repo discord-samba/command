@@ -1,0 +1,97 @@
+<script>
+	customElements.define('discord-mention', class extends HTMLElement
+	{
+		get char()
+		{
+			if (this.hasAttribute('channel'))
+				return '#';
+
+			return '@';
+		}
+
+		get roleColor()
+		{
+			if (this.hasAttribute('channel') || !this.hasAttribute('role-color'))
+				return;
+
+			return this.getAttribute('role-color');
+		}
+
+		connectedCallback()
+		{
+			this.classList.add('discord-mention');
+
+			discordMentionTemplate.call(
+				this,
+				this.char,
+				this.roleColor
+			);
+		}
+	});
+
+	function discordMentionTemplate(char, roleColor)
+	{
+		const shadow = this.attachShadow({ mode: 'open' });
+
+		shadow.innerHTML = `
+			<style>
+				:host-context(.discord-message) .discord-mention {
+					color: #7289da;
+					background-color: rgba(114, 137, 218, 0.1);
+					font-weight: 500;
+					padding: 0 1px;
+				}
+
+				:host-context(.discord-message) .discord-mention:hover {
+					color: #fff;
+					background-color: rgba(114, 137, 218, 0.7);
+				}
+			</style>
+		`;
+
+		const colorRegex = /rgba?\((\d+), (\d+), (\d+)(?:, .+)\)/;
+
+		/**
+		 * @param {string} color
+		 * @param {number} alpha
+		 */
+		function bgColor(color, alpha)
+		{
+			const colors = color.match(colorRegex);
+			return `rgba(${colors[1]}, ${colors[2]}, ${colors[3]}, ${alpha})`;
+		}
+
+		// <span class="discord-mention">
+		const mentionSpan = document.createElement('span');
+		{
+			mentionSpan.classList.add('discord-mention');
+			mentionSpan.innerText = this.char;
+
+			if (typeof this.roleColor !== 'undefined')
+			{
+				mentionSpan.setAttribute('style', `color: ${this.roleColor}`);
+				mentionSpan.setAttribute(
+					'style',
+					`color: ${mentionSpan.style.color}; background-color: ${bgColor(mentionSpan.style.color, 0.1)}`
+				);
+
+				mentionSpan.setAttribute(
+					'onmouseover',
+					`this.style.backgroundColor = '${bgColor(mentionSpan.style.color, 0.3)}'`
+				);
+
+				mentionSpan.setAttribute(
+					'onmouseout',
+					`this.style.backgroundColor = '${bgColor(mentionSpan.style.color, 0.1)}'`
+				);
+			}
+
+			// <slot>
+			const slot = document.createElement('slot');
+			mentionSpan.appendChild(slot);
+			// </slot>
+		}
+		shadow.appendChild(mentionSpan);
+		// </span>
+	}
+</script>

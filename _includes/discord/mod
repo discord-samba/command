@@ -1,3 +1,4 @@
 {% include discord/messages.html %}
 {% include discord/message.html %}
 {% include discord/author.html %}
+{% include discord/mention.html %}
