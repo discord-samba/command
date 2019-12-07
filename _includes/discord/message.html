@@ -248,15 +248,15 @@
 						const date = new Date();
 						const dateHours = date.getHours();
 
-						const hourNum = dateHours === 0
+						const rawHour = dateHours === 0
 							? 12
 							: dateHours > 12
 								? dateHours - 12
 								: dateHours;
 
-						const hour = `${hourNum}`.padStart(2, 0);
+						const hour = `${rawHour}`.padStart(2, 0);
 						const minute = `${date.getMinutes()}`.padStart(2, 0);
-						const amPm = date.getHours > 12 || date.getHours() !== 0 ? 'PM' : 'AM'
+						const amPm = dateHours > 12 || dateHours !== 0 ? 'PM' : 'AM'
 						timestampSpan.innerText = `Today at ${hour}:${minute} ${amPm}`;
 					}
 					authorInfoDiv.appendChild(timestampSpan);
