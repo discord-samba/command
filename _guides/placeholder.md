@@ -15,10 +15,19 @@ This is a placeholder guide so I remember how to add guides when I actually star
 <discord-messages light>
 	<discord-message role-color="#DEADBEEF" highlight>
 		Foo bar baz! <discord-mention role-color="#DEADBEEF">test</discord-mention>
+		<message-reactions>
+			<message-reaction image="https://cdn.discordapp.com/emojis/359397580381224970.png?v=1" count="2"></message-reaction>
+			<message-reaction image="https://canary.discordapp.com/assets/08c0a077780263f3df97613e58e71744.svg" count="1"></message-reaction>
+			<message-reaction image="https://cdn.discordapp.com/emojis/585956382591680531.gif?v=1" count="1"></message-reaction>
+		</message-reactions>
 	</discord-message>
 	<discord-message author="Pest" avatar="orange" edited bot>
 		Wow!<br>
 		Ooh!
+		<message-reactions>
+			<message-reaction image="https://cdn.discordapp.com/emojis/433059533653278757.gif?v=1" count="1"></message-reaction>
+			<message-reaction image="https://cdn.discordapp.com/emojis/648891635840843787.gif?v=1" count="1"></message-reaction>
+		</message-reactions>
 	</discord-message>
 	<discord-message author="zajrik" avatar="https://i.imgur.com/MSZsLzb.png">
 		But what about boo far faz?

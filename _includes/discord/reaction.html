@@ -1,0 +1,129 @@
+<script>
+	// Track reactions added
+	let reactionCount = [];
+
+	customElements.define('message-reaction', class extends HTMLElement
+	{
+		constructor()
+		{
+			super();
+			
+		}
+
+		get image()
+		{
+			return this.getAttribute('image');
+		}
+
+		get count()
+		{
+			return this.getAttribute('count');
+		}
+
+		connectedCallback()
+		{
+			if (!this.isConnected)
+				return;
+
+			const parentID = this.parentElement.parentElement.messageID;
+			this.reactionIndex = typeof reactionCount[parentID] === 'undefined'
+				? reactionCount[parentID] = 1
+				: reactionCount[parentID] += 1;
+
+			if (this.reactionIndex > 20)
+				return;
+
+			discordMessageReactionTemplate.call(this);
+		}
+	});
+
+	/** @this {HTMLElement} */
+	function discordMessageReactionTemplate()
+	{
+		const shadow = this.attachShadow({ mode: 'open' });
+
+		shadow.innerHTML = `
+			<style>
+				:host-context(.discord-message):host(.discord-message-reaction) {
+					opacity: 1;
+					transform: scale(1);
+					max-width: 47px;
+					max-height: 26px;
+				}
+
+				:host-context(.discord-message):host(.discord-message-reaction) .reaction {
+					background-color: hsla(0,0%,100%,0.06);
+					border-radius: 3px;
+					cursor: pointer;
+					margin: 2px;
+					transition: background-color .1s ease;
+				}
+
+				:host-context(.discord-light-theme):host-context(.discord-message) .reaction {
+					background-color: rgba(6, 6, 7, 0.08);
+				}
+
+				:host-context(.discord-message):host(.discord-message-reaction) .reaction .reaction-inner {
+					padding: 0 6px;
+					display: flex;
+					max-width: 43px;
+					max-height: 22px;
+				}
+
+				:host-context(.discord-message):host(.discord-message-reaction) .reaction .reaction-inner .reaction-image {
+					height: 1rem;
+					width: 1rem;
+					margin: 3px 0;
+					min-width: auto;
+					min-height: auto;
+				}
+
+				:host-context(.discord-message):host(.discord-message-reaction) .reaction .reaction-inner .reaction-count {
+					margin: 0 0 0 6px;
+					padding-top: 1px;
+					min-width: 9px;
+					color: #72767d;
+					font-size: 0.875rem;
+					font-weight: 400;
+					text-align: center;
+				}
+			</style>
+		`;
+
+		this.classList.add('discord-message-reaction');
+
+		// <div class="reaction">
+		const reactionDiv = document.createElement('div');
+		{
+			reactionDiv.classList.add('reaction');
+
+			// <div class="reaction-inner">
+			const reactionInnerDiv = document.createElement('div');
+			{
+				reactionInnerDiv.classList.add('reaction-inner');
+
+				// <img src="this.image" class="reaction-image">
+				const reactionImageimg = document.createElement('img');
+				{
+					reactionImageimg.classList.add('reaction-image');
+					reactionImageimg.src = this.image;
+				}
+				reactionInnerDiv.appendChild(reactionImageimg);
+				// </img>
+
+				// <div class="reaction-count">
+				const reactionCountDiv = document.createElement('div');
+				{
+					reactionCountDiv.classList.add('reaction-count');
+					reactionCountDiv.innerText = this.count;
+				}
+				reactionInnerDiv.appendChild(reactionCountDiv);
+				// </div>
+			}
+			reactionDiv.appendChild(reactionInnerDiv);
+			// </div>
+		}
+		shadow.appendChild(reactionDiv);
+		// </div>
+	}
+</script>

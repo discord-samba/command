@@ -5,3 +5,5 @@
 {% include discord/embed.html %}
 {% include discord/embedFields.html %}
 {% include discord/embedField.html %}
+{% include discord/reactions.html %}
+{% include discord/reaction.html %}

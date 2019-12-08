@@ -1,6 +1,14 @@
 <script>
+	let messageID = 0;
+
 	customElements.define('discord-message', class extends HTMLElement
 	{
+		constructor()
+		{
+			super();
+			this.messageID = messageID += 1;
+		}
+
 		get compact()
 		{
 			return this.parentElement.hasAttribute('compact');
@@ -325,6 +333,14 @@
 				embedsSlot.setAttribute('name', 'embeds');
 			}
 			contentDiv.appendChild(embedsSlot);
+			// </slot>
+
+			// <slot name="reactions">
+			const reactionsSlot = document.createElement('slot');
+			{
+				reactionsSlot.setAttribute('name', 'reactions');
+			}
+			contentDiv.appendChild(reactionsSlot);
 			// </slot>
 		}
 		shadow.appendChild(contentDiv);
