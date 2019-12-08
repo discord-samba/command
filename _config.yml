@@ -1,8 +1,8 @@
-title: sambo-site
+title: samba-site
 description: >
   A Discord.js-powered Discord client framework
 baseurl: "/command"
-url: "https://discord-sambo.github.io"
+url: "https://discord-samba.github.io"
 
 collections:
   guides:
