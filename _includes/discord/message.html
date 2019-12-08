@@ -51,6 +51,9 @@
 
 		connectedCallback()
 		{
+			if (!this.isConnected)
+				return;
+
 			discordMessageTemplate.call(this);
 		}
 	});

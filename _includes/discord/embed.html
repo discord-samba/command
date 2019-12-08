@@ -106,6 +106,9 @@
 
 		connectedCallback()
 		{
+			if (!this.isConnected)
+				return;
+
 			discordEmbedTemplate.call(this);
 		}
 	});

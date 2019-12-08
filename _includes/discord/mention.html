@@ -19,6 +19,9 @@
 
 		connectedCallback()
 		{
+			if (!this.isConnected)
+				return;
+
 			this.classList.add('discord-mention');
 
 			discordMentionTemplate.call(

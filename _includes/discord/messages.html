@@ -8,6 +8,9 @@
 
 		connectedCallback()
 		{
+			if (!this.isConnected)
+				return;
+
 			this.classList.add('discord-messages');
 
 			if (this.isLightTheme)

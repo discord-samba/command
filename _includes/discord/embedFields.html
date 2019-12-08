@@ -3,6 +3,9 @@
 	{
 		connectedCallback()
 		{
+			if (!this.isConnected)
+				return;
+
 			discordEmbedFieldsTemplate.call(this);
 		}
 	});

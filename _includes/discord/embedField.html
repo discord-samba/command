@@ -16,6 +16,9 @@
 
 		connectedCallback()
 		{
+			if (!this.isConnected)
+				return;
+
 			discordEmbedFieldTemplate.call(this);
 		}
 	});
