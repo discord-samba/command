@@ -25,7 +25,7 @@ jobs:
           # Clone typedoc theme, build, and link because for whatever reason
           # installing the deps and building from within node_modules fails
           cd ../
-          git clone https://github.com/discord-sambo/typedoc-themes.git
+          git clone https://github.com/discord-samba/typedoc-themes.git
           cd typedoc-themes
           npm install
           npm run build
@@ -33,7 +33,7 @@ jobs:
 
           # CD back to main repo and link theme to dependencies
           cd ../$(echo '${{ github.repository }}' | grep -oP '/\K.+')
-          npm link @discord-sambo/typedoc-themes
+          npm link @discord-samba/typedoc-themes
 
       - name: Build docs
         run: node scripts/typedoc-runner

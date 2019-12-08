@@ -138,9 +138,9 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@discord-sambo/eslint-config@discord-sambo/eslint-config":
+"@discord-samba/eslint-config@discord-samba/eslint-config":
   version "0.1.0"
-  resolved "https://codeload.github.com/discord-sambo/eslint-config/tar.gz/39e675fe731e156feacf3ee5f8bd31324587d0e6"
+  resolved "https://codeload.github.com/discord-samba/eslint-config/tar.gz/39e675fe731e156feacf3ee5f8bd31324587d0e6"
   dependencies:
     "@typescript-eslint/eslint-plugin" "^2.4.0"
     "@typescript-eslint/parser" "^2.4.0"
