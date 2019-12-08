@@ -379,8 +379,13 @@
 					div.appendChild(embedDescriptionDiv);
 					// </div>
 
-					// <slot name="fields"></slot>
-					// TODO: prepare fields slot
+					// <slot name="fields">
+					const fieldsSlot = document.createElement('slot');
+					{
+						fieldsSlot.setAttribute('name', 'fields');
+					}
+					div.appendChild(fieldsSlot);
+					// </slot>
 
 					// Attach embed image if provided
 					if (typeof this.image !== 'undefined')
@@ -415,7 +420,7 @@
 			// Show footer if we have a footer or a timestamp
 			if (this.showFooter)
 			{
-				// <div v-if="showFooter" class="discord-embed-footer">
+				// <div class="discord-embed-footer">
 				const embedFooterDiv = document.createElement('div');
 				{
 					embedFooterDiv.classList.add('discord-embed-footer');
@@ -453,7 +458,7 @@
 						// Show timestamp if provided
 						if (typeof this.timestamp !== 'undefined')
 						{
-							// <span v-if="timestamp">
+							// <span>
 							const timestampSpan = document.createElement('span');
 							{
 								timestampSpan.innerText = this.timestamp;
