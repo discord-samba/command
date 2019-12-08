@@ -10,6 +10,8 @@ redirect_from:
 # Placeholder
 This is a placeholder guide so I remember how to add guides when I actually start writing them
 
+{% include discord/mod %}
+
 <discord-messages light>
 	<discord-message role-color="#DEADBEEF" highlight>
 		Foo bar baz! <discord-mention role-color="#DEADBEEF">test</discord-mention>
