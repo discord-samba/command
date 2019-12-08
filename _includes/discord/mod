@@ -3,3 +3,5 @@
 {% include discord/author.html %}
 {% include discord/mention.html %}
 {% include discord/embed.html %}
+{% include discord/embedFields.html %}
+{% include discord/embedField.html %}

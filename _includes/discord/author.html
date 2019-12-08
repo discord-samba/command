@@ -1,11 +1,6 @@
 <script>
 	customElements.define('author-info', class extends HTMLElement
 	{
-		get author()
-		{
-			return this.getAttribute('author');
-		}
-
 		get bot()
 		{
 			return this.hasAttribute('bot');
@@ -21,42 +16,35 @@
 
 		connectedCallback()
 		{
-			this.classList.add('discord-author-info');
-
-			discordAuthorTemplate.call(
-				this,
-				this.author,
-				this.bot,
-				this.roleColor
-			);
+			discordAuthorTemplate.call(this);
 		}
 	});
 
 	/** @this {HTMLElement} */
-	function discordAuthorTemplate(author, bot, roleColor)
+	function discordAuthorTemplate()
 	{
 		const shadow = this.attachShadow({ mode: 'open' });
 
 		shadow.innerHTML = `
 			<style>
-				:host-context(.discord-message) .discord-author-info {
+				:host-context(.discord-message):host(.discord-author-info) {
 					display: inline-flex;
 					align-items: center;
 					font-size: 15px;
 				}
 
-				:host-context(.discord-message) .discord-author-info .discord-author-username {
+				:host-context(.discord-message):host(.discord-author-info) .discord-author-username {
 					font-size: 14.4px;
 					font-weight: 400;
 					letter-spacing: 0.5px;
 				}
 
-				:host-context(.discord-light-theme):host-context(.discord-message) .discord-author-info .discord-author-username {
+				:host-context(.discord-light-theme):host-context(.discord-message):host(.discord-author-info) .discord-author-username {
 					color: #060607;
 					font-weight: 500;
 				}
 
-				:host-context(.discord-message) .discord-author-info .discord-bot-tag {
+				:host-context(.discord-message):host(.discord-author-info) .discord-bot-tag {
 					background-color: #7289da;
 					font-size: 0.65em;
 					margin-left: 5px;
@@ -66,21 +54,21 @@
 					text-transform: uppercase;
 				}
 
-				:host-context(.discord-light-theme):host-context(.discord-message) .discord-author-info .discord-bot-tag {
+				:host-context(.discord-light-theme):host-context(.discord-message):host(.discord-author-info) .discord-bot-tag {
 					color: #fff;
 				}
 
-				:host-context(.discord-compact-mode):host-context(.discord-message) .discord-author-info {
+				:host-context(.discord-compact-mode):host-context(.discord-message):host(.discord-author-info) {
 					display: inline-flex;
 					flex-direction: row-reverse;
 				}
 
-				:host-context(.discord-compact-mode):host-context(.discord-message) .discord-author-info .discord-author-username {
+				:host-context(.discord-compact-mode):host-context(.discord-message):host(.discord-author-info) .discord-author-username {
 					margin-left: 4px;
 					margin-right: 4px;
 				}
 
-				:host-context(.discord-compact-mode):host-context(.discord-message) .discord-author-info .discord-bot-tag {
+				:host-context(.discord-compact-mode):host-context(.discord-message):host(.discord-author-info) .discord-bot-tag {
 					margin-left: 0;
 					margin-right: 0;
 					padding-left: 3px;
@@ -90,39 +78,35 @@
 			</style>
 		`;
 
-		// <span class="discord-author-info"
-		const authorSpan = document.createElement('span')
-		{
-			authorSpan.classList.add('discord-author-info');
+		this.classList.add('discord-author-info');
 			
-			// <span class="discord-author-username">
-			const usernameSpan = document.createElement('span')
-			{
-				usernameSpan.classList.add('discord-author-username');
+		// <span class="discord-author-username">
+		const usernameSpan = document.createElement('span')
+		{
+			usernameSpan.classList.add('discord-author-username');
 
-				if (typeof this.roleColor !== 'undefined');
-					usernameSpan.setAttribute('style', `color: ${roleColor}`);
+			if (typeof this.roleColor !== 'undefined');
+				usernameSpan.setAttribute('style', `color: ${this.roleColor}`);
 
-				const slot = document.createElement('slot');
-				usernameSpan.appendChild(slot);
-			}
-			authorSpan.appendChild(usernameSpan);
-			// </span>
-
-			// Add bot tag if author is marked as bot
-			if (bot)
-			{
-				// <span class="discord-bot-tag">
-				const botSpan = document.createElement('span');
-				{
-					botSpan.classList.add('discord-bot-tag');
-					botSpan.innerText = 'Bot'
-				}
-				authorSpan.appendChild(botSpan);
-				// </span>
-			}
+			// <slot>
+			const slot = document.createElement('slot');
+			usernameSpan.appendChild(slot);
+			// </slot>
 		}
-		shadow.appendChild(authorSpan);
+		shadow.appendChild(usernameSpan);
 		// </span>
+
+		// Add bot tag if author is marked as bot
+		if (this.bot)
+		{
+			// <span class="discord-bot-tag">
+			const botSpan = document.createElement('span');
+			{
+				botSpan.classList.add('discord-bot-tag');
+				botSpan.innerText = 'Bot'
+			}
+			shadow.appendChild(botSpan);
+			// </span>
+		}
 	}
 </script>

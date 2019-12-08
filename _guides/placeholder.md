@@ -35,7 +35,13 @@ This is a placeholder guide so I remember how to add guides when I actually star
 			footer-image="https://i.imgur.com/MSZsLzb.png"
 			timestamp="10/25/1990"
 			>
-			This is a really big description This is a really big description This is a really big description This is a really big description 
+			This is a really big description This is a really big description This is a really big description This is a really big description
+			<embed-fields>
+				<embed-field>foo bar regular field</embed-field>
+				<embed-field inline>foo bar inline field</embed-field>
+				<embed-field inline>boo bar inline field</embed-field>
+				<embed-field inline>boo bar inline field</embed-field>
+			</embed-fields>
 		</discord-embed>
 	</discord-message>
 </discord-messages>

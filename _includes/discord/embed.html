@@ -106,11 +106,7 @@
 
 		connectedCallback()
 		{
-			this.classList.add('discord-embed');
-
-			discordEmbedTemplate.call(
-				this
-			);
+			discordEmbedTemplate.call(this);
 		}
 	});
 
@@ -254,6 +250,8 @@
 				}
 			</style>
 		`;
+
+		this.classList.add('discord-embed');
 
 		// <div :style="{ 'background-color': color }" class="discord-left-border">
 		const embedColorDiv = document.createElement('div');
