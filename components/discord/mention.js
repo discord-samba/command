@@ -41,6 +41,10 @@ function discordMentionTemplate()
 				cursor: pointer;
 			}
 
+			:host-context(.discord-message):host(.discord-mention) slot:before {
+				content: "${this.char}"
+			}
+
 			:host-context(.discord-message):host(.discord-mention:hover) {
 				color: #fff;
 				background-color: rgba(114, 137, 218, 0.7);
@@ -73,8 +77,6 @@ function discordMentionTemplate()
 	}
 
 	this.classList.add('discord-mention');
-
-	shadow.append(this.char);
 
 	if (typeof this.roleColor !== 'undefined')
 	{
