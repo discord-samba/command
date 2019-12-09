@@ -27,6 +27,15 @@ This is a placeholder guide so I remember how to add guides when I actually star
 			<message-reaction image="https://cdn.discordapp.com/emojis/514139373315555349.png?v=1"></message-reaction>
 		</message-reactions>
 	</discord-message>
+	<discord-message author="Codeblock" avatar="green">
+		<pre>MessageReaction {
+  message: [Object],
+  me: true,
+  count: 1,
+  users: [Object],
+  _emoji: [Object] }
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</pre>
+	</discord-message>
 	<discord-message author="zajrik" avatar="https://i.imgur.com/MSZsLzb.png">
 		But what about boo far faz <discord-mention>User</discord-mention>?
 		<discord-embed
