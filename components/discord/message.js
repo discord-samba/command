@@ -183,7 +183,7 @@ function discordMessageTemplate()
 				padding-right: 5px;
 			}
 
-			:host-context(.discord-message) .discord-message-body.discord-message-body.discord-highlight-mention::before {
+			:host-context(.discord-message) .discord-message-body.discord-highlight-mention::before {
 				content: " ";
 				background-color: rgba(250, 166, 26, 0.2);
 				position: absolute;
@@ -195,7 +195,7 @@ function discordMessageTemplate()
 				border-radius: 3px 0 0 3px;
 			}
 
-			:host-context(.discord-message) .discord-message-body.discord-highlight-mention .discord-mention:hover {
+			:host(.discord-message) .discord-message-body.discord-highlight-mention .discord-mention:hover {
 				color: #7289da;
 				text-decoration: underline;
 			}
@@ -211,7 +211,7 @@ function discordMessageTemplate()
 	{
 		avatarDiv.classList.add('discord-author-avatar');
 
-		const avatarImg = document.createElement('img', {});
+		const avatarImg = document.createElement('img');
 		avatarImg.src = this.avatar;
 		avatarImg.alt = this.author;
 
