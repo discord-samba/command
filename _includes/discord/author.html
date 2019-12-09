@@ -40,6 +40,11 @@
 					font-size: 14.4px;
 					font-weight: 400;
 					letter-spacing: 0.5px;
+					cursor: pointer;
+				}
+
+				:host-context(.discord-message):host(.discord-author-info) .discord-author-username:hover {
+					text-decoration: underline;
 				}
 
 				:host-context(.discord-light-theme):host-context(.discord-message):host(.discord-author-info) .discord-author-username {
