@@ -51,6 +51,18 @@
 					color: #fff;
 					background-color: rgba(114, 137, 218, 0.7);
 				}
+
+				:host-context(.discord-message[highlight]) .discord-mention:hover {
+					color: #7289da;
+				}
+
+				:host-context(.discord-message[highlight]) .discord-mention {
+					background-color: unset !important;
+				}
+
+				:host-context(.discord-message[highlight]) .discord-mention:hover {
+					text-decoration: underline;
+				}
 			</style>
 		`;
 
@@ -79,15 +91,19 @@
 					'style',
 					`color: ${mentionSpan.style.color}; background-color: ${bgColor(mentionSpan.style.color, 0.1)}`
 				);
-
 				mentionSpan.setAttribute(
 					'onmouseover',
-					`this.style.backgroundColor = '${bgColor(mentionSpan.style.color, 0.3)}'`
+					`
+						if (!this.parentNode.host.parentElement.hasAttribute('highlight'))
+							this.style.backgroundColor = '${bgColor(mentionSpan.style.color, 0.3)}'
+					`
 				);
-
 				mentionSpan.setAttribute(
 					'onmouseout',
-					`this.style.backgroundColor = '${bgColor(mentionSpan.style.color, 0.1)}'`
+					`
+						if (!this.parentNode.host.parentElement.hasAttribute('highlight'))
+							this.style.backgroundColor = '${bgColor(mentionSpan.style.color, 0.1)}'
+					`
 				);
 			}
 
