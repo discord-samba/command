@@ -205,7 +205,7 @@ function discordMessageTemplate()
 			}
 
 			:host(.discord-message) ::slotted(pre) {
-				max-width: calc(100% - 80px);
+				max-width: calc(100% - 72px);
 				padding: 0.5em !important;
 				border-radius: 4px;
 				border: 1px solid #202225;
