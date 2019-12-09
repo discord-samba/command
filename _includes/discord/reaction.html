@@ -67,7 +67,9 @@
 			if (this.reactionIndex > 20)
 				return;
 
-			this.setAttribute('onmouseup', 'this.me = !this.me');
+			this.onmouseup = e => this.me = e.which === 1
+				? !this.me
+				: this.me;
 
 			discordMessageReactionTemplate.call(this);
 		}
