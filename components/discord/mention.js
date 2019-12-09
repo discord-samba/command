@@ -73,7 +73,8 @@ function discordMentionTemplate()
 	}
 
 	this.classList.add('discord-mention');
-	this.append(this.char);
+
+	shadow.append(this.char);
 
 	if (typeof this.roleColor !== 'undefined')
 	{
