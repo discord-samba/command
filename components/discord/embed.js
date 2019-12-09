@@ -281,7 +281,7 @@ function discordEmbedTemplate(char, roleColor)
 				// Add author info if at least author-name is provided
 				if (typeof this.authorName !== 'undefined')
 				{
-					// class="discord-embed-author">
+					// <div class="discord-embed-author">
 					const embedAuthorDiv = document.createElement('div')
 					{
 						embedAuthorDiv.classList.add('discord-embed-author');

@@ -252,15 +252,16 @@ function discordMessageTemplate()
 					const date = new Date();
 					const dateHours = date.getHours();
 
-					const rawHour = dateHours === 0
-						? 12
-						: dateHours > 12
-							? dateHours - 12
+					const rawHour = dateHours > 12
+						? dateHours - 12
+						: dateHours === 0
+							? 12
 							: dateHours;
 
-					const hour = `${rawHour}`.padStart(2, 0);
-					const minute = `${date.getMinutes()}`.padStart(2, 0);
-					const amPm = dateHours > 12 || dateHours !== 0 ? 'PM' : 'AM'
+					const hour = rawHour.toString().padStart(2, 0);
+					const minute = date.getMinutes().toString().padStart(2, 0);
+					const amPm = dateHours < 12 ? 'AM' : 'PM';
+
 					timestampSpan.innerText = `Today at ${hour}:${minute} ${amPm}`;
 				}
 				authorInfoDiv.appendChild(timestampSpan);
@@ -288,9 +289,19 @@ function discordMessageTemplate()
 				{
 					timestampSpan.classList.add('discord-message-timestamp');
 					const date = new Date();
-					const hour = `${date.getHours() > 12 ? date.getHours() - 12 : date.getHours()}`;
-					const amPm = date.getHours > 12 || date.getHours() !== 0 ? 'PM' : 'AM'
-					timestampSpan.innerText = `${hour.padStart(2, 0)}:${date.getMinutes()} ${amPm}`;
+					const dateHours = date.getHours();
+
+					const rawHour = dateHours > 12
+						? dateHours - 12
+						: dateHours === 0
+							? 12
+							: dateHours;
+
+					const hour = rawHour.toString().padStart(2, 0);
+					const minute = date.getMinutes().toString().padStart(2, 0);
+					const amPm = dateHours < 12 ? 'AM' : 'PM';
+
+					timestampSpan.innerText = `${hour}:${minute} ${amPm}`;
 				}
 				messageBodyDiv.appendChild(timestampSpan);
 				// </span>
