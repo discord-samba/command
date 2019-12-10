@@ -223,6 +223,25 @@ function discordMessageTemplate()
 				background-color: #f2f3f5 !important;
 				color: #4f5660;
 			}
+
+			:host(.discord-message) ::slotted(code) {
+				padding: 0.2em !important;
+				margin: -0.2em 0 !important;
+				border: none;
+				border-radius: 3px;
+				line-height: 1.125rem;
+				white-space: pre-wrap;
+				word-wrap: break-word;
+				font-size: 13.6px !important;
+				font-family: Consolas,monospace !important;
+				color: #dcddde;
+				background-color: #2f3136 !important;
+			}
+
+			:host-context(.discord-light-theme):host(.discord-message) ::slotted(code) {
+				color: #2e3338;
+				background-color: #efefef !important;
+}
 		</style>
 	`
 
