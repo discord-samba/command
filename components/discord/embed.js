@@ -250,6 +250,10 @@ function discordEmbedTemplate(char, roleColor)
 			:host-context(.discord-light-theme):host(.discord-embed) .discord-embed-footer .discord-footer-separator {
 				color: #e4e4e4;
 			}
+
+			:host-context(.discord-compact-mode):host(.discord-embed) {
+				margin-left: 65px;
+			}
 		</style>
 	`;
 

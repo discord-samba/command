@@ -159,6 +159,11 @@ function discordMessageTemplate()
 
 			:host-context(.discord-compact-mode):host(.discord-message) .discord-message-timestamp {
 				color: #72767d;
+				margin-left: -9.5ch;
+			}
+
+			:host-context(.discord-compact-mode):host(.discord-message) .discord-message-body {
+				margin-left: 8ch;
 			}
 
 			:host-context(.discord-light-theme):host(.discord-message) .discord-message-timestamp,

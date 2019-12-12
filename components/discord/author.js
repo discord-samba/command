@@ -55,13 +55,14 @@ function discordAuthorTemplate()
 				background-color: #7289da;
 				font-size: 0.65em;
 				margin-left: 5px;
-				padding: 3px;
+				padding-top: 3px;
+				padding-bottom: 2px;
+				padding-left: 0.275rem;
+				padding-right: 0.275rem;
 				border-radius: 3px;
 				line-height: 100%;
 				text-transform: uppercase;
-			}
-
-			:host-context(.discord-light-theme):host-context(.discord-message):host(.discord-author-info) .discord-bot-tag {
+				font-size: 10px;
 				color: #fff;
 			}
 
@@ -78,9 +79,6 @@ function discordAuthorTemplate()
 			:host-context(.discord-compact-mode):host-context(.discord-message):host(.discord-author-info) .discord-bot-tag {
 				margin-left: 4px;
 				margin-right: 0;
-				padding-left: 3px;
-				padding-right: 3px;
-				font-size: 0.6em;
 			}
 		</style>
 	`;

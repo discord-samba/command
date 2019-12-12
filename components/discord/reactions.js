@@ -25,6 +25,10 @@ function discordMessageReactionsTemplate()
 				margin-top: 8px;
 				margin-left: -2px;
 			}
+
+			:host-context(.discord-compact-mode):host(.discord-message-reactions) {
+				margin-left: 64px;
+			}
 		</style>
 	`;
 
