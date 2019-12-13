@@ -3,9 +3,9 @@ let reactionCount = [];
 
 customElements.define('message-reaction', class extends HTMLElement
 {
-	constructor()
+	get lightTheme()
 	{
-		super();
+		return this.parentNode.parentNode.classList.contains('discord-light-theme');
 	}
 
 	static get observedAttributes()
@@ -26,7 +26,7 @@ customElements.define('message-reaction', class extends HTMLElement
 		this.removeAttribute('me');
 	}
 
-	attributeChangedCallback(attr, oldVal, newVal)
+	attributeChangedCallback(attr)
 	{
 		if (!this.isConnected)
 			return;
@@ -81,13 +81,13 @@ function discordMessageReactionTemplate()
 
 	shadow.innerHTML = `
 		<style>
-			:host-context(.discord-message):host(.discord-message-reaction) {
+			:host(.discord-message-reaction) {
 				opacity: 1;
 				transform: scale(1);
 				max-height: 26px;
 			}
 
-			:host-context(.discord-message):host(.discord-message-reaction) .reaction {
+			:host(.discord-message-reaction) .reaction {
 				background-color: hsla(0, 0%, 100%, 0.06);
 				border-radius: 3px;
 				cursor: pointer;
@@ -95,18 +95,18 @@ function discordMessageReactionTemplate()
 				transition: background-color .1s ease;
 			}
 
-			:host-context(.discord-light-theme):host-context(.discord-message) .reaction {
+			:host(.discord-light-theme) .reaction {
 				background-color: rgba(6, 6, 7, 0.08);
 			}
 
-			:host-context(.discord-message) .reaction .reaction-inner {
+			.reaction .reaction-inner {
 				user-select: none;
 				padding: 0 6px;
 				display: flex;
 				max-height: 22px;
 			}
 
-			:host-context(.discord-message) .reaction .reaction-inner .reaction-image {
+			.reaction .reaction-inner .reaction-image {
 				height: 1rem;
 				width: 1rem;
 				margin: 3px 0;
@@ -115,7 +115,7 @@ function discordMessageReactionTemplate()
 				object-fit: contain;
 			}
 
-			:host-context(.discord-message) .reaction .reaction-inner .reaction-count {
+			.reaction .reaction-inner .reaction-count {
 				margin: 0 0 0 6px;
 				padding-top: 1px;
 				min-width: 9px;
@@ -125,25 +125,28 @@ function discordMessageReactionTemplate()
 				text-align: center;
 			}
 
-			:host-context(.discord-message):host(.discord-message-reaction[me]) .reaction {
+			:host(.discord-message-reaction[me]) .reaction {
 				background-color: #47506d;
 			}
 
-			:host-context(.discord-message):host(.discord-message-reaction[me]) .reaction .reaction-inner .reaction-count {
+			:host(.discord-message-reaction[me]) .reaction .reaction-inner .reaction-count {
 				color: #7289da;
 			}
 
-			:host-context(.discord-light-theme):host-context(.discord-message):host(.discord-message-reaction[me]) .reaction {
+			:host(.discord-light-theme):host(.discord-message-reaction[me]) .reaction {
 				background-color: #d4dbf4;
 			}
 
-			:host-context(.discord-light-theme):host-context(.discord-message):host(.discord-message-reaction[me]) .reaction .reaction-inner .reaction-count {
+			:host(.discord-light-theme):host(.discord-message-reaction[me]) .reaction .reaction-inner .reaction-count {
 				color: #7289da;
 			}
 		</style>
 	`;
 
 	this.classList.add('discord-message-reaction');
+
+	if (this.lightTheme)
+		this.classList.add('discord-light-theme');
 
 	// <div class="reaction">
 	const reactionDiv = document.createElement('div');

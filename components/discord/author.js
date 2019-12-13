@@ -1,5 +1,15 @@
 customElements.define('author-info', class extends HTMLElement
 {
+	get lightTheme()
+	{
+		return this.parentNode.parentNode.parentNode.host.classList.contains('discord-light-theme');
+	}
+
+	get compact()
+	{
+		return this.parentNode.parentNode.parentNode.host.classList.contains('discord-compact-mode');
+	}
+
 	get bot()
 	{
 		return this.hasAttribute('bot');
@@ -29,29 +39,29 @@ function discordAuthorTemplate()
 
 	shadow.innerHTML = `
 		<style>
-			:host-context(.discord-message):host(.discord-author-info) {
+			:host(.discord-author-info) {
 				display: inline-flex;
 				align-items: center;
 				font-size: 15px;
 			}
 
-			:host-context(.discord-message):host(.discord-author-info) .discord-author-username {
+			:host(.discord-author-info) .discord-author-username {
 				font-size: 14.4px;
 				font-weight: 400;
 				letter-spacing: 0.5px;
 				cursor: pointer;
 			}
 
-			:host-context(.discord-message):host(.discord-author-info) .discord-author-username:hover {
+			:host(.discord-author-info) .discord-author-username:hover {
 				text-decoration: underline;
 			}
 
-			:host-context(.discord-light-theme):host-context(.discord-message):host(.discord-author-info) .discord-author-username {
+			:host(.discord-light-theme):host(.discord-author-info) .discord-author-username {
 				color: #060607;
 				font-weight: 500;
 			}
 
-			:host-context(.discord-message):host(.discord-author-info) .discord-bot-tag {
+			:host(.discord-author-info) .discord-bot-tag {
 				background-color: #7289da;
 				font-size: 0.65em;
 				margin-left: 5px;
@@ -66,17 +76,17 @@ function discordAuthorTemplate()
 				color: #fff;
 			}
 
-			:host-context(.discord-compact-mode):host-context(.discord-message):host(.discord-author-info) {
+			:host(.discord-compact-mode):host(.discord-author-info) {
 				display: inline-flex;
 				flex-direction: row-reverse;
 			}
 
-			:host-context(.discord-compact-mode):host-context(.discord-message):host(.discord-author-info) .discord-author-username {
+			:host(.discord-compact-mode):host(.discord-author-info) .discord-author-username {
 				margin-left: 4px;
 				margin-right: 4px;
 			}
 
-			:host-context(.discord-compact-mode):host-context(.discord-message):host(.discord-author-info) .discord-bot-tag {
+			:host(.discord-compact-mode):host(.discord-author-info) .discord-bot-tag {
 				margin-left: 4px;
 				margin-right: 0;
 			}
@@ -84,6 +94,12 @@ function discordAuthorTemplate()
 	`;
 
 	this.classList.add('discord-author-info');
+
+	if (this.lightTheme)
+		this.classList.add('discord-light-theme');
+
+	if (this.compact)
+		this.classList.add('discord-compact-mode');
 		
 	// <span class="discord-author-username">
 	const usernameSpan = document.createElement('span')

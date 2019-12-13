@@ -10,16 +10,16 @@ redirect_from:
 # Placeholder
 This is a placeholder guide so I remember how to add guides when I actually start writing them
 
-<discord-messages light>
+<discord-messages>
 	<discord-message role-color="#00FFAD" author="zajrik" avatar="https://i.imgur.com/MSZsLzb.png">
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. <discord-mention role-color="#DEADBEEF">test</discord-mention>
+		<code>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</code> <discord-mention role-color="#DEADBEEF">test</discord-mention>
 		<message-reactions>
 			<message-reaction image="https://cdn.discordapp.com/emojis/359397580381224970.png?v=1" count="436"></message-reaction>
 			<message-reaction image="https://canary.discordapp.com/assets/08c0a077780263f3df97613e58e71744.svg"></message-reaction>
 			<message-reaction image="https://cdn.discordapp.com/emojis/585956382591680531.gif?v=1"></message-reaction>
 		</message-reactions>
 	</discord-message>
-	<discord-message author="Pest" avatar="orange" edited bot>
+	<discord-message author="Pest" avatar="orange" edited bot highlight>
 		Wow!<br>
 		Ooh!
 		<message-reactions>
@@ -36,7 +36,7 @@ This is a placeholder guide so I remember how to add guides when I actually star
   _emoji: [Object] }
   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</pre>
 	</discord-message>
-	<discord-message author="zajrik" avatar="https://i.imgur.com/MSZsLzb.png">
+	<discord-message author="zajrik" avatar="https://i.imgur.com/MSZsLzb.png" highlight>
 		But what about boo far faz <discord-mention>User</discord-mention>?
 		<discord-embed
 			slot="embeds"

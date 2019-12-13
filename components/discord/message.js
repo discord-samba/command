@@ -16,6 +16,11 @@ customElements.define('discord-message', class extends HTMLElement
 		return this.parentElement.hasAttribute('compact');
 	}
 
+	get lightTheme()
+	{
+		return this.parentElement.hasAttribute('light');
+	}
+
 	get bot()
 	{
 		return this.hasAttribute('bot');
@@ -81,11 +86,11 @@ function discordMessageTemplate()
 				border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 			}
 
-			:host-context(.discord-light-theme):host(.discord-message) {
+			:host(.discord-light-theme):host(.discord-message) {
 				border-color: #eceeef;
 			}
 
-			:host-context(.discord-light-theme):host(.discord-message) .discord-message-body {
+			:host(.discord-light-theme):host(.discord-message) .discord-message-body {
 				color: #2e3338;
 			}
 
@@ -139,7 +144,7 @@ function discordMessageTemplate()
 				font-size: 10px;
 			}
 
-			:host-context(.discord-light-theme):host(.discord-message) .discord-message-edited {
+			:host(.discord-light-theme):host(.discord-message) .discord-message-edited {
 				color: #99aab5;
 			}
 
@@ -153,38 +158,38 @@ function discordMessageTemplate()
 				font-weight: 300;
 			}
 
-			:host-context(.discord-light-theme):host(.discord-message) .discord-message-body {
+			:host(.discord-light-theme):host(.discord-message) .discord-message-body {
 				font-weight: 400;
 			}
 
-			:host-context(.discord-compact-mode):host(.discord-message) .discord-message-timestamp {
+			:host(.discord-compact-mode):host(.discord-message) .discord-message-timestamp {
 				color: #72767d;
 				margin-left: -9.5ch;
 			}
 
-			:host-context(.discord-compact-mode):host(.discord-message) .discord-message-body {
+			:host(.discord-compact-mode):host(.discord-message) .discord-message-body {
 				margin-left: 8ch;
 			}
 
-			:host-context(.discord-light-theme):host(.discord-message) .discord-message-timestamp,
-			:host-context(.discord-compact-mode):host-context(.discord-light-theme):host(.discord-message) .discord-message-timestamp {
+			:host(.discord-light-theme):host(.discord-message) .discord-message-timestamp,
+			:host(.discord-compact-mode):host(.discord-light-theme):host(.discord-message) .discord-message-timestamp {
 				color: #747f8d;
 			}
 
-			:host-context(.discord-compact-mode):host(.discord-message) {
+			:host(.discord-compact-mode):host(.discord-message) {
 				padding-top: 0.5em;
 				padding-bottom: 0.5em;
 			}
 
-			:host-context(.discord-compact-mode) .discord-author-avatar {
+			:host(.discord-compact-mode) .discord-author-avatar {
 				display: none;
 			}
 
-			:host-context(.discord-compact-mode) .discord-message-body {
+			:host(.discord-compact-mode) .discord-message-body {
 				margin-left: 0.25em;
 			}
 
-			:host-context(.discord-message) .discord-message-body.discord-highlight-mention {
+			:host(.discord-message) .discord-message-body.discord-highlight-mention {
 				background-color: rgba(250, 166, 26, 0.1);
 				border-radius: 0 3px 3px 0;
 				margin-left: -3px;
@@ -192,7 +197,11 @@ function discordMessageTemplate()
 				padding-right: 5px;
 			}
 
-			:host-context(.discord-message) .discord-message-body.discord-highlight-mention::before {
+			:host(.discord-compact-mode):host(.discord-message) .discord-message-body.discord-highlight-mention {
+				border-radius: unset !important;
+			}
+
+			:host(.discord-message) .discord-message-body.discord-highlight-mention::before {
 				content: " ";
 				background-color: rgba(250, 166, 26, 0.2);
 				position: absolute;
@@ -202,6 +211,14 @@ function discordMessageTemplate()
 				width: 2px;
 				border-left: 4px solid #faa61a;
 				border-radius: 3px 0 0 3px;
+			}
+
+			:host(.discord-compact-mode):host(.discord-message) .discord-message-body.discord-highlight-mention::before {
+				background-color: rgba(250, 166, 26, 0.1);
+				left: -65px;
+				width: 65px;
+				border-left: unset;
+				border-radius: unset;
 			}
 
 			:host(.discord-message) .discord-message-body.discord-highlight-mention .discord-mention:hover {
@@ -223,7 +240,7 @@ function discordMessageTemplate()
 				font-family: Consolas,monospace !important;
 			}
 
-			:host-context(.discord-light-theme):host(.discord-message) ::slotted(pre) {
+			:host(.discord-light-theme):host(.discord-message) ::slotted(pre) {
 				border: 1px solid #e3e5e8;
 				background-color: #f2f3f5 !important;
 				color: #4f5660;
@@ -243,7 +260,7 @@ function discordMessageTemplate()
 				background-color: #2f3136 !important;
 			}
 
-			:host-context(.discord-light-theme):host(.discord-message) ::slotted(code) {
+			:host(.discord-light-theme):host(.discord-message) ::slotted(code) {
 				color: #2e3338;
 				background-color: #efefef !important;
 }
@@ -251,8 +268,12 @@ function discordMessageTemplate()
 	`
 
 	this.classList.add('discord-message');
+
 	if (this.compact)
 		this.classList.add('discord-compact-mode');
+
+	if (this.lightTheme)
+		this.classList.add('discord-light-theme');
 	
 	// <div class="discord-author-avatar">
 	const avatarDiv = document.createElement('div');

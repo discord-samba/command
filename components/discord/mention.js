@@ -1,5 +1,11 @@
 customElements.define('discord-mention', class extends HTMLElement
 {
+	get highlight()
+	{
+		// console.log(this.parentNode);
+		return this.parentNode.hasAttribute('highlight');
+	}
+
 	get char()
 	{
 		if (this.hasAttribute('channel'))
@@ -33,7 +39,7 @@ function discordMentionTemplate()
 
 	shadow.innerHTML = `
 		<style>
-			:host-context(.discord-message):host(.discord-mention) {
+			:host(.discord-mention) {
 				color: #7289da;
 				background-color: rgba(114, 137, 218, 0.1);
 				font-weight: 500;
@@ -41,24 +47,24 @@ function discordMentionTemplate()
 				cursor: pointer;
 			}
 
-			:host-context(.discord-message):host(.discord-mention) slot:before {
+			:host(.discord-mention) slot:before {
 				content: "${this.char}"
 			}
 
-			:host-context(.discord-message):host(.discord-mention:hover) {
+			:host(.discord-mention:hover) {
 				color: #fff;
 				background-color: rgba(114, 137, 218, 0.7);
 			}
 
-			:host-context(.discord-message[highlight]):host(.discord-mention:hover) {
+			:host(.message-highlight):host(.discord-mention:hover) {
 				color: #7289da;
 			}
 
-			:host-context(.discord-message[highlight]):host(.discord-mention) {
+			:host(.message-highlight):host(.discord-mention) {
 				background-color: unset !important;
 			}
 
-			:host-context(.discord-message[highlight]):host(.discord-mention:hover) {
+			:host(.message-highlight):host(.discord-mention:hover) {
 				text-decoration: underline;
 			}
 		</style>
@@ -77,6 +83,9 @@ function discordMentionTemplate()
 	}
 
 	this.classList.add('discord-mention');
+
+	if (this.highlight)
+		this.classList.add('message-highlight');
 
 	if (typeof this.roleColor !== 'undefined')
 	{
