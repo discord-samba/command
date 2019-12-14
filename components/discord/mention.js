@@ -1,5 +1,11 @@
 customElements.define('discord-mention', class extends HTMLElement
 {
+	get lightTheme()
+	{
+		console.log(this.parentNode.parentNode.hasAttribute('light'));
+		return this.parentNode.parentNode.hasAttribute('light');
+	}
+
 	get highlight()
 	{
 		return this.parentNode.hasAttribute('highlight');
@@ -38,21 +44,29 @@ function discordMentionTemplate()
 
 	shadow.innerHTML = `
 		<style>
+			:host(.discord-mention) slot:before {
+				content: "${this.char}"
+			}
+			
 			:host(.discord-mention) {
 				color: #7289da;
-				background-color: rgba(114, 137, 218, 0.1);
+				background-color: #3c414f;
 				font-weight: 500;
 				padding: 0 1px;
 				cursor: pointer;
 			}
 
-			:host(.discord-mention) slot:before {
-				content: "${this.char}"
+			:host(.discord-light-theme):host(.discord-mention) {
+				background-color: #f1f3fb;
 			}
 
 			:host(.discord-mention:hover) {
 				color: #fff;
-				background-color: rgba(114, 137, 218, 0.7);
+				background-color: #6071ac;
+			}
+
+			:host(.discord-light-theme):host(.discord-mention:hover) {
+				background-color: #7289da;
 			}
 
 			:host(.message-highlight):host(.discord-mention:hover) {
@@ -83,16 +97,16 @@ function discordMentionTemplate()
 
 	this.classList.add('discord-mention');
 
+	if (this.lightTheme)
+		this.classList.add('discord-light-theme');
+
 	if (this.highlight)
 		this.classList.add('message-highlight');
 
 	if (typeof this.roleColor !== 'undefined')
 	{
-		this.setAttribute('style', `color: ${this.roleColor}`);
-		this.setAttribute(
-			'style',
-			`color: ${this.style.color}; background-color: ${bgColor(this.style.color, 0.1)}`
-		);
+		this.style.color = this.roleColor;
+		this.style.backgroundColor = bgColor(this.style.color);
 
 		this.onmouseover = () =>
 		{

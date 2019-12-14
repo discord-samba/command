@@ -36,7 +36,7 @@ This is a placeholder guide so I remember how to add guides when I actually star
   _emoji: [Object] }
   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</pre>
 	</discord-message>
-	<discord-message author="zajrik" avatar="https://i.imgur.com/MSZsLzb.png" highlight>
+	<discord-message author="zajrik" avatar="https://i.imgur.com/MSZsLzb.png">
 		But what about boo far faz <discord-mention>User</discord-mention>?
 		<discord-embed
 			slot="embeds"
