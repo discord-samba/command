@@ -2,12 +2,12 @@ customElements.define('author-info', class extends HTMLElement
 {
 	get lightTheme()
 	{
-		return this.parentNode.parentNode.parentNode.host.classList.contains('discord-light-theme');
+		return this.parentNode.parentNode.parentNode.host.parentNode.hasAttribute('light');
 	}
 
 	get compact()
 	{
-		return this.parentNode.parentNode.parentNode.host.classList.contains('discord-compact-mode');
+		return this.parentNode.parentNode.parentNode.host.parentNode.hasAttribute('compact');
 	}
 
 	get bot()

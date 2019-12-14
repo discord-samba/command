@@ -31,7 +31,7 @@ function discordMessagesTemplate()
 				border: 1px solid rgba(255, 255, 255, 0.05);
 			}
 
-			:host(.discord-messages.discord-light-theme) {
+			:host(.discord-light-theme):host(.discord-messages) {
 				color: #747f8d;
 				background-color: #f7f7f7;
 				border-color: #dedede;

@@ -1,5 +1,15 @@
 customElements.define('discord-embed', class extends HTMLElement
 {
+	get lightTheme()
+	{
+		return this.parentNode.parentNode.hasAttribute('light');
+	}
+	
+	get compact()
+	{
+		return this.parentNode.parentNode.hasAttribute('compact');
+	}
+
 	get authorName()
 	{
 		if (!this.hasAttribute('author-name'))
@@ -128,7 +138,7 @@ function discordEmbedTemplate(char, roleColor)
 				line-height: 150%;
 			}
 
-			:host-context(.discord-light-theme):host(.discord-embed) {
+			:host(.discord-light-theme):host(.discord-embed) {
 				color: #2e3338;
 			}
 
@@ -139,7 +149,7 @@ function discordEmbedTemplate(char, roleColor)
 				border-radius: 4px 0 0 4px;
 			}
 
-			:host-context(.discord-light-theme):host(.discord-embed) .discord-left-border {
+			:host(.discord-light-theme):host(.discord-embed) .discord-left-border {
 				background-color: #e3e5e8;
 			}
 
@@ -153,7 +163,7 @@ function discordEmbedTemplate(char, roleColor)
 				border-radius: 0 4px 4px 0;
 			}
 
-			:host-context(.discord-light-theme):host(.discord-embed) .discord-embed-container {
+			:host(.discord-light-theme):host(.discord-embed) .discord-embed-container {
 				background-color: rgba(249, 249, 249, 0.3);
 				border-color: rgba(205, 205, 205, 0.3);
 			}
@@ -180,14 +190,14 @@ function discordEmbedTemplate(char, roleColor)
 				margin-top: 8px;
 			}
 
-			:host-context(.discord-light-theme):host(.discord-embed) .discord-embed-author {
+			:host(.discord-light-theme):host(.discord-embed) .discord-embed-author {
 				color: #4f545c;
 			}
 			:host(.discord-embed) .discord-embed-author a {
 				color: #fff;
 			}
 
-			:host-context(.discord-light-theme):host(.discord-embed) .discord-embed-author a {
+			:host(.discord-light-theme):host(.discord-embed) .discord-embed-author a {
 				color: #4f545c;
 			}
 
@@ -210,11 +220,11 @@ function discordEmbedTemplate(char, roleColor)
 				font-weight: 600;
 			}
 
-			:host-context(.discord-light-theme):host(.discord-embed) .discord-embed-title {
+			:host(.discord-light-theme):host(.discord-embed) .discord-embed-title {
 				color: #747f8d;
 			}
 
-			.discord-embed .discord-embed-description {
+			:host(.discord-embed) .discord-embed-description {
 				margin-top: 8px;
 			}
 
@@ -247,11 +257,11 @@ function discordEmbedTemplate(char, roleColor)
 				margin: 0 4px;
 			}
 
-			:host-context(.discord-light-theme):host(.discord-embed) .discord-embed-footer .discord-footer-separator {
+			:host(.discord-light-theme):host(.discord-embed) .discord-embed-footer .discord-footer-separator {
 				color: #e4e4e4;
 			}
 
-			:host-context(.discord-compact-mode):host(.discord-embed) {
+			:host(.discord-compact-mode):host(.discord-embed) {
 				margin-left: 65px;
 			}
 		</style>
@@ -259,7 +269,13 @@ function discordEmbedTemplate(char, roleColor)
 
 	this.classList.add('discord-embed');
 
-	// <div :style="{ 'background-color': color }" class="discord-left-border">
+	if (this.lightTheme)
+		this.classList.add('discord-light-theme');
+
+	if (this.compact)
+		this.classList.add('discord-compact-mode');
+
+	// <div class="discord-left-border">
 	const embedColorDiv = document.createElement('div');
 	{
 		embedColorDiv.classList.add('discord-left-border');

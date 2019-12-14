@@ -2,7 +2,7 @@ customElements.define('message-reactions', class extends HTMLElement
 {
 	get compact()
 	{
-		return this.parentNode.classList.contains('discord-compact-mode');
+		return this.parentNode.parentNode.hasAttribute('compact');
 	}
 
 	connectedCallback()

@@ -5,7 +5,7 @@ customElements.define('message-reaction', class extends HTMLElement
 {
 	get lightTheme()
 	{
-		return this.parentNode.parentNode.classList.contains('discord-light-theme');
+		return this.parentNode.parentNode.parentNode.hasAttribute('light');
 	}
 
 	static get observedAttributes()

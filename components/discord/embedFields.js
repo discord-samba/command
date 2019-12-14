@@ -16,7 +16,7 @@ function discordEmbedFieldsTemplate()
 
 	shadow.innerHTML = `
 		<style>
-			:host-context(.discord-embed):host(.discord-embed-fields) {
+			:host(.discord-embed-fields) {
 				display: flex;
 				flex-wrap: wrap;
 				margin-top: 8px;

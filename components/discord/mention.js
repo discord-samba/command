@@ -2,7 +2,6 @@ customElements.define('discord-mention', class extends HTMLElement
 {
 	get highlight()
 	{
-		// console.log(this.parentNode);
 		return this.parentNode.hasAttribute('highlight');
 	}
 
