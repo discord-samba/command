@@ -4,4 +4,5 @@
  */
 export enum CommandDispatchErrorKind
 {
+	// TODO: Add to this when dispatching is being worked on
 }

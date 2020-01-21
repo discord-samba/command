@@ -78,7 +78,7 @@ export class CommandArguments
 		// Compile option-arguments
 		for (const parsedOptionArg of parsedArgs.optionArguments.values())
 		{
-			const optionArgument: OptionArgument<any> =
+			const optionArgument: OptionArgument<unknown> =
 				new OptionArgument(parsedOptionArg.ident, parsedOptionArg.value, parsedOptionArg.type);
 
 			this.optionArguments.set(parsedOptionArg.ident, optionArgument);

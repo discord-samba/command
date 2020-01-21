@@ -261,7 +261,7 @@ export class InputParser
 	/**
 	 * Consumes an option group, appending them to the parser output. An option
 	 * group can consist of any number of options and may end in an option-argument.
-	 * An option argument anywhere but the end of the group renders the group invalid
+	 * An option-argument anywhere but the end of the group renders the group invalid
 	 */
 	private static _consumeAppendOptionGroup(state: ParserState, out: ParserOutput): void
 	{
