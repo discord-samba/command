@@ -151,8 +151,8 @@ describe('CommandArguments', () =>
 
 		expect(getErr(() => new CommandArguments(spec, parserOutput)))
 			.toEqual({
-				error: 0,
-				ctx: {
+				kind: 0,
+				context: {
 					kind: 2,
 					ident: 'aa',
 					type: 'String',
@@ -172,8 +172,8 @@ describe('CommandArguments', () =>
 
 		expect(getErr(() => new CommandArguments(spec, parserOutput)))
 			.toEqual({
-				error: 0,
-				ctx: {
+				kind: 0,
+				context: {
 					kind: 1,
 					ident: 'a',
 					type: 'String',

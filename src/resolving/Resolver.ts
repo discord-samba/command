@@ -1,4 +1,4 @@
-import { ArgumentContext } from '../ArgumentContext';
+import { ArgumentContext } from './ArgumentContext';
 import { CommandContext } from '../CommandContext';
 
 /**

@@ -11,16 +11,16 @@ export class CommandArgumentError
 	/**
 	 * The kind of command argument error encountered
 	 */
-	public error: CommandArgumentErrorKind;
+	public kind: CommandArgumentErrorKind;
 
 	/**
 	 * Context for the error
 	 */
-	public ctx: CommandArgumentErrorContext;
+	public context: CommandArgumentErrorContext;
 
-	public constructor(errorKind: CommandArgumentErrorKind, ctx: CommandArgumentErrorContext)
+	public constructor(errorKind: CommandArgumentErrorKind, context: CommandArgumentErrorContext)
 	{
-		this.error = errorKind;
-		this.ctx = ctx;
+		this.kind = errorKind;
+		this.context = context;
 	}
 }

@@ -1,5 +1,5 @@
 import { Argument } from './Argument';
-import { ArgumentContext } from './ArgumentContext';
+import { ArgumentContext } from './resolving/ArgumentContext';
 import { CommandArgumentKind } from './types/CommandArgumentKind';
 import { CommandContext } from './CommandContext';
 import { CommandModule } from './CommandModule';

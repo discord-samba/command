@@ -1,4 +1,4 @@
-import { ArgumentContext } from '../../ArgumentContext';
+import { ArgumentContext } from '../ArgumentContext';
 import { CommandArgumentError } from '../../CommandArgumentError';
 import { CommandArgumentErrorContext } from '../../CommandArgumentErrorContext';
 import { CommandArgumentErrorKind } from '../../types/CommandArgumentErrorKind';

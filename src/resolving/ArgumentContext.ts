@@ -1,4 +1,4 @@
-import { CommandArgumentKind } from './types/CommandArgumentKind';
+import { CommandArgumentKind } from '../types/CommandArgumentKind';
 
 /**
  * Container class for data to be used for argument resolution within [[Resolver]]s

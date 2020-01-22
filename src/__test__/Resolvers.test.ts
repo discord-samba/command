@@ -7,7 +7,7 @@ describe('Resolvers', () =>
 	describe('StringResolver', () =>
 	{
 		const resolver: StringResolver = CommandModule.resolvers.get<StringResolver>('String')!;
-		it('Should parse strings', () =>
+		it('Should resolve strings', () =>
 		{
 			expect(resolver.safeResolve('foo')).toBe('foo');
 			expect(resolver.safeResolve(1)).toBe('1');
@@ -19,7 +19,7 @@ describe('Resolvers', () =>
 	describe('NumberResolver', () =>
 	{
 		const resolver: NumberResolver = CommandModule.resolvers.get<NumberResolver>('Number')!;
-		it('Should parse numbers', () =>
+		it('Should resolve numbers', () =>
 		{
 			expect(resolver.safeResolve('1')).toBe(1);
 			expect(resolver.safeResolve('100')).toBe(100);
