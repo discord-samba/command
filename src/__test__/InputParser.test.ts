@@ -234,6 +234,24 @@ describe('InputParser', () =>
 		});
 	});
 
+	it('Should parse quoted option/option-argument-like items as operands', () =>
+	{
+		const spec: CommandArgumentSpec = new CommandArgumentSpec();
+		spec.setParsingStrategy(2);
+
+		expect(InputParser.parse('"--foo" "-abc" "-f" `-a` \'-b\'', spec)).toEqual({
+			options: [],
+			optionArguments: [],
+			operands: [
+				{ kind: 2, type: 'String', value: '--foo' },
+				{ kind: 2, type: 'String', value: '-abc' },
+				{ kind: 2, type: 'String', value: '-f' },
+				{ kind: 2, type: 'String', value: '-a' },
+				{ kind: 2, type: 'String', value: '-b' },
+			]
+		});
+	});
+
 	it('Should parse options', () =>
 	{
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
