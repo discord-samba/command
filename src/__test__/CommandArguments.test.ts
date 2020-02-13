@@ -221,6 +221,7 @@ describe('CommandArguments', () =>
 
 		expect(args.get<Option>('f')).toEqual({ ident: 'f', value: true, occurrences: 1 });
 		expect(args.get<Option>('foo')).toEqual({ ident: 'f', value: true, occurrences: 1 });
+		expect(args.get<Option>('f')).toEqual(args.get<Option>('foo'));
 	});
 
 	it('Should get option-argument by long or short identifier', () =>
@@ -235,5 +236,6 @@ describe('CommandArguments', () =>
 
 		expect(args.get<OptionArgument<string>>('f')).toEqual({ ident: 'f', type: 'String', value: 'bar' });
 		expect(args.get<OptionArgument<string>>('foo')).toEqual({ ident: 'f', type: 'String', value: 'bar' });
+		expect(args.get<OptionArgument<string>>('f')).toEqual(args.get<OptionArgument<string>>('foo'));
 	});
 });
