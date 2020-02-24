@@ -10,4 +10,5 @@ export interface CommandArgumentSpecOperand
 	ident: string;
 	optional: boolean;
 	type: string;
+	rest: boolean;
 }

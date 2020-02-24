@@ -50,8 +50,8 @@ export class InputParser
 	{
 		while (!state.reader.eoi())
 		{
-			const operand: string = InputParser._consumeOperand(state);
 			const spec: CommandArgumentSpecOperand | undefined = state.spec.operands.shift();
+			const operand: string = InputParser._consumeOperand(state, spec?.rest ?? false);
 			const argument: CommandArgKindImplOperand =
 				new CommandArgKindImplOperand(spec?.type ?? 'String', operand, spec?.ident);
 
@@ -71,9 +71,11 @@ export class InputParser
 		while (!state.reader.eoi())
 		{
 			const spec: CommandArgumentSpecOperand | undefined = state.spec.operands.shift();
-			const operand: string = /['"`]/.test(state.reader.peek())
-				? InputParser._consumeQuotedOperand(state)
-				: InputParser._consumeOperand(state);
+			const operand: string = spec?.rest
+				? InputParser._consumeOperand(state, spec?.rest)
+				: /['"`]/.test(state.reader.peek())
+					? InputParser._consumeQuotedOperand(state)
+					: InputParser._consumeOperand(state, false);
 
 			const argument: CommandArgKindImplOperand =
 				new CommandArgKindImplOperand(spec?.type ?? 'String', operand, spec?.ident);
@@ -130,7 +132,7 @@ export class InputParser
 				{
 					const value: string = /['"`]/.test(state.reader.peek())
 						? InputParser._consumeQuotedOperand(state)
-						: InputParser._consumeOperand(state);
+						: InputParser._consumeOperand(state, false);
 
 					(lastNode as CommandArgKindImplOptionArgument).value = value;
 					InputParser._discardWhitespace(state);
@@ -140,9 +142,11 @@ export class InputParser
 				else
 				{
 					const spec: CommandArgumentSpecOperand | undefined = state.spec.operands.shift();
-					const operand: string = /['"`]/.test(state.reader.peek())
-						? InputParser._consumeQuotedOperand(state)
-						: InputParser._consumeOperand(state);
+					const operand: string = spec?.rest
+						? InputParser._consumeOperand(state, spec?.rest)
+						: /['"`]/.test(state.reader.peek())
+							? InputParser._consumeQuotedOperand(state)
+							: InputParser._consumeOperand(state, false);
 
 					const argument: CommandArgKindImplOperand =
 						new CommandArgKindImplOperand(spec?.type ?? 'String', operand, spec?.ident);
@@ -214,12 +218,17 @@ export class InputParser
 	/**
 	 * Consumes and returns an Operand string
 	 */
-	private static _consumeOperand(state: ParserState): string
+	private static _consumeOperand(state: ParserState, rest: boolean): string
 	{
 		let operand: string = '';
 
-		while (!/\s/.test(state.reader.peek()) && !state.reader.eoi())
-			operand += state.reader.consume();
+		if (rest)
+			while (!state.reader.eoi())
+				operand += state.reader.consume();
+
+		else
+			while (!/\s/.test(state.reader.peek()) && !state.reader.eoi())
+				operand += state.reader.consume();
 
 		return operand;
 	}

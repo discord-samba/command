@@ -218,6 +218,106 @@ describe('InputParser', () =>
 		});
 	});
 
+	it('Should predictably parse rest arguments', () =>
+	{
+		let spec: CommandArgumentSpec = new CommandArgumentSpec();
+		spec.setParsingStrategy(2);
+		spec.defineOperand('foo', 'String');
+		spec.defineOperand('bar', 'String', { rest: true });
+
+		expect(InputParser.parse('foo bar baz', spec)).toEqual({
+			options: [],
+			optionArguments: [],
+			operands: [
+				{ kind: 2, ident: 'foo', type: 'String', value: 'foo' },
+				{ kind: 2, ident: 'bar', type: 'String', value: 'bar baz' }
+			]
+		});
+
+		expect(InputParser.parse('foo "bar baz" boo', spec)).toEqual({
+			options: [],
+			optionArguments: [],
+			operands: [
+				{ kind: 2, ident: 'foo', type: 'String', value: 'foo' },
+				{ kind: 2, ident: 'bar', type: 'String', value: '"bar baz" boo' }
+			]
+		});
+
+		expect(InputParser.parse('"foo bar" baz boo', spec)).toEqual({
+			options: [],
+			optionArguments: [],
+			operands: [
+				{ kind: 2, ident: 'foo', type: 'String', value: 'foo bar' },
+				{ kind: 2, ident: 'bar', type: 'String', value: 'baz boo' }
+			]
+		});
+
+		expect(InputParser.parse('"foo bar" "baz boo"', spec)).toEqual({
+			options: [],
+			optionArguments: [],
+			operands: [
+				{ kind: 2, ident: 'foo', type: 'String', value: 'foo bar' },
+				{ kind: 2, ident: 'bar', type: 'String', value: '"baz boo"' }
+			]
+		});
+
+		expect(InputParser.parse('foo bar --baz', spec)).toEqual({
+			options: [],
+			optionArguments: [],
+			operands: [
+				{ kind: 2, ident: 'foo', type: 'String', value: 'foo' },
+				{ kind: 2, ident: 'bar', type: 'String', value: 'bar --baz' }
+			]
+		});
+
+		spec.defineOptionArgument('baz', 'String');
+
+		expect(InputParser.parse('foo --baz "baz boo" far faz', spec)).toEqual({
+			options: [],
+			optionArguments: [
+				{ kind: 1, ident: 'baz', type: 'String', value: 'baz boo' }
+			],
+			operands: [
+				{ kind: 2, ident: 'foo', type: 'String', value: 'foo' },
+				{ kind: 2, ident: 'bar', type: 'String', value: 'far faz' }
+			]
+		});
+
+		expect(InputParser.parse('foo --baz baz boo far faz', spec)).toEqual({
+			options: [],
+			optionArguments: [
+				{ kind: 1, ident: 'baz', type: 'String', value: 'baz' }
+			],
+			operands: [
+				{ kind: 2, ident: 'foo', type: 'String', value: 'foo' },
+				{ kind: 2, ident: 'bar', type: 'String', value: 'boo far faz' }
+			]
+		});
+
+		spec = new CommandArgumentSpec();
+		spec.setParsingStrategy(0);
+		spec.defineOperand('foo', 'String');
+		spec.defineOperand('bar', 'String', { rest: true });
+
+		expect(InputParser.parse('foo "bar baz" boo', spec)).toEqual({
+			options: [],
+			optionArguments: [],
+			operands: [
+				{ kind: 2, ident: 'foo', type: 'String', value: 'foo' },
+				{ kind: 2, ident: 'bar', type: 'String', value: '"bar baz" boo' }
+			]
+		});
+
+		expect(InputParser.parse('"foo bar" baz boo', spec)).toEqual({
+			options: [],
+			optionArguments: [],
+			operands: [
+				{ kind: 2, ident: 'foo', type: 'String', value: '"foo' },
+				{ kind: 2, ident: 'bar', type: 'String', value: 'bar" baz boo' }
+			]
+		});
+	});
+
 	it('Should treat options and option-arguments as operands in Basic parsing mode', () =>
 	{
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();

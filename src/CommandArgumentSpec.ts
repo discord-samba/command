@@ -79,10 +79,24 @@ export class CommandArgumentSpec
 	/**
 	 * Defines a positional operand argument declaration for your Command's arguments specification.
 	 * Must be given an identifier and a type, and can be declared optional (`false` by default).
-	 * Optional operands must be added last and may not be followed by a non-optional operand.
+	 * Optional operands must be defined last and may not be followed by a non-optional operand.
 	 *
-	 * Operand identifiers should be at least 2 characters to avoid confusion
-	 * and avoid conflict with options and option-arguments
+	 * May also be declared as a rest operand (`false` by default), which will consume the remainder
+	 * of the input as a single operand when parsing for that operand begins. Rest operands must be
+	 * defined last and may not be followed by any additional operands.
+	 *
+	 * **NOTE:** If the parsing strategy is set to `AllowQuoting` (`1`) or higher and a quoted
+	 * operand is going to be parsed but the spec says it should be a rest argument then the quotes
+	 * will be preserved in the operand value.
+	 *
+	 * **NOTE:** Rest operands will supercede any other kind of argument when parsing for that operand
+	 * begins. If the parsing strategy is `Advanced` (`2`) but the parser encounters something that
+	 * would otherwise be parsed as an option or option-argument it will still be parsed as part
+	 * of the rest operand. Note this is only the case when the parser is currently consuming a
+	 * rest operand.
+	 *
+	 * Operand identifiers must be at least 2 characters to avoid confusion and avoid conflict
+	 * with options and option-arguments
 	 *
 	 * **NOTE:** If the parsing strategy is not set to `Advanced` (`2`) then every argument
 	 * encountered will be treated as an operand. If an argument follows an option and that
@@ -90,7 +104,7 @@ export class CommandArgumentSpec
 	 * argument will be parsed as an operand and the option will be ignored (or treated like
 	 * an option if it was defined as an option, of course)
 	 */
-	public defineOperand(ident: string, type: string, options: { optional?: boolean} = {}): void
+	public defineOperand(ident: string, type: string, options: { optional?: boolean, rest?: boolean } = {}): void
 	{
 		if (ident.length < 2)
 			throw new Error('Operand identifiers must be at least 2 characters');
@@ -102,11 +116,15 @@ export class CommandArgumentSpec
 			kind: CommandArgumentKind.Operand,
 			ident,
 			optional: options.optional ?? false,
+			rest: options.rest ?? false,
 			type
 		};
 
 		if (this.operands[this.operands.length - 1]?.optional && !operand.optional)
 			throw new Error('Non-optional operands may not follow optional operands');
+
+		if (this.operands[this.operands.length - 1]?.rest)
+			throw new Error('Additional operands may not follow rest operands');
 
 		switch (this._conflicts(ident))
 		{

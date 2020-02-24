@@ -34,7 +34,7 @@ describe('CommandArgumentSpec', () =>
 		const kind: CommandArgumentKind = CommandArgumentKind.Operand;
 		spec.defineOperand('foo', 'Number', { optional: true });
 
-		expect(spec.operands.shift()).toEqual({ kind, ident: 'foo', type: 'Number', optional: true });
+		expect(spec.operands.shift()).toEqual({ kind, ident: 'foo', type: 'Number', optional: true, rest: false });
 	});
 
 	it('Should return the expected option', () =>
@@ -218,5 +218,14 @@ describe('CommandArgumentSpec', () =>
 
 		expect(() => spec.defineOperand('bar', 'String', { optional: false }))
 			.toThrow('Non-optional operands may not follow optional operands');
+	});
+
+	it('Should error on additional operands following a rest operand', () =>
+	{
+		const spec: CommandArgumentSpec = new CommandArgumentSpec();
+		spec.defineOperand('foo', 'String', { rest: true });
+
+		expect(() => spec.defineOperand('bar', 'String'))
+			.toThrow('Additional operands may not follow rest operands');
 	});
 });
