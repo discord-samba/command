@@ -2539,7 +2539,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">operands<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">CommandArgumentSpecOperand</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/discord-samba/command/blob/12fb001/src/CommandArgumentSpec.ts#L15">CommandArgumentSpec.ts:15</a></li>
+						<li>Defined in <a href="https://github.com/discord-samba/command/blob/1732b3c/src/CommandArgumentSpec.ts#L15">CommandArgumentSpec.ts:15</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2549,7 +2549,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">option<wbr>Arguments<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">CommandArgumentSpecOptionArgument</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = new Map()</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/discord-samba/command/blob/12fb001/src/CommandArgumentSpec.ts#L17">CommandArgumentSpec.ts:17</a></li>
+						<li>Defined in <a href="https://github.com/discord-samba/command/blob/1732b3c/src/CommandArgumentSpec.ts#L17">CommandArgumentSpec.ts:17</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2559,7 +2559,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">CommandArgumentSpecOption</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = new Map()</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/discord-samba/command/blob/12fb001/src/CommandArgumentSpec.ts#L16">CommandArgumentSpec.ts:16</a></li>
+						<li>Defined in <a href="https://github.com/discord-samba/command/blob/1732b3c/src/CommandArgumentSpec.ts#L16">CommandArgumentSpec.ts:16</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2569,7 +2569,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">parsing<wbr>Strategy<span class="tsd-signature-symbol">:</span> <a href="../enums/commandargumentparsingstrategy.html" class="tsd-signature-type">CommandArgumentParsingStrategy</a><span class="tsd-signature-symbol"> = CommandArgumentParsingStrategy.Basic</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/discord-samba/command/blob/12fb001/src/CommandArgumentSpec.ts#L18">CommandArgumentSpec.ts:18</a></li>
+						<li>Defined in <a href="https://github.com/discord-samba/command/blob/1732b3c/src/CommandArgumentSpec.ts#L18">CommandArgumentSpec.ts:18</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2586,7 +2586,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/discord-samba/command/blob/12fb001/src/CommandArgumentSpec.ts#L25">CommandArgumentSpec.ts:25</a></li>
+								<li>Defined in <a href="https://github.com/discord-samba/command/blob/1732b3c/src/CommandArgumentSpec.ts#L25">CommandArgumentSpec.ts:25</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2608,17 +2608,28 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/discord-samba/command/blob/12fb001/src/CommandArgumentSpec.ts#L93">CommandArgumentSpec.ts:93</a></li>
+								<li>Defined in <a href="https://github.com/discord-samba/command/blob/1732b3c/src/CommandArgumentSpec.ts#L107">CommandArgumentSpec.ts:107</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Defines a positional operand argument declaration for your Command&#39;s arguments specification.
 									Must be given an identifier and a type, and can be declared optional (<code>false</code> by default).
-								Optional operands must be added last and may not be followed by a non-optional operand.</p>
+								Optional operands must be defined last and may not be followed by a non-optional operand.</p>
 							</div>
-							<p>Operand identifiers should be at least 2 characters to avoid confusion
-							and avoid conflict with options and option-arguments</p>
+							<p>May also be declared as a rest operand (<code>false</code> by default), which will consume the remainder
+								of the input as a single operand when parsing for that operand begins. Rest operands must be
+							defined last and may not be followed by any additional operands.</p>
+							<p><strong>NOTE:</strong> If the parsing strategy is set to <code>AllowQuoting</code> (<code>1</code>) or higher and a quoted
+								operand is going to be parsed but the spec says it should be a rest argument then the quotes
+							will be preserved in the operand value.</p>
+							<p><strong>NOTE:</strong> Rest operands will supercede any other kind of argument when parsing for that operand
+								begins. If the parsing strategy is <code>Advanced</code> (<code>2</code>) but the parser encounters something that
+								would otherwise be parsed as an option or option-argument it will still be parsed as part
+								of the rest operand. Note this is only the case when the parser is currently consuming a
+							rest operand.</p>
+							<p>Operand identifiers must be at least 2 characters to avoid confusion and avoid conflict
+							with options and option-arguments</p>
 							<p><strong>NOTE:</strong> If the parsing strategy is not set to <code>Advanced</code> (<code>2</code>) then every argument
 								encountered will be treated as an operand. If an argument follows an option and that
 								option is not defined as an OptionArgument via <code>defineOptionArgument()</code> then the
@@ -2639,6 +2650,9 @@ img {
 									<li class="tsd-parameter">
 										<h5><span class="tsd-flag ts-flagOptional">Optional</span> optional<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></h5>
 									</li>
+									<li class="tsd-parameter">
+										<h5><span class="tsd-flag ts-flagOptional">Optional</span> rest<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></h5>
+									</li>
 								</ul>
 							</li>
 						</ul>
@@ -2656,7 +2670,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/discord-samba/command/blob/12fb001/src/CommandArgumentSpec.ts#L139">CommandArgumentSpec.ts:139</a></li>
+								<li>Defined in <a href="https://github.com/discord-samba/command/blob/1732b3c/src/CommandArgumentSpec.ts#L157">CommandArgumentSpec.ts:157</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2699,7 +2713,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/discord-samba/command/blob/12fb001/src/CommandArgumentSpec.ts#L196">CommandArgumentSpec.ts:196</a></li>
+								<li>Defined in <a href="https://github.com/discord-samba/command/blob/1732b3c/src/CommandArgumentSpec.ts#L214">CommandArgumentSpec.ts:214</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2751,7 +2765,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/discord-samba/command/blob/12fb001/src/CommandArgumentSpec.ts#L260">CommandArgumentSpec.ts:260</a></li>
+								<li>Defined in <a href="https://github.com/discord-samba/command/blob/1732b3c/src/CommandArgumentSpec.ts#L278">CommandArgumentSpec.ts:278</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2792,7 +2806,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/discord-samba/command/blob/12fb001/src/CommandArgumentSpec.ts#L44">CommandArgumentSpec.ts:44</a></li>
+								<li>Defined in <a href="https://github.com/discord-samba/command/blob/1732b3c/src/CommandArgumentSpec.ts#L44">CommandArgumentSpec.ts:44</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
