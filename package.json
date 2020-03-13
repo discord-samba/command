@@ -17,6 +17,8 @@
 	},
 	"homepage": "https://github.com/discord-samba/command#readme",
 	"devDependencies": {
+		"@commitlint/cli": "^8.3.5",
+		"@commitlint/config-angular": "^8.3.4",
 		"@discord-samba/eslint-config": "discord-samba/eslint-config",
 		"@types/glob": "^7.1.1",
 		"@types/jest": "^24.0.18",
@@ -30,7 +32,9 @@
 		"gulp-eslint": "^6.0.0",
 		"gulp-sourcemaps": "^2.6.5",
 		"gulp-typescript": "^5.0.1",
+		"husky": "^4.2.3",
 		"jest": "^24.9.0",
+		"lint-staged": "^10.0.8",
 		"run-sequence": "^2.2.1",
 		"ts-jest": "^24.1.0",
 		"typedoc": "0.16.7",
@@ -54,5 +58,48 @@
 		},
 		"testRegex": "/__test__/.+\\.test\\.ts$",
 		"verbose": true
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged",
+			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+		}
+	},
+	"lint-staged": {
+		"*.ts": [
+			"eslint",
+			"jest --bail --findRelatedTests"
+		],
+		"*.js": "eslint"
+	},
+	"commitlint": {
+		"extends": [
+			"@commitlint/config-angular"
+		],
+		"rules": {
+			"scope-case": [
+				2,
+				"always",
+				"pascal-case"
+			],
+			"type-enum": [
+				2,
+				"always",
+				[
+					"chore",
+					"build",
+					"ci",
+					"docs",
+					"feat",
+					"fix",
+					"perf",
+					"refactor",
+					"revert",
+					"style",
+					"test",
+					"tooling"
+				]
+			]
+		}
 	}
 }
