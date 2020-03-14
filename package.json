@@ -33,10 +33,10 @@
 		"gulp-sourcemaps": "^2.6.5",
 		"gulp-typescript": "^5.0.1",
 		"husky": "^4.2.3",
-		"jest": "^24.9.0",
+		"jest": "^25.1.0",
 		"lint-staged": "^10.0.8",
 		"run-sequence": "^2.2.1",
-		"ts-jest": "^24.1.0",
+		"ts-jest": "^25.2.1",
 		"typedoc": "0.16.7",
 		"typescript": "^3.7.2"
 	},
