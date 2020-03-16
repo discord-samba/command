@@ -80,7 +80,11 @@
 			"scope-case": [
 				2,
 				"always",
-				"pascal-case"
+				[
+					"pascal-case",
+					"lower-case",
+					"kebab-case"
+				]
 			],
 			"type-enum": [
 				2,
