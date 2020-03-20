@@ -373,11 +373,11 @@
 
 "@discord-samba/eslint-config@discord-samba/eslint-config":
   version "0.1.0"
-  uid "91ea1725bae5eb1cd2757e6a8a07d3e51edbc0e4"
-  resolved "https://codeload.github.com/discord-samba/eslint-config/tar.gz/91ea1725bae5eb1cd2757e6a8a07d3e51edbc0e4"
+  uid "5ed79c5818dfb7de469255e3add680d7e53c65c5"
+  resolved "https://codeload.github.com/discord-samba/eslint-config/tar.gz/5ed79c5818dfb7de469255e3add680d7e53c65c5"
   dependencies:
-    "@typescript-eslint/eslint-plugin" "^2.23.0"
-    "@typescript-eslint/parser" "^2.23.0"
+    "@typescript-eslint/eslint-plugin" "^2.24.0"
+    "@typescript-eslint/parser" "^2.24.0"
 
 "@discordjs/collection@^0.1.5":
   version "0.1.5"
@@ -743,7 +743,7 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@typescript-eslint/eslint-plugin@^2.23.0", "@typescript-eslint/eslint-plugin@^2.4.0":
+"@typescript-eslint/eslint-plugin@^2.24.0", "@typescript-eslint/eslint-plugin@^2.4.0":
   version "2.24.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-2.24.0.tgz#a86cf618c965a462cddf3601f594544b134d6d68"
   integrity sha512-wJRBeaMeT7RLQ27UQkDFOu25MqFOBus8PtOa9KaT5ZuxC1kAsd7JEHqWt4YXuY9eancX0GK9C68i5OROnlIzBA==
@@ -763,7 +763,7 @@
     "@typescript-eslint/typescript-estree" "2.24.0"
     eslint-scope "^5.0.0"
 
-"@typescript-eslint/parser@^2.23.0", "@typescript-eslint/parser@^2.4.0":
+"@typescript-eslint/parser@^2.24.0", "@typescript-eslint/parser@^2.4.0":
   version "2.24.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-2.24.0.tgz#2cf0eae6e6dd44d162486ad949c126b887f11eb8"
   integrity sha512-H2Y7uacwSSg8IbVxdYExSI3T7uM1DzmOn2COGtCahCC3g8YtM1xYAPi2MAHyfPs61VKxP/J/UiSctcRgw4G8aw==
