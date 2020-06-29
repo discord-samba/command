@@ -37,7 +37,7 @@
 		"lint-staged": "^10.0.8",
 		"run-sequence": "^2.2.1",
 		"ts-jest": "^25.2.1",
-		"typedoc": "0.17.3",
+		"typedoc": "0.17.8",
 		"typescript": "^3.7.2"
 	},
 	"dependencies": {
