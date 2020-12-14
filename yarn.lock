@@ -373,8 +373,8 @@
 
 "@discord-samba/eslint-config@discord-samba/eslint-config":
   version "0.1.0"
-  uid "6314d8c02c387ceee558931ba5afc814a9955ee5"
-  resolved "https://codeload.github.com/discord-samba/eslint-config/tar.gz/6314d8c02c387ceee558931ba5afc814a9955ee5"
+  uid "6f58586637cd7055eea0cede87c82762497ff270"
+  resolved "https://codeload.github.com/discord-samba/eslint-config/tar.gz/6f58586637cd7055eea0cede87c82762497ff270"
   dependencies:
     "@typescript-eslint/eslint-plugin" "^2.25.0"
     "@typescript-eslint/parser" "^2.25.0"
