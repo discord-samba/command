@@ -1,13 +1,13 @@
-import { Argument } from './Argument';
-import { CommandArgumentError } from './CommandArgumentError';
-import { CommandArgumentErrorContext } from './CommandArgumentErrorContext';
-import { CommandArgumentErrorKind } from './types/CommandArgumentErrorKind';
-import { CommandArgumentSpec } from './CommandArgumentSpec';
-import { CommandContext } from './CommandContext';
-import { Operand } from './Operand';
-import { Option } from './Option';
-import { OptionArgument } from './OptionArgument';
-import { ParserOutput } from './parsing/ParserOutput';
+import { Argument } from '#root/Argument';
+import { CommandArgumentError } from '#root/CommandArgumentError';
+import { CommandArgumentErrorContext } from '#root/CommandArgumentErrorContext';
+import { CommandArgumentErrorKind } from '#type/CommandArgumentErrorKind';
+import { CommandArgumentSpec } from '#root/CommandArgumentSpec';
+import { CommandContext } from '#root/CommandContext';
+import { Operand } from '#root/Operand';
+import { Option } from '#root/Option';
+import { OptionArgument } from '#root/OptionArgument';
+import { ParserOutput } from '#parse/ParserOutput';
 
 /**
  * Container for all compiled arguments passed to a Command at call-time
@@ -111,11 +111,11 @@ export class CommandArguments
 	 * Runs all operand and option-argument type resolvers for their values
 	 * @internal
 	 */
-	public async _resolveArguments(ctx: CommandContext): Promise<void>
+	public async resolveArguments(ctx: CommandContext): Promise<void>
 	{
 		const resolutions: Promise<void>[] = [
-			...this.operands.map(async o => o._resolveType(ctx)),
-			...Array.from(this.optionArguments.values()).map(async o => o._resolveType(ctx))
+			...this.operands.map(async o => o.resolveType(ctx)),
+			...Array.from(this.optionArguments.values()).map(async o => o.resolveType(ctx))
 		];
 
 		await Promise.all(resolutions);

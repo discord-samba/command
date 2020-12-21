@@ -1,4 +1,4 @@
-import { Command } from './Command';
+import { Command } from '#root/Command';
 
 /**
  * Cache for all Commands your client will use
@@ -35,9 +35,10 @@ export class CommandCache
 	 * Adds a Command to the cache. Pass the Command child class itself and an
 	 * instance will be created and cached
 	 */
-	public static add(CommandClass: new () => Command): void
+	public static add(commandClass: new () => Command): void
 	{
-		const command: Command = new CommandClass();
+		// eslint-disable-next-line new-cap
+		const command: Command = new commandClass();
 
 		if (CommandCache.has(command.name))
 			throw new Error(`Command name '${command.name} conflicts with existing Command`);

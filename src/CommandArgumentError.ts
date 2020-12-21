@@ -1,5 +1,5 @@
-import { CommandArgumentErrorContext } from './CommandArgumentErrorContext';
-import { CommandArgumentErrorKind } from './types/CommandArgumentErrorKind';
+import { CommandArgumentErrorContext } from '#root/CommandArgumentErrorContext';
+import { CommandArgumentErrorKind } from '#type/CommandArgumentErrorKind';
 
 /**
  * Represents an error encountered while compiling Command arguments at call-time.

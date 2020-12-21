@@ -1,8 +1,8 @@
-import { ArgumentContext } from '../ArgumentContext';
-import { CommandArgumentError } from '../../CommandArgumentError';
-import { CommandArgumentErrorContext } from '../../CommandArgumentErrorContext';
-import { CommandArgumentErrorKind } from '../../types/CommandArgumentErrorKind';
-import { Resolver } from '../Resolver';
+import { ArgumentContext } from '#resolve/ArgumentContext';
+import { CommandArgumentError } from '#root/CommandArgumentError';
+import { CommandArgumentErrorContext } from '#root/CommandArgumentErrorContext';
+import { CommandArgumentErrorKind } from '#type/CommandArgumentErrorKind';
+import { Resolver } from '#resolve/Resolver';
 
 /** @hidden */
 export class BooleanResolver extends Resolver

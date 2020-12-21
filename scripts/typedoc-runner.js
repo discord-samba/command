@@ -12,7 +12,8 @@ app.bootstrap({
 	theme: 'node_modules/@discord-samba/typedoc-themes/bin/minimal',
 	exclude: './**/+(node_modules|__test__|)/**/*.ts',
 	excludePrivate: true,
-	out: '../docs'
+	out: '../docs',
+	gitRevision: 'master',
 });
 
 app.options.addDeclaration({ name: 'links', type: ParameterType.Mixed });

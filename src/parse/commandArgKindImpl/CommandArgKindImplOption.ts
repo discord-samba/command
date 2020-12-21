@@ -1,5 +1,5 @@
-import { CommandArgumentKind } from '../../types/CommandArgumentKind';
-import { ICommandArgumentKindOption } from '../interfaces/ICommandArgumentKindOption';
+import { CommandArgumentKind } from '#type/CommandArgumentKind';
+import { ICommandArgumentKindOption } from '#parse/interfaces/ICommandArgumentKindOption';
 
 /**
  * Represents an uncompiled option argument as parsed from the input

@@ -1,10 +1,10 @@
-import { CommandArgumentKind } from './types/CommandArgumentKind';
-import { CommandArgumentParsingStrategy } from './types/CommandArgumentParsingStrategy';
-import { CommandArgumentSpecConflict } from './types/CommandArgumentSpecConflict';
-import { CommandArgumentSpecOperand } from './types/CommandArgumentSpecOperand';
-import { CommandArgumentSpecOption } from './types/CommandArgumentSpecOption';
-import { CommandArgumentSpecOptionArgument } from './types/CommandArgumentSpecOptionArgument';
-import { CommandModule } from './CommandModule';
+import { CommandArgumentKind } from '#type/CommandArgumentKind';
+import { CommandArgumentParsingStrategy } from '#type/CommandArgumentParsingStrategy';
+import { CommandArgumentSpecConflict } from '#type/CommandArgumentSpecConflict';
+import { CommandArgumentSpecOperand } from '#type/CommandArgumentSpecOperand';
+import { CommandArgumentSpecOption } from '#type/CommandArgumentSpecOption';
+import { CommandArgumentSpecOptionArgument } from '#type/CommandArgumentSpecOptionArgument';
+import { CommandModule } from '#root/CommandModule';
 
 /**
  * Used for defining the specification for what a Command's given arguments should

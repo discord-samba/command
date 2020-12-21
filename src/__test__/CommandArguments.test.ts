@@ -1,10 +1,10 @@
-import { CommandArgumentSpec } from '../CommandArgumentSpec';
-import { CommandArguments } from '../CommandArguments';
-import { InputParser } from '../parsing/InputParser';
-import { Operand } from '../Operand';
-import { Option } from '../Option';
-import { OptionArgument } from '../OptionArgument';
-import { ParserOutput } from '../parsing/ParserOutput';
+import { CommandArgumentSpec } from '#root/CommandArgumentSpec';
+import { CommandArguments } from '#root/CommandArguments';
+import { InputParser } from '#parse/InputParser';
+import { Operand } from '#root/Operand';
+import { Option } from '#root/Option';
+import { OptionArgument } from '#root/OptionArgument';
+import { ParserOutput } from '#parse/ParserOutput';
 
 describe('CommandArguments', () =>
 {

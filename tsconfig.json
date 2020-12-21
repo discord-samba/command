@@ -3,7 +3,7 @@
         "module": "commonjs",
         "target": "es2017",
         "lib": ["es2017"],
-        "sourceMap": true,
+        "inlineSourceMap": true,
         "declaration": true,
         "removeComments": false,
         "experimentalDecorators": true,
@@ -11,12 +11,20 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
 		"skipLibCheck": true,
-		"stripInternal": true
-    },
+		"stripInternal": true,
+		"rootDir": "./src",
+		"outDir": "./bin",
+		"baseUrl": ".",
+		"paths": {
+			"#resolve/*": ["./src/resolve/*"],
+			"#parse/*": ["./src/parse/*"],
+			"#type/*": ["./src/types/*"],
+			"#root/*": ["./src/*"]
+		}
+	},
     "include": [
 		"src/**/*.ts",
 		"src/**/*.test.ts",
-		"./gulpfile.js",
 		"scripts/**/*"
 	],
     "exclude": [

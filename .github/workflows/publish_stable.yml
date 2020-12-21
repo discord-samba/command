@@ -13,29 +13,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v1
       
-      - name: Install Node v12
+      - name: Install Node v14
         uses: actions/setup-node@v1
         with:
-          node-version: 12
+          node-version: 14
           registry-url: https://registry.npmjs.org/
       
       - name: Install dependencies
         run: npm install
 
       - name: Build package
-        run: npx gulp build
+        run: npm run build
 
       - name: Publish to NPM
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Setup GPR registry
-        uses: actions/setup-node@v1
-        with:
-          registry-url: https://npm.pkg.github.com/
-      
-      - name: Publish to GPR
-        run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

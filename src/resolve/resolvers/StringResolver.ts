@@ -1,5 +1,5 @@
-import { ArgumentContext } from '../ArgumentContext';
-import { Resolver } from '../Resolver';
+import { ArgumentContext } from '#resolve/ArgumentContext';
+import { Resolver } from '#resolve/Resolver';
 
 /** @hidden */
 export class StringResolver extends Resolver

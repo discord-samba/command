@@ -1,0 +1,7 @@
+{
+	"*.ts": [
+		"eslint",
+		"jest --findRelatedTests -c .jestrc.json"
+	],
+	"*.js": "eslint"
+}

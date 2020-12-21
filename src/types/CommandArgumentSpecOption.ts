@@ -1,4 +1,4 @@
-import { CommandArgumentKind } from './CommandArgumentKind';
+import { CommandArgumentKind } from '#type/CommandArgumentKind';
 
 /**
  * Represents a defined option within `CommandArgumentSpec`

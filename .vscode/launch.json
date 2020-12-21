@@ -8,8 +8,8 @@
 			"type": "node",
 			"request": "launch",
 			"name": "Launch Program",
-			"program": "${workspaceRoot}/bin/__test__/manual_test.js",
-			"cwd": "${workspaceRoot}/bin",
+			"program": "bin/__test__/manual_test.js",
+			"cwd": "${workspaceRoot}",
 			"preLaunchTask": "build:nolint",
 			"console": "integratedTerminal"
 		},

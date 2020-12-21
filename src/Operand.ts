@@ -1,9 +1,9 @@
-import { Argument } from './Argument';
-import { ArgumentContext } from './resolving/ArgumentContext';
-import { CommandArgumentKind } from './types/CommandArgumentKind';
-import { CommandContext } from './CommandContext';
-import { CommandModule } from './CommandModule';
-import { Resolver } from './resolving/Resolver';
+import { Argument } from '#root/Argument';
+import { ArgumentContext } from '#resolve/ArgumentContext';
+import { CommandArgumentKind } from '#type/CommandArgumentKind';
+import { CommandContext } from '#root/CommandContext';
+import { CommandModule } from '#root/CommandModule';
+import { Resolver } from '#resolve/Resolver';
 
 /**
  * Represents an operand type argument. These are the positional arguments in
@@ -30,7 +30,7 @@ export class Operand<T> extends Argument<T>
 	 * declared type for this argument
 	 * @internal
 	 */
-	public async _resolveType(ctx: CommandContext): Promise<void>
+	public async resolveType(ctx: CommandContext): Promise<void>
 	{
 		if (typeof this.value !== 'string')
 			return;

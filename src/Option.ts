@@ -1,4 +1,4 @@
-import { Argument } from './Argument';
+import { Argument } from '#root/Argument';
 
 /**
  * Represents an option type argument. The `value` field will be true if the option

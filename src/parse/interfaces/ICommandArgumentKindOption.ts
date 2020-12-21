@@ -1,4 +1,4 @@
-import { CommandArgumentKind } from '../../types/CommandArgumentKind';
+import { CommandArgumentKind } from '#type/CommandArgumentKind';
 
 /**
  * Interface representing a given option Command argument at parse-time

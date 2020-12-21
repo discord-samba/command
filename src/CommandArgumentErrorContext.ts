@@ -1,4 +1,4 @@
-import { CommandArgumentKind } from './types/CommandArgumentKind';
+import { CommandArgumentKind } from '#type/CommandArgumentKind';
 
 /**
  * Represents the context for a [[CommandArgumentError]]

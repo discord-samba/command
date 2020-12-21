@@ -1,4 +1,4 @@
-name: Build Docs
+name: Publish Docs
 
 on:
   push:
@@ -7,16 +7,16 @@ on:
 
 jobs:
   build:
-    name: Build docs
+    name: Publish docs
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v1
 
-      - name: Install Node v12
+      - name: Install Node v14
         uses: actions/setup-node@v1
         with:
-          node-version: 12
+          node-version: 14
 
       - name: Install dependencies
         run: |
@@ -41,9 +41,12 @@ jobs:
       - name: Clone gh-pages branch
         run: git clone https://${{ github.actor }}:${{ secrets.DOCS_TOKEN }}@github.com/${{ github.repository }}.git -b gh-pages ../gh-pages
 
-      - name: Prepare docs build
+      - name: Prepare docs and guides for publish
         run: |
-          npx gulp gh-docs-prepare
+          rm -rf ../gh-pages/docs
+          rm -rf ../gh-pages/_guides
+          cp -r ../docs ../gh-pages/docs
+          cp -r guides ../gh-pages/_guides
           cp README.md ../gh-pages/_includes/README.md
 
       - name: Check if commit is needed

@@ -1,8 +1,8 @@
-import { BooleanResolver } from './resolving/resolvers/BooleanResolver';
-import { CommandCache } from './CommandCache';
-import { NumberResolver } from './resolving/resolvers/NumberResolver';
-import { ResolverCache } from './resolving/ResolverCache';
-import { StringResolver } from './resolving/resolvers/StringResolver';
+import { BooleanResolver } from '#resolve/resolvers/BooleanResolver';
+import { CommandCache } from '#root/CommandCache';
+import { NumberResolver } from '#resolve/resolvers/NumberResolver';
+import { ResolverCache } from '#resolve/ResolverCache';
+import { StringResolver } from '#resolve/resolvers/StringResolver';
 
 export class CommandModule
 {

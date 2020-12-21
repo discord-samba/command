@@ -1,6 +1,6 @@
-import { CommandModule } from '../CommandModule';
-import { NumberResolver } from '../resolving/resolvers/NumberResolver';
-import { StringResolver } from '../resolving/resolvers/StringResolver';
+import { CommandModule } from '#root/CommandModule';
+import { NumberResolver } from '#resolve/resolvers/NumberResolver';
+import { StringResolver } from '#resolve/resolvers/StringResolver';
 
 describe('Resolvers', () =>
 {

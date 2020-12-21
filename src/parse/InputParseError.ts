@@ -1,5 +1,5 @@
-import { InputParseErrorKind } from '../types/InputParseErrorKind';
-import { ParserState } from '../types/ParserState';
+import { InputParseErrorKind } from '#type/InputParseErrorKind';
+import { ParserState } from '#type/ParserState';
 
 /**
  * Represents an error encountered while parsing Command arguments. Holds a kind

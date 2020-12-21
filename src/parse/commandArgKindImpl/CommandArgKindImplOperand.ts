@@ -1,5 +1,5 @@
-import { CommandArgumentKind } from '../../types/CommandArgumentKind';
-import { ICommandArgumentKindOperand } from '../interfaces/ICommandArgumentKindOperand';
+import { CommandArgumentKind } from '#type/CommandArgumentKind';
+import { ICommandArgumentKindOperand } from '#parse/interfaces/ICommandArgumentKindOperand';
 
 /**
  * Represents an uncompiled operand as parsed from the input. If it has no identifier

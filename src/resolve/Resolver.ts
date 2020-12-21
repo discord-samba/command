@@ -1,5 +1,5 @@
-import { ArgumentContext } from './ArgumentContext';
-import { CommandContext } from '../CommandContext';
+import { ArgumentContext } from '#resolve/ArgumentContext';
+import { CommandContext } from '#root/CommandContext';
 
 /**
  * Abstract class you must extend to create custom argument type resolvers
@@ -34,7 +34,7 @@ export abstract class Resolver
 	 * Of course, you could really implement any method name you want, as the method will not
 	 * be called anywhere within the CommandModule so it'd only be used manually by you
 	 */
-	public abstract async resolve(argument: ArgumentContext, ctx: CommandContext): Promise<any>;
+	public abstract resolve(argument: ArgumentContext, ctx: CommandContext): Promise<any>;
 
 	/**
 	 * You should override this method if you wish to provide a way for your resolver

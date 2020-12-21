@@ -1,5 +1,5 @@
-import { CommandArgumentSpec } from '../CommandArgumentSpec';
-import { InputParser } from '../parsing/InputParser';
+import { CommandArgumentSpec } from '#root/CommandArgumentSpec';
+import { InputParser } from '#parse/InputParser';
 
 describe('InputParser', () =>
 {

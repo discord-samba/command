@@ -1,19 +1,19 @@
-import { CommandArgKindImplOperand } from './commandArgKindImpl/CommandArgKindImplOperand';
-import { CommandArgKindImplOption } from './commandArgKindImpl/CommandArgKindImplOption';
-import { CommandArgKindImplOptionArgument } from './commandArgKindImpl/CommandArgKindImplOptionArgument';
-import { CommandArgumentKind } from '../types/CommandArgumentKind';
-import { CommandArgumentParsingStrategy } from '../types/CommandArgumentParsingStrategy';
-import { CommandArgumentSpec } from '../CommandArgumentSpec';
-import { CommandArgumentSpecEntry } from '../types/CommandArgumentSpecEntry';
-import { CommandArgumentSpecOperand } from '../types/CommandArgumentSpecOperand';
-import { CommandArgumentSpecOption } from '../types/CommandArgumentSpecOption';
-import { CommandArgumentSpecOptionArgument } from '../types/CommandArgumentSpecOptionArgument';
-import { InputParseError } from './InputParseError';
-import { InputParseErrorKind } from '../types/InputParseErrorKind';
-import { InputStringChunkKind } from '../types/InputStringChunkKind';
-import { ParserOutput } from './ParserOutput';
-import { ParserState } from '../types/ParserState';
-import { StringReader } from './StringReader';
+import { CommandArgKindImplOperand } from '#parse/commandArgKindImpl/CommandArgKindImplOperand';
+import { CommandArgKindImplOption } from '#parse/commandArgKindImpl/CommandArgKindImplOption';
+import { CommandArgKindImplOptionArgument } from '#parse/commandArgKindImpl/CommandArgKindImplOptionArgument';
+import { CommandArgumentKind } from '#type/CommandArgumentKind';
+import { CommandArgumentParsingStrategy } from '#type/CommandArgumentParsingStrategy';
+import { CommandArgumentSpec } from '#root/CommandArgumentSpec';
+import { CommandArgumentSpecEntry } from '#type/CommandArgumentSpecEntry';
+import { CommandArgumentSpecOperand } from '#type/CommandArgumentSpecOperand';
+import { CommandArgumentSpecOption } from '#type/CommandArgumentSpecOption';
+import { CommandArgumentSpecOptionArgument } from '#type/CommandArgumentSpecOptionArgument';
+import { InputParseError } from '#parse/InputParseError';
+import { InputParseErrorKind } from '#type/InputParseErrorKind';
+import { InputStringChunkKind } from '#type/InputStringChunkKind';
+import { ParserOutput } from '#parse/ParserOutput';
+import { ParserState } from '#type/ParserState';
+import { StringReader } from '#parse/StringReader';
 
 /** @internal */
 export class InputParser

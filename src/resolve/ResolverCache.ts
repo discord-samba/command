@@ -1,4 +1,4 @@
-import { Resolver } from './Resolver';
+import { Resolver } from '#resolve/Resolver';
 
 /**
  * Cache for argument type resolvers
@@ -27,9 +27,10 @@ export class ResolverCache
 	 * in the `resolvers` collection for each of the types specified in
 	 * the resolver class itself
 	 */
-	public static add(ResolverClass: new () => Resolver): void
+	public static add(resolverClass: new () => Resolver): void
 	{
-		const resolver: Resolver = new ResolverClass();
+		// eslint-disable-next-line new-cap
+		const resolver: Resolver = new resolverClass();
 		for (const type of resolver.types)
 		{
 			if (ResolverCache.has(type))

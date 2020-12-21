@@ -1,16 +1,16 @@
-export { Command } from './Command';
-export { CommandContext } from './CommandContext';
-export { Operand } from './Operand';
-export { Option } from './Option';
-export { OptionArgument } from './OptionArgument';
+export { Command } from '#root/Command';
+export { CommandContext } from '#root/CommandContext';
+export { Operand } from '#root/Operand';
+export { Option } from '#root/Option';
+export { OptionArgument } from '#root/OptionArgument';
 
-export { CommandArgumentError } from './CommandArgumentError';
-export { CommandArgumentErrorKind } from './types/CommandArgumentErrorKind';
+export { CommandArgumentError } from '#root/CommandArgumentError';
+export { CommandArgumentErrorKind } from '#type/CommandArgumentErrorKind';
 
-export { CommandDispatchError } from './CommandDispatchError';
-export { CommandDispatchErrorKind } from './types/CommandDispatchErrorKind';
+export { CommandDispatchError } from '#root/CommandDispatchError';
+export { CommandDispatchErrorKind } from '#type/CommandDispatchErrorKind';
 
-export { InputParseError } from './parsing/InputParseError';
-export { InputParseErrorKind } from './types/InputParseErrorKind';
+export { InputParseError } from '#parse/InputParseError';
+export { InputParseErrorKind } from '#type/InputParseErrorKind';
 
-export { CommandModule } from './CommandModule';
+export { CommandModule } from '#root/CommandModule';

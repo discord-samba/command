@@ -1,10 +1,10 @@
 /* eslint-disable no-console, capitalized-comments, lines-around-comment, sort-imports, no-mixed-operators */
-import { CommandArgumentSpec } from '../CommandArgumentSpec';
-import { InputParser } from '../parsing/InputParser';
-import { ParserOutput } from '../parsing/ParserOutput';
-import { StringReader } from '../parsing/StringReader';
-import { CommandArguments } from '../CommandArguments';
-import { CommandContext } from '../CommandContext';
+import { CommandArgumentSpec } from '#root/CommandArgumentSpec';
+import { InputParser } from '#parse/InputParser';
+import { ParserOutput } from '#parse/ParserOutput';
+import { StringReader } from '#parse/StringReader';
+import { CommandArguments } from '#root/CommandArguments';
+import { CommandContext } from '#root/CommandContext';
 
 function now(): number
 {
@@ -42,7 +42,7 @@ async function main(): Promise<void>
 
 	console.log(end - start);
 
-	await args._resolveArguments(new CommandContext({} as any, {} as any, args));
+	await args.resolveArguments(new CommandContext({} as any, {} as any, args));
 	console.log('arguments resolved');
 
 	console.log(parsed);
