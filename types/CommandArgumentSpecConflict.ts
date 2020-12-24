@@ -4,7 +4,7 @@
 export enum CommandArgumentSpecConflict
 {
 	Operand,
-	Option,
+	Flag,
 	OptionArgument,
 	None
 }

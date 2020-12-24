@@ -1,18 +1,18 @@
 import { Argument } from '#root/Argument';
 
 /**
- * Represents an option type argument. The `value` field will be true if the option
+ * Represents an flag type argument. The `value` field will be true if the flag
  * was passed in the command input
  */
-export class Option extends Argument<boolean, string>
+export class Flag extends Argument<boolean, string>
 {
 	/**
-	 * How many times this option was passed
+	 * How many times this flag was passed
 	 */
 	public occurrences: number;
 
 	/**
-	 * The value this option holds. You can expect it to be false if the option
+	 * The value this flag holds. You can expect it to be false if the flag
 	 * was not passed to the command when it was called
 	 */
 	public value!: boolean;
