@@ -59,7 +59,7 @@ jobs:
       - name: Generate dev version
         if: contains(steps.staging.outputs.status, 'nothing to commit') != true
         run: |
-          npm version $(cat package.json | grep -oP '"version": "\K[^"]+(?=")')-dev.$(git rev-parse --verify HEAD)
+          npm --no-git-tag-version version $(cat package.json | grep -oP '"version": "\K[^"]+(?=")')-dev.$(git rev-parse --verify HEAD)
 
       - name: Publish to NPM
         if: contains(steps.staging.outputs.status, 'nothing to commit') != true
