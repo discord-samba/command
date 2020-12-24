@@ -3,7 +3,7 @@
  */
 export enum InputStringChunkKind
 {
-	Option,
+	Flag,
 	MultiOption,
 	InvalidMultiOption,
 	OptionArgument,

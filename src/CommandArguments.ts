@@ -4,8 +4,8 @@ import { CommandArgumentErrorContext } from '#root/CommandArgumentErrorContext';
 import { CommandArgumentErrorKind } from '#type/CommandArgumentErrorKind';
 import { CommandArgumentSpec } from '#root/CommandArgumentSpec';
 import { CommandContext } from '#root/CommandContext';
+import { Flag } from '#root/Flag';
 import { Operand } from '#root/Operand';
-import { Option } from '#root/Option';
 import { OptionArgument } from '#root/OptionArgument';
 import { ParserOutput } from '#parse/ParserOutput';
 
@@ -20,9 +20,9 @@ export class CommandArguments
 	public operands: Operand<any>[];
 
 	/**
-	 * Map of Option identifiers to Option instances
+	 * Map of Flag identifiers to Flag instances
 	 */
-	public options: Map<string, Option>;
+	public flags: Map<string, Flag>;
 
 	/**
 	 * Map of OptionArgument identifiers to OptionArgument instances
@@ -32,7 +32,7 @@ export class CommandArguments
 	public constructor(spec: CommandArgumentSpec, parsedArgs: ParserOutput)
 	{
 		this.operands = [];
-		this.options = new Map();
+		this.flags = new Map();
 		this.optionArguments = new Map();
 
 		// Compile operands
@@ -55,25 +55,25 @@ export class CommandArguments
 			}
 		}
 
-		// Compile options
-		for (const parsedOption of parsedArgs.options.values())
+		// Compile flags
+		for (const parsedFlag of parsedArgs.flags.values())
 		{
-			const option: Option = this.options.get(parsedOption.ident)
-				?? new Option(parsedOption.ident);
+			const flag: Flag = this.flags.get(parsedFlag.ident)
+				?? new Flag(parsedFlag.ident);
 
-			option.increment();
+			flag.increment();
 
-			if (!this.options.has(parsedOption.ident))
-				this.options.set(parsedOption.ident, option);
+			if (!this.flags.has(parsedFlag.ident))
+				this.flags.set(parsedFlag.ident, flag);
 
-			if (typeof parsedOption.long !== 'undefined' && !this.options.has(parsedOption.long))
-				this.options.set(parsedOption.long, option);
+			if (typeof parsedFlag.long !== 'undefined' && !this.flags.has(parsedFlag.long))
+				this.flags.set(parsedFlag.long, flag);
 		}
 
-		// Compile missing options using the declared options from spec
-		for (const option of spec.options.values())
-			if (!this.options.has(option.ident))
-				this.options.set(option.ident, new Option(option.ident));
+		// Compile missing flags using the declared flags from spec
+		for (const flag of spec.flags.values())
+			if (!this.flags.has(flag.ident))
+				this.flags.set(flag.ident, new Flag(flag.ident));
 
 		// Compile option-arguments
 		for (const parsedOptionArg of parsedArgs.optionArguments.values())
@@ -87,7 +87,7 @@ export class CommandArguments
 				this.optionArguments.set(parsedOptionArg.long, optionArgument);
 		}
 
-		// Check for missing non-optional option-arguments and compile missing option option-arguments from spec
+		// Check for missing non-optional option-arguments and compile missing option-arguments from spec
 		for (const optionArgument of spec.optionArguments.values())
 		{
 			if (!this.optionArguments.has(optionArgument.ident))
@@ -133,7 +133,7 @@ export class CommandArguments
 	 * You can also just access the entire set of operands passed to the Command
 	 * via the `operands` field
 	 *
-	 * Options and Option-arguments can also be accessed via the `options` and
+	 * Flags and Option-arguments can also be accessed via the `flags` and
 	 * `optionArguments` fields, respectively
 	 */
 	public get<T extends Argument<any>>(ident: string | number): T | undefined
@@ -152,9 +152,9 @@ export class CommandArguments
 		if (typeof operand !== 'undefined')
 			result = operand;
 
-		// Check options for the identifier
-		if (typeof result === 'undefined' && this.options.has(ident))
-			result = this.options.get(ident);
+		// Check flags for the identifier
+		if (typeof result === 'undefined' && this.flags.has(ident))
+			result = this.flags.get(ident);
 
 		// Otherwise check option-arguments
 		if (typeof result === 'undefined' && this.optionArguments.has(ident))

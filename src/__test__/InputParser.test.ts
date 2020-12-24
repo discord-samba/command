@@ -11,7 +11,7 @@ describe('InputParser', () =>
 		spec.defineOperand('baz', 'Number');
 
 		expect(InputParser.parse('foo true 1 bar', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [],
 			operands: [
 				{ kind: 2, type: 'String', value: 'foo', ident: 'foo' },
@@ -28,7 +28,7 @@ describe('InputParser', () =>
 		spec.setParsingStrategy(1);
 
 		expect(InputParser.parse('foo "foo bar baz" baz', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [],
 			operands: [
 				{ kind: 2, type: 'String', value: 'foo' },
@@ -38,7 +38,7 @@ describe('InputParser', () =>
 		});
 
 		expect(InputParser.parse('foo \'foo bar baz\' baz', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [],
 			operands: [
 				{ kind: 2, type: 'String', value: 'foo' },
@@ -48,7 +48,7 @@ describe('InputParser', () =>
 		});
 
 		expect(InputParser.parse('foo `foo bar baz` baz', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [],
 			operands: [
 				{ kind: 2, type: 'String', value: 'foo' },
@@ -63,7 +63,7 @@ describe('InputParser', () =>
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 
 		expect(InputParser.parse('foo "foo bar baz" baz', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [],
 			operands: [
 				{ kind: 2, type: 'String', value: 'foo' },
@@ -81,7 +81,7 @@ describe('InputParser', () =>
 		spec.setParsingStrategy(1);
 
 		expect(InputParser.parse('foo "foo \\"bar\\" baz" baz', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [],
 			operands: [
 				{ kind: 2, type: 'String', value: 'foo' },
@@ -91,7 +91,7 @@ describe('InputParser', () =>
 		});
 
 		expect(InputParser.parse('foo \'foo \\\'bar\\\' baz\' baz', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [],
 			operands: [
 				{ kind: 2, type: 'String', value: 'foo' },
@@ -101,7 +101,7 @@ describe('InputParser', () =>
 		});
 
 		expect(InputParser.parse('foo `foo \\`bar\\` baz` baz', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [],
 			operands: [
 				{ kind: 2, type: 'String', value: 'foo' },
@@ -117,7 +117,7 @@ describe('InputParser', () =>
 		spec.setParsingStrategy(1);
 
 		expect(InputParser.parse('foo "foo `bar` baz" baz', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [],
 			operands: [
 				{ kind: 2, type: 'String', value: 'foo' },
@@ -127,7 +127,7 @@ describe('InputParser', () =>
 		});
 
 		expect(InputParser.parse('foo "foo \'bar\' baz" baz', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [],
 			operands: [
 				{ kind: 2, type: 'String', value: 'foo' },
@@ -137,7 +137,7 @@ describe('InputParser', () =>
 		});
 
 		expect(InputParser.parse('foo `foo \'bar\' baz` baz', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [],
 			operands: [
 				{ kind: 2, type: 'String', value: 'foo' },
@@ -147,7 +147,7 @@ describe('InputParser', () =>
 		});
 
 		expect(InputParser.parse('foo `foo "bar" baz` baz', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [],
 			operands: [
 				{ kind: 2, type: 'String', value: 'foo' },
@@ -157,7 +157,7 @@ describe('InputParser', () =>
 		});
 
 		expect(InputParser.parse('foo \'foo `bar` baz\' baz', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [],
 			operands: [
 				{ kind: 2, type: 'String', value: 'foo' },
@@ -167,7 +167,7 @@ describe('InputParser', () =>
 		});
 
 		expect(InputParser.parse('foo \'foo "bar" baz\' baz', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [],
 			operands: [
 				{ kind: 2, type: 'String', value: 'foo' },
@@ -183,7 +183,7 @@ describe('InputParser', () =>
 		spec.setParsingStrategy(1);
 
 		expect(InputParser.parse('foo "foo "bar\\" baz" baz', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [],
 			operands: [
 				{ kind: 2, type: 'String', value: 'foo' },
@@ -195,7 +195,7 @@ describe('InputParser', () =>
 		});
 
 		expect(InputParser.parse('foo "foo \\"bar" baz" baz', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [],
 			operands: [
 				{ kind: 2, type: 'String', value: 'foo' },
@@ -206,7 +206,7 @@ describe('InputParser', () =>
 		});
 
 		expect(InputParser.parse('foo "foo "bar" baz" baz', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [],
 			operands: [
 				{ kind: 2, type: 'String', value: 'foo' },
@@ -226,7 +226,7 @@ describe('InputParser', () =>
 		spec.defineOperand('bar', 'String', { rest: true });
 
 		expect(InputParser.parse('foo bar baz', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [],
 			operands: [
 				{ kind: 2, ident: 'foo', type: 'String', value: 'foo' },
@@ -235,7 +235,7 @@ describe('InputParser', () =>
 		});
 
 		expect(InputParser.parse('foo "bar baz" boo', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [],
 			operands: [
 				{ kind: 2, ident: 'foo', type: 'String', value: 'foo' },
@@ -244,7 +244,7 @@ describe('InputParser', () =>
 		});
 
 		expect(InputParser.parse('"foo bar" baz boo', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [],
 			operands: [
 				{ kind: 2, ident: 'foo', type: 'String', value: 'foo bar' },
@@ -253,7 +253,7 @@ describe('InputParser', () =>
 		});
 
 		expect(InputParser.parse('"foo bar" "baz boo"', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [],
 			operands: [
 				{ kind: 2, ident: 'foo', type: 'String', value: 'foo bar' },
@@ -262,7 +262,7 @@ describe('InputParser', () =>
 		});
 
 		expect(InputParser.parse('foo bar --baz', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [],
 			operands: [
 				{ kind: 2, ident: 'foo', type: 'String', value: 'foo' },
@@ -273,7 +273,7 @@ describe('InputParser', () =>
 		spec.defineOptionArgument('baz', 'String');
 
 		expect(InputParser.parse('foo --baz "baz boo" far faz', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [
 				{ kind: 1, ident: 'baz', type: 'String', value: 'baz boo' }
 			],
@@ -284,7 +284,7 @@ describe('InputParser', () =>
 		});
 
 		expect(InputParser.parse('foo --baz baz boo far faz', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [
 				{ kind: 1, ident: 'baz', type: 'String', value: 'baz' }
 			],
@@ -300,7 +300,7 @@ describe('InputParser', () =>
 		spec.defineOperand('bar', 'String', { rest: true });
 
 		expect(InputParser.parse('foo "bar baz" boo', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [],
 			operands: [
 				{ kind: 2, ident: 'foo', type: 'String', value: 'foo' },
@@ -309,7 +309,7 @@ describe('InputParser', () =>
 		});
 
 		expect(InputParser.parse('"foo bar" baz boo', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [],
 			operands: [
 				{ kind: 2, ident: 'foo', type: 'String', value: '"foo' },
@@ -323,7 +323,7 @@ describe('InputParser', () =>
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 
 		expect(InputParser.parse('foo -b --bar baz', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [],
 			operands: [
 				{ kind: 2, type: 'String', value: 'foo' },
@@ -340,7 +340,7 @@ describe('InputParser', () =>
 		spec.setParsingStrategy(2);
 
 		expect(InputParser.parse('"--foo" "-abc" "-f" `-a` \'-b\'', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [],
 			operands: [
 				{ kind: 2, type: 'String', value: '--foo' },
@@ -360,7 +360,7 @@ describe('InputParser', () =>
 		expect(InputParser.parse('-a -b -c -def', spec)).toEqual({
 			operands: [],
 			optionArguments: [],
-			options: [
+			flags: [
 				{ kind: 0, ident: 'a' },
 				{ kind: 0, ident: 'b' },
 				{ kind: 0, ident: 'c' },
@@ -379,7 +379,7 @@ describe('InputParser', () =>
 		expect(InputParser.parse('-a -a -aaa', spec)).toEqual({
 			operands: [],
 			optionArguments: [],
-			options: [
+			flags: [
 				{ kind: 0, ident: 'a' },
 				{ kind: 0, ident: 'a' },
 				{ kind: 0, ident: 'a' },
@@ -395,7 +395,7 @@ describe('InputParser', () =>
 		spec.setParsingStrategy(2);
 
 		expect(InputParser.parse('-fo1o', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [],
 			operands: [
 				{ kind: 2, type: 'String', value: '-fo1o' }
@@ -409,7 +409,7 @@ describe('InputParser', () =>
 		spec.setParsingStrategy(2);
 
 		expect(InputParser.parse('foo --bar baz', spec)).toEqual({
-			options: [
+			flags: [
 				{ kind: 0, ident: 'bar' }
 			],
 			optionArguments: [],
@@ -420,7 +420,7 @@ describe('InputParser', () =>
 		});
 
 		expect(InputParser.parse('--bar', spec)).toEqual({
-			options: [
+			flags: [
 				{ kind: 0, ident: 'bar' }
 			],
 			optionArguments: [],
@@ -435,7 +435,7 @@ describe('InputParser', () =>
 		spec.defineOptionArgument('b', 'Number', { long: 'bar' });
 
 		expect(InputParser.parse('-b 1', spec)).toEqual({
-			options: [],
+			flags: [],
 			operands: [],
 			optionArguments: [
 				{ kind: 1, type: 'Number', value: '1', ident: 'b', long: 'bar' }
@@ -443,7 +443,7 @@ describe('InputParser', () =>
 		});
 
 		expect(InputParser.parse('--bar 1', spec)).toEqual({
-			options: [],
+			flags: [],
 			operands: [],
 			optionArguments: [
 				{ kind: 1, type: 'Number', value: '1', ident: 'b', long: 'bar' }
@@ -456,11 +456,11 @@ describe('InputParser', () =>
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 		spec.setParsingStrategy(2);
 		spec.defineOptionArgument('f', 'Number');
-		spec.defineOption('b');
+		spec.defineFlag('b');
 		spec.defineOperand('foo', 'String');
 
 		expect(InputParser.parse('-f 1 -b bar', spec)).toEqual({
-			options: [
+			flags: [
 				{ kind: 0, ident: 'b' }
 			],
 			optionArguments: [
@@ -477,11 +477,11 @@ describe('InputParser', () =>
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 		spec.setParsingStrategy(2);
 		spec.defineOptionArgument('f', 'Number');
-		spec.defineOption('b');
+		spec.defineFlag('b');
 
 		expect(InputParser.parse('-bf 1', spec)).toEqual({
 			operands: [],
-			options: [
+			flags: [
 				{ kind: 0, ident: 'b' }
 			],
 			optionArguments: [
@@ -497,7 +497,7 @@ describe('InputParser', () =>
 
 		expect(InputParser.parse('-abc -- -d -e -f', spec)).toEqual({
 			optionArguments: [],
-			options: [
+			flags: [
 				{ kind: 0, ident: 'a' },
 				{ kind: 0, ident: 'b' },
 				{ kind: 0, ident: 'c' },
@@ -518,7 +518,7 @@ describe('InputParser', () =>
 		spec.defineOptionArgument('a', 'String');
 
 		expect(InputParser.parse('-a -- foo', spec)).toEqual({
-			options: [],
+			flags: [],
 			optionArguments: [
 				{ kind: 1, type: 'String', value: '--', ident: 'a' }
 			],
@@ -534,12 +534,12 @@ describe('InputParser', () =>
 		catch (err) { return err; }
 	}
 
-	it('Should error on invalid option groups', () =>
+	it('Should error on invalid flag groups', () =>
 	{
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 		spec.setParsingStrategy(2);
 		spec.defineOptionArgument('f', 'Number');
-		spec.defineOption('b');
+		spec.defineFlag('b');
 
 		expect(getErr(() => InputParser.parse('-fb', spec))).toEqual({ kind: 1, index: 0 });
 		expect(getErr(() => InputParser.parse('foo -fb', spec))).toEqual({ kind: 1, index: 1 });

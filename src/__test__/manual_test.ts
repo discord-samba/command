@@ -21,9 +21,9 @@ async function main(): Promise<void>
 
 	spec.defineOperand('foo', 'Number');
 	spec.defineOperand('bar', 'String');
-	spec.defineOption('a');
-	spec.defineOption('b');
-	spec.defineOption('g');
+	spec.defineFlag('a');
+	spec.defineFlag('b');
+	spec.defineFlag('g');
 	spec.defineOptionArgument('c', 'String');
 	spec.defineOptionArgument('d', 'String', { long: 'dog', optional: false });
 	spec.defineOptionArgument('f', 'String', { long: 'fog', optional: false });
@@ -47,7 +47,7 @@ async function main(): Promise<void>
 
 	console.log(parsed);
 	console.log(args.operands);
-	console.log(args.options.values());
+	console.log(args.flags.values());
 	console.log(args.optionArguments.values());
 
 	const reader: StringReader = new StringReader('--');

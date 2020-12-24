@@ -3,7 +3,7 @@
  */
 export enum CommandArgumentKind
 {
-	Option,
+	Flag,
 	OptionArgument,
 	Operand
 }

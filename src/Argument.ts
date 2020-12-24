@@ -1,5 +1,5 @@
 /**
- * Base Command argument class that all argument types (operand, option, option-argument)
+ * Base Command argument class that all argument types (operand, flag, option-argument)
  * inherit from
  */
 export class Argument<T, U = string | undefined>
@@ -8,7 +8,7 @@ export class Argument<T, U = string | undefined>
 	 * The identifier for this argument. This will be the identifier specified
 	 * in the Command's arguments specification within your custom commands.
 	 *
-	 * **NOTE:** This is guaranteed to be a string for options and option-arguments,
+	 * **NOTE:** This is guaranteed to be a string for flags and option-arguments,
 	 * but can be undefined for operands as extra, undeclared operands can be given
 	 * and parsed
 	 */
@@ -19,7 +19,7 @@ export class Argument<T, U = string | undefined>
 	 * be whatever you specified when in the Command's arguments specification
 	 * as long as there is a matching resolver for the specified type.
 	 *
-	 * In the case of `Option` type arguments, the value will always be a boolean
+	 * In the case of `Flag` type arguments, the value will always be a boolean
 	 *
 	 * **NOTE:** The value can be undefined in cases of optional operands/option-arguments,
 	 * so be sure to use `isSome()` to check if the value is present before trying

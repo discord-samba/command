@@ -1,7 +1,7 @@
 export { Command } from '#root/Command';
 export { CommandContext } from '#root/CommandContext';
 export { Operand } from '#root/Operand';
-export { Option } from '#root/Option';
+export { Flag } from '#root/Flag';
 export { OptionArgument } from '#root/OptionArgument';
 
 export { CommandArgumentError } from '#root/CommandArgumentError';

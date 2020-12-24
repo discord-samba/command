@@ -1,5 +1,5 @@
+import { CommandArgKindImplFlag } from '#parse/commandArgKindImpl/CommandArgKindImplFlag';
 import { CommandArgKindImplOperand } from '#parse/commandArgKindImpl/CommandArgKindImplOperand';
-import { CommandArgKindImplOption } from '#parse/commandArgKindImpl/CommandArgKindImplOption';
 import { CommandArgKindImplOptionArgument } from '#parse/commandArgKindImpl/CommandArgKindImplOptionArgument';
 
 /**
@@ -9,6 +9,6 @@ import { CommandArgKindImplOptionArgument } from '#parse/commandArgKindImpl/Comm
 export class ParserOutput
 {
 	public operands: CommandArgKindImplOperand[] = [];
-	public options: CommandArgKindImplOption[] = [];
+	public flags: CommandArgKindImplFlag[] = [];
 	public optionArguments: CommandArgKindImplOptionArgument[] = [];
 }
