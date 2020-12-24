@@ -2435,13 +2435,13 @@ img {
 			<a href="commandmodule.html" class="tsd-kind-icon">Command<wbr>Module</a>
 		</li>
 		<li class=" tsd-kind-class">
+			<a href="flag.html" class="tsd-kind-icon">Flag</a>
+		</li>
+		<li class=" tsd-kind-class">
 			<a href="inputparseerror.html" class="tsd-kind-icon">Input<wbr>Parse<wbr>Error</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="operand.html" class="tsd-kind-icon">Operand</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="option.html" class="tsd-kind-icon">Option</a>
 		</li>
 		<li class="current tsd-kind-class tsd-has-type-parameter">
 			<a href="optionargument.html" class="tsd-kind-icon">Option<wbr>Argument</a>
@@ -2579,7 +2579,7 @@ img {
 						<p>The identifier for this argument. This will be the identifier specified
 						in the Command&#39;s arguments specification within your custom commands.</p>
 					</div>
-					<p><strong>NOTE:</strong> This is guaranteed to be a string for options and option-arguments,
+					<p><strong>NOTE:</strong> This is guaranteed to be a string for flags and option-arguments,
 						but can be undefined for operands as extra, undeclared operands can be given
 					and parsed</p>
 				</div>
@@ -2610,7 +2610,7 @@ img {
 							be whatever you specified when in the Command&#39;s arguments specification
 						as long as there is a matching resolver for the specified type.</p>
 					</div>
-					<p>In the case of <code>Option</code> type arguments, the value will always be a boolean</p>
+					<p>In the case of <code>Flag</code> type arguments, the value will always be a boolean</p>
 					<p><strong>NOTE:</strong> The value can be undefined in cases of optional operands/option-arguments,
 						so be sure to use <code>isSome()</code> to check if the value is present before trying
 						to use the value in your Commands. It&#39;s safe to assume the value is present

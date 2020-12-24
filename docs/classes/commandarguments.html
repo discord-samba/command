@@ -2426,13 +2426,13 @@ img {
 					<a href="commandarguments.html#constructor" class="tsd-kind-icon">constructor</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="commandarguments.html#flags" class="tsd-kind-icon">flags</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
 					<a href="commandarguments.html#operands" class="tsd-kind-icon">operands</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
 					<a href="commandarguments.html#optionarguments" class="tsd-kind-icon">option<wbr>Arguments</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="commandarguments.html#options" class="tsd-kind-icon">options</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 					<a href="commandarguments.html#get" class="tsd-kind-icon">get</a>
@@ -2452,13 +2452,13 @@ img {
 			<a href="commandmodule.html" class="tsd-kind-icon">Command<wbr>Module</a>
 		</li>
 		<li class=" tsd-kind-class">
+			<a href="flag.html" class="tsd-kind-icon">Flag</a>
+		</li>
+		<li class=" tsd-kind-class">
 			<a href="inputparseerror.html" class="tsd-kind-icon">Input<wbr>Parse<wbr>Error</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="operand.html" class="tsd-kind-icon">Operand</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="option.html" class="tsd-kind-icon">Option</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="optionargument.html" class="tsd-kind-icon">Option<wbr>Argument</a>
@@ -2501,9 +2501,9 @@ img {
 					<section class="tsd-index-section ">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="commandarguments.html#flags" class="tsd-kind-icon">flags</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="commandarguments.html#operands" class="tsd-kind-icon">operands</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="commandarguments.html#optionarguments" class="tsd-kind-icon">option<wbr>Arguments</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="commandarguments.html#options" class="tsd-kind-icon">options</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
@@ -2547,6 +2547,21 @@ img {
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Properties</h2>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="flags" class="tsd-anchor"></a>
+				<h3>flags</h3>
+				<div class="tsd-signature tsd-kind-icon">flags<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="flag.html" class="tsd-signature-type">Flag</a><span class="tsd-signature-symbol">&gt;</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/discord-samba/command/blob/master/src/CommandArguments.ts#L25">src/CommandArguments.ts:25</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Map of Flag identifiers to Flag instances</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 				<a name="operands" class="tsd-anchor"></a>
 				<h3>operands</h3>
 				<div class="tsd-signature tsd-kind-icon">operands<span class="tsd-signature-symbol">:</span> <a href="operand.html" class="tsd-signature-type">Operand</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></div>
@@ -2573,21 +2588,6 @@ img {
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
 						<p>Map of OptionArgument identifiers to OptionArgument instances</p>
-					</div>
-				</div>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="options" class="tsd-anchor"></a>
-				<h3>options</h3>
-				<div class="tsd-signature tsd-kind-icon">options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="option.html" class="tsd-signature-type">Option</a><span class="tsd-signature-symbol">&gt;</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/discord-samba/command/blob/master/src/CommandArguments.ts#L25">src/CommandArguments.ts:25</a></li>
-					</ul>
-				</aside>
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Map of Option identifiers to Option instances</p>
 					</div>
 				</div>
 			</section>
@@ -2618,7 +2618,7 @@ img {
 							indices <code>0</code> and <code>1</code> and the undeclared operand will be at index <code>2</code></p>
 							<p>You can also just access the entire set of operands passed to the Command
 							via the <code>operands</code> field</p>
-							<p>Options and Option-arguments can also be accessed via the <code>options</code> and
+							<p>Flags and Option-arguments can also be accessed via the <code>flags</code> and
 							<code>optionArguments</code> fields, respectively</p>
 						</div>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
