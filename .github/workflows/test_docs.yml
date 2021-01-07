@@ -37,5 +37,5 @@ jobs:
         run: echo "##[set-output name=status;]$(node scripts/typedoc-runner | grep 'Error')"
 
       - name: Fail if docs build produced errors
-        if: contains(steps.build_status.outputs.status, 'Error') != true
+        if: contains(steps.build_status.outputs.status, 'Error') == true
         run: exit 1
