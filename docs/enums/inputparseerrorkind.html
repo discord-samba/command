@@ -2402,10 +2402,10 @@ img {
 			<a href="inputparseerrorkind.html" class="tsd-kind-icon">Input<wbr>Parse<wbr>Error<wbr>Kind</a>
 			<ul>
 				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-					<a href="inputparseerrorkind.html#invalidmultioption" class="tsd-kind-icon">Invalid<wbr>Multi<wbr>Option</a>
+					<a href="inputparseerrorkind.html#invalidmultiflag" class="tsd-kind-icon">Invalid<wbr>Multi<wbr>Flag</a>
 				</li>
 				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-					<a href="inputparseerrorkind.html#optionargumentmissingargument" class="tsd-kind-icon">Option<wbr>Argument<wbr>Missing<wbr>Argument</a>
+					<a href="inputparseerrorkind.html#optionmissingargument" class="tsd-kind-icon">Option<wbr>Missing<wbr>Argument</a>
 				</li>
 				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
 					<a href="inputparseerrorkind.html#unterminatedquotedoperand" class="tsd-kind-icon">Unterminated<wbr>Quoted<wbr>Operand</a>
@@ -2455,7 +2455,7 @@ img {
 			<a href="../classes/operand.html" class="tsd-kind-icon">Operand</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="../classes/optionargument.html" class="tsd-kind-icon">Option<wbr>Argument</a>
+			<a href="../classes/option.html" class="tsd-kind-icon">Option</a>
 		</li>
 		<li class=" tsd-kind-class">
 			<a href="../classes/resolver.html" class="tsd-kind-icon">Resolver</a>
@@ -2473,12 +2473,12 @@ img {
 					<p>Enum containing the different Command argument parsing errors that can be
 					encountered.</p>
 				</div>
-				<pre><code><span class="hljs-number">0</span> - A quoted operand was <span class="hljs-keyword">left</span> unterminated (eg. `<span class="hljs-comment">&quot;foo bar baz`)</span>
-<span class="hljs-number">1</span> - Invalid multi-option. This means <span class="hljs-keyword">a</span> multi-option (eg. `-<span class="hljs-keyword">abc</span>` was given <span class="hljs-built_in">and</span>
-    it contains <span class="hljs-keyword">an</span> option-<span class="hljs-keyword">argument</span> but that option-<span class="hljs-keyword">argument</span> appears somewhere
-    other than the end of the multi-option
-<span class="hljs-number">2</span> - Option-<span class="hljs-keyword">argument</span> was given without <span class="hljs-keyword">an</span> <span class="hljs-keyword">argument</span>. This occurs when the <span class="hljs-keyword">last</span>
-    parseable <span class="hljs-keyword">argument</span> given <span class="hljs-keyword">is</span> <span class="hljs-keyword">an</span> option-<span class="hljs-keyword">argument</span>.</code></pre>
+				<pre><code><span class="hljs-number">0</span> - <span class="hljs-type">A</span> quoted operand was left unterminated (eg. `<span class="hljs-comment">&quot;foo bar baz`)
+1 - Invalid multi-flag. This means a multi-flag (eg. `-abc` was given and
+    it contains an option but that option appears somewhere
+    other than the end of the multi-flag
+2 - Option was given without an argument. This occurs when the last
+    parseable argument given is an option.</span></code></pre>
 			</div>
 		</section>
 		<section class="tsd-panel-group tsd-index-group">
@@ -2488,8 +2488,8 @@ img {
 					<section class="tsd-index-section ">
 						<h3>Enumeration members</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="inputparseerrorkind.html#invalidmultioption" class="tsd-kind-icon">Invalid<wbr>Multi<wbr>Option</a></li>
-							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="inputparseerrorkind.html#optionargumentmissingargument" class="tsd-kind-icon">Option<wbr>Argument<wbr>Missing<wbr>Argument</a></li>
+							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="inputparseerrorkind.html#invalidmultiflag" class="tsd-kind-icon">Invalid<wbr>Multi<wbr>Flag</a></li>
+							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="inputparseerrorkind.html#optionmissingargument" class="tsd-kind-icon">Option<wbr>Missing<wbr>Argument</a></li>
 							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="inputparseerrorkind.html#unterminatedquotedoperand" class="tsd-kind-icon">Unterminated<wbr>Quoted<wbr>Operand</a></li>
 						</ul>
 					</section>
@@ -2499,9 +2499,9 @@ img {
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Enumeration members</h2>
 			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-				<a name="invalidmultioption" class="tsd-anchor"></a>
-				<h3>Invalid<wbr>Multi<wbr>Option</h3>
-				<div class="tsd-signature tsd-kind-icon">Invalid<wbr>Multi<wbr>Option<span class="tsd-signature-symbol">:</span></div>
+				<a name="invalidmultiflag" class="tsd-anchor"></a>
+				<h3>Invalid<wbr>Multi<wbr>Flag</h3>
+				<div class="tsd-signature tsd-kind-icon">Invalid<wbr>Multi<wbr>Flag<span class="tsd-signature-symbol">:</span></div>
 				<aside class="tsd-sources">
 					<ul>
 						<li>Defined in <a href="https://github.com/discord-samba/command/blob/master/src/types/InputParseErrorKind.ts#L15">src/types/InputParseErrorKind.ts:15</a></li>
@@ -2509,9 +2509,9 @@ img {
 				</aside>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-				<a name="optionargumentmissingargument" class="tsd-anchor"></a>
-				<h3>Option<wbr>Argument<wbr>Missing<wbr>Argument</h3>
-				<div class="tsd-signature tsd-kind-icon">Option<wbr>Argument<wbr>Missing<wbr>Argument<span class="tsd-signature-symbol">:</span></div>
+				<a name="optionmissingargument" class="tsd-anchor"></a>
+				<h3>Option<wbr>Missing<wbr>Argument</h3>
+				<div class="tsd-signature tsd-kind-icon">Option<wbr>Missing<wbr>Argument<span class="tsd-signature-symbol">:</span></div>
 				<aside class="tsd-sources">
 					<ul>
 						<li>Defined in <a href="https://github.com/discord-samba/command/blob/master/src/types/InputParseErrorKind.ts#L16">src/types/InputParseErrorKind.ts:16</a></li>

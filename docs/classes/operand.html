@@ -2461,7 +2461,7 @@ img {
 			</ul>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="optionargument.html" class="tsd-kind-icon">Option<wbr>Argument</a>
+			<a href="option.html" class="tsd-kind-icon">Option</a>
 		</li>
 		<li class=" tsd-kind-class">
 			<a href="resolver.html" class="tsd-kind-icon">Resolver</a>
@@ -2476,7 +2476,7 @@ img {
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
 				<div class="lead">
-					<p>Represents an operand type argument. These are the positional arguments in
+					<p>Represents an operand type command argument. These are the positional arguments in
 						a command&#39;s input. If you do not use the <code>Advanced</code> argument parsing strategy,
 					all of your command&#39;s arguments will be operands.</p>
 				</div>
@@ -2584,7 +2584,7 @@ img {
 						<p>The identifier for this argument. This will be the identifier specified
 						in the Command&#39;s arguments specification within your custom commands.</p>
 					</div>
-					<p><strong>NOTE:</strong> This is guaranteed to be a string for flags and option-arguments,
+					<p><strong>NOTE:</strong> This is guaranteed to be a string for flags and options,
 						but can be undefined for operands as extra, undeclared operands can be given
 					and parsed</p>
 				</div>
@@ -2616,7 +2616,7 @@ img {
 						as long as there is a matching resolver for the specified type.</p>
 					</div>
 					<p>In the case of <code>Flag</code> type arguments, the value will always be a boolean</p>
-					<p><strong>NOTE:</strong> The value can be undefined in cases of optional operands/option-arguments,
+					<p><strong>NOTE:</strong> The value can be undefined in cases of optional operands/options,
 						so be sure to use <code>isSome()</code> to check if the value is present before trying
 						to use the value in your Commands. It&#39;s safe to assume the value is present
 						in non-optional arguments, however, as an error will be thrown and handled
