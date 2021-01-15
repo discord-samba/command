@@ -5,6 +5,6 @@ export enum CommandArgumentSpecConflict
 {
 	Operand,
 	Flag,
-	OptionArgument,
+	Option,
 	None
 }

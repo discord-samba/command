@@ -3,7 +3,7 @@ import { CommandArgumentParsingStrategy } from '#type/CommandArgumentParsingStra
 import { CommandArgumentSpecConflict } from '#type/CommandArgumentSpecConflict';
 import { CommandArgumentSpecFlag } from '#type/CommandArgumentSpecFlag';
 import { CommandArgumentSpecOperand } from '#type/CommandArgumentSpecOperand';
-import { CommandArgumentSpecOptionArgument } from '#type/CommandArgumentSpecOptionArgument';
+import { CommandArgumentSpecOption } from '#type/CommandArgumentSpecOption';
 import { CommandModule } from '#root/CommandModule';
 
 /**
@@ -14,7 +14,7 @@ export class CommandArgumentSpec
 {
 	public operands: CommandArgumentSpecOperand[] = [];
 	public flags: Map<string, CommandArgumentSpecFlag> = new Map();
-	public optionArguments: Map<string, CommandArgumentSpecOptionArgument> = new Map();
+	public options: Map<string, CommandArgumentSpecOption> = new Map();
 	public parsingStrategy: CommandArgumentParsingStrategy = CommandArgumentParsingStrategy.Basic;
 
 	private static _longIdent: RegExp = /^(?=[a-zA-Z][\w-]*[a-zA-Z0-9]$)[\w-]+/;
@@ -27,7 +27,7 @@ export class CommandArgumentSpec
 		const clone: CommandArgumentSpec = new CommandArgumentSpec();
 		clone.operands = Array.from(this.operands.values());
 		clone.flags = new Map(this.flags.entries());
-		clone.optionArguments = new Map(this.optionArguments.entries());
+		clone.options = new Map(this.options.entries());
 		clone.parsingStrategy = this.parsingStrategy;
 		return clone;
 	}
@@ -64,13 +64,13 @@ export class CommandArgumentSpec
 				return CommandArgumentSpecConflict.Flag;
 		}
 
-		for (const optionArgument of this.optionArguments.values())
+		for (const option of this.options.values())
 		{
-			if (optionArgument.ident === ident
-				|| optionArgument.long === ident
-				|| optionArgument.ident === long
-				|| optionArgument.long === long)
-				return CommandArgumentSpecConflict.OptionArgument;
+			if (option.ident === ident
+				|| option.long === ident
+				|| option.ident === long
+				|| option.long === long)
+				return CommandArgumentSpecConflict.Option;
 		}
 
 		return CommandArgumentSpecConflict.None;
@@ -91,16 +91,16 @@ export class CommandArgumentSpec
 	 *
 	 * **NOTE:** Rest operands will supercede any other kind of argument when parsing for that operand
 	 * begins. If the parsing strategy is `Advanced` (`2`) but the parser encounters something that
-	 * would otherwise be parsed as a flag or option-argument it will still be parsed as part
+	 * would otherwise be parsed as a flag or option it will still be parsed as part
 	 * of the rest operand. Note this is only the case when the parser is currently consuming a
 	 * rest operand.
 	 *
 	 * Operand identifiers must be at least 2 characters to avoid confusion and avoid conflict
-	 * with flags and option-arguments
+	 * with flags and options
 	 *
 	 * **NOTE:** If the parsing strategy is not set to `Advanced` (`2`) then every argument
 	 * encountered will be treated as an operand. If an argument follows a flag and that
-	 * flag is not defined as an OptionArgument via `defineOptionArgument()` then the
+	 * flag is not defined as an Option via `defineOption()` then the
 	 * argument will be parsed as an operand and the flag will be parsed as a flag as expected
 	 */
 	public defineOperand(ident: string, type: string, options: { optional?: boolean, rest?: boolean } = {}): void
@@ -133,8 +133,8 @@ export class CommandArgumentSpec
 			case CommandArgumentSpecConflict.Flag:
 				throw new Error('Operand identifier conflicts with existing flag');
 
-			case CommandArgumentSpecConflict.OptionArgument:
-				throw new Error('Operand identifier conflicts with existing option-argument');
+			case CommandArgumentSpecConflict.Option:
+				throw new Error('Operand identifier conflicts with existing option');
 
 			case CommandArgumentSpecConflict.None:
 				this.operands.push(operand);
@@ -183,8 +183,8 @@ export class CommandArgumentSpec
 			case CommandArgumentSpecConflict.Flag:
 				throw new Error('Flag identifier conflicts with existing flag');
 
-			case CommandArgumentSpecConflict.OptionArgument:
-				throw new Error('Flag identifier conflicts with existing option-argument');
+			case CommandArgumentSpecConflict.Option:
+				throw new Error('Flag identifier conflicts with existing option');
 
 			case CommandArgumentSpecConflict.None:
 				this.flags.set(ident, {
@@ -204,39 +204,34 @@ export class CommandArgumentSpec
 	 * in addition to the identifier as the first parameter, the first paramater
 	 * may only be a single character.
 	 *
-	 * **NOTE:** If an option-argument is found and the parsing strategy is not set to
-	 * `Advanced` (`2`) then it will be treated as an operand. If an argument that can be
-	 * parsed as an option-argument is found in a Command's input but the option-argument
-	 * is not declared then it will be treated as a long flag and the argument passed to
-	 * it will be treated as an operand
+	 * **NOTE:** If an option is found and the parsing strategy is not set to `Advanced` (`2`)
+	 * then it will be treated as an operand. If an argument that can be parsed as an option
+	 * is found in a Command's input but the option is not declared then it will be treated
+	 * as a long flag and the argument passed to it will be treated as an operand
 	 */
-	public defineOptionArgument(
-		ident: string,
-		type: string,
-		options: { long?: string, optional?: boolean} = {}
-	): void
+	public defineOption(ident: string, type: string, options: { long?: string, optional?: boolean} = {}): void
 	{
 		if (typeof options.long === 'undefined')
 		{
 			if (ident.length === 1 && !/[a-zA-Z]/.test(ident))
-				throw new Error('Short option-argument identifiers must match pattern /[a-zA-Z]/');
+				throw new Error('Short option identifiers must match pattern /[a-zA-Z]/');
 
 			if (ident.length >= 2 && !CommandArgumentSpec._longIdent.test(ident))
 				throw new Error(
-					`Long option-argument identifiers must match pattern ${CommandArgumentSpec._longIdent}`
+					`Long option identifiers must match pattern ${CommandArgumentSpec._longIdent}`
 				);
 		}
 		else
 		{
 			if (ident.length > 1)
-				throw new RangeError('Short option-argument identifiers must not exceed 1 character');
+				throw new RangeError('Short option identifiers must not exceed 1 character');
 
 			if (options.long.length < 2)
-				throw new RangeError('Long option-argument identifiers must be at least 2 characters');
+				throw new RangeError('Long option identifiers must be at least 2 characters');
 
 			if (!CommandArgumentSpec._longIdent.test(options.long))
 				throw new Error(
-					`Long option-argument identifiers must match pattern ${CommandArgumentSpec._longIdent}`
+					`Long option identifiers must match pattern ${CommandArgumentSpec._longIdent}`
 				);
 		}
 
@@ -246,17 +241,17 @@ export class CommandArgumentSpec
 		switch (this._conflicts(ident, options.long))
 		{
 			case CommandArgumentSpecConflict.Operand:
-				throw new Error('Option-argument identifier conflicts with existing operand');
+				throw new Error('Option identifier conflicts with existing operand');
 
 			case CommandArgumentSpecConflict.Flag:
-				throw new Error('Option-argument identifier conflicts with existing flag');
+				throw new Error('Option identifier conflicts with existing flag');
 
-			case CommandArgumentSpecConflict.OptionArgument:
-				throw new Error('Option-argument identifier conflicts with existing option-argument');
+			case CommandArgumentSpecConflict.Option:
+				throw new Error('Option identifier conflicts with existing option');
 
 			case CommandArgumentSpecConflict.None:
-				this.optionArguments.set(ident, {
-					kind: CommandArgumentKind.OptionArgument,
+				this.options.set(ident, {
+					kind: CommandArgumentKind.Option,
 					ident,
 					long: options.long,
 					type,
@@ -266,7 +261,7 @@ export class CommandArgumentSpec
 	}
 
 	/**
-	 * Returns a flag or option-argument spec for the given identifier.
+	 * Returns a flag or option spec for the given identifier.
 	 *
 	 * **NOTE:** Operand specs should be retrieved by shifting the operands
 	 * array of a cloned spec.
@@ -288,14 +283,14 @@ export class CommandArgumentSpec
 			}
 		}
 
-		// Otherwise check option-arguments
+		// Otherwise check options
 		if (typeof result === 'undefined')
 		{
-			for (const optArg of this.optionArguments.values())
+			for (const option of this.options.values())
 			{
-				if (optArg.ident === ident || optArg.long === ident)
+				if (option.ident === ident || option.long === ident)
 				{
-					result = optArg;
+					result = option;
 					break;
 				}
 			}

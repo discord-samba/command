@@ -4,6 +4,6 @@
 export enum CommandArgumentKind
 {
 	Flag,
-	OptionArgument,
+	Option,
 	Operand
 }

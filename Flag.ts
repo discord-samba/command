@@ -1,8 +1,8 @@
 import { Argument } from '#root/Argument';
 
 /**
- * Represents an flag type argument. The `value` field will be true if the flag
- * was passed in the command input
+ * Represents an flag type command argument. The `value` field will be true
+ * if the flag was passed in the command input
  */
 export class Flag extends Argument<boolean, string>
 {

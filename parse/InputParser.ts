@@ -1,13 +1,13 @@
 import { CommandArgKindImplFlag } from '#parse/commandArgKindImpl/CommandArgKindImplFlag';
 import { CommandArgKindImplOperand } from '#parse/commandArgKindImpl/CommandArgKindImplOperand';
-import { CommandArgKindImplOptionArgument } from '#parse/commandArgKindImpl/CommandArgKindImplOptionArgument';
+import { CommandArgKindImplOption } from '#parse/commandArgKindImpl/CommandArgKindImplOption';
 import { CommandArgumentKind } from '#type/CommandArgumentKind';
 import { CommandArgumentParsingStrategy } from '#type/CommandArgumentParsingStrategy';
 import { CommandArgumentSpec } from '#root/CommandArgumentSpec';
 import { CommandArgumentSpecEntry } from '#type/CommandArgumentSpecEntry';
 import { CommandArgumentSpecFlag } from '#type/CommandArgumentSpecFlag';
 import { CommandArgumentSpecOperand } from '#type/CommandArgumentSpecOperand';
-import { CommandArgumentSpecOptionArgument } from '#type/CommandArgumentSpecOptionArgument';
+import { CommandArgumentSpecOption } from '#type/CommandArgumentSpecOption';
 import { InputParseError } from '#parse/InputParseError';
 import { InputParseErrorKind } from '#type/InputParseErrorKind';
 import { InputStringChunkKind } from '#type/InputStringChunkKind';
@@ -95,10 +95,10 @@ export class InputParser
 	{
 		const optKindSubset: InputStringChunkKind[] = [
 			InputStringChunkKind.Flag,
-			InputStringChunkKind.MultiOption,
-			InputStringChunkKind.InvalidMultiOption,
-			InputStringChunkKind.OptionArgument,
-			InputStringChunkKind.LongOptionArgument
+			InputStringChunkKind.MultiFlag,
+			InputStringChunkKind.InvalidMultiFlag,
+			InputStringChunkKind.Option,
+			InputStringChunkKind.LongOption
 		];
 
 		while (true)
@@ -123,18 +123,18 @@ export class InputParser
 			else if (kind === InputStringChunkKind.Operand)
 			{
 				const lastNode: CommandArgumentSpecEntry = state.nodes[state.nodes.length - 1];
-				const followsOptArg: boolean = lastNode?.kind === CommandArgumentKind.OptionArgument;
-				const optArgValUndef: boolean = followsOptArg
-					&& typeof (lastNode as CommandArgKindImplOptionArgument).value === 'undefined';
+				const followsOption: boolean = lastNode?.kind === CommandArgumentKind.Option;
+				const optionValUndef: boolean = followsOption
+					&& typeof (lastNode as CommandArgKindImplOption).value === 'undefined';
 
-				// Assign operand as previous option-argument value if following an option-argument
-				if (optArgValUndef)
+				// Assign operand as previous option value if following an option
+				if (optionValUndef)
 				{
 					const value: string = /['"`]/.test(state.reader.peek())
 						? InputParser._consumeQuotedOperand(state)
 						: InputParser._consumeOperand(state, false);
 
-					(lastNode as CommandArgKindImplOptionArgument).value = value;
+					(lastNode as CommandArgKindImplOption).value = value;
 					InputParser._discardWhitespace(state);
 				}
 
@@ -164,33 +164,33 @@ export class InputParser
 			else if (optKindSubset.includes(kind))
 			{
 				// Error on invalid multi-options
-				if (kind === InputStringChunkKind.InvalidMultiOption)
+				if (kind === InputStringChunkKind.InvalidMultiFlag)
 				{
-					throw new InputParseError(InputParseErrorKind.InvalidMultiOption, state);
+					throw new InputParseError(InputParseErrorKind.InvalidMultiFlag, state);
 				}
 
-				// Handle long option-arguments
-				else if (kind === InputStringChunkKind.LongOptionArgument)
+				// Handle long options
+				else if (kind === InputStringChunkKind.LongOption)
 				{
-					InputParser._consumeAppendLongOptionArgument(state, out);
+					InputParser._consumeAppendLongOption(state, out);
 					InputParser._discardWhitespace(state);
 				}
 
 				// Handle options and multi-options
 				else
 				{
-					InputParser._consumeAppendOptionGroup(state, out);
+					InputParser._consumeAppendFlagGroup(state, out);
 					InputParser._discardWhitespace(state);
 				}
 
-				// Check if the last node was an option-argument and error if we see EOI
+				// Check if the last node was an option and error if we see EOI
 				const lastNode: CommandArgumentSpecEntry = state.nodes[state.nodes.length - 1];
-				const followsOptArg: boolean = lastNode?.kind === CommandArgumentKind.OptionArgument;
-				const optArgValUndef: boolean = followsOptArg
-					&& typeof (lastNode as CommandArgKindImplOptionArgument).value === 'undefined';
+				const followsOption: boolean = lastNode?.kind === CommandArgumentKind.Option;
+				const optionValUndef: boolean = followsOption
+					&& typeof (lastNode as CommandArgKindImplOption).value === 'undefined';
 
-				if (optArgValUndef && state.reader.eoi())
-					throw new InputParseError(InputParseErrorKind.OptionArgumentMissingArgument, state);
+				if (optionValUndef && state.reader.eoi())
+					throw new InputParseError(InputParseErrorKind.OptionMissingArgument, state);
 
 				state.index++;
 			}
@@ -268,11 +268,11 @@ export class InputParser
 	}
 
 	/**
-	 * Consumes an option group, appending them to the parser output. An option
-	 * group can consist of any number of options and may end in an option-argument.
-	 * An option-argument anywhere but the end of the group renders the group invalid
+	 * Consumes an flag group, appending them to the parser output. A flag group
+	 * can consist of any number of options and may end in an option. An option
+	 * anywhere but the end of the group renders the group invalid
 	 */
-	private static _consumeAppendOptionGroup(state: ParserState, out: ParserOutput): void
+	private static _consumeAppendFlagGroup(state: ParserState, out: ParserOutput): void
 	{
 		// Discard `-`
 		state.reader.discard();
@@ -280,17 +280,17 @@ export class InputParser
 		while (!/\s/.test(state.reader.peek()) && !state.reader.eoi())
 		{
 			const ident: string = state.reader.consume();
-			const spec: CommandArgumentSpecFlag | CommandArgumentSpecOptionArgument | undefined =
+			const spec: CommandArgumentSpecFlag | CommandArgumentSpecOption | undefined =
 				state.spec.get(ident);
 
-			// Handle option arguments
-			if (spec?.kind === CommandArgumentKind.OptionArgument)
+			// Handle options
+			if (spec?.kind === CommandArgumentKind.Option)
 			{
-				const optionArgument: CommandArgKindImplOptionArgument =
-					new CommandArgKindImplOptionArgument(spec.ident, spec.type, spec.long);
+				const option: CommandArgKindImplOption =
+					new CommandArgKindImplOption(spec.ident, spec.type, spec.long);
 
-				out.optionArguments.push(optionArgument);
-				state.nodes.push(optionArgument);
+				out.options.push(option);
+				state.nodes.push(option);
 			}
 
 			// Handle regular options
@@ -306,9 +306,9 @@ export class InputParser
 	}
 
 	/**
-	 * Consumes a long option or long option-argument, appending it to the parser output
+	 * Consumes a long option or long option, appending it to the parser output
 	 */
-	private static _consumeAppendLongOptionArgument(state: ParserState, out: ParserOutput): void
+	private static _consumeAppendLongOption(state: ParserState, out: ParserOutput): void
 	{
 		// Discard the `--`
 		state.reader.discard(2);
@@ -317,12 +317,12 @@ export class InputParser
 		while (!/\s/.test(state.reader.peek()) && !state.reader.eoi())
 			ident += state.reader.consume();
 
-		const spec: CommandArgumentSpecOptionArgument | CommandArgumentSpecFlag | undefined =
+		const spec: CommandArgumentSpecOption | CommandArgumentSpecFlag | undefined =
 			state.spec.get(ident);
 
 		// Treat the long identifier as an option if it hasn't been defined
 		// in the spec. The following argument will be treated as an operand
-		// by nature of not being preceded by an option-argument
+		// by nature of not being preceded by an option
 		if (typeof spec === 'undefined')
 		{
 			const option: CommandArgKindImplFlag = new CommandArgKindImplFlag(ident);
@@ -340,11 +340,11 @@ export class InputParser
 			return;
 		}
 
-		const optionArgument: CommandArgKindImplOptionArgument =
-			new CommandArgKindImplOptionArgument(spec.ident, spec.type, spec.long);
+		const option: CommandArgKindImplOption =
+			new CommandArgKindImplOption(spec.ident, spec.type, spec.long);
 
-		out.optionArguments.push(optionArgument);
-		state.nodes.push(optionArgument);
+		out.options.push(option);
+		state.nodes.push(option);
 	}
 
 	/**
@@ -352,17 +352,17 @@ export class InputParser
 	 */
 	private static _peekChunkKind(state: ParserState): InputStringChunkKind
 	{
-		// Acknowledge delimiter if it shouldn't be parsed as OptionArgument input
+		// Acknowledge delimiter if it shouldn't be parsed as Option input
 		if (/^--\s/.test(state.reader.peekSegment(3)) || /^--$/.test(state.reader.peekSegment(3)))
 		{
 			const lastNode: CommandArgumentSpecEntry = state.nodes[state.nodes.length - 1];
-			const followsOptArg: boolean = typeof lastNode !== 'undefined'
-				&& lastNode.kind === CommandArgumentKind.OptionArgument;
+			const followsOption: boolean = typeof lastNode !== 'undefined'
+				&& lastNode.kind === CommandArgumentKind.Option;
 
-			if (!followsOptArg)
+			if (!followsOption)
 				return InputStringChunkKind.Delimiter;
 
-			if (followsOptArg && typeof (lastNode as CommandArgKindImplOptionArgument).value !== 'undefined')
+			if (followsOption && typeof (lastNode as CommandArgKindImplOption).value !== 'undefined')
 				return InputStringChunkKind.Delimiter;
 
 			return InputStringChunkKind.Operand;
@@ -378,14 +378,14 @@ export class InputParser
 	}
 
 	/**
-	 * Peeks if we are looking at a flag, option-argument, multi-option, or
-	 * a multi-option ending in an option-argument. Returns any of the following:
+	 * Peeks if we are looking at a flag, option, multi-flag, or
+	 * a multi-option ending in an option. Returns any of the following:
 	 *
 	 * 	InputStringChunkKind.Flag
-	 * 	InputStringChunkKind.MultiOption
-	 * 	InputStringChunkKind.InvalidMultiOption
-	 * 	InputStringChunkKind.OptionArgument
-	 * 	InputStringChunkKind.LongOptionArgument
+	 * 	InputStringChunkKind.MultiFlag
+	 * 	InputStringChunkKind.InvalidMultiFlag
+	 * 	InputStringChunkKind.Option
+	 * 	InputStringChunkKind.LongOption
 	 * 	InputStringChunkKind.Operand
 	 *
 	 * Uses the given argument spec to determine the kind in ambiguous cases.
@@ -398,9 +398,9 @@ export class InputParser
 		let index: number = 1;
 		let ident: string = '';
 
-		// If we see a second `-`, treat as long OptionArgument
+		// If we see a second `-`, treat as long Option
 		if (state.reader.peek(index) === '-')
-			return InputStringChunkKind.LongOptionArgument;
+			return InputStringChunkKind.LongOption;
 
 		// Build the identifier
 		while (!/\s/.test(state.reader.peek(index)) && !state.reader.eoi(index))
@@ -409,7 +409,7 @@ export class InputParser
 			index++;
 		}
 
-		// Handle Flag and OptionArgument
+		// Handle Flag and Option
 		if (ident.length === 1)
 		{
 			const spec: CommandArgumentSpecEntry = state.spec.get(ident);
@@ -421,22 +421,22 @@ export class InputParser
 			if (spec.kind === CommandArgumentKind.Flag)
 				return InputStringChunkKind.Flag;
 
-			if (spec.kind === CommandArgumentKind.OptionArgument)
-				return InputStringChunkKind.OptionArgument;
+			if (spec.kind === CommandArgumentKind.Option)
+				return InputStringChunkKind.Option;
 		}
 
-		// Handle potentially valid multi-options
+		// Handle potentially valid multi-flags
 		else if (/^[a-zA-Z]+$/.test(ident))
 		{
 			for (const [i, opt] of ident.split('').entries())
 			{
 				const spec: CommandArgumentSpecEntry = state.spec.get(opt);
 
-				if (spec?.kind === CommandArgumentKind.OptionArgument && i !== ident.length - 1)
-					return InputStringChunkKind.InvalidMultiOption;
+				if (spec?.kind === CommandArgumentKind.Option && i !== ident.length - 1)
+					return InputStringChunkKind.InvalidMultiFlag;
 
 				if (i === ident.length - 1)
-					return InputStringChunkKind.MultiOption;
+					return InputStringChunkKind.MultiFlag;
 			}
 		}
 
