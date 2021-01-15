@@ -16,8 +16,8 @@ export enum CommandArgumentParsingStrategy
 	AllowQuoting,
 
 	/**
-	 * Includes Basic and AllowQuoting, adds flags and option-arguments
-	 * (ex. flags: `-f` or `--foo`, option-arguments: `-f bar` or `--foo bar`)
+	 * Includes Basic and AllowQuoting, adds flags and options
+	 * (ex. flags: `-f` or `--foo`, options: `-f bar` or `--foo bar`)
 	 */
 	Advanced
 }

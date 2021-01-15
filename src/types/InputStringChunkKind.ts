@@ -4,10 +4,10 @@
 export enum InputStringChunkKind
 {
 	Flag,
-	MultiOption,
-	InvalidMultiOption,
-	OptionArgument,
-	LongOptionArgument,
+	MultiFlag,
+	InvalidMultiFlag,
+	Option,
+	LongOption,
 	Operand,
 	Delimiter,
 	None

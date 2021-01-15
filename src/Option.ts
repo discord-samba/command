@@ -6,10 +6,10 @@ import { CommandModule } from '#root/CommandModule';
 import { Resolver } from '#resolve/Resolver';
 
 /**
- * Represents an option-argument type argument. An option-argument is an option
- * that takes its own argument, like `-f foo` or `--bar baz`.
+ * Represents an option type command argument. An option is a flag that
+ * takes an value, like `-f foo` or `--bar baz`
  */
-export class OptionArgument<T> extends Argument<T, string>
+export class Option<T> extends Argument<T, string>
 {
 	public type: string;
 

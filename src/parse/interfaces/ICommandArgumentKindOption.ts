@@ -1,10 +1,10 @@
 import { CommandArgumentKind } from '#type/CommandArgumentKind';
 
 /**
- * Interface representing an option-argument Command argument at parse-time
+ * Interface representing an option Command argument at parse-time
  * @internal
  */
-export interface ICommandArgumentKindOptionArgument
+export interface ICommandArgumentKindOption
 {
 	kind: CommandArgumentKind;
 	ident: string;

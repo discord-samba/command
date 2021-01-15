@@ -6,7 +6,7 @@ import { CommandModule } from '#root/CommandModule';
 import { Resolver } from '#resolve/Resolver';
 
 /**
- * Represents an operand type argument. These are the positional arguments in
+ * Represents an operand type command argument. These are the positional arguments in
  * a command's input. If you do not use the `Advanced` argument parsing strategy,
  * all of your command's arguments will be operands.
  *

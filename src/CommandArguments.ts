@@ -6,7 +6,7 @@ import { CommandArgumentSpec } from '#root/CommandArgumentSpec';
 import { CommandContext } from '#root/CommandContext';
 import { Flag } from '#root/Flag';
 import { Operand } from '#root/Operand';
-import { OptionArgument } from '#root/OptionArgument';
+import { Option } from '#root/Option';
 import { ParserOutput } from '#parse/ParserOutput';
 
 /**
@@ -25,15 +25,15 @@ export class CommandArguments
 	public flags: Map<string, Flag>;
 
 	/**
-	 * Map of OptionArgument identifiers to OptionArgument instances
+	 * Map of option identifiers to Option instances
 	 */
-	public optionArguments: Map<string, OptionArgument<any>>;
+	public options: Map<string, Option<any>>;
 
 	public constructor(spec: CommandArgumentSpec, parsedArgs: ParserOutput)
 	{
 		this.operands = [];
 		this.flags = new Map();
-		this.optionArguments = new Map();
+		this.options = new Map();
 
 		// Compile operands
 		for (const operand of parsedArgs.operands)
@@ -75,47 +75,45 @@ export class CommandArguments
 			if (!this.flags.has(flag.ident))
 				this.flags.set(flag.ident, new Flag(flag.ident));
 
-		// Compile option-arguments
-		for (const parsedOptionArg of parsedArgs.optionArguments.values())
+		// Compile options
+		for (const parsedOption of parsedArgs.options.values())
 		{
-			const optionArgument: OptionArgument<unknown> =
-				new OptionArgument(parsedOptionArg.ident, parsedOptionArg.value, parsedOptionArg.type);
+			const option: Option<unknown> = new Option(parsedOption.ident, parsedOption.value, parsedOption.type);
+			this.options.set(parsedOption.ident, option);
 
-			this.optionArguments.set(parsedOptionArg.ident, optionArgument);
-
-			if (typeof parsedOptionArg.long !== 'undefined')
-				this.optionArguments.set(parsedOptionArg.long, optionArgument);
+			if (typeof parsedOption.long !== 'undefined')
+				this.options.set(parsedOption.long, option);
 		}
 
-		// Check for missing non-optional option-arguments and compile missing option-arguments from spec
-		for (const optionArgument of spec.optionArguments.values())
+		// Check for missing non-optional options and compile missing options from spec
+		for (const option of spec.options.values())
 		{
-			if (!this.optionArguments.has(optionArgument.ident))
+			if (!this.options.has(option.ident))
 			{
-				if (!optionArgument.optional)
+				if (!option.optional)
 					throw new CommandArgumentError(
 						CommandArgumentErrorKind.MissingRequiredArgument,
-						new CommandArgumentErrorContext(optionArgument.kind, optionArgument.ident, optionArgument.type)
+						new CommandArgumentErrorContext(option.kind, option.ident, option.type)
 					);
 
 				let value!: any;
-				this.optionArguments.set(
-					optionArgument.ident,
-					new OptionArgument(optionArgument.ident, value, optionArgument.type)
+				this.options.set(
+					option.ident,
+					new Option(option.ident, value, option.type)
 				);
 			}
 		}
 	}
 
 	/**
-	 * Runs all operand and option-argument type resolvers for their values
+	 * Runs all operand and option type resolvers for their values
 	 * @internal
 	 */
 	public async resolveArguments(ctx: CommandContext): Promise<void>
 	{
 		const resolutions: Promise<void>[] = [
 			...this.operands.map(async o => o.resolveType(ctx)),
-			...Array.from(this.optionArguments.values()).map(async o => o.resolveType(ctx))
+			...Array.from(this.options.values()).map(async o => o.resolveType(ctx))
 		];
 
 		await Promise.all(resolutions);
@@ -133,8 +131,8 @@ export class CommandArguments
 	 * You can also just access the entire set of operands passed to the Command
 	 * via the `operands` field
 	 *
-	 * Flags and Option-arguments can also be accessed via the `flags` and
-	 * `optionArguments` fields, respectively
+	 * Flags and Options can also be accessed via the `flags` and `options`
+	 * fields, respectively
 	 */
 	public get<T extends Argument<any>>(ident: string | number): T | undefined
 	{
@@ -156,9 +154,9 @@ export class CommandArguments
 		if (typeof result === 'undefined' && this.flags.has(ident))
 			result = this.flags.get(ident);
 
-		// Otherwise check option-arguments
-		if (typeof result === 'undefined' && this.optionArguments.has(ident))
-			result = this.optionArguments.get(ident);
+		// Otherwise check option
+		if (typeof result === 'undefined' && this.options.has(ident))
+			result = this.options.get(ident);
 
 		return result as T;
 	}

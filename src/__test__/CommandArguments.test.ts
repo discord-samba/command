@@ -3,7 +3,7 @@ import { CommandArguments } from '#root/CommandArguments';
 import { Flag } from '#root/Flag';
 import { InputParser } from '#parse/InputParser';
 import { Operand } from '#root/Operand';
-import { OptionArgument } from '#root/OptionArgument';
+import { Option } from '#root/Option';
 import { ParserOutput } from '#parse/ParserOutput';
 
 describe('CommandArguments', () =>
@@ -97,12 +97,12 @@ describe('CommandArguments', () =>
 		expect(args.get('a')).toEqual({ ident: 'a', value: false, occurrences: 0 });
 	});
 
-	it('Should compile passed option-arguments', () =>
+	it('Should compile passed options', () =>
 	{
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 
 		spec.setParsingStrategy(2);
-		spec.defineOptionArgument('a', 'String', { long: 'apple' });
+		spec.defineOption('a', 'String', { long: 'apple' });
 
 		const parserOutput: ParserOutput = InputParser.parse('-a foo', spec);
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
@@ -111,7 +111,7 @@ describe('CommandArguments', () =>
 		expect(args.get('apple')).toEqual({ ident: 'a', type: 'String', value: 'foo' });
 	});
 
-	// TODO: Write option-argument type tests after base resolvers are written
+	// TODO: Write option type tests after base resolvers are written
 	//       or maybe just write a test suite for the resolvers themselves
 
 	it('Should compile a mix of argument types', () =>
@@ -119,7 +119,7 @@ describe('CommandArguments', () =>
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 
 		spec.setParsingStrategy(2);
-		spec.defineOptionArgument('a', 'String', { long: 'apple' });
+		spec.defineOption('a', 'String', { long: 'apple' });
 		spec.defineFlag('b');
 		spec.defineFlag('c');
 		spec.defineOperand('foo', 'String');
@@ -161,12 +161,12 @@ describe('CommandArguments', () =>
 			});
 	});
 
-	it('Should error on missing non-optional option-arguments', () =>
+	it('Should error on missing non-optional options', () =>
 	{
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 
 		spec.setParsingStrategy(2);
-		spec.defineOptionArgument('a', 'String', { optional: false });
+		spec.defineOption('a', 'String', { optional: false });
 
 		const parserOutput: ParserOutput = InputParser.parse('', spec);
 
@@ -191,8 +191,8 @@ describe('CommandArguments', () =>
 		spec.defineOperand('bar', 'String', { optional: true });
 		spec.defineFlag('baz');
 		spec.defineFlag('boo');
-		spec.defineOptionArgument('far', 'Number', { optional: false });
-		spec.defineOptionArgument('faz', 'Number');
+		spec.defineOption('far', 'Number', { optional: false });
+		spec.defineOption('faz', 'Number');
 
 		const parserOutput: ParserOutput = InputParser.parse('foo --baz --far 1', spec);
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
@@ -202,11 +202,12 @@ describe('CommandArguments', () =>
 
 		expect(args.get<Flag>('baz')?.isSome()).toBe(true);
 
-		// Should be true because unpassed flags still hold a value of `false`
+		// Should be true because unpassed flags still hold a value of `false`,
+		// while isSome() checks for the absence of a value
 		expect(args.get<Flag>('boo')?.isSome()).toBe(true);
 
-		expect(args.get<OptionArgument<number>>('far')?.isSome()).toBe(true);
-		expect(args.get<OptionArgument<number>>('faz')?.isSome()).toBe(false);
+		expect(args.get<Option<number>>('far')?.isSome()).toBe(true);
+		expect(args.get<Option<number>>('faz')?.isSome()).toBe(false);
 	});
 
 	it('Should get flag by long or short identifier', () =>
@@ -224,18 +225,18 @@ describe('CommandArguments', () =>
 		expect(args.get<Flag>('f')).toEqual(args.get<Flag>('foo'));
 	});
 
-	it('Should get option-argument by long or short identifier', () =>
+	it('Should get option by long or short identifier', () =>
 	{
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 
 		spec.setParsingStrategy(2);
-		spec.defineOptionArgument('f', 'String', { long: 'foo' });
+		spec.defineOption('f', 'String', { long: 'foo' });
 
 		const parserOutput: ParserOutput = InputParser.parse('--foo bar', spec);
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
 
-		expect(args.get<OptionArgument<string>>('f')).toEqual({ ident: 'f', type: 'String', value: 'bar' });
-		expect(args.get<OptionArgument<string>>('foo')).toEqual({ ident: 'f', type: 'String', value: 'bar' });
-		expect(args.get<OptionArgument<string>>('f')).toEqual(args.get<OptionArgument<string>>('foo'));
+		expect(args.get<Option<string>>('f')).toEqual({ ident: 'f', type: 'String', value: 'bar' });
+		expect(args.get<Option<string>>('foo')).toEqual({ ident: 'f', type: 'String', value: 'bar' });
+		expect(args.get<Option<string>>('f')).toEqual(args.get<Option<string>>('foo'));
 	});
 });

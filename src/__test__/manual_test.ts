@@ -24,10 +24,10 @@ async function main(): Promise<void>
 	spec.defineFlag('a');
 	spec.defineFlag('b');
 	spec.defineFlag('g');
-	spec.defineOptionArgument('c', 'String');
-	spec.defineOptionArgument('d', 'String', { long: 'dog', optional: false });
-	spec.defineOptionArgument('f', 'String', { long: 'fog', optional: false });
-	spec.defineOptionArgument('z', 'String', { long: 'boo' });
+	spec.defineOption('c', 'String');
+	spec.defineOption('d', 'String', { long: 'dog', optional: false });
+	spec.defineOption('f', 'String', { long: 'fog', optional: false });
+	spec.defineOption('z', 'String', { long: 'boo' });
 
 	console.log(spec.get('a'));
 	console.log(spec.get('b'));
@@ -48,7 +48,7 @@ async function main(): Promise<void>
 	console.log(parsed);
 	console.log(args.operands);
 	console.log(args.flags.values());
-	console.log(args.optionArguments.values());
+	console.log(args.options.values());
 
 	const reader: StringReader = new StringReader('--');
 	console.log(/^--$/.test(reader.peekSegment(5)));
