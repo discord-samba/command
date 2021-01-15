@@ -379,7 +379,7 @@ export class InputParser
 
 	/**
 	 * Peeks if we are looking at a flag, option, multi-flag, or
-	 * a multi-option ending in an option. Returns any of the following:
+	 * a multi-flag ending in an option. Returns any of the following:
 	 *
 	 * 	InputStringChunkKind.Flag
 	 * 	InputStringChunkKind.MultiFlag
@@ -389,7 +389,7 @@ export class InputParser
 	 * 	InputStringChunkKind.Operand
 	 *
 	 * Uses the given argument spec to determine the kind in ambiguous cases.
-	 * If Operand is returned that means a multi-option with invalid chars
+	 * If Operand is returned that means a multi-flag with invalid chars
 	 * was encountered and it should be treated as an operand
 	 */
 	private static _peekOptionKind(state: ParserState): InputStringChunkKind
