@@ -2440,11 +2440,11 @@ img {
 				<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 					<a href="flag.html#constructor" class="tsd-kind-icon">constructor</a>
 				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="flag.html#count" class="tsd-kind-icon">count</a>
+				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a href="flag.html#ident" class="tsd-kind-icon">ident</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="flag.html#occurrences" class="tsd-kind-icon">occurrences</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
 					<a href="flag.html#value" class="tsd-kind-icon">value</a>
@@ -2510,8 +2510,8 @@ img {
 					<section class="tsd-index-section ">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="flag.html#count" class="tsd-kind-icon">count</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="flag.html#ident" class="tsd-kind-icon">ident</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="flag.html#occurrences" class="tsd-kind-icon">occurrences</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="flag.html#value" class="tsd-kind-icon">value</a></li>
 						</ul>
 					</section>
@@ -2554,6 +2554,21 @@ img {
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Properties</h2>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="count" class="tsd-anchor"></a>
+				<h3>count</h3>
+				<div class="tsd-signature tsd-kind-icon">count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/discord-samba/command/blob/master/src/Flag.ts#L12">src/Flag.ts:12</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>How many times this flag was passed</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 				<a name="ident" class="tsd-anchor"></a>
 				<h3>ident</h3>
@@ -2572,21 +2587,6 @@ img {
 					<p><strong>NOTE:</strong> This is guaranteed to be a string for flags and options,
 						but can be undefined for operands as extra, undeclared operands can be given
 					and parsed</p>
-				</div>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="occurrences" class="tsd-anchor"></a>
-				<h3>occurrences</h3>
-				<div class="tsd-signature tsd-kind-icon">occurrences<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/discord-samba/command/blob/master/src/Flag.ts#L12">src/Flag.ts:12</a></li>
-					</ul>
-				</aside>
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>How many times this flag was passed</p>
-					</div>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
