@@ -7,7 +7,7 @@ import { Resolver } from '#resolve/Resolver';
 
 /**
  * Represents an option type command argument. An option is a flag that
- * takes an value, like `-f foo` or `--bar baz`
+ * takes a value, like `-f foo` or `--bar baz`
  */
 export class Option<T> extends Argument<T, string>
 {

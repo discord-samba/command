@@ -98,7 +98,7 @@ export class InputParser
 			InputStringChunkKind.MultiFlag,
 			InputStringChunkKind.InvalidMultiFlag,
 			InputStringChunkKind.Option,
-			InputStringChunkKind.LongOption
+			InputStringChunkKind.LongFlagOrOption
 		];
 
 		while (true)
@@ -163,20 +163,20 @@ export class InputParser
 			// Parse option kinds
 			else if (optKindSubset.includes(kind))
 			{
-				// Error on invalid multi-options
+				// Error on invalid multi-flags
 				if (kind === InputStringChunkKind.InvalidMultiFlag)
 				{
 					throw new InputParseError(InputParseErrorKind.InvalidMultiFlag, state);
 				}
 
-				// Handle long options
-				else if (kind === InputStringChunkKind.LongOption)
+				// Handle long options (which includes long flags)
+				else if (kind === InputStringChunkKind.LongFlagOrOption)
 				{
-					InputParser._consumeAppendLongOption(state, out);
+					InputParser._consumeAppendLongFlagOrOption(state, out);
 					InputParser._discardWhitespace(state);
 				}
 
-				// Handle options and multi-options
+				// Handle flags and multi-flags
 				else
 				{
 					InputParser._consumeAppendFlagGroup(state, out);
@@ -268,8 +268,8 @@ export class InputParser
 	}
 
 	/**
-	 * Consumes an flag group, appending them to the parser output. A flag group
-	 * can consist of any number of options and may end in an option. An option
+	 * Consumes a flag group, appending them to the parser output. A flag group
+	 * can consist of any number of flags and may end in an option. An option
 	 * anywhere but the end of the group renders the group invalid
 	 */
 	private static _consumeAppendFlagGroup(state: ParserState, out: ParserOutput): void
@@ -293,7 +293,7 @@ export class InputParser
 				state.nodes.push(option);
 			}
 
-			// Handle regular options
+			// Handle flags
 			else
 			{
 				const argument: CommandArgKindImplFlag =
@@ -306,9 +306,9 @@ export class InputParser
 	}
 
 	/**
-	 * Consumes a long option or long option, appending it to the parser output
+	 * Consumes a long flag or long option, appending it to the parser output
 	 */
-	private static _consumeAppendLongOption(state: ParserState, out: ParserOutput): void
+	private static _consumeAppendLongFlagOrOption(state: ParserState, out: ParserOutput): void
 	{
 		// Discard the `--`
 		state.reader.discard(2);
@@ -320,9 +320,9 @@ export class InputParser
 		const spec: CommandArgumentSpecOption | CommandArgumentSpecFlag | undefined =
 			state.spec.get(ident);
 
-		// Treat the long identifier as an option if it hasn't been defined
+		// Treat the long identifier as a flag if it hasn't been defined
 		// in the spec. The following argument will be treated as an operand
-		// by nature of not being preceded by an option
+		// by nature of not being preceded by an actual option
 		if (typeof spec === 'undefined')
 		{
 			const option: CommandArgKindImplFlag = new CommandArgKindImplFlag(ident);
@@ -369,7 +369,7 @@ export class InputParser
 		}
 
 		if (state.reader.peek() === '-')
-			return InputParser._peekOptKind(state);
+			return InputParser._peekOptionKind(state);
 
 		if (state.reader.eoi())
 			return InputStringChunkKind.None;
@@ -385,29 +385,26 @@ export class InputParser
 	 * 	InputStringChunkKind.MultiFlag
 	 * 	InputStringChunkKind.InvalidMultiFlag
 	 * 	InputStringChunkKind.Option
-	 * 	InputStringChunkKind.LongOption
+	 * 	InputStringChunkKind.LongFlagOrOption
 	 * 	InputStringChunkKind.Operand
 	 *
 	 * Uses the given argument spec to determine the kind in ambiguous cases.
 	 * If Operand is returned that means a multi-option with invalid chars
 	 * was encountered and it should be treated as an operand
 	 */
-	private static _peekOptKind(state: ParserState): InputStringChunkKind
+	private static _peekOptionKind(state: ParserState): InputStringChunkKind
 	{
 		// Set the index to 1 to peek past the `-`
 		let index: number = 1;
 		let ident: string = '';
 
-		// If we see a second `-`, treat as long Option
+		// If we see a second `-`, treat as long Flag or Option
 		if (state.reader.peek(index) === '-')
-			return InputStringChunkKind.LongOption;
+			return InputStringChunkKind.LongFlagOrOption;
 
 		// Build the identifier
 		while (!/\s/.test(state.reader.peek(index)) && !state.reader.eoi(index))
-		{
-			ident += state.reader.peek(index);
-			index++;
-		}
+			ident += state.reader.peek(index++);
 
 		// Handle Flag and Option
 		if (ident.length === 1)
@@ -425,7 +422,7 @@ export class InputParser
 				return InputStringChunkKind.Option;
 		}
 
-		// Handle potentially valid multi-flags
+		// Handle multi-flags
 		else if (/^[a-zA-Z]+$/.test(ident))
 		{
 			for (const [i, opt] of ident.split('').entries())

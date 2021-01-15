@@ -7,7 +7,7 @@ export enum InputStringChunkKind
 	MultiFlag,
 	InvalidMultiFlag,
 	Option,
-	LongOption,
+	LongFlagOrOption,
 	Operand,
 	Delimiter,
 	None
