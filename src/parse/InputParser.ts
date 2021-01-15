@@ -23,7 +23,7 @@ export class InputParser
 	 */
 	public static parse(input: string, spec: CommandArgumentSpec): ParserOutput
 	{
-		const result: ParserOutput = new ParserOutput();
+		const out: ParserOutput = new ParserOutput();
 		const state: ParserState = {
 			reader: new StringReader(input.trim()),
 			spec: spec.clone(),
@@ -32,15 +32,15 @@ export class InputParser
 		};
 
 		if (state.spec.parsingStrategy === CommandArgumentParsingStrategy.Basic)
-			InputParser._parseBasic(state, result);
+			InputParser._parseBasic(state, out);
 
 		else if (state.spec.parsingStrategy === CommandArgumentParsingStrategy.AllowQuoting)
-			InputParser._parseAllowQuoting(state, result);
+			InputParser._parseAllowQuoting(state, out);
 
 		else if (state.spec.parsingStrategy === CommandArgumentParsingStrategy.Advanced)
-			InputParser._parseAdvanced(state, result);
+			InputParser._parseAdvanced(state, out);
 
-		return result;
+		return out;
 	}
 
 	/**
