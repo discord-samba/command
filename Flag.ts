@@ -9,7 +9,7 @@ export class Flag extends Argument<boolean, string>
 	/**
 	 * How many times this flag was passed
 	 */
-	public occurrences: number;
+	public count: number;
 
 	/**
 	 * The value this flag holds. You can expect it to be false if the flag
@@ -20,7 +20,7 @@ export class Flag extends Argument<boolean, string>
 	public constructor(ident: string)
 	{
 		super(ident, false);
-		this.occurrences = 0;
+		this.count = 0;
 	}
 
 	public increment(): void
@@ -28,6 +28,6 @@ export class Flag extends Argument<boolean, string>
 		if (this.value === false)
 			this.value = true;
 
-		this.occurrences++;
+		this.count++;
 	}
 }
