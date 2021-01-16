@@ -78,7 +78,7 @@ export class CommandArgumentSpec
 
 	/**
 	 * Defines a positional operand argument declaration for your Command's arguments specification.
-	 * Must be given an identifier and a type, and can be declared optional (`false` by default).
+	 * Must be given an identifier and a type, and can be declared required (`true` by default).
 	 * Optional operands must be defined last and may not be followed by a non-optional operand.
 	 *
 	 * May also be declared as a rest operand (`false` by default), which will consume the remainder
@@ -103,7 +103,7 @@ export class CommandArgumentSpec
 	 * flag is not defined as an Option via `defineOption()` then the
 	 * argument will be parsed as an operand and the flag will be parsed as a flag as expected
 	 */
-	public defineOperand(ident: string, type: string, options: { optional?: boolean, rest?: boolean } = {}): void
+	public defineOperand(ident: string, type: string, options: { required?: boolean, rest?: boolean } = {}): void
 	{
 		if (ident.length < 2)
 			throw new Error('Operand identifiers must be at least 2 characters');
@@ -114,13 +114,15 @@ export class CommandArgumentSpec
 		const operand: CommandArgumentSpecOperand = {
 			kind: CommandArgumentKind.Operand,
 			ident,
-			optional: options.optional ?? false,
+			required: options.required ?? true,
 			rest: options.rest ?? false,
 			type
 		};
 
-		if (this.operands[this.operands.length - 1]?.optional && !operand.optional)
-			throw new Error('Non-optional operands may not follow optional operands');
+		if (typeof this.operands[this.operands.length - 1] !== 'undefined'
+			&& !this.operands[this.operands.length - 1].required
+			&& operand.required)
+			throw new Error('Required operands may not follow non-required operands');
 
 		if (this.operands[this.operands.length - 1]?.rest)
 			throw new Error('Additional operands may not follow rest operands');
@@ -209,7 +211,7 @@ export class CommandArgumentSpec
 	 * is found in a Command's input but the option is not declared then it will be treated
 	 * as a long flag and the argument passed to it will be treated as an operand
 	 */
-	public defineOption(ident: string, type: string, options: { long?: string, optional?: boolean} = {}): void
+	public defineOption(ident: string, type: string, options: { long?: string, required?: boolean} = {}): void
 	{
 		if (typeof options.long === 'undefined')
 		{
@@ -255,7 +257,7 @@ export class CommandArgumentSpec
 					ident,
 					long: options.long,
 					type,
-					optional: options.optional ?? true
+					required: options.required ?? false
 				});
 		}
 	}

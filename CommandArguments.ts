@@ -39,12 +39,13 @@ export class CommandArguments
 		for (const operand of parsedArgs.operands)
 			this.operands.push(new Operand(operand.value, operand.ident, operand.type));
 
-		// Check for missing non-optional operands and compile missing optional operands from spec
+		// Check for missing required operands and compile missing non-required operands from spec
 		for (const operand of spec.operands)
 		{
 			if (!this.operands.some(o => o.ident === operand.ident))
 			{
-				if (!operand.optional)
+				// Error if operand is required but missing
+				if (operand.required)
 					throw new CommandArgumentError(
 						CommandArgumentErrorKind.MissingRequiredArgument,
 						new CommandArgumentErrorContext(operand.kind, operand.ident, operand.type)
@@ -85,12 +86,13 @@ export class CommandArguments
 				this.options.set(parsedOption.long, option);
 		}
 
-		// Check for missing non-optional options and compile missing options from spec
+		// Check for missing required options and compile missing non-required options from spec
 		for (const option of spec.options.values())
 		{
 			if (!this.options.has(option.ident))
 			{
-				if (!option.optional)
+				// Error if option is required but missing
+				if (option.required)
 					throw new CommandArgumentError(
 						CommandArgumentErrorKind.MissingRequiredArgument,
 						new CommandArgumentErrorContext(option.kind, option.ident, option.type)
