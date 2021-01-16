@@ -13,7 +13,7 @@ app.bootstrap({
 	exclude: './**/+(node_modules|__test__|)/**/*.ts',
 	excludePrivate: true,
 	out: '../docs',
-	gitRevision: 'master',
+	gitRevision: 'main',
 });
 
 app.options.addDeclaration({ name: 'links', type: ParameterType.Mixed });

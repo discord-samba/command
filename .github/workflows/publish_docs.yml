@@ -3,7 +3,7 @@ name: Publish Docs
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:
@@ -62,5 +62,5 @@ jobs:
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor}}@users.noreply.github.com"
           git add --all
-          git commit -m "Build docs from master: ${{ github.sha }}"
+          git commit -m "Build docs from main: ${{ github.sha }}"
           git push origin gh-pages
