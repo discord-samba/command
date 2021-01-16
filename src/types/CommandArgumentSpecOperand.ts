@@ -8,7 +8,7 @@ export interface CommandArgumentSpecOperand
 {
 	kind: CommandArgumentKind.Operand;
 	ident: string;
-	optional: boolean;
+	required: boolean;
 	type: string;
 	rest: boolean;
 }

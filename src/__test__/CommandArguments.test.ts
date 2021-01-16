@@ -39,8 +39,8 @@ describe('CommandArguments', () =>
 	{
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 		spec.defineOperand('foo', 'String');
-		spec.defineOperand('bar', 'String', { optional: true });
-		spec.defineOperand('baz', 'String', { optional: true });
+		spec.defineOperand('bar', 'String', { required: false });
+		spec.defineOperand('baz', 'String', { required: false });
 
 		const parserOutput: ParserOutput = InputParser.parse('foo bar', spec);
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
@@ -166,7 +166,7 @@ describe('CommandArguments', () =>
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 
 		spec.setParsingStrategy(2);
-		spec.defineOption('a', 'String', { optional: false });
+		spec.defineOption('a', 'String', { required: true });
 
 		const parserOutput: ParserOutput = InputParser.parse('', spec);
 
@@ -188,10 +188,10 @@ describe('CommandArguments', () =>
 
 		spec.setParsingStrategy(2);
 		spec.defineOperand('foo', 'String');
-		spec.defineOperand('bar', 'String', { optional: true });
+		spec.defineOperand('bar', 'String', { required: false });
 		spec.defineFlag('baz');
 		spec.defineFlag('boo');
-		spec.defineOption('far', 'Number', { optional: false });
+		spec.defineOption('far', 'Number', { required: false });
 		spec.defineOption('faz', 'Number');
 
 		const parserOutput: ParserOutput = InputParser.parse('foo --baz --far 1', spec);

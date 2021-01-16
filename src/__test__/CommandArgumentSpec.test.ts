@@ -32,9 +32,9 @@ describe('CommandArgumentSpec', () =>
 	{
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 		const kind: CommandArgumentKind = CommandArgumentKind.Operand;
-		spec.defineOperand('foo', 'Number', { optional: true });
+		spec.defineOperand('foo', 'Number', { required: true });
 
-		expect(spec.operands.shift()).toEqual({ kind, ident: 'foo', type: 'Number', optional: true, rest: false });
+		expect(spec.operands.shift()).toEqual({ kind, ident: 'foo', type: 'Number', required: true, rest: false });
 	});
 
 	it('Should return the expected flag', () =>
@@ -53,12 +53,12 @@ describe('CommandArgumentSpec', () =>
 		const kind: CommandArgumentKind = CommandArgumentKind.Option;
 		spec.defineOption('f', 'String', { long: 'foo' });
 
-		expect(spec.get('f')).toEqual({ kind, ident: 'f', long: 'foo', type: 'String', optional: true });
-		expect(spec.get('foo')).toEqual({ kind, ident: 'f', long: 'foo', type: 'String', optional: true });
+		expect(spec.get('f')).toEqual({ kind, ident: 'f', long: 'foo', type: 'String', required: false });
+		expect(spec.get('foo')).toEqual({ kind, ident: 'f', long: 'foo', type: 'String', required: false });
 
-		spec.defineOption('b', 'Number', { optional: false });
+		spec.defineOption('b', 'Number', { required: true });
 
-		expect(spec.get('b')).toEqual({ kind, ident: 'b', long: undefined, type: 'Number', optional: false });
+		expect(spec.get('b')).toEqual({ kind, ident: 'b', long: undefined, type: 'Number', required: true });
 	});
 
 	it('Should return nothing if no spec exists by the given identifier', () =>
@@ -211,13 +211,13 @@ describe('CommandArgumentSpec', () =>
 			.toThrow(`Long option identifiers must match pattern ${longIdentPattern}`);
 	});
 
-	it('Should error on non-optional operands following optional operands', () =>
+	it('Should error on required operands following non-required operands', () =>
 	{
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
-		spec.defineOperand('foo', 'String', { optional: true });
+		spec.defineOperand('foo', 'String', { required: false });
 
-		expect(() => spec.defineOperand('bar', 'String', { optional: false }))
-			.toThrow('Non-optional operands may not follow optional operands');
+		expect(() => spec.defineOperand('bar', 'String', { required: true }))
+			.toThrow('Required operands may not follow non-required operands');
 	});
 
 	it('Should error on additional operands following a rest operand', () =>

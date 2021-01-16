@@ -25,8 +25,8 @@ async function main(): Promise<void>
 	spec.defineFlag('b');
 	spec.defineFlag('g');
 	spec.defineOption('c', 'String');
-	spec.defineOption('d', 'String', { long: 'dog', optional: false });
-	spec.defineOption('f', 'String', { long: 'fog', optional: false });
+	spec.defineOption('d', 'String', { long: 'dog', required: false });
+	spec.defineOption('f', 'String', { long: 'fog', required: false });
 	spec.defineOption('z', 'String', { long: 'boo' });
 
 	console.log(spec.get('a'));

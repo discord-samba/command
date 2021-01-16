@@ -9,6 +9,6 @@ export interface CommandArgumentSpecOption
 	kind: CommandArgumentKind.Option;
 	ident: string;
 	long?: string;
-	optional: boolean;
+	required: boolean;
 	type: string;
 }
