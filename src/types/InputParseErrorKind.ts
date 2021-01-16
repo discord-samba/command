@@ -2,7 +2,7 @@
 
 /**
  * Enum containing the different Command argument parsing errors that can be
- * encountered.
+ * encountered
  */
 export enum InputParseErrorKind
 {
@@ -13,13 +13,14 @@ export enum InputParseErrorKind
 
 	/**
 	 * Invalid multi-flag. This means a multi-flag (eg. `-abc` was given and
-	 * it contains an option but that option appears somewhere
+	 * it contains an option but that option appears somewhere other than the
+	 * end of the multi-flag
 	 */
 	InvalidMultiFlag,
 
 	/**
 	 * Option was given without an argument. This occurs when the last
-	 * parseable argument given is an option.
+	 * parseable argument given is an option
 	 */
 	OptionMissingArgument
 }
