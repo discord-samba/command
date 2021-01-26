@@ -403,7 +403,7 @@ describe('InputParser', () =>
 		});
 	});
 
-	it('Should treat undeclared long options as long options', () =>
+	it('Should treat undeclared long flags as long flags', () =>
 	{
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 		spec.setParsingStrategy(2);
@@ -426,6 +426,101 @@ describe('InputParser', () =>
 			options: [],
 			operands: []
 		});
+	});
+
+	it('Should treat undeclared long options as options if used with "="', () =>
+	{
+		const spec: CommandArgumentSpec = new CommandArgumentSpec();
+		spec.setParsingStrategy(2);
+
+		expect(InputParser.parse('foo --bar=baz', spec)).toEqual({
+			flags: [],
+			options: [
+				{ kind: 1, ident: 'bar', type: 'String', value: 'baz' }
+			],
+			operands: [
+				{ kind: 2, type: 'String', value: 'foo' },
+			]
+		});
+	});
+
+	it('Should treat undeclared short options as options if used with "="', () =>
+	{
+		const spec: CommandArgumentSpec = new CommandArgumentSpec();
+		spec.setParsingStrategy(2);
+
+		expect(InputParser.parse('foo -b=baz', spec)).toEqual({
+			flags: [],
+			options: [
+				{ kind: 1, ident: 'b', type: 'String', value: 'baz' }
+			],
+			operands: [
+				{ kind: 2, type: 'String', value: 'foo' }
+			]
+		});
+
+		expect(InputParser.parse('foo -abc=baz', spec)).toEqual({
+			flags: [
+				{ kind: 0, ident: 'a' },
+				{ kind: 0, ident: 'b' }
+			],
+			options: [
+				{ kind: 1, ident: 'c', type: 'String', value: 'baz' }
+			],
+			operands: [
+				{ kind: 2, type: 'String', value: 'foo' }
+			]
+		});
+	});
+
+	it('Should discard values passed via "=" to declared flags', () =>
+	{
+		const spec: CommandArgumentSpec = new CommandArgumentSpec();
+		spec.setParsingStrategy(2);
+		spec.defineFlag('b', { long: 'bar' });
+
+		expect(InputParser.parse('--bar=baz -b=baz', spec)).toEqual({
+			flags: [
+				{ kind: 0, ident: 'b', long: 'bar' },
+				{ kind: 0, ident: 'b', long: 'bar' }
+			],
+			options: [],
+			operands: []
+		});
+	});
+
+	// Expected meaning the value will be parsed as an operand if following flag,
+	// and only parsed as an option value if the option was declared
+	it('Should disregard "=" if followed by whitespace and behave as expected', () =>
+	{
+		const spec: CommandArgumentSpec = new CommandArgumentSpec();
+		spec.setParsingStrategy(2);
+
+		expect(InputParser.parse('--bar= baz -b= "baz boo"', spec)).toEqual({
+			options: [],
+			flags: [
+				{ kind: 0, ident: 'bar' },
+				{ kind: 0, ident: 'b' }
+			],
+			operands: [
+				{ kind: 2, type: 'String', value: 'baz' },
+				{ kind: 2, type: 'String', value: 'baz boo' }
+			]
+		});
+
+		spec.defineOption('f', 'String');
+		spec.defineOption('foo', 'String');
+
+		expect(InputParser.parse('-f= bar --foo= "bar baz"', spec)).toEqual({
+			flags: [],
+			operands: [],
+			options: [
+				{ kind: 1, ident: 'f', type: 'String', value: 'bar' },
+				{ kind: 1, ident: 'foo', type: 'String', value: 'bar baz' }
+			]
+		});
+
+		InputParser.parse('-f --foo bar', spec);
 	});
 
 	it('Should parse declared options', () =>

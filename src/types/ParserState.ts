@@ -15,4 +15,11 @@ export interface ParserState
 	 * Represents the index of the argument we're looking at next
 	 */
 	index: number;
+
+	/**
+	 * Represents whether or not we have just seen `=` and should
+	 * assign the next value to an option (or discard it if it
+	 * was mistakenly passed to a flag)
+	 */
+	assignmentMode: boolean;
 }
