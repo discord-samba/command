@@ -10,5 +10,6 @@ export enum InputStringChunkKind
 	LongFlagOrOption,
 	Operand,
 	Delimiter,
+	Assignment,
 	None
 }
