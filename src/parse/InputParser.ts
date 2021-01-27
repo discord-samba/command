@@ -19,7 +19,7 @@ import { StringReader } from '#parse/StringReader';
 export class InputParser
 {
 	/**
-	 * Parses the given input using the given command argument specification
+	 * Parse the given input using the given command argument specification
 	 */
 	public static parse(input: string, spec: CommandArgumentSpec): ParserOutput
 	{
@@ -29,7 +29,12 @@ export class InputParser
 			spec: spec.clone(),
 			nodes: [],
 			index: 0,
-			assignmentMode: false
+			assignmentMode: false,
+
+			get lastNode()
+			{
+				return this.nodes[this.nodes.length - 1];
+			}
 		};
 
 		if (state.spec.parsingStrategy === CommandArgumentParsingStrategy.Basic)
@@ -52,12 +57,12 @@ export class InputParser
 		while (!state.reader.eoi())
 		{
 			const spec: CommandArgumentSpecOperand | undefined = state.spec.operands.shift();
-			const operand: string = InputParser._consumeOperand(state, spec?.rest ?? false);
-			const argument: CommandArgKindImplOperand =
-				new CommandArgKindImplOperand(spec?.type ?? 'String', operand, spec?.ident);
+			const value: string = InputParser._consumeOperand(state, spec?.rest ?? false);
+			const operand: CommandArgKindImplOperand =
+				new CommandArgKindImplOperand(spec?.type ?? 'String', value, spec?.ident);
 
-			out.operands.push(argument);
-			state.nodes.push(argument);
+			out.operands.push(operand);
+			state.nodes.push(operand);
 			state.index++;
 
 			InputParser._discardWhitespace(state);
@@ -120,17 +125,28 @@ export class InputParser
 				InputParser._parseAllowQuoting(state, out);
 			}
 
-			// Discard `=`, activate assignment mode
+			// Discard `=`, deactivate assignment mode if we see whitespace
 			else if (kind === InputStringChunkKind.Assignment)
 			{
 				state.reader.discard();
 				state.assignmentMode = true;
 
-				// Cancel assignment mode if `=` is followed by whitespace
+				// Cancel assignment mode if `=` is followed by whitespace and the
+				// last node was not an option node
 				if (/\s/.test(state.reader.peek()))
 				{
-					state.assignmentMode = false;
+					if (!(state.lastNode?.kind === CommandArgumentKind.Option))
+						state.assignmentMode = false;
+
 					InputParser._discardWhitespace(state);
+				}
+
+				// Deincrement the index so that option value is considered part
+				// of the same argument index as the option itself if there is
+				// no whitespace
+				else
+				{
+					state.index--;
 				}
 			}
 
@@ -143,33 +159,33 @@ export class InputParser
 			// Parse option kinds
 			else if (optKindSubset.includes(kind))
 			{
+				state.assignmentMode = false;
+
 				// Error on invalid multi-flags
 				if (kind === InputStringChunkKind.InvalidMultiFlag)
 				{
 					throw new InputParseError(InputParseErrorKind.InvalidMultiFlag, state);
 				}
 
-				// Handle long options (which includes long flags)
+				// Handle long flags and long options
 				else if (kind === InputStringChunkKind.LongFlagOrOption)
 				{
 					InputParser._consumeAppendLongFlagOrOption(state, out);
 					InputParser._discardWhitespace(state);
 				}
 
-				// Handle flags and multi-flags
+				// Handle single char flags, options, and multi-flags
 				else
 				{
 					InputParser._consumeAppendFlagGroup(state, out);
 					InputParser._discardWhitespace(state);
 				}
 
-				// Check if the last node was an option and error if we see EOI
-				const lastNode: CommandArgumentSpecEntry = state.nodes[state.nodes.length - 1];
-				const followsOption: boolean = lastNode?.kind === CommandArgumentKind.Option;
-				const optionValUndef: boolean = followsOption
-					&& typeof (lastNode as CommandArgKindImplOption).value === 'undefined';
-
-				if (optionValUndef && state.reader.eoi())
+				// Check if the last node was an option without a value and
+				// throw an error if we see end of input
+				if (state.lastNode?.kind === CommandArgumentKind.Option
+					&& typeof (state.lastNode as CommandArgKindImplOption).value === 'undefined'
+					&& state.reader.eoi())
 					throw new InputParseError(InputParseErrorKind.OptionMissingArgument, state);
 
 				state.index++;
@@ -183,33 +199,10 @@ export class InputParser
 	 */
 	private static _parseOperandAdvanced(state: ParserState, out: ParserOutput): void
 	{
-		const lastNode: CommandArgumentSpecEntry = state.nodes[state.nodes.length - 1];
-		const followsOption: boolean = lastNode?.kind === CommandArgumentKind.Option;
-		const optionValUndef: boolean = followsOption
-			&& typeof (lastNode as CommandArgKindImplOption).value === 'undefined';
-
-		// Assign operand as previous option value if following an option
-		if (optionValUndef)
+		// If we're following a flag but are in assignment mode (because of `=`),
+		// consume and discard the value
+		if (state.lastNode?.kind === CommandArgumentKind.Flag && state.assignmentMode)
 		{
-			const value: string = /['"`]/.test(state.reader.peek())
-				? InputParser._consumeQuotedOperand(state)
-				: InputParser._consumeOperand(state, false);
-
-			(lastNode as CommandArgKindImplOption).value = value;
-			InputParser._discardWhitespace(state);
-
-			state.assignmentMode = false;
-		}
-
-		// If we're not following an option but are in assignment mode then
-		// we've encountered a flag that was mistakenly passed a value, so
-		// we should discard it
-		else if (!followsOption && state.assignmentMode)
-		{
-			// Discard `=`
-			state.reader.discard();
-
-			// Consume (and discard) operand (quoted or otherwise)
 			if (/['"`]/.test(state.reader.peek()))
 				InputParser._consumeQuotedOperand(state);
 
@@ -221,21 +214,34 @@ export class InputParser
 			state.assignmentMode = false;
 		}
 
+		// Assign operand as previous option value if in assignment mode
+		else if (state.assignmentMode)
+		{
+			const value: string = /['"`]/.test(state.reader.peek())
+				? InputParser._consumeQuotedOperand(state)
+				: InputParser._consumeOperand(state, false);
+
+			(state.lastNode as CommandArgKindImplOption).value = value;
+			InputParser._discardWhitespace(state);
+
+			state.assignmentMode = false;
+		}
+
 		// Otherwise parse as a general operand
 		else
 		{
 			const spec: CommandArgumentSpecOperand | undefined = state.spec.operands.shift();
-			const operand: string = spec?.rest
+			const value: string = spec?.rest
 				? InputParser._consumeOperand(state, spec?.rest)
 				: /['"`]/.test(state.reader.peek())
 					? InputParser._consumeQuotedOperand(state)
 					: InputParser._consumeOperand(state, false);
 
-			const argument: CommandArgKindImplOperand =
-				new CommandArgKindImplOperand(spec?.type ?? 'String', operand, spec?.ident);
+			const operand: CommandArgKindImplOperand =
+				new CommandArgKindImplOperand(spec?.type ?? 'String', value, spec?.ident);
 
-			out.operands.push(argument);
-			state.nodes.push(argument);
+			out.operands.push(operand);
+			state.nodes.push(operand);
 
 			InputParser._discardWhitespace(state);
 		}
@@ -289,20 +295,22 @@ export class InputParser
 
 		while (true)
 		{
-			// Discard end quote and return when we find the end of the operand
-			if (state.reader.peek() === quoteChar && state.reader.peekBehind() !== '\\')
-			{
-				state.reader.discard();
-				return operand;
-			}
-
 			// Handle escaped quoteChar
 			if (state.reader.peekSegment(2) === `\\${quoteChar}`)
 			{
 				// Discard escape character
 				state.reader.discard();
+
+				// Add quoteChar to operand
 				operand += state.reader.consume();
 				continue;
+			}
+
+			// Discard end quote and return when we find the end of the operand
+			if (state.reader.peek() === quoteChar)
+			{
+				state.reader.discard();
+				return operand;
 			}
 
 			// Throw a parse error if the operand is unterminated
@@ -336,6 +344,8 @@ export class InputParser
 
 				out.options.push(option);
 				state.nodes.push(option);
+
+				state.assignmentMode = true;
 			}
 
 			// Handle undeclared options (determined by the presence of `=`)
@@ -344,6 +354,9 @@ export class InputParser
 				const option: CommandArgKindImplOption = new CommandArgKindImplOption(ident, 'String');
 				out.options.push(option);
 				state.nodes.push(option);
+
+				// We don't need to set assignment mode here because it will be set
+				// in the Assignment chunk kind handler
 
 				// Terminate flag group to move on to option value
 				break;
@@ -374,7 +387,7 @@ export class InputParser
 		const spec: CommandArgumentSpecOption | CommandArgumentSpecFlag | undefined =
 			state.spec.get(ident);
 
-		// Handle option
+		// Handle declared option
 		if (spec?.kind === CommandArgumentKind.Option)
 		{
 			const option: CommandArgKindImplOption =
@@ -382,6 +395,9 @@ export class InputParser
 
 			out.options.push(option);
 			state.nodes.push(option);
+
+			state.assignmentMode = true;
+
 			return;
 		}
 
@@ -395,6 +411,9 @@ export class InputParser
 				const option: CommandArgKindImplOption = new CommandArgKindImplOption(ident, 'String');
 				out.options.push(option);
 				state.nodes.push(option);
+
+				// We don't need to set assignment mode here because it will be set
+				// in the Assignment chunk kind handler
 
 				return;
 			}
@@ -421,14 +440,12 @@ export class InputParser
 		// Acknowledge delimiter if it shouldn't be parsed as Option input
 		if (/^--\s/.test(state.reader.peekSegment(3)) || /^--$/.test(state.reader.peekSegment(3)))
 		{
-			const lastNode: CommandArgumentSpecEntry = state.nodes[state.nodes.length - 1];
-			const followsOption: boolean = typeof lastNode !== 'undefined'
-				&& lastNode.kind === CommandArgumentKind.Option;
+			const followsOption: boolean = state.lastNode?.kind === CommandArgumentKind.Option;
 
 			if (!followsOption)
 				return InputStringChunkKind.Delimiter;
 
-			if (followsOption && typeof (lastNode as CommandArgKindImplOption).value !== 'undefined')
+			if (followsOption && typeof (state.lastNode as CommandArgKindImplOption).value !== 'undefined')
 				return InputStringChunkKind.Delimiter;
 
 			return InputStringChunkKind.Operand;
