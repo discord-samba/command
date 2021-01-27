@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>InputParseErrorKind | @discord-samba/command</title>
+	<title>ArgumentParseErrorKind | @discord-samba/command</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -2386,6 +2386,20 @@ img {
 </header>
 <nav class="tsd-navigation secondary">
 	<ul>
+		<li class="current tsd-kind-enum">
+			<a href="argumentparseerrorkind.html" class="tsd-kind-icon">Argument<wbr>Parse<wbr>Error<wbr>Kind</a>
+			<ul>
+				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+					<a href="argumentparseerrorkind.html#invalidmultiflag" class="tsd-kind-icon">Invalid<wbr>Multi<wbr>Flag</a>
+				</li>
+				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+					<a href="argumentparseerrorkind.html#optionmissingargument" class="tsd-kind-icon">Option<wbr>Missing<wbr>Argument</a>
+				</li>
+				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+					<a href="argumentparseerrorkind.html#unterminatedquotedoperand" class="tsd-kind-icon">Unterminated<wbr>Quoted<wbr>Operand</a>
+				</li>
+			</ul>
+		</li>
 		<li class=" tsd-kind-enum">
 			<a href="commandargumenterrorkind.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Error<wbr>Kind</a>
 		</li>
@@ -2398,25 +2412,14 @@ img {
 		<li class=" tsd-kind-enum">
 			<a href="commanddispatcherrorkind.html" class="tsd-kind-icon">Command<wbr>Dispatch<wbr>Error<wbr>Kind</a>
 		</li>
-		<li class="current tsd-kind-enum">
-			<a href="inputparseerrorkind.html" class="tsd-kind-icon">Input<wbr>Parse<wbr>Error<wbr>Kind</a>
-			<ul>
-				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-					<a href="inputparseerrorkind.html#invalidmultiflag" class="tsd-kind-icon">Invalid<wbr>Multi<wbr>Flag</a>
-				</li>
-				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-					<a href="inputparseerrorkind.html#optionmissingargument" class="tsd-kind-icon">Option<wbr>Missing<wbr>Argument</a>
-				</li>
-				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-					<a href="inputparseerrorkind.html#unterminatedquotedoperand" class="tsd-kind-icon">Unterminated<wbr>Quoted<wbr>Operand</a>
-				</li>
-			</ul>
-		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="../classes/argument.html" class="tsd-kind-icon">Argument</a>
 		</li>
 		<li class=" tsd-kind-class">
 			<a href="../classes/argumentcontext.html" class="tsd-kind-icon">Argument<wbr>Context</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="../classes/argumentparseerror.html" class="tsd-kind-icon">Argument<wbr>Parse<wbr>Error</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="../classes/command.html" class="tsd-kind-icon">Command</a>
@@ -2447,9 +2450,6 @@ img {
 		</li>
 		<li class=" tsd-kind-class">
 			<a href="../classes/flag.html" class="tsd-kind-icon">Flag</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="../classes/inputparseerror.html" class="tsd-kind-icon">Input<wbr>Parse<wbr>Error</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="../classes/operand.html" class="tsd-kind-icon">Operand</a>
@@ -2482,9 +2482,9 @@ img {
 					<section class="tsd-index-section ">
 						<h3>Enumeration members</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="inputparseerrorkind.html#invalidmultiflag" class="tsd-kind-icon">Invalid<wbr>Multi<wbr>Flag</a></li>
-							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="inputparseerrorkind.html#optionmissingargument" class="tsd-kind-icon">Option<wbr>Missing<wbr>Argument</a></li>
-							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="inputparseerrorkind.html#unterminatedquotedoperand" class="tsd-kind-icon">Unterminated<wbr>Quoted<wbr>Operand</a></li>
+							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="argumentparseerrorkind.html#invalidmultiflag" class="tsd-kind-icon">Invalid<wbr>Multi<wbr>Flag</a></li>
+							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="argumentparseerrorkind.html#optionmissingargument" class="tsd-kind-icon">Option<wbr>Missing<wbr>Argument</a></li>
+							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="argumentparseerrorkind.html#unterminatedquotedoperand" class="tsd-kind-icon">Unterminated<wbr>Quoted<wbr>Operand</a></li>
 						</ul>
 					</section>
 				</div>
@@ -2498,7 +2498,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">Invalid<wbr>Multi<wbr>Flag<span class="tsd-signature-symbol">:</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/types/InputParseErrorKind.ts#L19">src/types/InputParseErrorKind.ts:19</a></li>
+						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/types/ArgumentParseErrorKind.ts#L19">src/types/ArgumentParseErrorKind.ts:19</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2515,7 +2515,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">Option<wbr>Missing<wbr>Argument<span class="tsd-signature-symbol">:</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/types/InputParseErrorKind.ts#L25">src/types/InputParseErrorKind.ts:25</a></li>
+						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/types/ArgumentParseErrorKind.ts#L25">src/types/ArgumentParseErrorKind.ts:25</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2531,7 +2531,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">Unterminated<wbr>Quoted<wbr>Operand<span class="tsd-signature-symbol">:</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/types/InputParseErrorKind.ts#L12">src/types/InputParseErrorKind.ts:12</a></li>
+						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/types/ArgumentParseErrorKind.ts#L12">src/types/ArgumentParseErrorKind.ts:12</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">

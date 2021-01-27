@@ -2387,6 +2387,9 @@ img {
 <nav class="tsd-navigation secondary">
 	<ul>
 		<li class=" tsd-kind-enum">
+			<a href="../enums/argumentparseerrorkind.html" class="tsd-kind-icon">Argument<wbr>Parse<wbr>Error<wbr>Kind</a>
+		</li>
+		<li class=" tsd-kind-enum">
 			<a href="../enums/commandargumenterrorkind.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Error<wbr>Kind</a>
 		</li>
 		<li class=" tsd-kind-enum">
@@ -2398,14 +2401,14 @@ img {
 		<li class=" tsd-kind-enum">
 			<a href="../enums/commanddispatcherrorkind.html" class="tsd-kind-icon">Command<wbr>Dispatch<wbr>Error<wbr>Kind</a>
 		</li>
-		<li class=" tsd-kind-enum">
-			<a href="../enums/inputparseerrorkind.html" class="tsd-kind-icon">Input<wbr>Parse<wbr>Error<wbr>Kind</a>
-		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="argument.html" class="tsd-kind-icon">Argument</a>
 		</li>
 		<li class=" tsd-kind-class">
 			<a href="argumentcontext.html" class="tsd-kind-icon">Argument<wbr>Context</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="argumentparseerror.html" class="tsd-kind-icon">Argument<wbr>Parse<wbr>Error</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="command.html" class="tsd-kind-icon">Command</a>
@@ -2453,9 +2456,6 @@ img {
 		</li>
 		<li class=" tsd-kind-class">
 			<a href="flag.html" class="tsd-kind-icon">Flag</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="inputparseerror.html" class="tsd-kind-icon">Input<wbr>Parse<wbr>Error</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="operand.html" class="tsd-kind-icon">Operand</a>
@@ -2521,7 +2521,7 @@ img {
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
 				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>Command<wbr>Arguments<span class="tsd-signature-symbol">(</span>spec<span class="tsd-signature-symbol">: </span><a href="commandargumentspec.html" class="tsd-signature-type">CommandArgumentSpec</a>, parsedArgs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ParserOutput</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="commandarguments.html" class="tsd-signature-type">CommandArguments</a></li>
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Command<wbr>Arguments<span class="tsd-signature-symbol">(</span>spec<span class="tsd-signature-symbol">: </span><a href="commandargumentspec.html" class="tsd-signature-type">CommandArgumentSpec</a>, parsedArgs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ArgumentParserOutput</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="commandarguments.html" class="tsd-signature-type">CommandArguments</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -2536,7 +2536,7 @@ img {
 								<h5>spec: <a href="commandargumentspec.html" class="tsd-signature-type">CommandArgumentSpec</a></h5>
 							</li>
 							<li>
-								<h5>parsedArgs: <span class="tsd-signature-type">ParserOutput</span></h5>
+								<h5>parsedArgs: <span class="tsd-signature-type">ArgumentParserOutput</span></h5>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <a href="commandarguments.html" class="tsd-signature-type">CommandArguments</a></h4>
