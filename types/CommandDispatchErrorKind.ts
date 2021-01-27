@@ -1,3 +1,5 @@
+/* eslint-disable lines-around-comment */
+
 /**
  * Enum containing the different kinds of errors we can expect to encounter
  * during Command dispatch

@@ -1,7 +1,7 @@
 /**
  * @internal
  */
-export enum InputStringChunkKind
+export enum ArgumentStringChunkKind
 {
 	Flag,
 	MultiFlag,

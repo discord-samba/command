@@ -4,7 +4,7 @@
  * Enum containing the different Command argument parsing errors that can be
  * encountered
  */
-export enum InputParseErrorKind
+export enum ArgumentParseErrorKind
 {
 	/**
 	 * A quoted operand was left unterminated (eg. `"foo bar baz`)
