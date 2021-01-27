@@ -10,7 +10,7 @@ export { CommandArgumentErrorKind } from '#type/CommandArgumentErrorKind';
 export { CommandDispatchError } from '#root/CommandDispatchError';
 export { CommandDispatchErrorKind } from '#type/CommandDispatchErrorKind';
 
-export { InputParseError } from '#parse/InputParseError';
-export { InputParseErrorKind } from '#type/InputParseErrorKind';
+export { ArgumentParseError } from '#parse/ArgumentParseError';
+export { ArgumentParseErrorKind } from '#type/ArgumentParseErrorKind';
 
 export { CommandModule } from '#root/CommandModule';

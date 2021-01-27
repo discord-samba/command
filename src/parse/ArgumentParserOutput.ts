@@ -6,7 +6,7 @@ import { CommandArgKindImplOption } from '#parse/commandArgKindImpl/CommandArgKi
  * Container class for the argument values parsed from Command input
  * @internal
  */
-export class ParserOutput
+export class ArgumentParserOutput
 {
 	public operands: CommandArgKindImplOperand[] = [];
 	public flags: CommandArgKindImplFlag[] = [];

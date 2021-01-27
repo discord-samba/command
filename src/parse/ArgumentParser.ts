@@ -1,3 +1,8 @@
+import { ArgumentParseError } from '#parse/ArgumentParseError';
+import { ArgumentParseErrorKind } from '#type/ArgumentParseErrorKind';
+import { ArgumentParserOutput } from '#parse/ArgumentParserOutput';
+import { ArgumentParserState } from '#parse/ArgumentParserState';
+import { ArgumentStringChunkKind } from '#type/ArgumentStringChunkKind';
 import { CommandArgKindImplFlag } from '#parse/commandArgKindImpl/CommandArgKindImplFlag';
 import { CommandArgKindImplOperand } from '#parse/commandArgKindImpl/CommandArgKindImplOperand';
 import { CommandArgKindImplOption } from '#parse/commandArgKindImpl/CommandArgKindImplOption';
@@ -8,43 +13,26 @@ import { CommandArgumentSpecEntry } from '#type/CommandArgumentSpecEntry';
 import { CommandArgumentSpecFlag } from '#type/CommandArgumentSpecFlag';
 import { CommandArgumentSpecOperand } from '#type/CommandArgumentSpecOperand';
 import { CommandArgumentSpecOption } from '#type/CommandArgumentSpecOption';
-import { InputParseError } from '#parse/InputParseError';
-import { InputParseErrorKind } from '#type/InputParseErrorKind';
-import { InputStringChunkKind } from '#type/InputStringChunkKind';
-import { ParserOutput } from '#parse/ParserOutput';
-import { ParserState } from '#type/ParserState';
-import { StringReader } from '#parse/StringReader';
 
 /** @internal */
-export class InputParser
+export class ArgumentParser
 {
 	/**
 	 * Parse the given input using the given command argument specification
 	 */
-	public static parse(input: string, spec: CommandArgumentSpec): ParserOutput
+	public static parse(input: string, spec: CommandArgumentSpec): ArgumentParserOutput
 	{
-		const out: ParserOutput = new ParserOutput();
-		const state: ParserState = {
-			reader: new StringReader(input.trim()),
-			spec: spec.clone(),
-			nodes: [],
-			index: 0,
-			assignmentMode: false,
-
-			get lastNode()
-			{
-				return this.nodes[this.nodes.length - 1];
-			}
-		};
+		const out: ArgumentParserOutput = new ArgumentParserOutput();
+		const state: ArgumentParserState = new ArgumentParserState(input, spec);
 
 		if (state.spec.parsingStrategy === CommandArgumentParsingStrategy.Basic)
-			InputParser._parseBasic(state, out);
+			ArgumentParser._parseBasic(state, out);
 
 		else if (state.spec.parsingStrategy === CommandArgumentParsingStrategy.AllowQuoting)
-			InputParser._parseAllowQuoting(state, out);
+			ArgumentParser._parseAllowQuoting(state, out);
 
 		else if (state.spec.parsingStrategy === CommandArgumentParsingStrategy.Advanced)
-			InputParser._parseAdvanced(state, out);
+			ArgumentParser._parseAdvanced(state, out);
 
 		return out;
 	}
@@ -52,12 +40,12 @@ export class InputParser
 	/**
 	 * Handles parsing under the Basic parsing strategy
 	 */
-	private static _parseBasic(state: ParserState, out: ParserOutput): void
+	private static _parseBasic(state: ArgumentParserState, out: ArgumentParserOutput): void
 	{
 		while (!state.reader.eoi())
 		{
 			const spec: CommandArgumentSpecOperand | undefined = state.spec.operands.shift();
-			const value: string = InputParser._consumeOperand(state, spec?.rest ?? false);
+			const value: string = ArgumentParser._consumeOperand(state, spec?.rest ?? false);
 			const operand: CommandArgKindImplOperand =
 				new CommandArgKindImplOperand(spec?.type ?? 'String', value, spec?.ident);
 
@@ -65,23 +53,23 @@ export class InputParser
 			state.nodes.push(operand);
 			state.index++;
 
-			InputParser._discardWhitespace(state);
+			ArgumentParser._discardWhitespace(state);
 		}
 	}
 
 	/**
 	 * Handles parsing under the AllowQuoting parsing strategy
 	 */
-	private static _parseAllowQuoting(state: ParserState, out: ParserOutput): void
+	private static _parseAllowQuoting(state: ArgumentParserState, out: ArgumentParserOutput): void
 	{
 		while (!state.reader.eoi())
 		{
 			const spec: CommandArgumentSpecOperand | undefined = state.spec.operands.shift();
 			const operand: string = spec?.rest
-				? InputParser._consumeOperand(state, spec?.rest)
+				? ArgumentParser._consumeOperand(state, spec?.rest)
 				: /['"`]/.test(state.reader.peek())
-					? InputParser._consumeQuotedOperand(state)
-					: InputParser._consumeOperand(state, false);
+					? ArgumentParser._consumeQuotedOperand(state)
+					: ArgumentParser._consumeOperand(state, false);
 
 			const argument: CommandArgKindImplOperand =
 				new CommandArgKindImplOperand(spec?.type ?? 'String', operand, spec?.ident);
@@ -90,43 +78,43 @@ export class InputParser
 			state.nodes.push(argument);
 			state.index++;
 
-			InputParser._discardWhitespace(state);
+			ArgumentParser._discardWhitespace(state);
 		}
 	}
 
 	/**
 	 * Handles parsing under the Advanced parsing strategy
 	 */
-	private static _parseAdvanced(state: ParserState, out: ParserOutput): void
+	private static _parseAdvanced(state: ArgumentParserState, out: ArgumentParserOutput): void
 	{
-		const optKindSubset: InputStringChunkKind[] = [
-			InputStringChunkKind.Flag,
-			InputStringChunkKind.MultiFlag,
-			InputStringChunkKind.InvalidMultiFlag,
-			InputStringChunkKind.Option,
-			InputStringChunkKind.LongFlagOrOption
+		const optKindSubset: ArgumentStringChunkKind[] = [
+			ArgumentStringChunkKind.Flag,
+			ArgumentStringChunkKind.MultiFlag,
+			ArgumentStringChunkKind.InvalidMultiFlag,
+			ArgumentStringChunkKind.Option,
+			ArgumentStringChunkKind.LongFlagOrOption
 		];
 
 		while (true)
 		{
-			const kind: InputStringChunkKind = InputParser._peekChunkKind(state);
+			const kind: ArgumentStringChunkKind = ArgumentParser._peekChunkKind(state);
 
 			// If we see a kind of none it means we've hit the end of input
-			if (kind === InputStringChunkKind.None)
+			if (kind === ArgumentStringChunkKind.None)
 			{
 				break;
 			}
 
 			// Parse the remaining input as operands if we see `--`
-			else if (kind === InputStringChunkKind.Delimiter)
+			else if (kind === ArgumentStringChunkKind.Delimiter)
 			{
-				InputParser._discardDelimiter(state);
+				ArgumentParser._discardDelimiter(state);
 				state.index++;
-				InputParser._parseAllowQuoting(state, out);
+				ArgumentParser._parseAllowQuoting(state, out);
 			}
 
 			// Discard `=`, deactivate assignment mode if we see whitespace
-			else if (kind === InputStringChunkKind.Assignment)
+			else if (kind === ArgumentStringChunkKind.Assignment)
 			{
 				state.reader.discard();
 				state.assignmentMode = true;
@@ -138,7 +126,7 @@ export class InputParser
 					if (!(state.lastNode?.kind === CommandArgumentKind.Option))
 						state.assignmentMode = false;
 
-					InputParser._discardWhitespace(state);
+					ArgumentParser._discardWhitespace(state);
 				}
 
 				// Deincrement the index so that option value is considered part
@@ -151,9 +139,9 @@ export class InputParser
 			}
 
 			// Parse operands
-			else if (kind === InputStringChunkKind.Operand)
+			else if (kind === ArgumentStringChunkKind.Operand)
 			{
-				InputParser._parseOperandAdvanced(state, out);
+				ArgumentParser._parseOperandAdvanced(state, out);
 			}
 
 			// Parse option kinds
@@ -162,23 +150,23 @@ export class InputParser
 				state.assignmentMode = false;
 
 				// Error on invalid multi-flags
-				if (kind === InputStringChunkKind.InvalidMultiFlag)
+				if (kind === ArgumentStringChunkKind.InvalidMultiFlag)
 				{
-					throw new InputParseError(InputParseErrorKind.InvalidMultiFlag, state);
+					throw new ArgumentParseError(ArgumentParseErrorKind.InvalidMultiFlag, state);
 				}
 
 				// Handle long flags and long options
-				else if (kind === InputStringChunkKind.LongFlagOrOption)
+				else if (kind === ArgumentStringChunkKind.LongFlagOrOption)
 				{
-					InputParser._consumeAppendLongFlagOrOption(state, out);
-					InputParser._discardWhitespace(state);
+					ArgumentParser._consumeAppendLongFlagOrOption(state, out);
+					ArgumentParser._discardWhitespace(state);
 				}
 
 				// Handle single char flags, options, and multi-flags
 				else
 				{
-					InputParser._consumeAppendFlagGroup(state, out);
-					InputParser._discardWhitespace(state);
+					ArgumentParser._consumeAppendFlagGroup(state, out);
+					ArgumentParser._discardWhitespace(state);
 				}
 
 				// Check if the last node was an option without a value and
@@ -186,7 +174,7 @@ export class InputParser
 				if (state.lastNode?.kind === CommandArgumentKind.Option
 					&& typeof (state.lastNode as CommandArgKindImplOption).value === 'undefined'
 					&& state.reader.eoi())
-					throw new InputParseError(InputParseErrorKind.OptionMissingArgument, state);
+					throw new ArgumentParseError(ArgumentParseErrorKind.OptionMissingArgument, state);
 
 				state.index++;
 			}
@@ -197,19 +185,19 @@ export class InputParser
 	 * Parse an operand under the advanced parsing strategy, appending it
 	 * as an option value if appropriate
 	 */
-	private static _parseOperandAdvanced(state: ParserState, out: ParserOutput): void
+	private static _parseOperandAdvanced(state: ArgumentParserState, out: ArgumentParserOutput): void
 	{
 		// If we're following a flag but are in assignment mode (because of `=`),
 		// consume and discard the value
 		if (state.lastNode?.kind === CommandArgumentKind.Flag && state.assignmentMode)
 		{
 			if (/['"`]/.test(state.reader.peek()))
-				InputParser._consumeQuotedOperand(state);
+				ArgumentParser._consumeQuotedOperand(state);
 
 			else
-				InputParser._consumeOperand(state, false);
+				ArgumentParser._consumeOperand(state, false);
 
-			InputParser._discardWhitespace(state);
+			ArgumentParser._discardWhitespace(state);
 
 			state.assignmentMode = false;
 		}
@@ -218,11 +206,11 @@ export class InputParser
 		else if (state.assignmentMode)
 		{
 			const value: string = /['"`]/.test(state.reader.peek())
-				? InputParser._consumeQuotedOperand(state)
-				: InputParser._consumeOperand(state, false);
+				? ArgumentParser._consumeQuotedOperand(state)
+				: ArgumentParser._consumeOperand(state, false);
 
 			(state.lastNode as CommandArgKindImplOption).value = value;
-			InputParser._discardWhitespace(state);
+			ArgumentParser._discardWhitespace(state);
 
 			state.assignmentMode = false;
 		}
@@ -232,10 +220,10 @@ export class InputParser
 		{
 			const spec: CommandArgumentSpecOperand | undefined = state.spec.operands.shift();
 			const value: string = spec?.rest
-				? InputParser._consumeOperand(state, spec?.rest)
+				? ArgumentParser._consumeOperand(state, spec?.rest)
 				: /['"`]/.test(state.reader.peek())
-					? InputParser._consumeQuotedOperand(state)
-					: InputParser._consumeOperand(state, false);
+					? ArgumentParser._consumeQuotedOperand(state)
+					: ArgumentParser._consumeOperand(state, false);
 
 			const operand: CommandArgKindImplOperand =
 				new CommandArgKindImplOperand(spec?.type ?? 'String', value, spec?.ident);
@@ -243,7 +231,7 @@ export class InputParser
 			out.operands.push(operand);
 			state.nodes.push(operand);
 
-			InputParser._discardWhitespace(state);
+			ArgumentParser._discardWhitespace(state);
 		}
 
 		state.index++;
@@ -252,7 +240,7 @@ export class InputParser
 	/**
 	 * Discards whitespace until hitting a non-whitespace character
 	 */
-	private static _discardWhitespace(state: ParserState): void
+	private static _discardWhitespace(state: ArgumentParserState): void
 	{
 		while (/\s/.test(state.reader.peek()))
 			state.reader.discard();
@@ -261,16 +249,16 @@ export class InputParser
 	/**
 	 * Discard `--` and the following whitepsace
 	 */
-	private static _discardDelimiter(state: ParserState): void
+	private static _discardDelimiter(state: ArgumentParserState): void
 	{
 		state.reader.discard(2);
-		InputParser._discardWhitespace(state);
+		ArgumentParser._discardWhitespace(state);
 	}
 
 	/**
 	 * Consumes and returns an Operand string
 	 */
-	private static _consumeOperand(state: ParserState, rest: boolean): string
+	private static _consumeOperand(state: ArgumentParserState, rest: boolean): string
 	{
 		let operand: string = '';
 
@@ -288,7 +276,7 @@ export class InputParser
 	/**
 	 * Consumes and returns a quoted operand
 	 */
-	private static _consumeQuotedOperand(state: ParserState): string
+	private static _consumeQuotedOperand(state: ArgumentParserState): string
 	{
 		let operand: string = '';
 		const quoteChar: string = state.reader.consume();
@@ -315,7 +303,7 @@ export class InputParser
 
 			// Throw a parse error if the operand is unterminated
 			if (state.reader.eoi())
-				throw new InputParseError(InputParseErrorKind.UnterminatedQuotedOperand, state);
+				throw new ArgumentParseError(ArgumentParseErrorKind.UnterminatedQuotedOperand, state);
 
 			operand += state.reader.consume();
 		}
@@ -326,7 +314,7 @@ export class InputParser
 	 * can consist of any number of flags and may end in an option. An option
 	 * anywhere but the end of the group renders the group invalid
 	 */
-	private static _consumeAppendFlagGroup(state: ParserState, out: ParserOutput): void
+	private static _consumeAppendFlagGroup(state: ArgumentParserState, out: ArgumentParserOutput): void
 	{
 		// Discard `-`
 		state.reader.discard();
@@ -375,7 +363,7 @@ export class InputParser
 	/**
 	 * Consumes a long flag or long option, appending it to the parser output
 	 */
-	private static _consumeAppendLongFlagOrOption(state: ParserState, out: ParserOutput): void
+	private static _consumeAppendLongFlagOrOption(state: ArgumentParserState, out: ArgumentParserOutput): void
 	{
 		// Discard the `--`
 		state.reader.discard(2);
@@ -435,7 +423,7 @@ export class InputParser
 	/**
 	 * Peeks the kind of the next chunk of the input
 	 */
-	private static _peekChunkKind(state: ParserState): InputStringChunkKind
+	private static _peekChunkKind(state: ArgumentParserState): ArgumentStringChunkKind
 	{
 		// Acknowledge delimiter if it shouldn't be parsed as Option input
 		if (/^--\s/.test(state.reader.peekSegment(3)) || /^--$/.test(state.reader.peekSegment(3)))
@@ -443,24 +431,24 @@ export class InputParser
 			const followsOption: boolean = state.lastNode?.kind === CommandArgumentKind.Option;
 
 			if (!followsOption)
-				return InputStringChunkKind.Delimiter;
+				return ArgumentStringChunkKind.Delimiter;
 
 			if (followsOption && typeof (state.lastNode as CommandArgKindImplOption).value !== 'undefined')
-				return InputStringChunkKind.Delimiter;
+				return ArgumentStringChunkKind.Delimiter;
 
-			return InputStringChunkKind.Operand;
+			return ArgumentStringChunkKind.Operand;
 		}
 
 		if (state.reader.peek() === '-')
-			return InputParser._peekOptionKind(state);
+			return ArgumentParser._peekOptionKind(state);
 
 		if (state.reader.peek() === '=' && !/\s/.test(state.reader.peekBehind()))
-			return InputStringChunkKind.Assignment;
+			return ArgumentStringChunkKind.Assignment;
 
 		if (state.reader.eoi())
-			return InputStringChunkKind.None;
+			return ArgumentStringChunkKind.None;
 
-		return InputStringChunkKind.Operand;
+		return ArgumentStringChunkKind.Operand;
 	}
 
 	/**
@@ -478,7 +466,7 @@ export class InputParser
 	 * If Operand is returned that means a multi-flag with invalid chars
 	 * was encountered and it should be treated as an operand
 	 */
-	private static _peekOptionKind(state: ParserState): InputStringChunkKind
+	private static _peekOptionKind(state: ArgumentParserState): ArgumentStringChunkKind
 	{
 		// Set the index to 1 to peek past the `-`
 		let index: number = 1;
@@ -486,7 +474,7 @@ export class InputParser
 
 		// If we see a second `-`, treat as long Flag or Option
 		if (state.reader.peek(index) === '-')
-			return InputStringChunkKind.LongFlagOrOption;
+			return ArgumentStringChunkKind.LongFlagOrOption;
 
 		// Build the identifier
 		while (!/[\s=]/.test(state.reader.peek(index)) && !state.reader.eoi(index))
@@ -502,16 +490,16 @@ export class InputParser
 			if (typeof spec === 'undefined')
 			{
 				if (state.reader.peek() === '=' && !/\s/.test(state.reader.peek(1)))
-					return InputStringChunkKind.Option;
+					return ArgumentStringChunkKind.Option;
 
-				return InputStringChunkKind.Flag;
+				return ArgumentStringChunkKind.Flag;
 			}
 
 			if (spec.kind === CommandArgumentKind.Flag)
-				return InputStringChunkKind.Flag;
+				return ArgumentStringChunkKind.Flag;
 
 			if (spec.kind === CommandArgumentKind.Option)
-				return InputStringChunkKind.Option;
+				return ArgumentStringChunkKind.Option;
 		}
 
 		// Handle multi-flags
@@ -522,14 +510,14 @@ export class InputParser
 				const spec: CommandArgumentSpecEntry = state.spec.get(opt);
 
 				if (spec?.kind === CommandArgumentKind.Option && i !== ident.length - 1)
-					return InputStringChunkKind.InvalidMultiFlag;
+					return ArgumentStringChunkKind.InvalidMultiFlag;
 
 				if (i === ident.length - 1)
-					return InputStringChunkKind.MultiFlag;
+					return ArgumentStringChunkKind.MultiFlag;
 			}
 		}
 
 		// Could not determine a non-operand type
-		return InputStringChunkKind.Operand;
+		return ArgumentStringChunkKind.Operand;
 	}
 }

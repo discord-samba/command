@@ -1,7 +1,8 @@
 /* eslint-disable no-console, capitalized-comments, lines-around-comment, sort-imports, no-mixed-operators */
+
 import { CommandArgumentSpec } from '#root/CommandArgumentSpec';
-import { InputParser } from '#parse/InputParser';
-import { ParserOutput } from '#parse/ParserOutput';
+import { ArgumentParser } from '#parse/ArgumentParser';
+import { ArgumentParserOutput } from '#parse/ArgumentParserOutput';
 import { StringReader } from '#parse/StringReader';
 import { CommandArguments } from '#root/CommandArguments';
 import { CommandContext } from '#root/CommandContext';
@@ -36,8 +37,12 @@ async function main(): Promise<void>
 	console.log(spec.get('dog'));
 
 	const start: number = now();
-	const parsed: ParserOutput = InputParser.parse('-aaabf bar \n--boo \n1 -d foo "1" "foo \\"bar\\" baz" buh', spec);
-	const args: CommandArguments = new CommandArguments(spec, parsed);
+	const output: ArgumentParserOutput = ArgumentParser.parse(
+		'-aaabf bar \n--boo \n1 -d foo "1" "foo \\"bar\\" baz" buh',
+		spec
+	);
+
+	const args: CommandArguments = new CommandArguments(spec, output);
 	const end: number = now();
 
 	console.log(end - start);
@@ -45,7 +50,7 @@ async function main(): Promise<void>
 	await args.resolveArguments(new CommandContext({} as any, {} as any, args));
 	console.log('arguments resolved');
 
-	console.log(parsed);
+	console.log(output);
 	console.log(args.operands);
 	console.log(args.flags.values());
 	console.log(args.options.values());

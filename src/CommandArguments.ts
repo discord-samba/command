@@ -1,4 +1,5 @@
 import { Argument } from '#root/Argument';
+import { ArgumentParserOutput } from '#parse/ArgumentParserOutput';
 import { CommandArgumentError } from '#root/CommandArgumentError';
 import { CommandArgumentErrorContext } from '#root/CommandArgumentErrorContext';
 import { CommandArgumentErrorKind } from '#type/CommandArgumentErrorKind';
@@ -7,7 +8,6 @@ import { CommandContext } from '#root/CommandContext';
 import { Flag } from '#root/Flag';
 import { Operand } from '#root/Operand';
 import { Option } from '#root/Option';
-import { ParserOutput } from '#parse/ParserOutput';
 
 /**
  * Container for all compiled arguments passed to a Command at call-time
@@ -29,7 +29,7 @@ export class CommandArguments
 	 */
 	public options: Map<string, Option<any>>;
 
-	public constructor(spec: CommandArgumentSpec, parsedArgs: ParserOutput)
+	public constructor(spec: CommandArgumentSpec, parsedArgs: ArgumentParserOutput)
 	{
 		this.operands = [];
 		this.flags = new Map();

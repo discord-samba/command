@@ -1,12 +1,12 @@
+import { ArgumentParser } from '#parse/ArgumentParser';
+import { ArgumentParserOutput } from '#parse/ArgumentParserOutput';
 import { CommandArgumentSpec } from '#root/CommandArgumentSpec';
 import { CommandArguments } from '#root/CommandArguments';
 import { Flag } from '#root/Flag';
-import { InputParser } from '#parse/InputParser';
 import { Operand } from '#root/Operand';
 import { Option } from '#root/Option';
-import { ParserOutput } from '#parse/ParserOutput';
 
-describe('CommandArguments', () =>
+describe('CommandArguments tests', () =>
 {
 	it('Should compile passed declared operands', () =>
 	{
@@ -14,7 +14,7 @@ describe('CommandArguments', () =>
 
 		spec.defineOperand('aa', 'String');
 
-		const parserOutput: ParserOutput = InputParser.parse('foo', spec);
+		const parserOutput: ArgumentParserOutput = ArgumentParser.parse('foo', spec);
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
 
 		expect(args.get('aa')).toEqual({ ident: 'aa', value: 'foo', type: 'String' });
@@ -25,7 +25,7 @@ describe('CommandArguments', () =>
 	{
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 
-		const parserOutput: ParserOutput = InputParser.parse('foo bar baz', spec);
+		const parserOutput: ArgumentParserOutput = ArgumentParser.parse('foo bar baz', spec);
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
 
 		expect(args.operands).toEqual([
@@ -42,7 +42,7 @@ describe('CommandArguments', () =>
 		spec.defineOperand('bar', 'String', { required: false });
 		spec.defineOperand('baz', 'String', { required: false });
 
-		const parserOutput: ParserOutput = InputParser.parse('foo bar', spec);
+		const parserOutput: ArgumentParserOutput = ArgumentParser.parse('foo bar', spec);
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
 
 		expect(args.operands).toEqual([
@@ -63,7 +63,7 @@ describe('CommandArguments', () =>
 		spec.defineFlag('a', { long: 'apple' });
 		spec.defineFlag('bar');
 
-		const parserOutput: ParserOutput = InputParser.parse('-aa --apple --bar', spec);
+		const parserOutput: ArgumentParserOutput = ArgumentParser.parse('-aa --apple --bar', spec);
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
 
 		expect(args.get('a')).toEqual({ ident: 'a', value: true, count: 3 });
@@ -77,7 +77,7 @@ describe('CommandArguments', () =>
 
 		spec.setParsingStrategy(2);
 
-		const parserOutput: ParserOutput = InputParser.parse('-aa --apple', spec);
+		const parserOutput: ArgumentParserOutput = ArgumentParser.parse('-aa --apple', spec);
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
 
 		expect(args.get('a')).toEqual({ ident: 'a', value: true, count: 2 });
@@ -91,7 +91,7 @@ describe('CommandArguments', () =>
 		spec.setParsingStrategy(2);
 		spec.defineFlag('a');
 
-		const parserOutput: ParserOutput = InputParser.parse('', spec);
+		const parserOutput: ArgumentParserOutput = ArgumentParser.parse('', spec);
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
 
 		expect(args.get('a')).toEqual({ ident: 'a', value: false, count: 0 });
@@ -104,7 +104,7 @@ describe('CommandArguments', () =>
 		spec.setParsingStrategy(2);
 		spec.defineOption('a', 'String', { long: 'apple' });
 
-		const parserOutput: ParserOutput = InputParser.parse('-a foo', spec);
+		const parserOutput: ArgumentParserOutput = ArgumentParser.parse('-a foo', spec);
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
 
 		expect(args.get('a')).toEqual({ ident: 'a', type: 'String', value: 'foo' });
@@ -124,7 +124,7 @@ describe('CommandArguments', () =>
 		spec.defineFlag('c');
 		spec.defineOperand('foo', 'String');
 
-		const parserOutput: ParserOutput = InputParser.parse('-a foo -b bar', spec);
+		const parserOutput: ArgumentParserOutput = ArgumentParser.parse('-a foo -b bar', spec);
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
 
 		expect(args.get('a')).toEqual({ ident: 'a', type: 'String', value: 'foo' });
@@ -141,13 +141,13 @@ describe('CommandArguments', () =>
 		catch (err) { return err; }
 	}
 
-	it('Should error on missing non-optional operands', () =>
+	it('Should error on missing required operands', () =>
 	{
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 
 		spec.defineOperand('aa', 'String');
 
-		const parserOutput: ParserOutput = InputParser.parse('', spec);
+		const parserOutput: ArgumentParserOutput = ArgumentParser.parse('', spec);
 
 		expect(getErr(() => new CommandArguments(spec, parserOutput)))
 			.toEqual({
@@ -161,14 +161,14 @@ describe('CommandArguments', () =>
 			});
 	});
 
-	it('Should error on missing non-optional options', () =>
+	it('Should error on missing required options', () =>
 	{
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 
 		spec.setParsingStrategy(2);
 		spec.defineOption('a', 'String', { required: true });
 
-		const parserOutput: ParserOutput = InputParser.parse('', spec);
+		const parserOutput: ArgumentParserOutput = ArgumentParser.parse('', spec);
 
 		expect(getErr(() => new CommandArguments(spec, parserOutput)))
 			.toEqual({
@@ -191,10 +191,10 @@ describe('CommandArguments', () =>
 		spec.defineOperand('bar', 'String', { required: false });
 		spec.defineFlag('baz');
 		spec.defineFlag('boo');
-		spec.defineOption('far', 'Number', { required: false });
+		spec.defineOption('far', 'Number');
 		spec.defineOption('faz', 'Number');
 
-		const parserOutput: ParserOutput = InputParser.parse('foo --baz --far 1', spec);
+		const parserOutput: ArgumentParserOutput = ArgumentParser.parse('foo --baz --far 1', spec);
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
 
 		expect(args.get<Operand<string>>('foo')?.isSome()).toBe(true);
@@ -217,7 +217,7 @@ describe('CommandArguments', () =>
 		spec.setParsingStrategy(2);
 		spec.defineFlag('f', { long: 'foo' });
 
-		const parserOutput: ParserOutput = InputParser.parse('--foo', spec);
+		const parserOutput: ArgumentParserOutput = ArgumentParser.parse('--foo', spec);
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
 
 		expect(args.get<Flag>('f')).toEqual({ ident: 'f', value: true, count: 1 });
@@ -232,7 +232,7 @@ describe('CommandArguments', () =>
 		spec.setParsingStrategy(2);
 		spec.defineOption('f', 'String', { long: 'foo' });
 
-		const parserOutput: ParserOutput = InputParser.parse('--foo bar', spec);
+		const parserOutput: ArgumentParserOutput = ArgumentParser.parse('--foo bar', spec);
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
 
 		expect(args.get<Option<string>>('f')).toEqual({ ident: 'f', type: 'String', value: 'bar' });

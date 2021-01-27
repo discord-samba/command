@@ -1,8 +1,9 @@
 /* eslint-disable no-undefined */
+
 import { CommandArgumentKind } from '#type/CommandArgumentKind';
 import { CommandArgumentSpec } from '#root/CommandArgumentSpec';
 
-describe('CommandArgumentSpec', () =>
+describe('CommandArgumentSpec tests', () =>
 {
 	it('Should successfully define an operand', () =>
 	{
