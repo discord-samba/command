@@ -22,4 +22,9 @@ export interface ParserState
 	 * was mistakenly passed to a flag)
 	 */
 	assignmentMode: boolean;
+
+	/**
+	 * Should be a getter that returns the most recent node
+	 */
+	lastNode: { kind: CommandArgumentKind } | undefined;
 }
