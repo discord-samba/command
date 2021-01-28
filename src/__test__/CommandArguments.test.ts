@@ -8,6 +8,10 @@ import { Option } from '#root/Option';
 
 describe('CommandArguments tests', () =>
 {
+	// Avoid testing the raw argument node values since
+	// those are already tested in the argument parser
+	const raw: any = expect.anything();
+
 	it('Should compile passed declared operands', () =>
 	{
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
@@ -17,8 +21,8 @@ describe('CommandArguments tests', () =>
 		const parserOutput: ArgumentParserOutput = ArgumentParser.parse('foo', spec);
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
 
-		expect(args.get('aa')).toEqual({ ident: 'aa', value: 'foo', type: 'String' });
-		expect(args.get(0)).toEqual({ ident: 'aa', value: 'foo', type: 'String' });
+		expect(args.get('aa')).toEqual({ raw, ident: 'aa', value: 'foo', type: 'String' });
+		expect(args.get(0)).toEqual({ raw, ident: 'aa', value: 'foo', type: 'String' });
 	});
 
 	it('Should compile passed undeclared operands', () =>
@@ -29,9 +33,9 @@ describe('CommandArguments tests', () =>
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
 
 		expect(args.operands).toEqual([
-			{ value: 'foo', type: 'String' },
-			{ value: 'bar', type: 'String' },
-			{ value: 'baz', type: 'String' }
+			{ raw, value: 'foo', type: 'String' },
+			{ raw, value: 'bar', type: 'String' },
+			{ raw, value: 'baz', type: 'String' }
 		]);
 	});
 
@@ -46,8 +50,8 @@ describe('CommandArguments tests', () =>
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
 
 		expect(args.operands).toEqual([
-			{ ident: 'foo', value: 'foo', type: 'String' },
-			{ ident: 'bar', value: 'bar', type: 'String' },
+			{ raw, ident: 'foo', value: 'foo', type: 'String' },
+			{ raw, ident: 'bar', value: 'bar', type: 'String' },
 			{ ident: 'baz', type: 'String' }
 		]);
 	});
@@ -66,9 +70,9 @@ describe('CommandArguments tests', () =>
 		const parserOutput: ArgumentParserOutput = ArgumentParser.parse('-aa --apple --bar', spec);
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
 
-		expect(args.get('a')).toEqual({ ident: 'a', value: true, count: 3 });
-		expect(args.get('apple')).toEqual({ ident: 'a', value: true, count: 3 });
-		expect(args.get('bar')).toEqual({ ident: 'bar', value: true, count: 1 });
+		expect(args.get('a')).toEqual({ raw, ident: 'a', value: true, count: 3 });
+		expect(args.get('apple')).toEqual({ raw, ident: 'a', value: true, count: 3 });
+		expect(args.get('bar')).toEqual({ raw, ident: 'bar', value: true, count: 1 });
 	});
 
 	it('Should compile passed undeclared flags', () =>
@@ -80,8 +84,8 @@ describe('CommandArguments tests', () =>
 		const parserOutput: ArgumentParserOutput = ArgumentParser.parse('-aa --apple', spec);
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
 
-		expect(args.get('a')).toEqual({ ident: 'a', value: true, count: 2 });
-		expect(args.get('apple')).toEqual({ ident: 'apple', value: true, count: 1 });
+		expect(args.get('a')).toEqual({ raw, ident: 'a', value: true, count: 2 });
+		expect(args.get('apple')).toEqual({ raw, ident: 'apple', value: true, count: 1 });
 	});
 
 	it('Should compile missing declared flags', () =>
@@ -107,8 +111,8 @@ describe('CommandArguments tests', () =>
 		const parserOutput: ArgumentParserOutput = ArgumentParser.parse('-a foo', spec);
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
 
-		expect(args.get('a')).toEqual({ ident: 'a', type: 'String', value: 'foo' });
-		expect(args.get('apple')).toEqual({ ident: 'a', type: 'String', value: 'foo' });
+		expect(args.get('a')).toEqual({ raw, ident: 'a', type: 'String', value: 'foo' });
+		expect(args.get('apple')).toEqual({ raw, ident: 'a', type: 'String', value: 'foo' });
 	});
 
 	// TODO: Write option type tests after base resolvers are written
@@ -127,12 +131,12 @@ describe('CommandArguments tests', () =>
 		const parserOutput: ArgumentParserOutput = ArgumentParser.parse('-a foo -b bar', spec);
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
 
-		expect(args.get('a')).toEqual({ ident: 'a', type: 'String', value: 'foo' });
-		expect(args.get('apple')).toEqual({ ident: 'a', type: 'String', value: 'foo' });
-		expect(args.get('b')).toEqual({ ident: 'b', value: true, count: 1 });
+		expect(args.get('a')).toEqual({ raw, ident: 'a', type: 'String', value: 'foo' });
+		expect(args.get('apple')).toEqual({ raw, ident: 'a', type: 'String', value: 'foo' });
+		expect(args.get('b')).toEqual({ raw, ident: 'b', value: true, count: 1 });
 		expect(args.get('c')).toEqual({ ident: 'c', value: false, count: 0 });
-		expect(args.get('foo')).toEqual({ ident: 'foo', value: 'bar', type: 'String' });
-		expect(args.get(0)).toEqual({ ident: 'foo', value: 'bar', type: 'String' });
+		expect(args.get('foo')).toEqual({ raw, ident: 'foo', value: 'bar', type: 'String' });
+		expect(args.get(0)).toEqual({ raw, ident: 'foo', value: 'bar', type: 'String' });
 	});
 
 	function getErr(fn: Function): any
@@ -220,8 +224,8 @@ describe('CommandArguments tests', () =>
 		const parserOutput: ArgumentParserOutput = ArgumentParser.parse('--foo', spec);
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
 
-		expect(args.get<Flag>('f')).toEqual({ ident: 'f', value: true, count: 1 });
-		expect(args.get<Flag>('foo')).toEqual({ ident: 'f', value: true, count: 1 });
+		expect(args.get<Flag>('f')).toEqual({ raw, ident: 'f', value: true, count: 1 });
+		expect(args.get<Flag>('foo')).toEqual({ raw, ident: 'f', value: true, count: 1 });
 		expect(args.get<Flag>('f')).toEqual(args.get<Flag>('foo'));
 	});
 
@@ -235,8 +239,8 @@ describe('CommandArguments tests', () =>
 		const parserOutput: ArgumentParserOutput = ArgumentParser.parse('--foo bar', spec);
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
 
-		expect(args.get<Option<string>>('f')).toEqual({ ident: 'f', type: 'String', value: 'bar' });
-		expect(args.get<Option<string>>('foo')).toEqual({ ident: 'f', type: 'String', value: 'bar' });
+		expect(args.get<Option<string>>('f')).toEqual({ raw, ident: 'f', type: 'String', value: 'bar' });
+		expect(args.get<Option<string>>('foo')).toEqual({ raw, ident: 'f', type: 'String', value: 'bar' });
 		expect(args.get<Option<string>>('f')).toEqual(args.get<Option<string>>('foo'));
 	});
 });

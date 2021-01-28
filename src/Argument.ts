@@ -1,3 +1,5 @@
+import { ArgumentParseNode } from '#type/ArgumentParseNode';
+
 /**
  * Base Command argument class that all argument types (operand, flag, option)
  * inherit from
@@ -30,10 +32,26 @@ export class Argument<T, U = string | undefined>
 	 */
 	public value: T;
 
-	public constructor(ident: U, value: any)
+	/**
+	 * The raw argument as returned from the argument parser for this argument.
+	 * This will be undefined for non-required arguments that were unpassed.
+	 *
+	 * The fields you can expect if present depend on the argument type:
+	 *
+	 * - [[`Operand<T>`]]` -> `[[`CommandArgKindImplOperand`]]
+	 * - [[`Option<T>`]]`  -> `[[`CommandArgKindImplOption`]]
+	 * - [[`Flag`]]`       -> `[[`CommandArgKindImplFlag`]]
+	 *
+	 * > **Note:** This is exposed mostly for use in error handling as the info
+	 * it contains may be useful for your error output
+	 */
+	public raw?: ArgumentParseNode;
+
+	public constructor(ident: U, value: any, raw?: ArgumentParseNode)
 	{
 		this.ident = ident;
 		this.value = value;
+		this.raw = raw;
 	}
 
 	/**

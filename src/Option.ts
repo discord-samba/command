@@ -1,5 +1,6 @@
 import { Argument } from '#root/Argument';
 import { ArgumentContext } from '#resolve/ArgumentContext';
+import { CommandArgKindImplOption } from '#parse/commandArgKindImpl/CommandArgKindImplOption';
 import { CommandArgumentKind } from '#type/CommandArgumentKind';
 import { CommandContext } from '#root/CommandContext';
 import { CommandModule } from '#root/CommandModule';
@@ -13,9 +14,9 @@ export class Option<T> extends Argument<T, string>
 {
 	public type: string;
 
-	public constructor(ident: string, value: T | undefined, type: string)
+	public constructor(ident: string, value: T | undefined, type: string, raw?: CommandArgKindImplOption)
 	{
-		super(ident, value);
+		super(ident, value, raw);
 		this.type = type;
 	}
 
