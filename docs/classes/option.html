@@ -2452,6 +2452,9 @@ img {
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a href="option.html#ident" class="tsd-kind-icon">ident</a>
 				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a href="option.html#raw" class="tsd-kind-icon">raw</a>
+				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
 					<a href="option.html#type" class="tsd-kind-icon">type</a>
 				</li>
@@ -2519,6 +2522,7 @@ img {
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="option.html#ident" class="tsd-kind-icon">ident</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="option.html#raw" class="tsd-kind-icon">raw</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="option.html#type" class="tsd-kind-icon">type</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="option.html#value" class="tsd-kind-icon">value</a></li>
 						</ul>
@@ -2538,14 +2542,14 @@ img {
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
 				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>Option<span class="tsd-signature-symbol">(</span>ident<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span>, type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="option.html" class="tsd-signature-type">Option</a></li>
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Option<span class="tsd-signature-symbol">(</span>ident<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span>, type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, raw<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">CommandArgKindImplOption</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="option.html" class="tsd-signature-type">Option</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<p>Overrides <a href="argument.html">Argument</a>.<a href="argument.html#constructor">constructor</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Option.ts#L14">src/Option.ts:14</a></li>
+								<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Option.ts#L15">src/Option.ts:15</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2558,6 +2562,9 @@ img {
 							</li>
 							<li>
 								<h5>type: <span class="tsd-signature-type">string</span></h5>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> raw: <span class="tsd-signature-type">CommandArgKindImplOption</span></h5>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <a href="option.html" class="tsd-signature-type">Option</a></h4>
@@ -2574,7 +2581,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="argument.html">Argument</a>.<a href="argument.html#ident">ident</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Argument.ts#L15">src/Argument.ts:15</a></li>
+						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Argument.ts#L17">src/Argument.ts:17</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2587,13 +2594,40 @@ img {
 					and parsed</p>
 				</div>
 			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+				<a name="raw" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> raw</h3>
+				<div class="tsd-signature tsd-kind-icon">raw<span class="tsd-signature-symbol">:</span> <a href="../globals.html#argumentparsenode" class="tsd-signature-type">ArgumentParseNode</a></div>
+				<aside class="tsd-sources">
+					<p>Inherited from <a href="argument.html">Argument</a>.<a href="argument.html#raw">raw</a></p>
+					<ul>
+						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Argument.ts#L48">src/Argument.ts:48</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The raw argument as returned from the argument parser for this argument.
+						This will be undefined for non-required arguments that were unpassed.</p>
+					</div>
+					<p>The fields you can expect if present depend on the argument type:</p>
+					<ul>
+						<li>[[<code>Operand&lt;T&gt;</code>]]<code>-&gt;</code>[[<code>CommandArgKindImplOperand</code>]]</li>
+						<li>[[<code>Option&lt;T&gt;</code>]]<code> -&gt;</code>[[<code>CommandArgKindImplOption</code>]]</li>
+						<li><a href="../enums/commandargumentkind.html#flag"><code>Flag</code></a><code>      -&gt;</code>[[<code>CommandArgKindImplFlag</code>]]</li>
+					</ul>
+					<blockquote>
+						<p><strong>Note:</strong> This is exposed mostly for use in error handling as the info
+						it contains may be useful for your error output</p>
+					</blockquote>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 				<a name="type" class="tsd-anchor"></a>
 				<h3>type</h3>
 				<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Option.ts#L14">src/Option.ts:14</a></li>
+						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Option.ts#L15">src/Option.ts:15</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2604,7 +2638,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="argument.html">Argument</a>.<a href="argument.html#value">value</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Argument.ts#L31">src/Argument.ts:31</a></li>
+						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Argument.ts#L33">src/Argument.ts:33</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2636,7 +2670,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="argument.html">Argument</a>.<a href="argument.html#issome">isSome</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Argument.ts#L42">src/Argument.ts:42</a></li>
+								<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Argument.ts#L60">src/Argument.ts:60</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
