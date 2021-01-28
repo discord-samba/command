@@ -1,4 +1,4 @@
-import { CommandArgumentKind } from '#type/CommandArgumentKind';
+import { ArgumentParseNode } from '#type/ArgumentParseNode';
 import { CommandArgumentSpec } from '#root/CommandArgumentSpec';
 import { StringReader } from '#parse/StringReader';
 
@@ -14,7 +14,7 @@ export class ArgumentParserState
 	/**
 	 * Holds all currently parsed input nodes
 	 */
-	public nodes: ({ kind: CommandArgumentKind })[];
+	public nodes: ArgumentParseNode[];
 
 	/**
 	 * Represents the index of the current argument being parsed
@@ -40,7 +40,7 @@ export class ArgumentParserState
 	/**
 	 * The last node that was parsed
 	 */
-	public get lastNode(): { kind: CommandArgumentKind } | undefined
+	public get lastNode(): ArgumentParseNode | undefined
 	{
 		return this.nodes[this.nodes.length - 1];
 	}

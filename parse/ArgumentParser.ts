@@ -47,11 +47,10 @@ export class ArgumentParser
 			const spec: CommandArgumentSpecOperand | undefined = state.spec.operands.shift();
 			const value: string = ArgumentParser._consumeOperand(state, spec?.rest ?? false);
 			const operand: CommandArgKindImplOperand =
-				new CommandArgKindImplOperand(spec?.type ?? 'String', value, spec?.ident);
+				new CommandArgKindImplOperand(state.index++, spec?.type ?? 'String', value, spec?.ident);
 
 			out.operands.push(operand);
 			state.nodes.push(operand);
-			state.index++;
 
 			ArgumentParser._discardWhitespace(state);
 		}
@@ -72,11 +71,10 @@ export class ArgumentParser
 					: ArgumentParser._consumeOperand(state, false);
 
 			const argument: CommandArgKindImplOperand =
-				new CommandArgKindImplOperand(spec?.type ?? 'String', operand, spec?.ident);
+				new CommandArgKindImplOperand(state.index++, spec?.type ?? 'String', operand, spec?.ident);
 
 			out.operands.push(argument);
 			state.nodes.push(argument);
-			state.index++;
 
 			ArgumentParser._discardWhitespace(state);
 		}
@@ -152,7 +150,7 @@ export class ArgumentParser
 				// Error on invalid multi-flags
 				if (kind === ArgumentStringChunkKind.InvalidMultiFlag)
 				{
-					throw new ArgumentParseError(ArgumentParseErrorKind.InvalidMultiFlag, state);
+					throw new ArgumentParseError(ArgumentParseErrorKind.InvalidMultiFlag, state.index);
 				}
 
 				// Handle long flags and long options
@@ -174,9 +172,7 @@ export class ArgumentParser
 				if (state.lastNode?.kind === CommandArgumentKind.Option
 					&& typeof (state.lastNode as CommandArgKindImplOption).value === 'undefined'
 					&& state.reader.eoi())
-					throw new ArgumentParseError(ArgumentParseErrorKind.OptionMissingArgument, state);
-
-				state.index++;
+					throw new ArgumentParseError(ArgumentParseErrorKind.OptionMissingArgument, state.lastNode.index);
 			}
 		}
 	}
@@ -200,6 +196,7 @@ export class ArgumentParser
 			ArgumentParser._discardWhitespace(state);
 
 			state.assignmentMode = false;
+			state.index++;
 		}
 
 		// Assign operand as previous option value if in assignment mode
@@ -213,6 +210,7 @@ export class ArgumentParser
 			ArgumentParser._discardWhitespace(state);
 
 			state.assignmentMode = false;
+			state.index++;
 		}
 
 		// Otherwise parse as a general operand
@@ -226,15 +224,13 @@ export class ArgumentParser
 					: ArgumentParser._consumeOperand(state, false);
 
 			const operand: CommandArgKindImplOperand =
-				new CommandArgKindImplOperand(spec?.type ?? 'String', value, spec?.ident);
+				new CommandArgKindImplOperand(state.index++, spec?.type ?? 'String', value, spec?.ident);
 
 			out.operands.push(operand);
 			state.nodes.push(operand);
 
 			ArgumentParser._discardWhitespace(state);
 		}
-
-		state.index++;
 	}
 
 	/**
@@ -303,7 +299,7 @@ export class ArgumentParser
 
 			// Throw a parse error if the operand is unterminated
 			if (state.reader.eoi())
-				throw new ArgumentParseError(ArgumentParseErrorKind.UnterminatedQuotedOperand, state);
+				throw new ArgumentParseError(ArgumentParseErrorKind.UnterminatedQuotedOperand, state.index);
 
 			operand += state.reader.consume();
 		}
@@ -328,7 +324,7 @@ export class ArgumentParser
 			if (spec?.kind === CommandArgumentKind.Option)
 			{
 				const option: CommandArgKindImplOption =
-					new CommandArgKindImplOption(spec.ident, spec.type, spec.long);
+					new CommandArgKindImplOption(state.index, spec.ident, spec.type, spec.long);
 
 				out.options.push(option);
 				state.nodes.push(option);
@@ -339,7 +335,7 @@ export class ArgumentParser
 			// Handle undeclared options (determined by the presence of `=`)
 			else if (typeof spec === 'undefined' && state.reader.peek() === '=' && !/\s/.test(state.reader.peek(1)))
 			{
-				const option: CommandArgKindImplOption = new CommandArgKindImplOption(ident, 'String');
+				const option: CommandArgKindImplOption = new CommandArgKindImplOption(state.index, ident, 'String');
 				out.options.push(option);
 				state.nodes.push(option);
 
@@ -353,11 +349,13 @@ export class ArgumentParser
 			// Handle flags (declared or otherwise)
 			else
 			{
-				const flag: CommandArgKindImplFlag = new CommandArgKindImplFlag(ident, spec?.long);
+				const flag: CommandArgKindImplFlag = new CommandArgKindImplFlag(state.index, ident, spec?.long);
 				out.flags.push(flag);
 				state.nodes.push(flag);
 			}
 		}
+
+		state.index++;
 	}
 
 	/**
@@ -379,7 +377,7 @@ export class ArgumentParser
 		if (spec?.kind === CommandArgumentKind.Option)
 		{
 			const option: CommandArgKindImplOption =
-				new CommandArgKindImplOption(spec.ident, spec.type, spec.long);
+				new CommandArgKindImplOption(state.index++, spec.ident, spec.type, spec.long);
 
 			out.options.push(option);
 			state.nodes.push(option);
@@ -396,7 +394,7 @@ export class ArgumentParser
 			// Handle undeclared option
 			if (state.reader.peek() === '=' && !/\s/.test(state.reader.peek(1)))
 			{
-				const option: CommandArgKindImplOption = new CommandArgKindImplOption(ident, 'String');
+				const option: CommandArgKindImplOption = new CommandArgKindImplOption(state.index++, ident, 'String');
 				out.options.push(option);
 				state.nodes.push(option);
 
@@ -407,7 +405,7 @@ export class ArgumentParser
 			}
 
 			// Handle undeclared flag
-			const flag: CommandArgKindImplFlag = new CommandArgKindImplFlag(ident);
+			const flag: CommandArgKindImplFlag = new CommandArgKindImplFlag(state.index++, ident);
 			out.flags.push(flag);
 			state.nodes.push(flag);
 
@@ -415,7 +413,7 @@ export class ArgumentParser
 		}
 
 		// Handle declared flag
-		const flag: CommandArgKindImplFlag = new CommandArgKindImplFlag(spec.ident, ident);
+		const flag: CommandArgKindImplFlag = new CommandArgKindImplFlag(state.index++, spec.ident, ident);
 		out.flags.push(flag);
 		state.nodes.push(flag);
 	}
@@ -425,7 +423,7 @@ export class ArgumentParser
 	 */
 	private static _peekChunkKind(state: ArgumentParserState): ArgumentStringChunkKind
 	{
-		// Acknowledge delimiter if it shouldn't be parsed as Option input
+		// Acknowledge delimiter, determine if it should be parsed as an Option value
 		if (/^--\s/.test(state.reader.peekSegment(3)) || /^--$/.test(state.reader.peekSegment(3)))
 		{
 			const followsOption: boolean = state.lastNode?.kind === CommandArgumentKind.Option;
