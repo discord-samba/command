@@ -2620,7 +2620,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandArgumentSpec.ts#L158">src/CommandArgumentSpec.ts:158</a></li>
+								<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandArgumentSpec.ts#L190">src/CommandArgumentSpec.ts:190</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2631,8 +2631,11 @@ img {
 							<p>If given an identifier, it may be a single character or a long identifier.
 								If given an optional long identifier in the options object parameter
 								in addition to the identifier as the first parameter, the first paramater
-							may only be a single character.</p>
-							<p><strong>NOTE:</strong>, If a flag is found and the parsing strategy is not set to
+							identifier may only be a single character. Example:</p>
+							<pre><code class="language-js">&lt;Command&gt;.arguments.defineFlag(<span class="hljs-string">&#x27;f&#x27;</span>);
+&lt;Command&gt;.arguments.defineFlag(<span class="hljs-string">&#x27;bar&#x27;</span>);
+&lt;Command&gt;.arguments.defineFlag(<span class="hljs-string">&#x27;b&#x27;</span>, { <span class="hljs-attr">long</span>: <span class="hljs-string">&#x27;baz&#x27;</span> });</code></pre>
+							<p><strong>NOTE:</strong> If a flag is found and the parsing strategy is not set to
 							<code>Advanced</code> (<code>2</code>) then it will be treated as an operand</p>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2663,7 +2666,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandArgumentSpec.ts#L106">src/CommandArgumentSpec.ts:106</a></li>
+								<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandArgumentSpec.ts#L132">src/CommandArgumentSpec.ts:132</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2675,6 +2678,11 @@ img {
 							<p>May also be declared as a rest operand (<code>false</code> by default), which will consume the remainder
 								of the input as a single operand when parsing for that operand begins. Rest operands must be
 							defined last and may not be followed by any additional operands.</p>
+							<p>Operand identifiers must be at least 2 characters to avoid confusion and avoid conflict
+							with flags and options</p>
+							<p>Examples:</p>
+							<pre><code class="language-js">&lt;Command&gt;.arguments.defineOperand(<span class="hljs-string">&#x27;foo&#x27;</span>, <span class="hljs-string">&#x27;String&#x27;</span>);
+&lt;Command&gt;.arguments.defineOperand(<span class="hljs-string">&#x27;bar&#x27;</span>, <span class="hljs-string">&#x27;String&#x27;</span>, { <span class="hljs-attr">required</span>: <span class="hljs-literal">false</span> });</code></pre>
 							<p><strong>NOTE:</strong> If the parsing strategy is set to <code>AllowQuoting</code> (<code>1</code>) or higher and a quoted
 								operand is going to be parsed but the spec says it should be a rest argument then the quotes
 							will be preserved in the operand value.</p>
@@ -2683,8 +2691,6 @@ img {
 								would otherwise be parsed as a flag or option it will still be parsed as part
 								of the rest operand. Note this is only the case when the parser is currently consuming a
 							rest operand.</p>
-							<p>Operand identifiers must be at least 2 characters to avoid confusion and avoid conflict
-							with flags and options</p>
 							<p><strong>NOTE:</strong> If the parsing strategy is not set to <code>Advanced</code> (<code>2</code>) then every argument
 								encountered will be treated as an operand. If an argument follows a flag and that
 								flag is not defined as an Option via <code>defineOption()</code> then the
@@ -2724,7 +2730,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandArgumentSpec.ts#L214">src/CommandArgumentSpec.ts:214</a></li>
+								<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandArgumentSpec.ts#L252">src/CommandArgumentSpec.ts:252</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2735,7 +2741,10 @@ img {
 							<p>If given an identifier, it may be a single character or a long identifier.
 								If given an optional long identifier in the options object parameter
 								in addition to the identifier as the first parameter, the first paramater
-							may only be a single character.</p>
+							may only be a single character. Examples:</p>
+							<pre><code class="language-js">&lt;Command&gt;.spec.defineOption(<span class="hljs-string">&#x27;f&#x27;</span>, <span class="hljs-string">&#x27;String&#x27;</span>);
+&lt;Command&gt;.spec.defineOption(<span class="hljs-string">&#x27;bar&#x27;</span>, <span class="hljs-string">&#x27;String&#x27;</span>);
+&lt;Command&gt;.spec.defineOption(<span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;String&#x27;</span>, { <span class="hljs-attr">long</span>: <span class="hljs-string">&#x27;baz&#x27;</span> });</code></pre>
 							<p><strong>NOTE:</strong> If an option is found and the parsing strategy is not set to <code>Advanced</code> (<code>2</code>)
 								then it will be treated as an operand. If an argument that can be parsed as an option
 								is found in a Command&#39;s input but the option is not declared then it will be treated
@@ -2775,7 +2784,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandArgumentSpec.ts#L274">src/CommandArgumentSpec.ts:274</a></li>
+								<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandArgumentSpec.ts#L312">src/CommandArgumentSpec.ts:312</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2816,18 +2825,29 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandArgumentSpec.ts#L44">src/CommandArgumentSpec.ts:44</a></li>
+								<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandArgumentSpec.ts#L64">src/CommandArgumentSpec.ts:64</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Sets the argument parsing strategy. Can be set to one of the following:</p>
 							</div>
-							<pre><code><span class="hljs-number">0</span> - <span class="hljs-keyword">Basic. </span>All words are counted as separate operands
-<span class="hljs-number">1</span> - Allow Quoting. Same as <span class="hljs-keyword">basic, </span><span class="hljs-keyword">but </span><span class="hljs-keyword">multiple </span>arguments can <span class="hljs-keyword">be </span>quoted
-    to create a single operand
-<span class="hljs-number">2</span> - Advanced. Includes <span class="hljs-keyword">basic </span><span class="hljs-keyword">and </span>quoting, <span class="hljs-keyword">adds </span>flags <span class="hljs-keyword">and </span>options
-    with arguments</code></pre>
+							<pre><code class="language-txt">0 -&gt; Basic. All words are counted as separate operands
+1 -&gt; AllowQuoting. Same as basic, but multiple arguments can be quoted
+     to create a single operand
+2 -&gt; Advanced. Includes basic and quoting, adds flags and options
+     with arguments</code></pre>
+							<p>Examples:</p>
+							<pre><code class="language-txt">       Basic -&gt; `foo bar baz`
+AllowQuoting -&gt; `foo &quot;bar baz&quot; boo`
+    Advanced -&gt; `foo -b --bar --baz=&quot;boo far faz&quot;`</code></pre>
+							<p><strong>NOTE:</strong> The default strategy is <code>Basic</code> (<code>0</code>). This is set <em>per command</em>, so
+								setting one command&#39;s argument spec parsing strategy to <code>AllowQuoting</code> or
+								<code>Advanced</code> will not affect any other commands. This can also be changed at any
+								time, so you can feasibly iterate over all commands at runtime and forcibly change
+								their parsing strategy (for example, to allow quoted arguments on a loaded command
+							from a plugin that you did not write). For example:</p>
+							<pre><code class="language-js">CommandModule.commands.get(<span class="hljs-string">&#x27;foo&#x27;</span>).arguments.setParsingStrategy(<span class="hljs-number">1</span>);</code></pre>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
