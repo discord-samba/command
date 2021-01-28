@@ -1,5 +1,6 @@
 import { Argument } from '#root/Argument';
 import { ArgumentContext } from '#resolve/ArgumentContext';
+import { CommandArgKindImplOperand } from '#parse/commandArgKindImpl/CommandArgKindImplOperand';
 import { CommandArgumentKind } from '#type/CommandArgumentKind';
 import { CommandContext } from '#root/CommandContext';
 import { CommandModule } from '#root/CommandModule';
@@ -19,9 +20,9 @@ export class Operand<T> extends Argument<T>
 {
 	public type: string;
 
-	public constructor(value: string, ident: string | undefined, type: string)
+	public constructor(value: string, ident: string | undefined, type: string, raw?: CommandArgKindImplOperand)
 	{
-		super(ident, value);
+		super(ident, value, raw);
 		this.type = type;
 	}
 

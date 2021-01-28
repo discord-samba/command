@@ -1,4 +1,5 @@
 import { Argument } from '#root/Argument';
+import { CommandArgKindImplFlag } from '#parse/commandArgKindImpl/CommandArgKindImplFlag';
 
 /**
  * Represents a flag type command argument. The `value` field will be true
@@ -17,9 +18,9 @@ export class Flag extends Argument<boolean, string>
 	 */
 	public value!: boolean;
 
-	public constructor(ident: string)
+	public constructor(ident: string, raw?: CommandArgKindImplFlag)
 	{
-		super(ident, false);
+		super(ident, false, raw);
 		this.count = 0;
 	}
 

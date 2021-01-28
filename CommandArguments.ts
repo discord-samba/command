@@ -37,7 +37,7 @@ export class CommandArguments
 
 		// Compile operands
 		for (const operand of parsedArgs.operands)
-			this.operands.push(new Operand(operand.value, operand.ident, operand.type));
+			this.operands.push(new Operand(operand.value, operand.ident, operand.type, operand));
 
 		// Check for missing required operands and compile missing non-required operands from spec
 		for (const operand of spec.operands)
@@ -60,7 +60,7 @@ export class CommandArguments
 		for (const parsedFlag of parsedArgs.flags.values())
 		{
 			const flag: Flag = this.flags.get(parsedFlag.ident)
-				?? new Flag(parsedFlag.ident);
+				?? new Flag(parsedFlag.ident, parsedFlag);
 
 			flag.increment();
 
@@ -79,7 +79,13 @@ export class CommandArguments
 		// Compile options
 		for (const parsedOption of parsedArgs.options.values())
 		{
-			const option: Option<unknown> = new Option(parsedOption.ident, parsedOption.value, parsedOption.type);
+			const option: Option<unknown> = new Option(
+				parsedOption.ident,
+				parsedOption.value,
+				parsedOption.type,
+				parsedOption
+			);
+
 			this.options.set(parsedOption.ident, option);
 
 			if (typeof parsedOption.long !== 'undefined')
