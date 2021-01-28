@@ -4,7 +4,6 @@ import { ICommandArgumentKindOperand } from '#parse/interfaces/ICommandArgumentK
 /**
  * Represents an uncompiled operand argument as parsed from the input.
  * Will have no identifier if not declared in the spec
- * @internal
  */
 export class CommandArgKindImplOperand implements ICommandArgumentKindOperand
 {

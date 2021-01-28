@@ -3,7 +3,6 @@ import { ICommandArgumentKindFlag } from '#parse/interfaces/ICommandArgumentKind
 
 /**
  * Represents an uncompiled flag argument as parsed from the input
- * @internal
  */
 export class CommandArgKindImplFlag implements ICommandArgumentKindFlag
 {
