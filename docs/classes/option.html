@@ -2414,6 +2414,15 @@ img {
 			<a href="command.html" class="tsd-kind-icon">Command</a>
 		</li>
 		<li class=" tsd-kind-class">
+			<a href="commandargkindimplflag.html" class="tsd-kind-icon">Command<wbr>Arg<wbr>Kind<wbr>Impl<wbr>Flag</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="commandargkindimploperand.html" class="tsd-kind-icon">Command<wbr>Arg<wbr>Kind<wbr>Impl<wbr>Operand</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="commandargkindimploption.html" class="tsd-kind-icon">Command<wbr>Arg<wbr>Kind<wbr>Impl<wbr>Option</a>
+		</li>
+		<li class=" tsd-kind-class">
 			<a href="commandargumenterror.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Error</a>
 		</li>
 		<li class=" tsd-kind-class">
@@ -2542,7 +2551,7 @@ img {
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
 				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>Option<span class="tsd-signature-symbol">(</span>ident<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span>, type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, raw<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">CommandArgKindImplOption</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="option.html" class="tsd-signature-type">Option</a></li>
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Option<span class="tsd-signature-symbol">(</span>ident<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span>, type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, raw<span class="tsd-signature-symbol">?: </span><a href="commandargkindimploption.html" class="tsd-signature-type">CommandArgKindImplOption</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="option.html" class="tsd-signature-type">Option</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -2564,7 +2573,7 @@ img {
 								<h5>type: <span class="tsd-signature-type">string</span></h5>
 							</li>
 							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> raw: <span class="tsd-signature-type">CommandArgKindImplOption</span></h5>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> raw: <a href="commandargkindimploption.html" class="tsd-signature-type">CommandArgKindImplOption</a></h5>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <a href="option.html" class="tsd-signature-type">Option</a></h4>
@@ -2611,9 +2620,9 @@ img {
 					</div>
 					<p>The fields you can expect if present depend on the argument type:</p>
 					<ul>
-						<li>[[<code>Operand&lt;T&gt;</code>]]<code>-&gt;</code>[[<code>CommandArgKindImplOperand</code>]]</li>
-						<li>[[<code>Option&lt;T&gt;</code>]]<code> -&gt;</code>[[<code>CommandArgKindImplOption</code>]]</li>
-						<li><a href="../enums/commandargumentkind.html#flag"><code>Flag</code></a><code>      -&gt;</code>[[<code>CommandArgKindImplFlag</code>]]</li>
+						<li><a href="../enums/commandargumentkind.html#operand"><code>Operand<T></code></a><code>-&gt;</code><a href="commandargkindimploperand.html"><code>CommandArgKindImplOperand</code></a></li>
+						<li><a href="../enums/commandargumentkind.html#option"><code>Option<T></code></a><code> -&gt;</code><a href="commandargkindimploption.html"><code>CommandArgKindImplOption</code></a></li>
+						<li><a href="../enums/commandargumentkind.html#flag"><code>Flag</code></a><code>      -&gt;</code><a href="commandargkindimplflag.html"><code>CommandArgKindImplFlag</code></a></li>
 					</ul>
 					<blockquote>
 						<p><strong>Note:</strong> This is exposed mostly for use in error handling as the info
