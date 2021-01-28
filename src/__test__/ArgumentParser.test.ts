@@ -14,10 +14,10 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			options: [],
 			operands: [
-				{ kind: 2, type: 'String', value: 'foo', ident: 'foo' },
-				{ kind: 2, type: 'Boolean', value: 'true', ident: 'bar' },
-				{ kind: 2, type: 'Number', value: '1', ident: 'baz' },
-				{ kind: 2, type: 'String', value: 'bar' }
+				{ kind: 2, index: 0, ident: 'foo', type: 'String', value: 'foo' },
+				{ kind: 2, index: 1, ident: 'bar', type: 'Boolean', value: 'true' },
+				{ kind: 2, index: 2, ident: 'baz', type: 'Number', value: '1' },
+				{ kind: 2, index: 3, type: 'String', value: 'bar' }
 			]
 		});
 	});
@@ -31,9 +31,9 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			options: [],
 			operands: [
-				{ kind: 2, type: 'String', value: 'foo' },
-				{ kind: 2, type: 'String', value: 'foo bar baz' },
-				{ kind: 2, type: 'String', value: 'baz' },
+				{ kind: 2, index: 0, type: 'String', value: 'foo' },
+				{ kind: 2, index: 1, type: 'String', value: 'foo bar baz' },
+				{ kind: 2, index: 2, type: 'String', value: 'baz' },
 			]
 		});
 
@@ -41,9 +41,9 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			options: [],
 			operands: [
-				{ kind: 2, type: 'String', value: 'foo' },
-				{ kind: 2, type: 'String', value: 'foo bar baz' },
-				{ kind: 2, type: 'String', value: 'baz' },
+				{ kind: 2, index: 0, type: 'String', value: 'foo' },
+				{ kind: 2, index: 1, type: 'String', value: 'foo bar baz' },
+				{ kind: 2, index: 2, type: 'String', value: 'baz' },
 			]
 		});
 
@@ -51,9 +51,9 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			options: [],
 			operands: [
-				{ kind: 2, type: 'String', value: 'foo' },
-				{ kind: 2, type: 'String', value: 'foo bar baz' },
-				{ kind: 2, type: 'String', value: 'baz' },
+				{ kind: 2, index: 0, type: 'String', value: 'foo' },
+				{ kind: 2, index: 1, type: 'String', value: 'foo bar baz' },
+				{ kind: 2, index: 2, type: 'String', value: 'baz' },
 			]
 		});
 	});
@@ -66,11 +66,11 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			options: [],
 			operands: [
-				{ kind: 2, type: 'String', value: 'foo' },
-				{ kind: 2, type: 'String', value: '"foo' },
-				{ kind: 2, type: 'String', value: 'bar' },
-				{ kind: 2, type: 'String', value: 'baz"' },
-				{ kind: 2, type: 'String', value: 'baz' },
+				{ kind: 2, index: 0, type: 'String', value: 'foo' },
+				{ kind: 2, index: 1, type: 'String', value: '"foo' },
+				{ kind: 2, index: 2, type: 'String', value: 'bar' },
+				{ kind: 2, index: 3, type: 'String', value: 'baz"' },
+				{ kind: 2, index: 4, type: 'String', value: 'baz' },
 			]
 		});
 	});
@@ -84,9 +84,9 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			options: [],
 			operands: [
-				{ kind: 2, type: 'String', value: 'foo' },
-				{ kind: 2, type: 'String', value: 'foo "bar" baz' },
-				{ kind: 2, type: 'String', value: 'baz' },
+				{ kind: 2, index: 0, type: 'String', value: 'foo' },
+				{ kind: 2, index: 1, type: 'String', value: 'foo "bar" baz' },
+				{ kind: 2, index: 2, type: 'String', value: 'baz' },
 			]
 		});
 
@@ -94,9 +94,9 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			options: [],
 			operands: [
-				{ kind: 2, type: 'String', value: 'foo' },
-				{ kind: 2, type: 'String', value: 'foo \'bar\' baz' },
-				{ kind: 2, type: 'String', value: 'baz' },
+				{ kind: 2, index: 0, type: 'String', value: 'foo' },
+				{ kind: 2, index: 1, type: 'String', value: 'foo \'bar\' baz' },
+				{ kind: 2, index: 2, type: 'String', value: 'baz' },
 			]
 		});
 
@@ -104,9 +104,9 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			options: [],
 			operands: [
-				{ kind: 2, type: 'String', value: 'foo' },
-				{ kind: 2, type: 'String', value: 'foo `bar` baz' },
-				{ kind: 2, type: 'String', value: 'baz' },
+				{ kind: 2, index: 0, type: 'String', value: 'foo' },
+				{ kind: 2, index: 1, type: 'String', value: 'foo `bar` baz' },
+				{ kind: 2, index: 2, type: 'String', value: 'baz' },
 			]
 		});
 	});
@@ -120,9 +120,9 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			options: [],
 			operands: [
-				{ kind: 2, type: 'String', value: 'foo' },
-				{ kind: 2, type: 'String', value: 'foo `bar` baz' },
-				{ kind: 2, type: 'String', value: 'baz' },
+				{ kind: 2, index: 0, type: 'String', value: 'foo' },
+				{ kind: 2, index: 1, type: 'String', value: 'foo `bar` baz' },
+				{ kind: 2, index: 2, type: 'String', value: 'baz' },
 			]
 		});
 
@@ -130,9 +130,9 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			options: [],
 			operands: [
-				{ kind: 2, type: 'String', value: 'foo' },
-				{ kind: 2, type: 'String', value: 'foo \'bar\' baz' },
-				{ kind: 2, type: 'String', value: 'baz' },
+				{ kind: 2, index: 0, type: 'String', value: 'foo' },
+				{ kind: 2, index: 1, type: 'String', value: 'foo \'bar\' baz' },
+				{ kind: 2, index: 2, type: 'String', value: 'baz' },
 			]
 		});
 
@@ -140,9 +140,9 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			options: [],
 			operands: [
-				{ kind: 2, type: 'String', value: 'foo' },
-				{ kind: 2, type: 'String', value: 'foo \'bar\' baz' },
-				{ kind: 2, type: 'String', value: 'baz' },
+				{ kind: 2, index: 0, type: 'String', value: 'foo' },
+				{ kind: 2, index: 1, type: 'String', value: 'foo \'bar\' baz' },
+				{ kind: 2, index: 2, type: 'String', value: 'baz' },
 			]
 		});
 
@@ -150,9 +150,9 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			options: [],
 			operands: [
-				{ kind: 2, type: 'String', value: 'foo' },
-				{ kind: 2, type: 'String', value: 'foo "bar" baz' },
-				{ kind: 2, type: 'String', value: 'baz' },
+				{ kind: 2, index: 0, type: 'String', value: 'foo' },
+				{ kind: 2, index: 1, type: 'String', value: 'foo "bar" baz' },
+				{ kind: 2, index: 2, type: 'String', value: 'baz' },
 			]
 		});
 
@@ -160,9 +160,9 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			options: [],
 			operands: [
-				{ kind: 2, type: 'String', value: 'foo' },
-				{ kind: 2, type: 'String', value: 'foo `bar` baz' },
-				{ kind: 2, type: 'String', value: 'baz' },
+				{ kind: 2, index: 0, type: 'String', value: 'foo' },
+				{ kind: 2, index: 1, type: 'String', value: 'foo `bar` baz' },
+				{ kind: 2, index: 2, type: 'String', value: 'baz' },
 			]
 		});
 
@@ -170,9 +170,9 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			options: [],
 			operands: [
-				{ kind: 2, type: 'String', value: 'foo' },
-				{ kind: 2, type: 'String', value: 'foo "bar" baz' },
-				{ kind: 2, type: 'String', value: 'baz' },
+				{ kind: 2, index: 0, type: 'String', value: 'foo' },
+				{ kind: 2, index: 1, type: 'String', value: 'foo "bar" baz' },
+				{ kind: 2, index: 2, type: 'String', value: 'baz' },
 			]
 		});
 	});
@@ -186,11 +186,11 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			options: [],
 			operands: [
-				{ kind: 2, type: 'String', value: 'foo' },
-				{ kind: 2, type: 'String', value: 'foo ' },
-				{ kind: 2, type: 'String', value: 'bar\\"' },
-				{ kind: 2, type: 'String', value: 'baz"' },
-				{ kind: 2, type: 'String', value: 'baz' }
+				{ kind: 2, index: 0, type: 'String', value: 'foo' },
+				{ kind: 2, index: 1, type: 'String', value: 'foo ' },
+				{ kind: 2, index: 2, type: 'String', value: 'bar\\"' },
+				{ kind: 2, index: 3, type: 'String', value: 'baz"' },
+				{ kind: 2, index: 4, type: 'String', value: 'baz' }
 			]
 		});
 
@@ -198,10 +198,10 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			options: [],
 			operands: [
-				{ kind: 2, type: 'String', value: 'foo' },
-				{ kind: 2, type: 'String', value: 'foo "bar' },
-				{ kind: 2, type: 'String', value: 'baz"' },
-				{ kind: 2, type: 'String', value: 'baz' }
+				{ kind: 2, index: 0, type: 'String', value: 'foo' },
+				{ kind: 2, index: 1, type: 'String', value: 'foo "bar' },
+				{ kind: 2, index: 2, type: 'String', value: 'baz"' },
+				{ kind: 2, index: 3, type: 'String', value: 'baz' }
 			]
 		});
 
@@ -209,11 +209,11 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			options: [],
 			operands: [
-				{ kind: 2, type: 'String', value: 'foo' },
-				{ kind: 2, type: 'String', value: 'foo ' },
-				{ kind: 2, type: 'String', value: 'bar"' },
-				{ kind: 2, type: 'String', value: 'baz"' },
-				{ kind: 2, type: 'String', value: 'baz' }
+				{ kind: 2, index: 0, type: 'String', value: 'foo' },
+				{ kind: 2, index: 1, type: 'String', value: 'foo ' },
+				{ kind: 2, index: 2, type: 'String', value: 'bar"' },
+				{ kind: 2, index: 3, type: 'String', value: 'baz"' },
+				{ kind: 2, index: 4, type: 'String', value: 'baz' }
 			]
 		});
 	});
@@ -229,8 +229,8 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			options: [],
 			operands: [
-				{ kind: 2, ident: 'foo', type: 'String', value: 'foo' },
-				{ kind: 2, ident: 'bar', type: 'String', value: 'bar baz' }
+				{ kind: 2, index: 0, ident: 'foo', type: 'String', value: 'foo' },
+				{ kind: 2, index: 1, ident: 'bar', type: 'String', value: 'bar baz' }
 			]
 		});
 
@@ -238,8 +238,8 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			options: [],
 			operands: [
-				{ kind: 2, ident: 'foo', type: 'String', value: 'foo' },
-				{ kind: 2, ident: 'bar', type: 'String', value: '"bar baz" boo' }
+				{ kind: 2, index: 0, ident: 'foo', type: 'String', value: 'foo' },
+				{ kind: 2, index: 1, ident: 'bar', type: 'String', value: '"bar baz" boo' }
 			]
 		});
 
@@ -247,8 +247,8 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			options: [],
 			operands: [
-				{ kind: 2, ident: 'foo', type: 'String', value: 'foo bar' },
-				{ kind: 2, ident: 'bar', type: 'String', value: 'baz boo' }
+				{ kind: 2, index: 0, ident: 'foo', type: 'String', value: 'foo bar' },
+				{ kind: 2, index: 1, ident: 'bar', type: 'String', value: 'baz boo' }
 			]
 		});
 
@@ -256,8 +256,8 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			options: [],
 			operands: [
-				{ kind: 2, ident: 'foo', type: 'String', value: 'foo bar' },
-				{ kind: 2, ident: 'bar', type: 'String', value: '"baz boo"' }
+				{ kind: 2, index: 0, ident: 'foo', type: 'String', value: 'foo bar' },
+				{ kind: 2, index: 1, ident: 'bar', type: 'String', value: '"baz boo"' }
 			]
 		});
 
@@ -265,8 +265,8 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			options: [],
 			operands: [
-				{ kind: 2, ident: 'foo', type: 'String', value: 'foo' },
-				{ kind: 2, ident: 'bar', type: 'String', value: 'bar --baz' }
+				{ kind: 2, index: 0, ident: 'foo', type: 'String', value: 'foo' },
+				{ kind: 2, index: 1, ident: 'bar', type: 'String', value: 'bar --baz' }
 			]
 		});
 
@@ -275,22 +275,22 @@ describe('ArgumentParser tests', () =>
 		expect(ArgumentParser.parse('foo --baz "baz boo" far faz', spec)).toEqual({
 			flags: [],
 			options: [
-				{ kind: 1, ident: 'baz', type: 'String', value: 'baz boo' }
+				{ kind: 1, index: 1, ident: 'baz', type: 'String', value: 'baz boo' }
 			],
 			operands: [
-				{ kind: 2, ident: 'foo', type: 'String', value: 'foo' },
-				{ kind: 2, ident: 'bar', type: 'String', value: 'far faz' }
+				{ kind: 2, index: 0, ident: 'foo', type: 'String', value: 'foo' },
+				{ kind: 2, index: 3, ident: 'bar', type: 'String', value: 'far faz' }
 			]
 		});
 
 		expect(ArgumentParser.parse('foo --baz baz boo far faz', spec)).toEqual({
 			flags: [],
 			options: [
-				{ kind: 1, ident: 'baz', type: 'String', value: 'baz' }
+				{ kind: 1, index: 1, ident: 'baz', type: 'String', value: 'baz' }
 			],
 			operands: [
-				{ kind: 2, ident: 'foo', type: 'String', value: 'foo' },
-				{ kind: 2, ident: 'bar', type: 'String', value: 'boo far faz' }
+				{ kind: 2, index: 0, ident: 'foo', type: 'String', value: 'foo' },
+				{ kind: 2, index: 3, ident: 'bar', type: 'String', value: 'boo far faz' }
 			]
 		});
 
@@ -303,8 +303,8 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			options: [],
 			operands: [
-				{ kind: 2, ident: 'foo', type: 'String', value: 'foo' },
-				{ kind: 2, ident: 'bar', type: 'String', value: '"bar baz" boo' }
+				{ kind: 2, index: 0, ident: 'foo', type: 'String', value: 'foo' },
+				{ kind: 2, index: 1, ident: 'bar', type: 'String', value: '"bar baz" boo' }
 			]
 		});
 
@@ -312,8 +312,8 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			options: [],
 			operands: [
-				{ kind: 2, ident: 'foo', type: 'String', value: '"foo' },
-				{ kind: 2, ident: 'bar', type: 'String', value: 'bar" baz boo' }
+				{ kind: 2, index: 0, ident: 'foo', type: 'String', value: '"foo' },
+				{ kind: 2, index: 1, ident: 'bar', type: 'String', value: 'bar" baz boo' }
 			]
 		});
 	});
@@ -326,10 +326,10 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			options: [],
 			operands: [
-				{ kind: 2, type: 'String', value: 'foo' },
-				{ kind: 2, type: 'String', value: '-b' },
-				{ kind: 2, type: 'String', value: '--bar' },
-				{ kind: 2, type: 'String', value: 'baz' },
+				{ kind: 2, index: 0, type: 'String', value: 'foo' },
+				{ kind: 2, index: 1, type: 'String', value: '-b' },
+				{ kind: 2, index: 2, type: 'String', value: '--bar' },
+				{ kind: 2, index: 3, type: 'String', value: 'baz' },
 			]
 		});
 	});
@@ -343,11 +343,11 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			options: [],
 			operands: [
-				{ kind: 2, type: 'String', value: '--foo' },
-				{ kind: 2, type: 'String', value: '-abc' },
-				{ kind: 2, type: 'String', value: '-f' },
-				{ kind: 2, type: 'String', value: '-a' },
-				{ kind: 2, type: 'String', value: '-b' },
+				{ kind: 2, index: 0, type: 'String', value: '--foo' },
+				{ kind: 2, index: 1, type: 'String', value: '-abc' },
+				{ kind: 2, index: 2, type: 'String', value: '-f' },
+				{ kind: 2, index: 3, type: 'String', value: '-a' },
+				{ kind: 2, index: 4, type: 'String', value: '-b' },
 			]
 		});
 	});
@@ -361,12 +361,12 @@ describe('ArgumentParser tests', () =>
 			operands: [],
 			options: [],
 			flags: [
-				{ kind: 0, ident: 'a' },
-				{ kind: 0, ident: 'b' },
-				{ kind: 0, ident: 'c' },
-				{ kind: 0, ident: 'd' },
-				{ kind: 0, ident: 'e' },
-				{ kind: 0, ident: 'f' }
+				{ kind: 0, index: 0, ident: 'a' },
+				{ kind: 0, index: 1, ident: 'b' },
+				{ kind: 0, index: 2, ident: 'c' },
+				{ kind: 0, index: 3, ident: 'd' },
+				{ kind: 0, index: 3, ident: 'e' },
+				{ kind: 0, index: 3, ident: 'f' }
 			]
 		});
 	});
@@ -380,11 +380,11 @@ describe('ArgumentParser tests', () =>
 			operands: [],
 			options: [],
 			flags: [
-				{ kind: 0, ident: 'a' },
-				{ kind: 0, ident: 'a' },
-				{ kind: 0, ident: 'a' },
-				{ kind: 0, ident: 'a' },
-				{ kind: 0, ident: 'a' }
+				{ kind: 0, index: 0, ident: 'a' },
+				{ kind: 0, index: 1, ident: 'a' },
+				{ kind: 0, index: 2, ident: 'a' },
+				{ kind: 0, index: 2, ident: 'a' },
+				{ kind: 0, index: 2, ident: 'a' }
 			]
 		});
 	});
@@ -398,7 +398,7 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			options: [],
 			operands: [
-				{ kind: 2, type: 'String', value: '-fo1o' }
+				{ kind: 2, index: 0, type: 'String', value: '-fo1o' }
 			]
 		});
 	});
@@ -410,18 +410,18 @@ describe('ArgumentParser tests', () =>
 
 		expect(ArgumentParser.parse('foo --bar baz', spec)).toEqual({
 			flags: [
-				{ kind: 0, ident: 'bar' }
+				{ kind: 0, index: 1, ident: 'bar' }
 			],
 			options: [],
 			operands: [
-				{ kind: 2, type: 'String', value: 'foo' },
-				{ kind: 2, type: 'String', value: 'baz' }
+				{ kind: 2, index: 0, type: 'String', value: 'foo' },
+				{ kind: 2, index: 2, type: 'String', value: 'baz' }
 			]
 		});
 
 		expect(ArgumentParser.parse('--bar', spec)).toEqual({
 			flags: [
-				{ kind: 0, ident: 'bar' }
+				{ kind: 0, index: 0, ident: 'bar' }
 			],
 			options: [],
 			operands: []
@@ -436,10 +436,10 @@ describe('ArgumentParser tests', () =>
 		expect(ArgumentParser.parse('foo --bar=baz', spec)).toEqual({
 			flags: [],
 			options: [
-				{ kind: 1, ident: 'bar', type: 'String', value: 'baz' }
+				{ kind: 1, index: 1, ident: 'bar', type: 'String', value: 'baz' }
 			],
 			operands: [
-				{ kind: 2, type: 'String', value: 'foo' },
+				{ kind: 2, index: 0, type: 'String', value: 'foo' },
 			]
 		});
 	});
@@ -452,23 +452,23 @@ describe('ArgumentParser tests', () =>
 		expect(ArgumentParser.parse('foo -b=baz', spec)).toEqual({
 			flags: [],
 			options: [
-				{ kind: 1, ident: 'b', type: 'String', value: 'baz' }
+				{ kind: 1, index: 1, ident: 'b', type: 'String', value: 'baz' }
 			],
 			operands: [
-				{ kind: 2, type: 'String', value: 'foo' }
+				{ kind: 2, index: 0, type: 'String', value: 'foo' }
 			]
 		});
 
 		expect(ArgumentParser.parse('foo -abc=baz', spec)).toEqual({
 			flags: [
-				{ kind: 0, ident: 'a' },
-				{ kind: 0, ident: 'b' }
+				{ kind: 0, index: 1, ident: 'a' },
+				{ kind: 0, index: 1, ident: 'b' }
 			],
 			options: [
-				{ kind: 1, ident: 'c', type: 'String', value: 'baz' }
+				{ kind: 1, index: 1, ident: 'c', type: 'String', value: 'baz' }
 			],
 			operands: [
-				{ kind: 2, type: 'String', value: 'foo' }
+				{ kind: 2, index: 0, type: 'String', value: 'foo' }
 			]
 		});
 	});
@@ -481,8 +481,8 @@ describe('ArgumentParser tests', () =>
 
 		expect(ArgumentParser.parse('--bar=baz -b=baz', spec)).toEqual({
 			flags: [
-				{ kind: 0, ident: 'b', long: 'bar' },
-				{ kind: 0, ident: 'b', long: 'bar' }
+				{ kind: 0, index: 0, ident: 'b', long: 'bar' },
+				{ kind: 0, index: 1, ident: 'b', long: 'bar' }
 			],
 			options: [],
 			operands: []
@@ -499,12 +499,12 @@ describe('ArgumentParser tests', () =>
 		expect(ArgumentParser.parse('--bar= baz -b= "baz boo"', spec)).toEqual({
 			options: [],
 			flags: [
-				{ kind: 0, ident: 'bar' },
-				{ kind: 0, ident: 'b' }
+				{ kind: 0, index: 0, ident: 'bar' },
+				{ kind: 0, index: 2, ident: 'b' }
 			],
 			operands: [
-				{ kind: 2, type: 'String', value: 'baz' },
-				{ kind: 2, type: 'String', value: 'baz boo' }
+				{ kind: 2, index: 1, type: 'String', value: 'baz' },
+				{ kind: 2, index: 3, type: 'String', value: 'baz boo' }
 			]
 		});
 
@@ -515,12 +515,10 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			operands: [],
 			options: [
-				{ kind: 1, ident: 'f', type: 'String', value: 'bar' },
-				{ kind: 1, ident: 'foo', type: 'String', value: 'bar baz' }
+				{ kind: 1, index: 0, ident: 'f', type: 'String', value: 'bar' },
+				{ kind: 1, index: 2, ident: 'foo', type: 'String', value: 'bar baz' }
 			]
 		});
-
-		ArgumentParser.parse('-f --foo bar', spec);
 	});
 
 	it('Should parse declared options', () =>
@@ -533,7 +531,7 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			operands: [],
 			options: [
-				{ kind: 1, type: 'Number', value: '1', ident: 'b', long: 'bar' }
+				{ kind: 1, index: 0, ident: 'b', long: 'bar', type: 'Number', value: '1' }
 			]
 		});
 
@@ -541,7 +539,7 @@ describe('ArgumentParser tests', () =>
 			flags: [],
 			operands: [],
 			options: [
-				{ kind: 1, type: 'Number', value: '1', ident: 'b', long: 'bar' }
+				{ kind: 1, index: 0, ident: 'b', long: 'bar', type: 'Number', value: '1' }
 			]
 		});
 	});
@@ -556,13 +554,13 @@ describe('ArgumentParser tests', () =>
 
 		expect(ArgumentParser.parse('-f 1 -b bar', spec)).toEqual({
 			flags: [
-				{ kind: 0, ident: 'b' }
+				{ kind: 0, index: 2, ident: 'b' }
 			],
 			options: [
-				{ kind: 1, type: 'Number', value: '1', ident: 'f' }
+				{ kind: 1, index: 0, ident: 'f', type: 'Number', value: '1' }
 			],
 			operands: [
-				{ kind: 2, type: 'String', value: 'bar', ident: 'foo' }
+				{ kind: 2, index: 3, ident: 'foo', type: 'String', value: 'bar' }
 			]
 		});
 	});
@@ -577,10 +575,10 @@ describe('ArgumentParser tests', () =>
 		expect(ArgumentParser.parse('-bf 1', spec)).toEqual({
 			operands: [],
 			flags: [
-				{ kind: 0, ident: 'b' }
+				{ kind: 0, index: 0, ident: 'b' }
 			],
 			options: [
-				{ kind: 1, type: 'Number', value: '1', ident: 'f' }
+				{ kind: 1, index: 0, ident: 'f', type: 'Number', value: '1' }
 			]
 		});
 	});
@@ -593,14 +591,14 @@ describe('ArgumentParser tests', () =>
 		expect(ArgumentParser.parse('-abc -- -d -e -f', spec)).toEqual({
 			options: [],
 			flags: [
-				{ kind: 0, ident: 'a' },
-				{ kind: 0, ident: 'b' },
-				{ kind: 0, ident: 'c' },
+				{ kind: 0, index: 0, ident: 'a' },
+				{ kind: 0, index: 0, ident: 'b' },
+				{ kind: 0, index: 0, ident: 'c' },
 			],
 			operands: [
-				{ kind: 2, type: 'String', value: '-d' },
-				{ kind: 2, type: 'String', value: '-e' },
-				{ kind: 2, type: 'String', value: '-f' },
+				{ kind: 2, index: 2, type: 'String', value: '-d' },
+				{ kind: 2, index: 3, type: 'String', value: '-e' },
+				{ kind: 2, index: 4, type: 'String', value: '-f' },
 			]
 		});
 	});
@@ -615,10 +613,10 @@ describe('ArgumentParser tests', () =>
 		expect(ArgumentParser.parse('-a -- foo', spec)).toEqual({
 			flags: [],
 			options: [
-				{ kind: 1, type: 'String', value: '--', ident: 'a' }
+				{ kind: 1, index: 0, ident: 'a', type: 'String', value: '--' }
 			],
 			operands: [
-				{ kind: 2, type: 'String', value: 'foo' }
+				{ kind: 2, index: 2, type: 'String', value: 'foo' }
 			]
 		});
 	});

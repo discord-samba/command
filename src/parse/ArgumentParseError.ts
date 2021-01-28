@@ -1,5 +1,4 @@
 import { ArgumentParseErrorKind } from '#type/ArgumentParseErrorKind';
-import { ArgumentParserState } from '#parse/ArgumentParserState';
 
 /**
  * Represents an error encountered while parsing Command arguments. Holds a kind
@@ -21,9 +20,9 @@ export class ArgumentParseError
 	 */
 	public index: number;
 
-	public constructor(kind: ArgumentParseErrorKind, state: ArgumentParserState)
+	public constructor(kind: ArgumentParseErrorKind, index: number)
 	{
 		this.kind = kind;
-		this.index = state.index;
+		this.index = index;
 	}
 }
