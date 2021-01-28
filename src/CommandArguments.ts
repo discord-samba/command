@@ -25,7 +25,7 @@ export class CommandArguments
 	public flags: Map<string, Flag>;
 
 	/**
-	 * Map of option identifiers to Option instances
+	 * Map of Option identifiers to Option instances
 	 */
 	public options: Map<string, Option<any>>;
 
