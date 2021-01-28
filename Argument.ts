@@ -38,11 +38,11 @@ export class Argument<T, U = string | undefined>
 	 *
 	 * The fields you can expect if present depend on the argument type:
 	 *
-	 * - [[`Operand | Operand<T>`]]` -> `[[`CommandArgKindImplOperand`]]
-	 * - [[`Option | Option<T>`]]`  -> `[[`CommandArgKindImplOption`]]
-	 * - [[`Flag`]]`       -> `[[`CommandArgKindImplFlag`]]
+	 * - [[`Operand | Operand&lt;T&gt;`]]` -> `[[`CommandArgKindImplOperand`]]
+	 * - [[`Option | Option&lt;T&gt;`]]` -> `[[`CommandArgKindImplOption`]]
+	 * - [[`Flag`]]` -> `[[`CommandArgKindImplFlag`]]
 	 *
-	 * > **Note:** This is exposed mostly for use in error handling as the info
+	 * **Note:** This is exposed mostly for use in error handling as the info
 	 * it contains may be useful for your error output
 	 */
 	public raw?: ArgumentParseNode;
