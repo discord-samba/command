@@ -38,8 +38,8 @@ export class Argument<T, U = string | undefined>
 	 *
 	 * The fields you can expect if present depend on the argument type:
 	 *
-	 * - [[`Operand<T>`]]` -> `[[`CommandArgKindImplOperand`]]
-	 * - [[`Option<T>`]]`  -> `[[`CommandArgKindImplOption`]]
+	 * - [[`Operand | Operand<T>`]]` -> `[[`CommandArgKindImplOperand`]]
+	 * - [[`Option | Option<T>`]]`  -> `[[`CommandArgKindImplOption`]]
 	 * - [[`Flag`]]`       -> `[[`CommandArgKindImplFlag`]]
 	 *
 	 * > **Note:** This is exposed mostly for use in error handling as the info

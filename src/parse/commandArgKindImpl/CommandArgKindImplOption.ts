@@ -3,7 +3,6 @@ import { ICommandArgumentKindOption } from '#parse/interfaces/ICommandArgumentKi
 
 /**
  * Represents an uncompiled option argument as parsed from the input
- * @internal
  */
 export class CommandArgKindImplOption implements ICommandArgumentKindOption
 {
