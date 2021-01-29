@@ -166,13 +166,6 @@ export class ArgumentParser
 					ArgumentParser._consumeAppendFlagGroup(state, out);
 					ArgumentParser._discardWhitespace(state);
 				}
-
-				// Check if the last node was an option without a value and
-				// throw an error if we see end of input
-				if (state.lastNode?.kind === CommandArgumentKind.Option
-					&& typeof (state.lastNode as CommandArgKindImplOption).value === 'undefined'
-					&& state.reader.eoi())
-					throw new ArgumentParseError(ArgumentParseErrorKind.OptionMissingArgument, state.lastNode.index);
 			}
 		}
 	}
