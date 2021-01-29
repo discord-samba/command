@@ -190,7 +190,7 @@ describe('CommandArguments tests', () =>
 	{
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 		spec.setParsingStrategy(2);
-		spec.defineOption('a', 'String', { long: 'foo' });
+		spec.defineOption('a', 'String', { long: 'foo', required: true });
 
 		let parserOutput: ArgumentParserOutput = ArgumentParser.parse('-a', spec);
 

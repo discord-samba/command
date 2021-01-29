@@ -5,6 +5,7 @@ import { CommandArgumentErrorContext } from '#root/CommandArgumentErrorContext';
 import { CommandArgumentErrorKind } from '#type/CommandArgumentErrorKind';
 import { CommandArgumentKind } from '#type/CommandArgumentKind';
 import { CommandArgumentSpec } from '#root/CommandArgumentSpec';
+import { CommandArgumentSpecOption } from '#type/CommandArgumentSpecOption';
 import { CommandContext } from '#root/CommandContext';
 import { Flag } from '#root/Flag';
 import { Operand } from '#root/Operand';
@@ -114,7 +115,8 @@ export class CommandArguments
 			);
 
 			// Error on missing required option value (option was passed but failed to receive a value)
-			if (typeof parsedOption.value === 'undefined')
+			if (spec.get<CommandArgumentSpecOption>(parsedOption.ident)?.required
+				&& typeof parsedOption.value === 'undefined')
 				throw new CommandArgumentError(
 					CommandArgumentErrorKind.MissingRequiredArgument,
 					new CommandArgumentErrorContext(CommandArgumentKind.Option, option.ident, option.type)
