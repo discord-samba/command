@@ -221,11 +221,15 @@ export class CommandArgumentSpec
 				throw new Error('Flag identifier conflicts with existing option');
 
 			case CommandArgumentSpecConflict.None:
-				this.flags.set(ident, {
+				const flag: CommandArgumentSpecFlag = {
 					kind: CommandArgumentKind.Flag,
 					ident,
 					long: options.long
-				});
+				};
+
+				this.flags.set(ident, flag);
+				if (typeof options.long !== 'undefined')
+					this.flags.set(options.long, flag);
 		}
 	}
 
@@ -290,13 +294,17 @@ export class CommandArgumentSpec
 				throw new Error('Option identifier conflicts with existing option');
 
 			case CommandArgumentSpecConflict.None:
-				this.options.set(ident, {
+				const option: CommandArgumentSpecOption = {
 					kind: CommandArgumentKind.Option,
 					ident,
 					long: options.long,
 					type,
 					required: options.required ?? false
-				});
+				};
+
+				this.options.set(ident, option);
+				if (typeof options.long !== 'undefined')
+					this.options.set(options.long, option);
 		}
 	}
 
@@ -314,27 +322,12 @@ export class CommandArgumentSpec
 		let result: { kind: CommandArgumentKind } | undefined;
 
 		// Check flags for the identifier
-		for (const flag of this.flags.values())
-		{
-			if (flag.ident === ident || flag.long === ident)
-			{
-				result = flag;
-				break;
-			}
-		}
+		if (this.flags.has(ident))
+			result = this.flags.get(ident);
 
 		// Otherwise check options
-		if (typeof result === 'undefined')
-		{
-			for (const option of this.options.values())
-			{
-				if (option.ident === ident || option.long === ident)
-				{
-					result = option;
-					break;
-				}
-			}
-		}
+		if (typeof result === 'undefined' && this.options.has(ident))
+			result = this.options.get(ident);
 
 		return result as T;
 	}

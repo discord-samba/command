@@ -186,6 +186,39 @@ describe('CommandArguments tests', () =>
 			});
 	});
 
+	it('Should error when required options are passed but fail to receive a value', () =>
+	{
+		const spec: CommandArgumentSpec = new CommandArgumentSpec();
+		spec.setParsingStrategy(2);
+		spec.defineOption('a', 'String', { long: 'foo' });
+
+		let parserOutput: ArgumentParserOutput = ArgumentParser.parse('-a', spec);
+
+		expect(getErr(() => new CommandArguments(spec, parserOutput)))
+			.toEqual({
+				kind: 0,
+				context: {
+					kind: 1,
+					ident: 'a',
+					type: 'String',
+					data: []
+				}
+			});
+
+		parserOutput = ArgumentParser.parse('--foo', spec);
+
+		expect(getErr(() => new CommandArguments(spec, parserOutput)))
+			.toEqual({
+				kind: 0,
+				context: {
+					kind: 1,
+					ident: 'a',
+					type: 'String',
+					data: []
+				}
+			});
+	});
+
 	it('Should return correct values for isSome()', () =>
 	{
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();

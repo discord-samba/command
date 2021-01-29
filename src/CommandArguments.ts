@@ -3,6 +3,7 @@ import { ArgumentParserOutput } from '#parse/ArgumentParserOutput';
 import { CommandArgumentError } from '#root/CommandArgumentError';
 import { CommandArgumentErrorContext } from '#root/CommandArgumentErrorContext';
 import { CommandArgumentErrorKind } from '#type/CommandArgumentErrorKind';
+import { CommandArgumentKind } from '#type/CommandArgumentKind';
 import { CommandArgumentSpec } from '#root/CommandArgumentSpec';
 import { CommandContext } from '#root/CommandContext';
 import { Flag } from '#root/Flag';
@@ -35,7 +36,16 @@ export class CommandArguments
 		this.flags = new Map();
 		this.options = new Map();
 
-		// Compile operands
+		this._compileOperands(spec, parsedArgs);
+		this._compileFlags(spec, parsedArgs);
+		this._compileOptions(spec, parsedArgs);
+	}
+
+	/**
+	 * Compile parsed operands and missing non-required operands from spec
+	 */
+	private _compileOperands(spec: CommandArgumentSpec, parsedArgs: ArgumentParserOutput): void
+	{
 		for (const operand of parsedArgs.operands)
 			this.operands.push(new Operand(operand.value, operand.ident, operand.type, operand));
 
@@ -55,8 +65,13 @@ export class CommandArguments
 				this.operands.push(new Operand(value, operand.ident, operand.type));
 			}
 		}
+	}
 
-		// Compile flags
+	/**
+	 * Compile parsed flags and missing flags from spec
+	 */
+	private _compileFlags(spec: CommandArgumentSpec, parsedArgs: ArgumentParserOutput): void
+	{
 		for (const parsedFlag of parsedArgs.flags.values())
 		{
 			const flag: Flag = this.flags.get(parsedFlag.ident)
@@ -72,10 +87,22 @@ export class CommandArguments
 		}
 
 		// Compile missing flags using the declared flags from spec
-		for (const flag of spec.flags.values())
-			if (!this.flags.has(flag.ident))
-				this.flags.set(flag.ident, new Flag(flag.ident));
+		for (const flagSpec of spec.flags.values())
+		{
+			const flag: Flag = new Flag(flagSpec.ident);
+			if (!this.flags.has(flagSpec.ident))
+				this.flags.set(flagSpec.ident, flag);
 
+			if (typeof flagSpec.long !== 'undefined' && !this.flags.has(flagSpec.long))
+				this.flags.set(flagSpec.long, flag);
+		}
+	}
+
+	/**
+	 * Compile parsed options and missing non-required operands from spec
+	 */
+	private _compileOptions(spec: CommandArgumentSpec, parsedArgs: ArgumentParserOutput): void
+	{
 		// Compile options
 		for (const parsedOption of parsedArgs.options.values())
 		{
@@ -86,6 +113,13 @@ export class CommandArguments
 				parsedOption
 			);
 
+			// Error on missing required option value (option was passed but failed to receive a value)
+			if (typeof parsedOption.value === 'undefined')
+				throw new CommandArgumentError(
+					CommandArgumentErrorKind.MissingRequiredArgument,
+					new CommandArgumentErrorContext(CommandArgumentKind.Option, option.ident, option.type)
+				);
+
 			this.options.set(parsedOption.ident, option);
 
 			if (typeof parsedOption.long !== 'undefined')
@@ -93,23 +127,30 @@ export class CommandArguments
 		}
 
 		// Check for missing required options and compile missing non-required options from spec
-		for (const option of spec.options.values())
+		for (const optionSpec of spec.options.values())
 		{
-			if (!this.options.has(option.ident))
+			let value!: any;
+
+			const option: Option<unknown> = new Option(
+				optionSpec.ident,
+				value,
+				optionSpec.type
+			);
+
+			if (!this.options.has(optionSpec.ident))
 			{
 				// Error if option is required but missing
-				if (option.required)
+				if (optionSpec.required)
 					throw new CommandArgumentError(
 						CommandArgumentErrorKind.MissingRequiredArgument,
-						new CommandArgumentErrorContext(option.kind, option.ident, option.type)
+						new CommandArgumentErrorContext(CommandArgumentKind.Option, optionSpec.ident, optionSpec.type)
 					);
 
-				let value!: any;
-				this.options.set(
-					option.ident,
-					new Option(option.ident, value, option.type)
-				);
+				this.options.set(optionSpec.ident, option);
 			}
+
+			if (typeof optionSpec.long !== 'undefined' && !this.options.has(optionSpec.long))
+				this.options.set(optionSpec.long, option);
 		}
 	}
 

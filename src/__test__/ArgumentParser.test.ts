@@ -651,14 +651,4 @@ describe('ArgumentParser tests', () =>
 		spec.defineOption('b', 'String', { long: 'bar' });
 		expect(getErr(() => ArgumentParser.parse('-f --bar "foo bar baz', spec))).toEqual({ kind: 0, index: 2 });
 	});
-
-	it('Should error when options do not receive an argument', () =>
-	{
-		const spec: CommandArgumentSpec = new CommandArgumentSpec();
-		spec.setParsingStrategy(2);
-		spec.defineOption('a', 'String', { long: 'foo' });
-
-		expect(getErr(() => ArgumentParser.parse('-a', spec))).toEqual({ kind: 2, index: 0 });
-		expect(getErr(() => ArgumentParser.parse('--foo', spec))).toEqual({ kind: 2, index: 0 });
-	});
 });
