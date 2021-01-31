@@ -1,5 +1,5 @@
 import { Client } from 'discord.js';
-import { CommandArgumentSpec } from '#root/CommandArgumentSpec';
+import { CommandArgumentSpec } from '#root/argument/CommandArgumentSpec';
 import { CommandContext } from '#root/CommandContext';
 
 /**

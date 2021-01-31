@@ -8,7 +8,7 @@ import { CommandArgKindImplOperand } from '#parse/commandArgKindImpl/CommandArgK
 import { CommandArgKindImplOption } from '#parse/commandArgKindImpl/CommandArgKindImplOption';
 import { CommandArgumentKind } from '#type/CommandArgumentKind';
 import { CommandArgumentParsingStrategy } from '#type/CommandArgumentParsingStrategy';
-import { CommandArgumentSpec } from '#root/CommandArgumentSpec';
+import { CommandArgumentSpec } from '#root/argument/CommandArgumentSpec';
 import { CommandArgumentSpecEntry } from '#type/CommandArgumentSpecEntry';
 import { CommandArgumentSpecFlag } from '#type/CommandArgumentSpecFlag';
 import { CommandArgumentSpecOperand } from '#type/CommandArgumentSpecOperand';

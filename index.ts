@@ -1,10 +1,10 @@
 export { Command } from '#root/Command';
 export { CommandContext } from '#root/CommandContext';
-export { Operand } from '#root/Operand';
-export { Flag } from '#root/Flag';
-export { Option } from '#root/Option';
+export { Operand } from '#root/argument/Operand';
+export { Flag } from '#root/argument/Flag';
+export { Option } from '#root/argument/Option';
 
-export { CommandArgumentError } from '#root/CommandArgumentError';
+export { CommandArgumentError } from '#root/argument/CommandArgumentError';
 export { CommandArgumentErrorKind } from '#type/CommandArgumentErrorKind';
 
 export { CommandDispatchError } from '#root/CommandDispatchError';

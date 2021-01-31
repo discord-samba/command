@@ -1,4 +1,4 @@
-import { CommandArgumentErrorContext } from '#root/CommandArgumentErrorContext';
+import { CommandArgumentErrorContext } from '#root/argument/CommandArgumentErrorContext';
 import { CommandArgumentErrorKind } from '#type/CommandArgumentErrorKind';
 
 /**
