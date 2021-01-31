@@ -1,5 +1,5 @@
 import { Client, Message } from 'discord.js';
-import { CommandArguments } from '#root/CommandArguments';
+import { CommandArguments } from '#root/argument/CommandArguments';
 
 /**
  * Represents the context in which a Command is called

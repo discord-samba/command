@@ -1,5 +1,5 @@
 import { ArgumentParseNode } from '#type/ArgumentParseNode';
-import { CommandArgumentSpec } from '#root/CommandArgumentSpec';
+import { CommandArgumentSpec } from '#root/argument/CommandArgumentSpec';
 import { StringReader } from '#parse/StringReader';
 
 /**

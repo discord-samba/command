@@ -1,10 +1,10 @@
 /* eslint-disable no-console, capitalized-comments, lines-around-comment, sort-imports, no-mixed-operators */
 
-import { CommandArgumentSpec } from '#root/CommandArgumentSpec';
+import { CommandArgumentSpec } from '#root/argument/CommandArgumentSpec';
 import { ArgumentParser } from '#parse/ArgumentParser';
 import { ArgumentParserOutput } from '#parse/ArgumentParserOutput';
 import { StringReader } from '#parse/StringReader';
-import { CommandArguments } from '#root/CommandArguments';
+import { CommandArguments } from '#root/argument/CommandArguments';
 import { CommandContext } from '#root/CommandContext';
 
 function now(): number
