@@ -1,7 +1,8 @@
 /* eslint-disable max-classes-per-file */
 /* eslint-disable no-console, capitalized-comments, lines-around-comment, sort-imports, no-mixed-operators */
 
-import { disallowBots, checkMentionPrefix } from '#root/Rules';
+import { disallowBots, checkMentionPrefix, allowOwner } from '#root/Rules';
+import { ownerOnly } from '#root/Middleware';
 import { Client } from 'discord.js';
 import { Command } from '#root/Command';
 import { CommandContext } from '#root/CommandContext';
@@ -76,6 +77,7 @@ async function main(): Promise<void>
 	CommandModule.rules.use(
 		disallowBots,
 		checkMentionPrefix,
+		allowOwner('214628307201687552')
 	);
 
 	CommandModule.commands.add(class extends Command
@@ -83,6 +85,7 @@ async function main(): Promise<void>
 		public constructor()
 		{
 			super({ name: 'bar' });
+			this.middleware.use(ownerOnly);
 		}
 
 		public init(): void

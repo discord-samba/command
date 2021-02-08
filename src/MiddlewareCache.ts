@@ -22,7 +22,7 @@ export class MiddlewareCache
 	}
 
 	/**
-	 * Returns a copy of the current registered rule functions
+	 * Returns a copy of the current registered middleware functions
 	 */
 	public all(): MiddlewareFunction[]
 	{

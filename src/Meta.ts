@@ -1,5 +1,6 @@
 /** @internal */
 export const enum Meta
 {
-	EnforcePrefixes = '__enforcePrefixes'
+	EnforcePrefixes = '__enforcePrefixes',
+	Owner = '__owner'
 }
