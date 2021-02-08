@@ -1,7 +1,7 @@
 import { CommandArgumentKind } from '#type/CommandArgumentKind';
 
 /**
- * Container class for data to be used for argument resolution within [[Resolver]]s
+ * Container class for data to be used for argument resolution within [[`Resolver`]]s
  */
 export class ArgumentContext
 {

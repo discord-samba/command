@@ -50,12 +50,12 @@ export class CommandArgumentSpec
 	 *     Advanced -> `foo -b --bar --baz="boo far faz"`
 	 * ```
 	 *
-	 * **NOTE:** The default strategy is `Basic` (`0`). This is set *per command*, so
+	 * ***NOTE:*** *The default strategy is `Basic` (`0`). This is set *per command*, so
 	 * setting one command's argument spec parsing strategy to `AllowQuoting` or
 	 * `Advanced` will not affect any other commands. This can also be changed at any
 	 * time, so you can feasibly iterate over all commands at runtime and forcibly change
 	 * their parsing strategy (for example, to allow quoted arguments on a loaded command
-	 * from a plugin that you did not write). For example:
+	 * from a plugin that you did not write). For example:*
 	 *
 	 * ```js
 	 * CommandModule.commands.get('foo').arguments.setParsingStrategy(1);
@@ -114,20 +114,20 @@ export class CommandArgumentSpec
 	 * <Command>.arguments.defineOperand('bar', 'String', { required: false });
 	 * ```
 	 *
-	 * **NOTE:** If the parsing strategy is set to `AllowQuoting` (`1`) or higher and a quoted
+	 * ***NOTE:*** *If the parsing strategy is set to `AllowQuoting` (`1`) or higher and a quoted
 	 * operand is going to be parsed but the spec says it should be a rest argument then the quotes
-	 * will be preserved in the operand value.
+	 * will be preserved in the operand value.*
 	 *
-	 * **NOTE:** Rest operands will supercede any other kind of argument when parsing for that operand
+	 * ***NOTE:*** *Rest operands will supercede any other kind of argument when parsing for that operand
 	 * begins. If the parsing strategy is `Advanced` (`2`) but the parser encounters something that
 	 * would otherwise be parsed as a flag or option it will still be parsed as part
 	 * of the rest operand. Note this is only the case when the parser is currently consuming a
-	 * rest operand.
+	 * rest operand.*
 	 *
-	 * **NOTE:** If the parsing strategy is not set to `Advanced` (`2`) then every argument
+	 * ***NOTE:*** *If the parsing strategy is not set to `Advanced` (`2`) then every argument
 	 * encountered will be treated as an operand. If an argument follows a flag and that
 	 * flag is not defined as an Option via `defineOption()` then the
-	 * argument will be parsed as an operand and the flag will be parsed as a flag as expected
+	 * argument will be parsed as an operand and the flag will be parsed as a flag as expected*
 	 */
 	public defineOperand(ident: string, type: string, options: { required?: boolean, rest?: boolean } = {}): void
 	{
@@ -184,8 +184,8 @@ export class CommandArgumentSpec
 	 * <Command>.arguments.defineFlag('b', { long: 'baz' });
 	 * ```
 	 *
-	 * **NOTE:** If a flag is found and the parsing strategy is not set to
-	 * `Advanced` (`2`) then it will be treated as an operand
+	 * ***NOTE:*** *If a flag is found and the parsing strategy is not set to
+	 * `Advanced` (`2`) then it will be treated as an operand*
 	 */
 	public defineFlag(ident: string, options: { long?: string } = {}): void
 	{
@@ -248,10 +248,10 @@ export class CommandArgumentSpec
 	 * <Command>.spec.defineOption('b', 'String', { long: 'baz' });
 	 * ```
 	 *
-	 * **NOTE:** If an option is found and the parsing strategy is not set to `Advanced` (`2`)
+	 * ***NOTE:*** *If an option is found and the parsing strategy is not set to `Advanced` (`2`)
 	 * then it will be treated as an operand. If an argument that can be parsed as an option
 	 * is found in a Command's input but the option is not declared then it will be treated
-	 * as a long flag and the argument passed to it will be treated as an operand
+	 * as a long flag and the argument passed to it will be treated as an operand*
 	 */
 	public defineOption(ident: string, type: string, options: { long?: string, required?: boolean} = {}): void
 	{
@@ -311,11 +311,11 @@ export class CommandArgumentSpec
 	/**
 	 * Returns a flag or option spec for the given identifier.
 	 *
-	 * **NOTE:** Operand specs should be retrieved by shifting the operands
-	 * array of a cloned spec.
+	 * ***NOTE:*** *Operand specs should be retrieved by shifting the operands
+	 * array of a cloned spec.*
 	 *
-	 * **WARNING:** Be sure to only operate on cloned specs. We do not want
-	 * to shift the operand specs out of the original specification
+	 * ***WARNING:*** *Be sure to only operate on cloned specs. We do not want
+	 * to shift the operand specs out of the original specification*
 	 */
 	public get<T extends { kind: CommandArgumentKind }>(ident: string): T | undefined
 	{
