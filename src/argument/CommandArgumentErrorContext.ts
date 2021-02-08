@@ -1,7 +1,7 @@
 import { CommandArgumentKind } from '#type/CommandArgumentKind';
 
 /**
- * Represents the context for a [[CommandArgumentError]]
+ * Represents the context for a [[`CommandArgumentError`]]
  */
 export class CommandArgumentErrorContext
 {

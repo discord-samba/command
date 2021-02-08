@@ -23,16 +23,16 @@ export abstract class Resolver
 
 	/**
 	 * Method your Resolver must implement to provide resolved types for the given input.
-	 * Will receive [[ArgumentContext]] containing the raw input, and [[CommandContext]]
+	 * Will receive [[`ArgumentContext`]] containing the raw input, and [[`CommandContext`]]
 	 * to aid in value resolution.
 	 *
 	 * `resolve()` can be expected to throw errors for invalid input. These errors will
 	 * silently halt execution of a Command (meaning no message will be sent to Discord)
 	 * so that you may report this to Discord however you desire in your error handler.
 	 *
-	 * **NOTE:** For resolving values without side-effects, consider implementing `safeResolve()`.
+	 * ***NOTE:*** *For resolving values without side-effects, consider implementing `safeResolve()`.
 	 * Of course, you could really implement any method name you want, as the method will not
-	 * be called anywhere within the CommandModule so it'd only be used manually by you
+	 * be called anywhere within the CommandModule so it'd only be used manually by you*
 	 */
 	public abstract resolve(argument: ArgumentContext, ctx: CommandContext): Promise<any>;
 

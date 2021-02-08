@@ -9,6 +9,10 @@
 		"#type/*": "./bin/types/*.js",
 		"#root/*": "./bin/*.js"
 	},
+	"exports": {
+		".": "./bin/index.js",
+		"./rules": "./bin/rules.js" 
+	},
 	"scripts": {
 		"clean": "rm -rf bin",
 		"build": "tsc --extendedDiagnostics",

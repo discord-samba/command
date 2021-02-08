@@ -66,7 +66,7 @@ export class CommandCache
 	/**
 	 * Returns a Set of all cached Commands.
 	 */
-	public static commands(): Set<Command>
+	public static all(): Set<Command>
 	{
 		return new Set(Array.from(CommandCache._instance._cache.values()));
 	}
