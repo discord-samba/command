@@ -2453,6 +2453,9 @@ img {
 			<a href="classes/messagecontext.html" class="tsd-kind-icon">Message<wbr>Context</a>
 		</li>
 		<li class=" tsd-kind-class">
+			<a href="classes/middleware.html" class="tsd-kind-icon">Middleware</a>
+		</li>
+		<li class=" tsd-kind-class">
 			<a href="classes/middlewarecache.html" class="tsd-kind-icon">Middleware<wbr>Cache</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
@@ -2532,6 +2535,7 @@ img {
 							<li class="tsd-kind-class"><a href="classes/commandmodule.html" class="tsd-kind-icon">Command<wbr>Module</a></li>
 							<li class="tsd-kind-class"><a href="classes/flag.html" class="tsd-kind-icon">Flag</a></li>
 							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/messagecontext.html" class="tsd-kind-icon">Message<wbr>Context</a></li>
+							<li class="tsd-kind-class"><a href="classes/middleware.html" class="tsd-kind-icon">Middleware</a></li>
 							<li class="tsd-kind-class"><a href="classes/middlewarecache.html" class="tsd-kind-icon">Middleware<wbr>Cache</a></li>
 							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/operand.html" class="tsd-kind-icon">Operand</a></li>
 							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/option.html" class="tsd-kind-icon">Option</a></li>
@@ -2582,16 +2586,17 @@ img {
 				<div class="tsd-signature tsd-kind-icon">Middleware<wbr>Function<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/types/MiddlewareFunction.ts#L9">src/types/MiddlewareFunction.ts:9</a></li>
+						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/types/MiddlewareFunction.ts#L11">src/types/MiddlewareFunction.ts:11</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Represents a middleware function for a specific command that can
-							modify command dispatch behavior, enforce an execution rule,
-							transform or add arguments, etc. Will be run after the arguments
-						have been parsed</p>
+						<p>Represents a middleware function for a specific command that can modify command
+							dispatch behavior, enforce an execution rule, transform or add arguments, etc.
+						Will be run after arguments have been parsed.</p>
 					</div>
+					<p>A middleware function must call <code>next()</code> in order for command execution to progress.
+					If <code>next()</code> is not called, execution of the command will halt silently</p>
 				</div>
 				<div class="tsd-type-declaration">
 					<h4>Type declaration</h4>

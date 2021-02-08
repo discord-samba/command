@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>CommandArgumentParsingStrategy | @discord-samba/command</title>
+	<title>Middleware | @discord-samba/command</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -2387,105 +2387,108 @@ img {
 <nav class="tsd-navigation secondary">
 	<ul>
 		<li class=" tsd-kind-enum">
-			<a href="argumentparseerrorkind.html" class="tsd-kind-icon">Argument<wbr>Parse<wbr>Error<wbr>Kind</a>
+			<a href="../enums/argumentparseerrorkind.html" class="tsd-kind-icon">Argument<wbr>Parse<wbr>Error<wbr>Kind</a>
 		</li>
 		<li class=" tsd-kind-enum">
-			<a href="commandargumenterrorkind.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Error<wbr>Kind</a>
+			<a href="../enums/commandargumenterrorkind.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Error<wbr>Kind</a>
 		</li>
 		<li class=" tsd-kind-enum">
-			<a href="commandargumentkind.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Kind</a>
+			<a href="../enums/commandargumentkind.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Kind</a>
 		</li>
-		<li class="current tsd-kind-enum">
-			<a href="commandargumentparsingstrategy.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Parsing<wbr>Strategy</a>
+		<li class=" tsd-kind-enum">
+			<a href="../enums/commandargumentparsingstrategy.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Parsing<wbr>Strategy</a>
+		</li>
+		<li class=" tsd-kind-enum">
+			<a href="../enums/commanddispatcherrorkind.html" class="tsd-kind-icon">Command<wbr>Dispatch<wbr>Error<wbr>Kind</a>
+		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="argument.html" class="tsd-kind-icon">Argument</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="argumentcontext.html" class="tsd-kind-icon">Argument<wbr>Context</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="argumentparseerror.html" class="tsd-kind-icon">Argument<wbr>Parse<wbr>Error</a>
+		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="command.html" class="tsd-kind-icon">Command</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="commandargkindimplflag.html" class="tsd-kind-icon">Command<wbr>Arg<wbr>Kind<wbr>Impl<wbr>Flag</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="commandargkindimploperand.html" class="tsd-kind-icon">Command<wbr>Arg<wbr>Kind<wbr>Impl<wbr>Operand</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="commandargkindimploption.html" class="tsd-kind-icon">Command<wbr>Arg<wbr>Kind<wbr>Impl<wbr>Option</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="commandargumenterror.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Error</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="commandargumenterrorcontext.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Error<wbr>Context</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="commandargumentspec.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Spec</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="commandarguments.html" class="tsd-kind-icon">Command<wbr>Arguments</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="commandcache.html" class="tsd-kind-icon">Command<wbr>Cache</a>
+		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="commandcontext.html" class="tsd-kind-icon">Command<wbr>Context</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="commanddispatcherror.html" class="tsd-kind-icon">Command<wbr>Dispatch<wbr>Error</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="commandmodule.html" class="tsd-kind-icon">Command<wbr>Module</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="flag.html" class="tsd-kind-icon">Flag</a>
+		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="messagecontext.html" class="tsd-kind-icon">Message<wbr>Context</a>
+		</li>
+		<li class="current tsd-kind-class">
+			<a href="middleware.html" class="tsd-kind-icon">Middleware</a>
 			<ul>
-				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-					<a href="commandargumentparsingstrategy.html#advanced" class="tsd-kind-icon">Advanced</a>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a href="middleware.html#callerpermissions" class="tsd-kind-icon">caller<wbr>Permissions</a>
 				</li>
-				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-					<a href="commandargumentparsingstrategy.html#allowquoting" class="tsd-kind-icon">Allow<wbr>Quoting</a>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a href="middleware.html#clientpermissions" class="tsd-kind-icon">client<wbr>Permissions</a>
 				</li>
-				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-					<a href="commandargumentparsingstrategy.html#basic" class="tsd-kind-icon">Basic</a>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a href="middleware.html#guildonly" class="tsd-kind-icon">guild<wbr>Only</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a href="middleware.html#owneronly" class="tsd-kind-icon">owner<wbr>Only</a>
 				</li>
 			</ul>
 		</li>
-		<li class=" tsd-kind-enum">
-			<a href="commanddispatcherrorkind.html" class="tsd-kind-icon">Command<wbr>Dispatch<wbr>Error<wbr>Kind</a>
+		<li class=" tsd-kind-class">
+			<a href="middlewarecache.html" class="tsd-kind-icon">Middleware<wbr>Cache</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="../classes/argument.html" class="tsd-kind-icon">Argument</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="../classes/argumentcontext.html" class="tsd-kind-icon">Argument<wbr>Context</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="../classes/argumentparseerror.html" class="tsd-kind-icon">Argument<wbr>Parse<wbr>Error</a>
+			<a href="operand.html" class="tsd-kind-icon">Operand</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="../classes/command.html" class="tsd-kind-icon">Command</a>
+			<a href="option.html" class="tsd-kind-icon">Option</a>
 		</li>
 		<li class=" tsd-kind-class">
-			<a href="../classes/commandargkindimplflag.html" class="tsd-kind-icon">Command<wbr>Arg<wbr>Kind<wbr>Impl<wbr>Flag</a>
+			<a href="resolver.html" class="tsd-kind-icon">Resolver</a>
 		</li>
 		<li class=" tsd-kind-class">
-			<a href="../classes/commandargkindimploperand.html" class="tsd-kind-icon">Command<wbr>Arg<wbr>Kind<wbr>Impl<wbr>Operand</a>
+			<a href="resolvercache.html" class="tsd-kind-icon">Resolver<wbr>Cache</a>
 		</li>
 		<li class=" tsd-kind-class">
-			<a href="../classes/commandargkindimploption.html" class="tsd-kind-icon">Command<wbr>Arg<wbr>Kind<wbr>Impl<wbr>Option</a>
+			<a href="rulecache.html" class="tsd-kind-icon">Rule<wbr>Cache</a>
 		</li>
 		<li class=" tsd-kind-class">
-			<a href="../classes/commandargumenterror.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Error</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="../classes/commandargumenterrorcontext.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Error<wbr>Context</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="../classes/commandargumentspec.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Spec</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="../classes/commandarguments.html" class="tsd-kind-icon">Command<wbr>Arguments</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="../classes/commandcache.html" class="tsd-kind-icon">Command<wbr>Cache</a>
-		</li>
-		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="../classes/commandcontext.html" class="tsd-kind-icon">Command<wbr>Context</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="../classes/commanddispatcherror.html" class="tsd-kind-icon">Command<wbr>Dispatch<wbr>Error</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="../classes/commandmodule.html" class="tsd-kind-icon">Command<wbr>Module</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="../classes/flag.html" class="tsd-kind-icon">Flag</a>
-		</li>
-		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="../classes/messagecontext.html" class="tsd-kind-icon">Message<wbr>Context</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="../classes/middleware.html" class="tsd-kind-icon">Middleware</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="../classes/middlewarecache.html" class="tsd-kind-icon">Middleware<wbr>Cache</a>
-		</li>
-		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="../classes/operand.html" class="tsd-kind-icon">Operand</a>
-		</li>
-		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="../classes/option.html" class="tsd-kind-icon">Option</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="../classes/resolver.html" class="tsd-kind-icon">Resolver</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="../classes/resolvercache.html" class="tsd-kind-icon">Resolver<wbr>Cache</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="../classes/rulecache.html" class="tsd-kind-icon">Rule<wbr>Cache</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="../classes/rules.html" class="tsd-kind-icon">Rules</a>
+			<a href="rules.html" class="tsd-kind-icon">Rules</a>
 		</li>
 		<li class=" tsd-kind-interface">
 			<a href="../interfaces/commandoptions.html" class="tsd-kind-icon">Command<wbr>Options</a>
@@ -2506,73 +2509,158 @@ img {
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
 				<div class="lead">
-					<p>Enum containing the different Command argument parsing strategies</p>
+					<p>Container class that holds middleware for controlling command execution or
+						modifying command execution behavior. All middleware in this class can also
+					be imported directly by name from <code>@discord-samba/command/middleware</code></p>
 				</div>
 			</div>
+		</section>
+		<section class="tsd-panel tsd-hierarchy">
+			<h3>Hierarchy</h3>
+			<ul class="tsd-hierarchy">
+				<li>
+					<span class="target">Middleware</span>
+				</li>
+			</ul>
 		</section>
 		<section class="tsd-panel-group tsd-index-group">
 			<h2>Index</h2>
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
 					<section class="tsd-index-section ">
-						<h3>Enumeration members</h3>
+						<h3>Methods</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="commandargumentparsingstrategy.html#advanced" class="tsd-kind-icon">Advanced</a></li>
-							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="commandargumentparsingstrategy.html#allowquoting" class="tsd-kind-icon">Allow<wbr>Quoting</a></li>
-							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="commandargumentparsingstrategy.html#basic" class="tsd-kind-icon">Basic</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="middleware.html#callerpermissions" class="tsd-kind-icon">caller<wbr>Permissions</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="middleware.html#clientpermissions" class="tsd-kind-icon">client<wbr>Permissions</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="middleware.html#guildonly" class="tsd-kind-icon">guild<wbr>Only</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="middleware.html#owneronly" class="tsd-kind-icon">owner<wbr>Only</a></li>
 						</ul>
 					</section>
 				</div>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
-			<h2>Enumeration members</h2>
-			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-				<a name="advanced" class="tsd-anchor"></a>
-				<h3>Advanced</h3>
-				<div class="tsd-signature tsd-kind-icon">Advanced<span class="tsd-signature-symbol">:</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/types/CommandArgumentParsingStrategy.ts#L22">src/types/CommandArgumentParsingStrategy.ts:22</a></li>
-					</ul>
-				</aside>
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Includes Basic and AllowQuoting, adds flags and options
-						(ex. flags: <code>-f</code> or <code>--foo</code>, options: <code>-f bar</code> or <code>--foo bar</code>)</p>
-					</div>
-				</div>
+			<h2>Methods</h2>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+				<a name="callerpermissions" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagStatic">Static</span> caller<wbr>Permissions</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<li class="tsd-signature tsd-kind-icon">caller<wbr>Permissions<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>permissions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PermissionResolvable</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../globals.html#middlewarefunction" class="tsd-signature-type">MiddlewareFunction</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Middleware.ts#L39">src/Middleware.ts:39</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Prevent command from being called if the caller does not have all of the
+								given permissions for the channel in which the command was called</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>permissions: <span class="tsd-signature-type">PermissionResolvable</span><span class="tsd-signature-symbol">[]</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="../globals.html#middlewarefunction" class="tsd-signature-type">MiddlewareFunction</a></h4>
+					</li>
+				</ul>
 			</section>
-			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-				<a name="allowquoting" class="tsd-anchor"></a>
-				<h3>Allow<wbr>Quoting</h3>
-				<div class="tsd-signature tsd-kind-icon">Allow<wbr>Quoting<span class="tsd-signature-symbol">:</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/types/CommandArgumentParsingStrategy.ts#L16">src/types/CommandArgumentParsingStrategy.ts:16</a></li>
-					</ul>
-				</aside>
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Same as basic, but multiple words can be grouped with quotes, like
-						<code>foo &quot;bar baz&quot;</code> will produce operands of <code>&quot;foo&quot;</code>, and <code>&quot;bar baz&quot;</code></p>
-					</div>
-				</div>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+				<a name="clientpermissions" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagStatic">Static</span> client<wbr>Permissions</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<li class="tsd-signature tsd-kind-icon">client<wbr>Permissions<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>permissions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PermissionResolvable</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../globals.html#middlewarefunction" class="tsd-signature-type">MiddlewareFunction</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Middleware.ts#L61">src/Middleware.ts:61</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Prevent command from being called if the client does not have all of the
+								given permissions for the channel in which the command was called</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>permissions: <span class="tsd-signature-type">PermissionResolvable</span><span class="tsd-signature-symbol">[]</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="../globals.html#middlewarefunction" class="tsd-signature-type">MiddlewareFunction</a></h4>
+					</li>
+				</ul>
 			</section>
-			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-				<a name="basic" class="tsd-anchor"></a>
-				<h3>Basic</h3>
-				<div class="tsd-signature tsd-kind-icon">Basic<span class="tsd-signature-symbol">:</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/types/CommandArgumentParsingStrategy.ts#L10">src/types/CommandArgumentParsingStrategy.ts:10</a></li>
-					</ul>
-				</aside>
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Every word is parsed as an individual operand</p>
-					</div>
-				</div>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+				<a name="guildonly" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagStatic">Static</span> guild<wbr>Only</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<li class="tsd-signature tsd-kind-icon">guild<wbr>Only<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><a href="commandcontext.html" class="tsd-signature-type">CommandContext</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Client</span><span class="tsd-signature-symbol">&gt;</span>, next<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Middleware.ts#L16">src/Middleware.ts:16</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Prevent command from being called if it is called in a DM</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>ctx: <a href="commandcontext.html" class="tsd-signature-type">CommandContext</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Client</span><span class="tsd-signature-symbol">&gt;</span></h5>
+							</li>
+							<li>
+								<h5>next: <span class="tsd-signature-type">Function</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+				<a name="owneronly" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagStatic">Static</span> owner<wbr>Only</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<li class="tsd-signature tsd-kind-icon">owner<wbr>Only<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><a href="commandcontext.html" class="tsd-signature-type">CommandContext</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Client</span><span class="tsd-signature-symbol">&gt;</span>, next<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Middleware.ts#L28">src/Middleware.ts:28</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Prevent command from being called if the caller is not registered as an owner.
+								This middleware must be paired with the <a href="rules.html#allowowner"><code>Rules.allowOwner</code></a> rule to function</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>ctx: <a href="commandcontext.html" class="tsd-signature-type">CommandContext</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Client</span><span class="tsd-signature-symbol">&gt;</span></h5>
+							</li>
+							<li>
+								<h5>next: <span class="tsd-signature-type">Function</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
 			</section>
 		</section>
 		<footer class="with-border-bottom">
