@@ -23,12 +23,12 @@ export class RuleCache
 	}
 
 	/**
-	 * Add a rule that the command module will use for command dispatching.
+	 * Add command rule(s) that the command module will use for command dispatching.
 	 * Rules will be executed in the order they are added
 	 */
-	public static use(rule: RuleFunction): void
+	public static use(...rules: RuleFunction[]): void
 	{
-		RuleCache._instance._cache.push(rule);
+		RuleCache._instance._cache.push(...rules);
 	}
 
 	/**

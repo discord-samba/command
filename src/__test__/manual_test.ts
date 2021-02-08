@@ -73,14 +73,16 @@ async function main(): Promise<void>
 	client.login(require(Path.join(__dirname, './config.json')).token);
 	CommandModule.registerClient(client);
 
-	CommandModule.rules.use(disallowBots);
-	CommandModule.rules.use(checkMentionPrefix);
+	CommandModule.rules.use(
+		disallowBots,
+		checkMentionPrefix,
+	);
 
 	CommandModule.commands.add(class extends Command
 	{
 		public constructor()
 		{
-			super({ name: 'bar', regex: /^foo/i });
+			super({ name: 'bar' });
 		}
 
 		public init(): void
@@ -100,23 +102,25 @@ async function main(): Promise<void>
 		{
 			super({ name: 'foo', regex: /^.*foo/i });
 
-			// Uppercase all string operands
-			this.middleware.use((ctx, next) =>
-			{
-				for (const operand of ctx.args.operands)
+			this.middleware.use(
+				// Uppercase all string operands
+				(ctx, next) =>
 				{
-					if (operand.type === 'String')
-						operand.value = (operand.value as string).toUpperCase();
-				}
-				next();
-			});
+					for (const operand of ctx.args.operands)
+					{
+						if (operand.type === 'String')
+							operand.value = (operand.value as string).toUpperCase();
+					}
+					next();
+				},
 
-			// Add an option
-			this.middleware.use((ctx, next) =>
-			{
-				ctx.args.options.set('test', new Option('test', 'added by middleware', 'String'));
-				next();
-			});
+				// Add an option
+				(ctx, next) =>
+				{
+					ctx.args.options.set('test', new Option('test', 'added by middleware', 'String'));
+					next();
+				}
+			);
 
 			this.arguments.setParsingStrategy(2);
 			this.arguments.defineOption('foo', 'String');
