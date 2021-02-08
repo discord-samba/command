@@ -13,12 +13,12 @@ export class MiddlewareCache
 	}
 
 	/**
-	 * Add a middleware function that the command module will use for command
+	 * Add middleware function(s) that the command module will use for command
 	 * dispatching. Middleware will be executed in the order they are added
 	 */
-	public use(fn: MiddlewareFunction): void
+	public use(...fn: MiddlewareFunction[]): void
 	{
-		this._cache.push(fn);
+		this._cache.push(...fn);
 	}
 
 	/**
