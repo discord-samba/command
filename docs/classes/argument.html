@@ -2467,6 +2467,12 @@ img {
 			<a href="flag.html" class="tsd-kind-icon">Flag</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="messagecontext.html" class="tsd-kind-icon">Message<wbr>Context</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="middlewarecache.html" class="tsd-kind-icon">Middleware<wbr>Cache</a>
+		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="operand.html" class="tsd-kind-icon">Operand</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
@@ -2478,8 +2484,23 @@ img {
 		<li class=" tsd-kind-class">
 			<a href="resolvercache.html" class="tsd-kind-icon">Resolver<wbr>Cache</a>
 		</li>
+		<li class=" tsd-kind-class">
+			<a href="rulecache.html" class="tsd-kind-icon">Rule<wbr>Cache</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="rules.html" class="tsd-kind-icon">Rules</a>
+		</li>
+		<li class=" tsd-kind-interface">
+			<a href="../interfaces/commandoptions.html" class="tsd-kind-icon">Command<wbr>Options</a>
+		</li>
 		<li class=" tsd-kind-type-alias">
 			<a href="../globals.html#argumentparsenode" class="tsd-kind-icon">Argument<wbr>Parse<wbr>Node</a>
+		</li>
+		<li class=" tsd-kind-type-alias">
+			<a href="../globals.html#middlewarefunction" class="tsd-kind-icon">Middleware<wbr>Function</a>
+		</li>
+		<li class=" tsd-kind-type-alias">
+			<a href="../globals.html#rulefunction" class="tsd-kind-icon">Rule<wbr>Function</a>
 		</li>
 	</ul>
 </nav>
@@ -2598,9 +2619,9 @@ img {
 						<p>The identifier for this argument. This will be the identifier specified
 						in the Command&#39;s arguments specification within your custom commands.</p>
 					</div>
-					<p><strong>NOTE:</strong> This is guaranteed to be a string for flags and options,
-						but can be undefined for operands as extra, undeclared operands can be given
-					and parsed</p>
+					<p><strong><em>NOTE:</em></strong> <em>This is guaranteed to be a string for flags and options,
+							but can be undefined for operands as extra, undeclared operands can be given
+					and parsed</em></p>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
@@ -2623,8 +2644,8 @@ img {
 						<li><a href="../enums/commandargumentkind.html#option"><code>Option&lt;T&gt;</code></a><code>-&gt;</code><a href="commandargkindimploption.html"><code>CommandArgKindImplOption</code></a></li>
 						<li><a href="../enums/commandargumentkind.html#flag"><code>Flag</code></a><code>-&gt;</code><a href="commandargkindimplflag.html"><code>CommandArgKindImplFlag</code></a></li>
 					</ul>
-					<p><strong>Note:</strong> This is exposed mostly for use in error handling as the info
-					it contains may be useful for your error output</p>
+					<p><strong><em>NOTE:</em></strong> <em>This is exposed mostly for use in error handling as the info
+					it contains may be useful for your error output</em></p>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
@@ -2643,12 +2664,12 @@ img {
 						as long as there is a matching resolver for the specified type.</p>
 					</div>
 					<p>In the case of <code>Flag</code> type arguments, the value will always be a boolean</p>
-					<p><strong>NOTE:</strong> The value can be undefined in cases of optional operands/options,
-						so be sure to use <code>isSome()</code> to check if the value is present before trying
-						to use the value in your Commands. It&#39;s safe to assume the value is present
-						in non-optional arguments, however, as an error will be thrown and handled
-						for missing required arguments so they will never be accessed with an undefined
-					value</p>
+					<p><strong><em>NOTE:</em></strong> <em>The value can be undefined in cases of optional operands/options,
+							so be sure to use <code>isSome()</code> to check if the value is present before trying
+							to use the value in your Commands. It&#39;s safe to assume the value is present
+							in non-optional arguments, however, as an error will be thrown and handled
+							for missing required arguments so they will never be accessed with an undefined
+					value</em></p>
 				</div>
 			</section>
 		</section>

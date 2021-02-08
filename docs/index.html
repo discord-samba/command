@@ -2450,6 +2450,12 @@ img {
 			<a href="classes/flag.html" class="tsd-kind-icon">Flag</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="classes/messagecontext.html" class="tsd-kind-icon">Message<wbr>Context</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="classes/middlewarecache.html" class="tsd-kind-icon">Middleware<wbr>Cache</a>
+		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="classes/operand.html" class="tsd-kind-icon">Operand</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
@@ -2461,8 +2467,23 @@ img {
 		<li class=" tsd-kind-class">
 			<a href="classes/resolvercache.html" class="tsd-kind-icon">Resolver<wbr>Cache</a>
 		</li>
+		<li class=" tsd-kind-class">
+			<a href="classes/rulecache.html" class="tsd-kind-icon">Rule<wbr>Cache</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="classes/rules.html" class="tsd-kind-icon">Rules</a>
+		</li>
+		<li class=" tsd-kind-interface">
+			<a href="interfaces/commandoptions.html" class="tsd-kind-icon">Command<wbr>Options</a>
+		</li>
 		<li class=" tsd-kind-type-alias">
 			<a href="globals.html#argumentparsenode" class="tsd-kind-icon">Argument<wbr>Parse<wbr>Node</a>
+		</li>
+		<li class=" tsd-kind-type-alias">
+			<a href="globals.html#middlewarefunction" class="tsd-kind-icon">Middleware<wbr>Function</a>
+		</li>
+		<li class=" tsd-kind-type-alias">
+			<a href="globals.html#rulefunction" class="tsd-kind-icon">Rule<wbr>Function</a>
 		</li>
 	</ul>
 </nav>
@@ -2511,16 +2532,28 @@ img {
 							<li class="tsd-kind-class"><a href="classes/commanddispatcherror.html" class="tsd-kind-icon">Command<wbr>Dispatch<wbr>Error</a></li>
 							<li class="tsd-kind-class"><a href="classes/commandmodule.html" class="tsd-kind-icon">Command<wbr>Module</a></li>
 							<li class="tsd-kind-class"><a href="classes/flag.html" class="tsd-kind-icon">Flag</a></li>
+							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/messagecontext.html" class="tsd-kind-icon">Message<wbr>Context</a></li>
+							<li class="tsd-kind-class"><a href="classes/middlewarecache.html" class="tsd-kind-icon">Middleware<wbr>Cache</a></li>
 							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/operand.html" class="tsd-kind-icon">Operand</a></li>
 							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/option.html" class="tsd-kind-icon">Option</a></li>
 							<li class="tsd-kind-class"><a href="classes/resolver.html" class="tsd-kind-icon">Resolver</a></li>
 							<li class="tsd-kind-class"><a href="classes/resolvercache.html" class="tsd-kind-icon">Resolver<wbr>Cache</a></li>
+							<li class="tsd-kind-class"><a href="classes/rulecache.html" class="tsd-kind-icon">Rule<wbr>Cache</a></li>
+							<li class="tsd-kind-class"><a href="classes/rules.html" class="tsd-kind-icon">Rules</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section ">
+						<h3>Interfaces</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-interface"><a href="interfaces/commandoptions.html" class="tsd-kind-icon">Command<wbr>Options</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
 						<h3>Type aliases</h3>
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-type-alias"><a href="globals.html#argumentparsenode" class="tsd-kind-icon">Argument<wbr>Parse<wbr>Node</a></li>
+							<li class="tsd-kind-type-alias"><a href="globals.html#middlewarefunction" class="tsd-kind-icon">Middleware<wbr>Function</a></li>
+							<li class="tsd-kind-type-alias"><a href="globals.html#rulefunction" class="tsd-kind-icon">Rule<wbr>Function</a></li>
 						</ul>
 					</section>
 				</div>
@@ -2542,6 +2575,88 @@ img {
 						<p>Represents a parsed argument node which will later be compiled into
 						an actual argument to be given to the command it&#39;s associated with</p>
 					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias">
+				<a name="middlewarefunction" class="tsd-anchor"></a>
+				<h3>Middleware<wbr>Function</h3>
+				<div class="tsd-signature tsd-kind-icon">Middleware<wbr>Function<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/types/MiddlewareFunction.ts#L9">src/types/MiddlewareFunction.ts:9</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Represents a middleware function for a specific command that can
+							modify command dispatch behavior, enforce an execution rule,
+							transform or add arguments, etc. Will be run after the arguments
+						have been parsed</p>
+					</div>
+				</div>
+				<div class="tsd-type-declaration">
+					<h4>Type declaration</h4>
+					<ul class="tsd-parameters">
+						<li class="tsd-parameter-siganture">
+							<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias">
+								<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>commandContext<span class="tsd-signature-symbol">: </span><a href="classes/commandcontext.html" class="tsd-signature-type">CommandContext</a>, next<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+							</ul>
+							<ul class="tsd-descriptions">
+								<li class="tsd-description">
+									<h4 class="tsd-parameters-title">Parameters</h4>
+									<ul class="tsd-parameters">
+										<li>
+											<h5>commandContext: <a href="classes/commandcontext.html" class="tsd-signature-type">CommandContext</a></h5>
+										</li>
+										<li>
+											<h5>next: <span class="tsd-signature-type">Function</span></h5>
+										</li>
+									</ul>
+									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias">
+				<a name="rulefunction" class="tsd-anchor"></a>
+				<h3>Rule<wbr>Function</h3>
+				<div class="tsd-signature tsd-kind-icon">Rule<wbr>Function<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/types/RuleFunction.ts#L7">src/types/RuleFunction.ts:7</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Represents a function that enforces a command dispatch rule
+						or modifies dispatch behavior</p>
+					</div>
+				</div>
+				<div class="tsd-type-declaration">
+					<h4>Type declaration</h4>
+					<ul class="tsd-parameters">
+						<li class="tsd-parameter-siganture">
+							<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias">
+								<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>messageContext<span class="tsd-signature-symbol">: </span><a href="classes/messagecontext.html" class="tsd-signature-type">MessageContext</a>, next<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+							</ul>
+							<ul class="tsd-descriptions">
+								<li class="tsd-description">
+									<h4 class="tsd-parameters-title">Parameters</h4>
+									<ul class="tsd-parameters">
+										<li>
+											<h5>messageContext: <a href="classes/messagecontext.html" class="tsd-signature-type">MessageContext</a></h5>
+										</li>
+										<li>
+											<h5>next: <span class="tsd-signature-type">Function</span></h5>
+										</li>
+									</ul>
+									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+								</li>
+							</ul>
+						</li>
+					</ul>
 				</div>
 			</section>
 		</section>

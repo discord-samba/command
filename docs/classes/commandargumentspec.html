@@ -2482,6 +2482,12 @@ img {
 			<a href="flag.html" class="tsd-kind-icon">Flag</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="messagecontext.html" class="tsd-kind-icon">Message<wbr>Context</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="middlewarecache.html" class="tsd-kind-icon">Middleware<wbr>Cache</a>
+		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="operand.html" class="tsd-kind-icon">Operand</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
@@ -2493,8 +2499,23 @@ img {
 		<li class=" tsd-kind-class">
 			<a href="resolvercache.html" class="tsd-kind-icon">Resolver<wbr>Cache</a>
 		</li>
+		<li class=" tsd-kind-class">
+			<a href="rulecache.html" class="tsd-kind-icon">Rule<wbr>Cache</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="rules.html" class="tsd-kind-icon">Rules</a>
+		</li>
+		<li class=" tsd-kind-interface">
+			<a href="../interfaces/commandoptions.html" class="tsd-kind-icon">Command<wbr>Options</a>
+		</li>
 		<li class=" tsd-kind-type-alias">
 			<a href="../globals.html#argumentparsenode" class="tsd-kind-icon">Argument<wbr>Parse<wbr>Node</a>
+		</li>
+		<li class=" tsd-kind-type-alias">
+			<a href="../globals.html#middlewarefunction" class="tsd-kind-icon">Middleware<wbr>Function</a>
+		</li>
+		<li class=" tsd-kind-type-alias">
+			<a href="../globals.html#rulefunction" class="tsd-kind-icon">Rule<wbr>Function</a>
 		</li>
 	</ul>
 </nav>
@@ -2635,8 +2656,8 @@ img {
 							<pre><code class="language-js">&lt;Command&gt;.arguments.defineFlag(<span class="hljs-string">&#x27;f&#x27;</span>);
 &lt;Command&gt;.arguments.defineFlag(<span class="hljs-string">&#x27;bar&#x27;</span>);
 &lt;Command&gt;.arguments.defineFlag(<span class="hljs-string">&#x27;b&#x27;</span>, { <span class="hljs-attr">long</span>: <span class="hljs-string">&#x27;baz&#x27;</span> });</code></pre>
-							<p><strong>NOTE:</strong> If a flag is found and the parsing strategy is not set to
-							<code>Advanced</code> (<code>2</code>) then it will be treated as an operand</p>
+							<p><strong><em>NOTE:</em></strong> <em>If a flag is found and the parsing strategy is not set to
+							<code>Advanced</code> (<code>2</code>) then it will be treated as an operand</em></p>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
@@ -2683,18 +2704,18 @@ img {
 							<p>Examples:</p>
 							<pre><code class="language-js">&lt;Command&gt;.arguments.defineOperand(<span class="hljs-string">&#x27;foo&#x27;</span>, <span class="hljs-string">&#x27;String&#x27;</span>);
 &lt;Command&gt;.arguments.defineOperand(<span class="hljs-string">&#x27;bar&#x27;</span>, <span class="hljs-string">&#x27;String&#x27;</span>, { <span class="hljs-attr">required</span>: <span class="hljs-literal">false</span> });</code></pre>
-							<p><strong>NOTE:</strong> If the parsing strategy is set to <code>AllowQuoting</code> (<code>1</code>) or higher and a quoted
-								operand is going to be parsed but the spec says it should be a rest argument then the quotes
-							will be preserved in the operand value.</p>
-							<p><strong>NOTE:</strong> Rest operands will supercede any other kind of argument when parsing for that operand
-								begins. If the parsing strategy is <code>Advanced</code> (<code>2</code>) but the parser encounters something that
-								would otherwise be parsed as a flag or option it will still be parsed as part
-								of the rest operand. Note this is only the case when the parser is currently consuming a
-							rest operand.</p>
-							<p><strong>NOTE:</strong> If the parsing strategy is not set to <code>Advanced</code> (<code>2</code>) then every argument
-								encountered will be treated as an operand. If an argument follows a flag and that
-								flag is not defined as an Option via <code>defineOption()</code> then the
-							argument will be parsed as an operand and the flag will be parsed as a flag as expected</p>
+							<p><strong><em>NOTE:</em></strong> <em>If the parsing strategy is set to <code>AllowQuoting</code> (<code>1</code>) or higher and a quoted
+									operand is going to be parsed but the spec says it should be a rest argument then the quotes
+							will be preserved in the operand value.</em></p>
+							<p><strong><em>NOTE:</em></strong> <em>Rest operands will supercede any other kind of argument when parsing for that operand
+									begins. If the parsing strategy is <code>Advanced</code> (<code>2</code>) but the parser encounters something that
+									would otherwise be parsed as a flag or option it will still be parsed as part
+									of the rest operand. Note this is only the case when the parser is currently consuming a
+							rest operand.</em></p>
+							<p><strong><em>NOTE:</em></strong> <em>If the parsing strategy is not set to <code>Advanced</code> (<code>2</code>) then every argument
+									encountered will be treated as an operand. If an argument follows a flag and that
+									flag is not defined as an Option via <code>defineOption()</code> then the
+							argument will be parsed as an operand and the flag will be parsed as a flag as expected</em></p>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
@@ -2745,10 +2766,10 @@ img {
 							<pre><code class="language-js">&lt;Command&gt;.spec.defineOption(<span class="hljs-string">&#x27;f&#x27;</span>, <span class="hljs-string">&#x27;String&#x27;</span>);
 &lt;Command&gt;.spec.defineOption(<span class="hljs-string">&#x27;bar&#x27;</span>, <span class="hljs-string">&#x27;String&#x27;</span>);
 &lt;Command&gt;.spec.defineOption(<span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;String&#x27;</span>, { <span class="hljs-attr">long</span>: <span class="hljs-string">&#x27;baz&#x27;</span> });</code></pre>
-							<p><strong>NOTE:</strong> If an option is found and the parsing strategy is not set to <code>Advanced</code> (<code>2</code>)
-								then it will be treated as an operand. If an argument that can be parsed as an option
-								is found in a Command&#39;s input but the option is not declared then it will be treated
-							as a long flag and the argument passed to it will be treated as an operand</p>
+							<p><strong><em>NOTE:</em></strong> <em>If an option is found and the parsing strategy is not set to <code>Advanced</code> (<code>2</code>)
+									then it will be treated as an operand. If an argument that can be parsed as an option
+									is found in a Command&#39;s input but the option is not declared then it will be treated
+							as a long flag and the argument passed to it will be treated as an operand</em></p>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
@@ -2791,10 +2812,10 @@ img {
 							<div class="lead">
 								<p>Returns a flag or option spec for the given identifier.</p>
 							</div>
-							<p><strong>NOTE:</strong> Operand specs should be retrieved by shifting the operands
-							array of a cloned spec.</p>
-							<p><strong>WARNING:</strong> Be sure to only operate on cloned specs. We do not want
-							to shift the operand specs out of the original specification</p>
+							<p><strong><em>NOTE:</em></strong> <em>Operand specs should be retrieved by shifting the operands
+							array of a cloned spec.</em></p>
+							<p><strong><em>WARNING:</em></strong> <em>Be sure to only operate on cloned specs. We do not want
+							to shift the operand specs out of the original specification</em></p>
 						</div>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
 						<ul class="tsd-type-parameters">
@@ -2841,12 +2862,12 @@ img {
 							<pre><code class="language-txt">       Basic -&gt; `foo bar baz`
 AllowQuoting -&gt; `foo &quot;bar baz&quot; boo`
     Advanced -&gt; `foo -b --bar --baz=&quot;boo far faz&quot;`</code></pre>
-							<p><strong>NOTE:</strong> The default strategy is <code>Basic</code> (<code>0</code>). This is set <em>per command</em>, so
-								setting one command&#39;s argument spec parsing strategy to <code>AllowQuoting</code> or
-								<code>Advanced</code> will not affect any other commands. This can also be changed at any
-								time, so you can feasibly iterate over all commands at runtime and forcibly change
-								their parsing strategy (for example, to allow quoted arguments on a loaded command
-							from a plugin that you did not write). For example:</p>
+							<p><strong><em>NOTE:</em></strong> <em>The default strategy is <code>Basic</code> (<code>0</code>). This is set <em>per command</em>, so
+									setting one command&#39;s argument spec parsing strategy to <code>AllowQuoting</code> or
+									<code>Advanced</code> will not affect any other commands. This can also be changed at any
+									time, so you can feasibly iterate over all commands at runtime and forcibly change
+									their parsing strategy (for example, to allow quoted arguments on a loaded command
+							from a plugin that you did not write). For example:</em></p>
 							<pre><code class="language-js">CommandModule.commands.get(<span class="hljs-string">&#x27;foo&#x27;</span>).arguments.setParsingStrategy(<span class="hljs-number">1</span>);</code></pre>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>

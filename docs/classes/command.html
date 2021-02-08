@@ -2423,13 +2423,28 @@ img {
 					<a href="command.html#arguments" class="tsd-kind-icon">arguments</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="command.html#middleware" class="tsd-kind-icon">middleware</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
 					<a href="command.html#name" class="tsd-kind-icon">name</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="command.html#regex" class="tsd-kind-icon">regex</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="command.html#regexonly" class="tsd-kind-icon">regex<wbr>Only</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="command.html#triggeronly" class="tsd-kind-icon">trigger<wbr>Only</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="command.html#action" class="tsd-kind-icon">action</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="command.html#init" class="tsd-kind-icon">init</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="command.html#trigger" class="tsd-kind-icon">trigger</a>
 				</li>
 			</ul>
 		</li>
@@ -2470,6 +2485,12 @@ img {
 			<a href="flag.html" class="tsd-kind-icon">Flag</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="messagecontext.html" class="tsd-kind-icon">Message<wbr>Context</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="middlewarecache.html" class="tsd-kind-icon">Middleware<wbr>Cache</a>
+		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="operand.html" class="tsd-kind-icon">Operand</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
@@ -2481,8 +2502,23 @@ img {
 		<li class=" tsd-kind-class">
 			<a href="resolvercache.html" class="tsd-kind-icon">Resolver<wbr>Cache</a>
 		</li>
+		<li class=" tsd-kind-class">
+			<a href="rulecache.html" class="tsd-kind-icon">Rule<wbr>Cache</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="rules.html" class="tsd-kind-icon">Rules</a>
+		</li>
+		<li class=" tsd-kind-interface">
+			<a href="../interfaces/commandoptions.html" class="tsd-kind-icon">Command<wbr>Options</a>
+		</li>
 		<li class=" tsd-kind-type-alias">
 			<a href="../globals.html#argumentparsenode" class="tsd-kind-icon">Argument<wbr>Parse<wbr>Node</a>
+		</li>
+		<li class=" tsd-kind-type-alias">
+			<a href="../globals.html#middlewarefunction" class="tsd-kind-icon">Middleware<wbr>Function</a>
+		</li>
+		<li class=" tsd-kind-type-alias">
+			<a href="../globals.html#rulefunction" class="tsd-kind-icon">Rule<wbr>Function</a>
 		</li>
 	</ul>
 </nav>
@@ -2527,7 +2563,11 @@ img {
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="command.html#aliases" class="tsd-kind-icon">aliases</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="command.html#arguments" class="tsd-kind-icon">arguments</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="command.html#middleware" class="tsd-kind-icon">middleware</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="command.html#name" class="tsd-kind-icon">name</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="command.html#regex" class="tsd-kind-icon">regex</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="command.html#regexonly" class="tsd-kind-icon">regex<wbr>Only</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="command.html#triggeronly" class="tsd-kind-icon">trigger<wbr>Only</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
@@ -2535,6 +2575,7 @@ img {
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="command.html#action" class="tsd-kind-icon">action</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="command.html#init" class="tsd-kind-icon">init</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="command.html#trigger" class="tsd-kind-icon">trigger</a></li>
 						</ul>
 					</section>
 				</div>
@@ -2546,22 +2587,36 @@ img {
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
 				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>Command<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, <span class="tsd-signature-symbol">...</span>aliases<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="command.html" class="tsd-signature-type">Command</a></li>
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Command<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="command.html" class="tsd-signature-type">Command</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Command.ts#L13">src/Command.ts:13</a></li>
+								<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Command.ts#L65">src/Command.ts:65</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5>name: <span class="tsd-signature-type">string</span></h5>
-							</li>
-							<li>
-								<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>aliases: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+								<h5>__namedParameters: <span class="tsd-signature-type">object</span></h5>
+								<ul class="tsd-parameters">
+									<li class="tsd-parameter">
+										<h5>aliases<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									</li>
+									<li class="tsd-parameter">
+										<h5>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+									</li>
+									<li class="tsd-parameter">
+										<h5>regex<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">RegExp</span></h5>
+									</li>
+									<li class="tsd-parameter">
+										<h5>regex<wbr>Only<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></h5>
+									</li>
+									<li class="tsd-parameter">
+										<h5>trigger<wbr>Only<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></h5>
+									</li>
+								</ul>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <a href="command.html" class="tsd-signature-type">Command</a></h4>
@@ -2577,9 +2632,14 @@ img {
 				<div class="tsd-signature tsd-kind-icon">aliases<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Command.ts#L12">src/Command.ts:12</a></li>
+						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Command.ts#L24">src/Command.ts:24</a></li>
 					</ul>
 				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Aliases this command can be called by</p>
+					</div>
+				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 				<a name="arguments" class="tsd-anchor"></a>
@@ -2587,9 +2647,31 @@ img {
 				<div class="tsd-signature tsd-kind-icon">arguments<span class="tsd-signature-symbol">:</span> <a href="commandargumentspec.html" class="tsd-signature-type">CommandArgumentSpec</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Command.ts#L13">src/Command.ts:13</a></li>
+						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Command.ts#L59">src/Command.ts:59</a></li>
 					</ul>
 				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The specification for this command&#39;s arguments. This determines how arguments
+						will be parsed when the command is triggered</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="middleware" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> middleware</h3>
+				<div class="tsd-signature tsd-kind-icon">middleware<span class="tsd-signature-symbol">:</span> <a href="middlewarecache.html" class="tsd-signature-type">MiddlewareCache</a></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Command.ts#L65">src/Command.ts:65</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Middleware cache for this command. To add a middleware function, see
+						<a href="middlewarecache.html#use"><code>MiddlewareCache#use()</code></a></p>
+					</div>
+				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 				<a name="name" class="tsd-anchor"></a>
@@ -2597,9 +2679,74 @@ img {
 				<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Command.ts#L11">src/Command.ts:11</a></li>
+						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Command.ts#L19">src/Command.ts:19</a></li>
 					</ul>
 				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The name this command can be called by. In the event that a command is marked
+							as regex-only or trigger-only this will strictly be used as an identifier for
+						the command in the cache</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="regex" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> regex</h3>
+				<div class="tsd-signature tsd-kind-icon">regex<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Command.ts#L40">src/Command.ts:40</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Regular expression that triggers this command. Command regular expressions
+							are run against the unmodified message content so they are not subject to
+							prefix restrictions. If a message uses a prefix and that message does not
+							match the regex, the command will not be run (unless the message would
+						otherwise call the command by name and the command is not set to regex-only)</p>
+					</div>
+					<p><strong><em>NOTE:</em></strong> <em>The first command with a regular expression that matches the input
+							will be run. The order in which the command regex are checked should be the
+							order in which the commands are added to the cache. If you use regex in multiple
+							commands, you should ensure that they do not have overlapping logic such that
+							no two regular expressions should match for the same message. Otherwise you
+					will have a command that will never run from its regex.</em></p>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="regexonly" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> regex<wbr>Only</h3>
+				<div class="tsd-signature tsd-kind-icon">regex<wbr>Only<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Command.ts#L46">src/Command.ts:46</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Whether or not this command will ignore messages that would otherwise call
+						it by name/alias and thus rely solely on triggering by regular expression</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="triggeronly" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> trigger<wbr>Only</h3>
+				<div class="tsd-signature tsd-kind-icon">trigger<wbr>Only<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Command.ts#L53">src/Command.ts:53</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Whether or not this command will ignore messages that would otherwise call
+							it by name/alias and thus rely solely on the result of the trigger function
+						for whether or not this command will run</p>
+					</div>
+				</div>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
@@ -2614,14 +2761,14 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Command.ts#L35">src/Command.ts:35</a></li>
+								<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Command.ts#L128">src/Command.ts:128</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Commands must implement an action method which will be executed
-									when the command is called via Discord. The action method will
-								be given a <a href="commandcontext.html">CommandContext</a> object when called</p>
+								<p>Commands must implement an action method which will be executed when the
+									command is called via Discord. The action method will be given a
+								<a href="commandcontext.html"><code>CommandContext</code></a> object when called</p>
 							</div>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2647,16 +2794,19 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Command.ts#L28">src/Command.ts:28</a></li>
+								<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Command.ts#L121">src/Command.ts:121</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Commands may implement an init() method that can be used to set up
-									any resources the command may need to utilize at runtime. The init
-									method will be called after the client is ready and will be passed
-								the client instance for use if needed.</p>
+								<p>Commands may implement an <code>init()</code> method that can be used to set up any
+									resources the command may need to utilize at runtime. The init method will
+									be called after the client is ready and will be passed the client instance
+								for use if needed.</p>
 							</div>
+							<p><strong><em>NOTE:</em></strong> <em>All command init methods will be run simultaneously through
+									<code>Promise.all()</code> so race conditions are possible if you have commands
+							relying on similar resources</em></p>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
@@ -2667,6 +2817,56 @@ img {
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span>
 							<span class="tsd-signature-symbol"> | </span>
 							<span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span>
+						</h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="trigger" class="tsd-anchor"></a>
+				<h3>trigger</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">trigger<span class="tsd-signature-symbol">(</span>_ctx<span class="tsd-signature-symbol">: </span><a href="messagecontext.html" class="tsd-signature-type">MessageContext</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Command.ts#L106">src/Command.ts:106</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Commands may implement a <code>trigger()</code> method that triggers this command if it
+									returns true. This function should strip whatever triggers it from
+									<a href="messagecontext.html#content"><code>MessageContext#content</code></a> so that the remainder
+									can be used as arguments if arguments are desired, otherwise the entierty
+									of the remaining content (after being potentially modified by rules) will
+								be parsed as arguments.</p>
+							</div>
+							<p>The <code>trigger</code> method will receive a <a href="messagecontext.html"><code>MessageContext</code></a> object when called.</p>
+							<p>Commands triggered in this way are not subject to prefix restrictions from
+								prefix related rules unless you specifically check <a href="messagecontext.html#prefixused"><code>MessageContext#prefixUsed</code></a> or check for other forms of prefixes in your
+								trigger logic. Because you have access to both the <a href="messagecontext.html#content"><code>MessageContext#content</code></a> and the original (unmodified) <code>Message</code> content,
+								you can choose to rely on prefix mechanics (like relying on the already modified
+								context content and <code>prefixUsed</code>) or ignore them entirely (for example if you
+								wanted to have a command triggered by natural language rather than traditional
+							command names/aliases).</p>
+							<p><strong><em>NOTE:</em></strong> <em>The first command with a trigger that returns true will be run. The
+									order in which the command triggers are checked should be the order in which
+									the commands are added to the cache. If you use triggers in multiple commands,
+									you should ensure that their trigger conditions do not have overlapping logic
+									such that no two triggers should return true for the same message. Otherwise
+							you will have a command that will never run from its trigger.</em></p>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>_ctx: <a href="messagecontext.html" class="tsd-signature-type">MessageContext</a></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span>
+							<span class="tsd-signature-symbol"> | </span>
+							<span class="tsd-signature-type">boolean</span>
 						</h4>
 					</li>
 				</ul>

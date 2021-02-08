@@ -2450,6 +2450,12 @@ img {
 			<a href="flag.html" class="tsd-kind-icon">Flag</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="messagecontext.html" class="tsd-kind-icon">Message<wbr>Context</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="middlewarecache.html" class="tsd-kind-icon">Middleware<wbr>Cache</a>
+		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="operand.html" class="tsd-kind-icon">Operand</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
@@ -2475,8 +2481,23 @@ img {
 		<li class=" tsd-kind-class">
 			<a href="resolvercache.html" class="tsd-kind-icon">Resolver<wbr>Cache</a>
 		</li>
+		<li class=" tsd-kind-class">
+			<a href="rulecache.html" class="tsd-kind-icon">Rule<wbr>Cache</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="rules.html" class="tsd-kind-icon">Rules</a>
+		</li>
+		<li class=" tsd-kind-interface">
+			<a href="../interfaces/commandoptions.html" class="tsd-kind-icon">Command<wbr>Options</a>
+		</li>
 		<li class=" tsd-kind-type-alias">
 			<a href="../globals.html#argumentparsenode" class="tsd-kind-icon">Argument<wbr>Parse<wbr>Node</a>
+		</li>
+		<li class=" tsd-kind-type-alias">
+			<a href="../globals.html#middlewarefunction" class="tsd-kind-icon">Middleware<wbr>Function</a>
+		</li>
+		<li class=" tsd-kind-type-alias">
+			<a href="../globals.html#rulefunction" class="tsd-kind-icon">Rule<wbr>Function</a>
 		</li>
 	</ul>
 </nav>
@@ -2580,15 +2601,15 @@ img {
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Method your Resolver must implement to provide resolved types for the given input.
-									Will receive <a href="argumentcontext.html">ArgumentContext</a> containing the raw input, and <a href="commandcontext.html">CommandContext</a>
+									Will receive <a href="argumentcontext.html"><code>ArgumentContext</code></a> containing the raw input, and <a href="commandcontext.html"><code>CommandContext</code></a>
 								to aid in value resolution.</p>
 							</div>
 							<p><code>resolve()</code> can be expected to throw errors for invalid input. These errors will
 								silently halt execution of a Command (meaning no message will be sent to Discord)
 							so that you may report this to Discord however you desire in your error handler.</p>
-							<p><strong>NOTE:</strong> For resolving values without side-effects, consider implementing <code>safeResolve()</code>.
-								Of course, you could really implement any method name you want, as the method will not
-							be called anywhere within the CommandModule so it&#39;d only be used manually by you</p>
+							<p><strong><em>NOTE:</em></strong> <em>For resolving values without side-effects, consider implementing <code>safeResolve()</code>.
+									Of course, you could really implement any method name you want, as the method will not
+							be called anywhere within the CommandModule so it&#39;d only be used manually by you</em></p>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
