@@ -36,11 +36,19 @@ export class Argument<T, U = string | undefined>
 	 * The raw argument as returned from the argument parser for this argument.
 	 * This will be undefined for non-required arguments that were unpassed.
 	 *
-	 * The fields you can expect if present depend on the argument type:
+	 * The fields you can expect if present depend on the argument type, but can
+	 * consist of the following:
 	 *
-	 * - [[`Operand | Operand&lt;T&gt;`]]` -> `[[`CommandArgKindImplOperand`]]
-	 * - [[`Option | Option&lt;T&gt;`]]` -> `[[`CommandArgKindImplOption`]]
-	 * - [[`Flag`]]` -> `[[`CommandArgKindImplFlag`]]
+	 * ```ts
+	 * {
+	 *     kind: number;
+	 *     index: number;
+	 *     ident?: string;
+	 *     type?: string;
+	 *     value?: string;
+	 *     long?: string;
+	 * }
+	 * ```
 	 *
 	 * ***NOTE:*** *This is exposed mostly for use in error handling as the info
 	 * it contains may be useful for your error output*
@@ -55,7 +63,7 @@ export class Argument<T, U = string | undefined>
 	}
 
 	/**
-	 * Returns whether or not this argument holds a `value`
+	 * Returns whether or not this argument holds a [[`value`]]
 	 */
 	public isSome(): boolean
 	{

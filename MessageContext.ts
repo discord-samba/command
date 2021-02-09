@@ -1,5 +1,9 @@
 import { Client, Message } from 'discord.js';
 
+/**
+ * Context for a sent Message. This context will be given to rules to help determine
+ * if a command should be run
+ */
 export class MessageContext<T extends Client = Client>
 {
 	/**
