@@ -74,20 +74,144 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<div class="tsd-panel tsd-typography">
-				<p class="lead">
-					This is the command module for Discord-Samba. It provides a command system for interacting with your Discord client.
-				</p>
-				<a href="#not-ready-for-use" id="not-ready-for-use" style="color: inherit; text-decoration: none;">
-					<h2>NOT READY FOR USE</h2>
-				</a>
-				<p>TODO: Full write-up on the module</p>
-			</div>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Enumerations</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-enum"><a href="enums/argumentparseerrorkind.html" class="tsd-kind-icon">Argument<wbr>Parse<wbr>Error<wbr>Kind</a></li>
+								<li class="tsd-kind-enum"><a href="enums/commandargumenterrorkind.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Error<wbr>Kind</a></li>
+								<li class="tsd-kind-enum"><a href="enums/commanddispatcherrorkind.html" class="tsd-kind-icon">Command<wbr>Dispatch<wbr>Error<wbr>Kind</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Classes</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/argument.html" class="tsd-kind-icon">Argument</a></li>
+								<li class="tsd-kind-class"><a href="classes/argumentparseerror.html" class="tsd-kind-icon">Argument<wbr>Parse<wbr>Error</a></li>
+								<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/command.html" class="tsd-kind-icon">Command</a></li>
+								<li class="tsd-kind-class"><a href="classes/commandargumenterror.html" class="tsd-kind-icon">Command<wbr>Argument<wbr>Error</a></li>
+								<li class="tsd-kind-class"><a href="classes/commandarguments.html" class="tsd-kind-icon">Command<wbr>Arguments</a></li>
+								<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/commandcontext.html" class="tsd-kind-icon">Command<wbr>Context</a></li>
+								<li class="tsd-kind-class"><a href="classes/commanddispatcherror.html" class="tsd-kind-icon">Command<wbr>Dispatch<wbr>Error</a></li>
+								<li class="tsd-kind-class"><a href="classes/commandmodule.html" class="tsd-kind-icon">Command<wbr>Module</a></li>
+								<li class="tsd-kind-class"><a href="classes/flag.html" class="tsd-kind-icon">Flag</a></li>
+								<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/messagecontext.html" class="tsd-kind-icon">Message<wbr>Context</a></li>
+								<li class="tsd-kind-class"><a href="classes/middleware.html" class="tsd-kind-icon">Middleware</a></li>
+								<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/operand.html" class="tsd-kind-icon">Operand</a></li>
+								<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/option.html" class="tsd-kind-icon">Option</a></li>
+								<li class="tsd-kind-class"><a href="classes/rules.html" class="tsd-kind-icon">Rules</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Interfaces</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-interface"><a href="interfaces/commandoptions.html" class="tsd-kind-icon">Command<wbr>Options</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Type aliases</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-type-alias"><a href="modules.html#middlewarefunction" class="tsd-kind-icon">Middleware<wbr>Function</a></li>
+								<li class="tsd-kind-type-alias"><a href="modules.html#rulefunction" class="tsd-kind-icon">Rule<wbr>Function</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Type aliases</h2>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="middlewarefunction" class="tsd-anchor"></a>
+					<h3>Middleware<wbr>Function</h3>
+					<div class="tsd-signature tsd-kind-icon">Middleware<wbr>Function<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/types/MiddlewareFunction.ts#L11">types/MiddlewareFunction.ts:11</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Represents a middleware function for a specific command that can modify command
+								dispatch behavior, enforce an execution rule, transform or add arguments, etc.
+							Will be run after arguments have been parsed.</p>
+						</div>
+						<p>A middleware function must call <code>next()</code> in order for command execution to progress.
+						If <code>next()</code> is not called, execution of the command will halt silently</p>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>commandContext<span class="tsd-signature-symbol">: </span><a href="classes/commandcontext.html" class="tsd-signature-type">CommandContext</a>, next<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>commandContext: <a href="classes/commandcontext.html" class="tsd-signature-type">CommandContext</a></h5>
+											</li>
+											<li>
+												<h5>next: <span class="tsd-signature-type">Function</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="rulefunction" class="tsd-anchor"></a>
+					<h3>Rule<wbr>Function</h3>
+					<div class="tsd-signature tsd-kind-icon">Rule<wbr>Function<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/types/RuleFunction.ts#L7">types/RuleFunction.ts:7</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Represents a function that enforces a command dispatch rule
+							or modifies dispatch behavior</p>
+						</div>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>messageContext<span class="tsd-signature-symbol">: </span><a href="classes/messagecontext.html" class="tsd-signature-type">MessageContext</a>, next<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>messageContext: <a href="classes/messagecontext.html" class="tsd-signature-type">MessageContext</a></h5>
+											</li>
+											<li>
+												<h5>next: <span class="tsd-signature-type">Function</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
-					<li class=" ">
+					<li class="current ">
 						<a href="modules.html">Exports</a>
 					</li>
 				</ul>
