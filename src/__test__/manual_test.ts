@@ -2,7 +2,7 @@
 /* eslint-disable no-console, capitalized-comments, lines-around-comment, sort-imports, no-mixed-operators */
 
 import { disallowBots, checkMentionPrefix, allowOwner } from '#root/Rules';
-import { ownerOnly } from '#root/Middleware';
+import { clientPermissions, ownerOnly } from '#root/Middleware';
 import { Client } from 'discord.js';
 import { Command } from '#root/Command';
 import { CommandContext } from '#root/CommandContext';
@@ -86,6 +86,7 @@ async function main(): Promise<void>
 		{
 			super({ name: 'bar' });
 			this.middleware.use(ownerOnly);
+			this.middleware.use(clientPermissions('BAN_MEMBERS'));
 		}
 
 		public init(): void

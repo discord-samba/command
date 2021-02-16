@@ -34,16 +34,21 @@ export class Middleware
 
 	/**
 	 * Prevent command from being called if the caller does not have all of the
-	 * given permissions for the channel in which the command was called
+	 * given permissions for the channel in which the command was called.
+	 *
+	 * ***NOTE:*** *This middleware should only be used when you can guarantee the
+	 * command will be called in a guild context. You can accomplish this by using
+	 * the [[`Middleware.guildOnly | guildOnly`]] middleware first*
 	 */
 	public static callerPermissions(...permissions: PermissionResolvable[]): MiddlewareFunction
 	{
-		return (ctx, next) =>
+		return (context, next) =>
 		{
-			const authorPerms: Readonly<Permissions> | null =
-				(ctx.message.channel as TextChannel).permissionsFor(ctx.message.author);
+			const authorPerms: Readonly<Permissions> = context
+				.channel<TextChannel>()
+				.permissionsFor?.(context.message.author) ?? new Permissions();
 
-			const missingPerms: PermissionResolvable = permissions.filter(p => !authorPerms?.has(p));
+			const missingPerms: PermissionResolvable = permissions.filter(p => !authorPerms.has(p));
 
 			// TODO: Throw error to be handled by error handlers. Include missing
 			//       permissions in the error data
@@ -57,15 +62,20 @@ export class Middleware
 	/**
 	 * Prevent command from being called if the client does not have all of the
 	 * given permissions for the channel in which the command was called
+	 *
+	 * ***NOTE:*** *This middleware should only be used when you can guarantee the
+	 * command will be called in a guild context. You can accomplish this by using
+	 * the [[`Middleware.guildOnly | guildOnly`]] middleware first*
 	 */
 	public static clientPermissions(...permissions: PermissionResolvable[]): MiddlewareFunction
 	{
-		return (ctx, next) =>
+		return (context, next) =>
 		{
-			const clientPerms: Readonly<Permissions> | null =
-				(ctx.message.channel as TextChannel).permissionsFor(ctx.client.user!);
+			const clientPerms: Readonly<Permissions> = context
+				.channel<TextChannel>()
+				.permissionsFor?.(context.client.user!) ?? new Permissions();
 
-			const missingPerms: PermissionResolvable = permissions.filter(p => !clientPerms?.has(p));
+			const missingPerms: PermissionResolvable = permissions.filter(p => !clientPerms.has(p));
 
 			// TODO: Throw error to be handled by error handlers. Include missing
 			//       permissions in the error data
