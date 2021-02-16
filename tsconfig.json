@@ -1,15 +1,15 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "target": "es2017",
-        "lib": ["es2017"],
-        "inlineSourceMap": true,
-        "declaration": true,
-        "removeComments": false,
-        "experimentalDecorators": true,
-        "strict": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
+	"compilerOptions": {
+		"module": "commonjs",
+		"target": "es2017",
+		"lib": ["es2017"],
+		"inlineSourceMap": true,
+		"declaration": true,
+		"removeComments": false,
+		"experimentalDecorators": true,
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
 		"skipLibCheck": true,
 		"stripInternal": true,
 		"rootDir": "./src",
@@ -22,13 +22,13 @@
 			"#root/*": ["./src/*"]
 		}
 	},
-    "include": [
+	"include": [
 		"src/**/*.ts",
 		"src/**/*.test.ts",
 		"scripts/**/*"
 	],
-    "exclude": [
-        "**/node_modules",
-        "**/bin"
+	"exclude": [
+		"**/node_modules",
+		"**/bin"
 	]
 }
