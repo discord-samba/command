@@ -249,7 +249,7 @@
 								match the regex, the command will not be run (unless the message would
 							otherwise call the command by name and the command is not set to regex-only)</p>
 						</div>
-						<p><strong><em>NOTE:</em></strong> <em>The first command with a regular expression that matches the input
+						<p><em><strong>NOTE:</strong></em> <em>The first command with a regular expression that matches the input
 								will be run. The order in which the command regex are checked should be the
 								order in which the commands are added to the cache. If you use regex in multiple
 								commands, you should ensure that they do not have overlapping logic such that
@@ -346,7 +346,7 @@
 										be called after the client is ready and will be passed the client instance
 									for use if needed.</p>
 								</div>
-								<p><strong><em>NOTE:</em></strong> <em>All command init methods will be run simultaneously through
+								<p><em><strong>NOTE:</strong></em> <em>All command init methods will be run simultaneously through
 										<code>Promise.all()</code> so race conditions are possible if you have commands
 								relying on similar resources</em></p>
 							</div>
@@ -393,7 +393,7 @@
 									context content and <code>prefixUsed</code>) or ignore them entirely (for example if you
 									wanted to have a command triggered by natural language rather than traditional
 								command names/aliases).</p>
-								<p><strong><em>NOTE:</em></strong> <em>The first command with a trigger that returns true will be run. The
+								<p><em><strong>NOTE:</strong></em> <em>The first command with a trigger that returns true will be run. The
 										order in which the command triggers are checked should be the order in which
 										the commands are added to the cache. If you use triggers in multiple commands,
 										you should ensure that their trigger conditions do not have overlapping logic

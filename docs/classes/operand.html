@@ -198,7 +198,7 @@
 							<p>The identifier for this argument. This will be the identifier specified
 							in the Command&#39;s arguments specification within your custom commands.</p>
 						</div>
-						<p><strong><em>NOTE:</em></strong> <em>This is guaranteed to be a string for flags and options,
+						<p><em><strong>NOTE:</strong></em> <em>This is guaranteed to be a string for flags and options,
 								but can be undefined for operands as extra, undeclared operands can be given
 						and parsed</em></p>
 					</div>
@@ -229,7 +229,7 @@
 <span style="color: #000000">    </span><span style="color: #001080">long</span><span style="color: #000000">?: </span><span style="color: #001080">string</span><span style="color: #000000">;</span>
 <span style="color: #000000">}</span>
 </code></pre>
-						<p><strong><em>NOTE:</em></strong> <em>This is exposed mostly for use in error handling as the info
+						<p><em><strong>NOTE:</strong></em> <em>This is exposed mostly for use in error handling as the info
 						it contains may be useful for your error output</em></p>
 					</div>
 				</section>
@@ -260,7 +260,7 @@
 							as long as there is a matching resolver for the specified type.</p>
 						</div>
 						<p>In the case of <code>Flag</code> type arguments, the value will always be a boolean</p>
-						<p><strong><em>NOTE:</em></strong> <em>The value can be undefined in cases of optional operands/options,
+						<p><em><strong>NOTE:</strong></em> <em>The value can be undefined in cases of optional operands/options,
 								so be sure to use <code>isSome()</code> to check if the value is present before trying
 								to use the value in your Commands. It&#39;s safe to assume the value is present
 								in non-optional arguments, however, as an error will be thrown and handled
