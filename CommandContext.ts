@@ -1,4 +1,4 @@
-import { Client, Message } from 'discord.js';
+import { Client, DMChannel, Message, NewsChannel, TextChannel, User } from 'discord.js';
 import { CommandArguments } from '#root/argument/CommandArguments';
 
 /**
@@ -17,6 +17,11 @@ export class CommandContext<T extends Client = Client>
 	public message: Message;
 
 	/**
+	 * The user that triggered the Command
+	 */
+	public author: User;
+
+	/**
 	 * The parsed arguments that your Command received when called
 	 */
 	public args: CommandArguments;
@@ -25,6 +30,32 @@ export class CommandContext<T extends Client = Client>
 	{
 		this.client = client;
 		this.message = message;
+		this.author = message.author;
 		this.args = args;
+	}
+
+	/**
+	 * Utility function to get the channel the context message was sent in while
+	 * allowing the passing of a channel type parameter to clean up channel
+	 * typecasting (which can be a bother and often looks bad).
+	 *
+	 * Consider the following:
+	 * ```ts
+	 * const authorPerms: Readonly<Permissions> = (ctx.message.channel as TextChannel)
+	 *     .permissionsFor?.(ctx.message.author) ?? new Permissions();
+	 * ```
+	 * compared to:
+	 * ```ts
+	 * const authorPerms: Readonly<Permissions> = ctx
+	 *     .channel<TextChannel>()
+	 *     .permissionsFor?.(ctx.message.author) ?? new Permissions();
+	 * ```
+	 * Doesn't the second implementation look much cleaner? I sure think so! What?
+	 * Function call overhead? Perf? What are those??
+	 */
+	public channel<U extends DMChannel | TextChannel | NewsChannel>(): U
+	public channel(): DMChannel | TextChannel | NewsChannel
+	{
+		return this.message.channel;
 	}
 }
