@@ -184,14 +184,17 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Middleware.ts#L39">Middleware.ts:39</a></li>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Middleware.ts#L43">Middleware.ts:43</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Prevent command from being called if the caller does not have all of the
-									given permissions for the channel in which the command was called</p>
+									given permissions for the channel in which the command was called.</p>
 								</div>
+								<p><em><strong>NOTE:</strong></em> <em>This middleware should only be used when you can guarantee the
+										command will be called in a guild context. You can accomplish this by using
+								the <a href="middleware.html#guildonly"><code>guildOnly</code></a> middleware first</em></p>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -213,7 +216,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Middleware.ts#L61">Middleware.ts:61</a></li>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Middleware.ts#L70">Middleware.ts:70</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -221,6 +224,9 @@
 									<p>Prevent command from being called if the client does not have all of the
 									given permissions for the channel in which the command was called</p>
 								</div>
+								<p><em><strong>NOTE:</strong></em> <em>This middleware should only be used when you can guarantee the
+										command will be called in a guild context. You can accomplish this by using
+								the <a href="middleware.html#guildonly"><code>guildOnly</code></a> middleware first</em></p>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
