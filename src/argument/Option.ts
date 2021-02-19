@@ -1,4 +1,4 @@
-import { Argument } from '#root/argument/Argument';
+import { Argument } from '#argument/Argument';
 import { ArgumentContext } from '#resolve/ArgumentContext';
 import { CommandArgKindImplOption } from '#parse/commandArgKindImpl/CommandArgKindImplOption';
 import { CommandArgumentKind } from '#type/CommandArgumentKind';

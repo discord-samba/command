@@ -1,7 +1,7 @@
 /* eslint-disable no-undefined */
 
 import { CommandArgumentKind } from '#type/CommandArgumentKind';
-import { CommandArgumentSpec } from '#root/argument/CommandArgumentSpec';
+import { CommandArgumentSpec } from '#argument/CommandArgumentSpec';
 
 describe('CommandArgumentSpec tests', () =>
 {

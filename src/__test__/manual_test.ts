@@ -8,15 +8,15 @@ import { Command } from '#root/Command';
 import { CommandContext } from '#root/CommandContext';
 import { CommandModule } from '#root/CommandModule';
 import { MessageContext } from '#root/MessageContext';
-import { Option } from '#root/argument/Option';
+import { Option } from '#argument/Option';
 import * as Path from 'path';
 import * as Util from 'util';
 
-// import { CommandArgumentSpec } from '#root/argument/CommandArgumentSpec';
+// import { CommandArgumentSpec } from '#argument/CommandArgumentSpec';
 // import { ArgumentParser } from '#parse/ArgumentParser';
 // import { ArgumentParserOutput } from '#parse/ArgumentParserOutput';
 // import { StringReader } from '#parse/StringReader';
-// import { CommandArguments } from '#root/argument/CommandArguments';
+// import { CommandArguments } from '#argument/CommandArguments';
 // import { CommandContext } from '#root/CommandContext';
 
 // function now(): number

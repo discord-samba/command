@@ -1,4 +1,4 @@
-import { Argument } from '#root/argument/Argument';
+import { Argument } from '#argument/Argument';
 import { CommandArgKindImplFlag } from '#parse/commandArgKindImpl/CommandArgKindImplFlag';
 
 /**

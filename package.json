@@ -4,8 +4,10 @@
 	"description": "Command module for Discord-Samba",
 	"main": "bin/index.js",
 	"imports": {
+		"#argument/*": "./bin/argument/*.js",
 		"#resolve/*": "./bin/resolve/*.js",
 		"#parse/*": "./bin/parse/*.js",
+		"#error/*": "./bin/error/*.js",
 		"#type/*": "./bin/types/*.js",
 		"#root/*": "./bin/*.js"
 	},

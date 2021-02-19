@@ -1,5 +1,5 @@
 import { ArgumentParser } from '#parse/ArgumentParser';
-import { CommandArgumentSpec } from '#root/argument/CommandArgumentSpec';
+import { CommandArgumentSpec } from '#argument/CommandArgumentSpec';
 
 describe('ArgumentParser tests', () =>
 {

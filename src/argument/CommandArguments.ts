@@ -1,15 +1,15 @@
-import { Argument } from '#root/argument/Argument';
+import { Argument } from '#argument/Argument';
 import { ArgumentParserOutput } from '#parse/ArgumentParserOutput';
-import { CommandArgumentError } from '#root/argument/CommandArgumentError';
-import { CommandArgumentErrorContext } from '#root/argument/CommandArgumentErrorContext';
-import { CommandArgumentErrorKind } from '#type/CommandArgumentErrorKind';
+import { CommandArgumentError } from '#error/CommandArgumentError';
+import { CommandArgumentErrorContext } from '#error/CommandArgumentErrorContext';
+import { CommandArgumentErrorKind } from '#error/CommandArgumentErrorKind';
 import { CommandArgumentKind } from '#type/CommandArgumentKind';
-import { CommandArgumentSpec } from '#root/argument/CommandArgumentSpec';
+import { CommandArgumentSpec } from '#argument/CommandArgumentSpec';
 import { CommandArgumentSpecOption } from '#type/CommandArgumentSpecOption';
 import { CommandContext } from '#root/CommandContext';
-import { Flag } from '#root/argument/Flag';
-import { Operand } from '#root/argument/Operand';
-import { Option } from '#root/argument/Option';
+import { Flag } from '#argument/Flag';
+import { Operand } from '#argument/Operand';
+import { Option } from '#argument/Option';
 
 /**
  * Container for all compiled arguments passed to a Command at call-time

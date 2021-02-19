@@ -1,10 +1,10 @@
 import { ArgumentParser } from '#parse/ArgumentParser';
 import { ArgumentParserOutput } from '#parse/ArgumentParserOutput';
-import { CommandArgumentSpec } from '#root/argument/CommandArgumentSpec';
-import { CommandArguments } from '#root/argument/CommandArguments';
-import { Flag } from '#root/argument/Flag';
-import { Operand } from '#root/argument/Operand';
-import { Option } from '#root/argument/Option';
+import { CommandArgumentSpec } from '#argument/CommandArgumentSpec';
+import { CommandArguments } from '#argument/CommandArguments';
+import { Flag } from '#argument/Flag';
+import { Operand } from '#argument/Operand';
+import { Option } from '#argument/Option';
 
 describe('CommandArguments tests', () =>
 {

@@ -16,8 +16,10 @@
 		"outDir": "./bin",
 		"baseUrl": ".",
 		"paths": {
+			"#argument/*": ["./src/argument/*"],
 			"#resolve/*": ["./src/resolve/*"],
 			"#parse/*": ["./src/parse/*"],
+			"#error/*": ["./src/error/*"],
 			"#type/*": ["./src/types/*"],
 			"#root/*": ["./src/*"]
 		}
