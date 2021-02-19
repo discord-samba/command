@@ -1,7 +1,7 @@
 import { Client, Message } from 'discord.js';
 import { ArgumentParser } from '#parse/ArgumentParser';
 import { Command } from '#root/Command';
-import { CommandArguments } from '#root/argument/CommandArguments';
+import { CommandArguments } from '#argument/CommandArguments';
 import { CommandContext } from '#root/CommandContext';
 import { CommandModule } from '#root/CommandModule';
 import { MessageContext } from '#root/MessageContext';

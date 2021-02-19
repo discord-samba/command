@@ -1,5 +1,5 @@
-import { ArgumentParseError } from '#parse/ArgumentParseError';
-import { ArgumentParseErrorKind } from '#type/ArgumentParseErrorKind';
+import { ArgumentParseError } from '#error/ArgumentParseError';
+import { ArgumentParseErrorKind } from '#error/ArgumentParseErrorKind';
 import { ArgumentParserOutput } from '#parse/ArgumentParserOutput';
 import { ArgumentParserState } from '#parse/ArgumentParserState';
 import { ArgumentStringChunkKind } from '#type/ArgumentStringChunkKind';
@@ -8,7 +8,7 @@ import { CommandArgKindImplOperand } from '#parse/commandArgKindImpl/CommandArgK
 import { CommandArgKindImplOption } from '#parse/commandArgKindImpl/CommandArgKindImplOption';
 import { CommandArgumentKind } from '#type/CommandArgumentKind';
 import { CommandArgumentParsingStrategy } from '#type/CommandArgumentParsingStrategy';
-import { CommandArgumentSpec } from '#root/argument/CommandArgumentSpec';
+import { CommandArgumentSpec } from '#argument/CommandArgumentSpec';
 import { CommandArgumentSpecEntry } from '#type/CommandArgumentSpecEntry';
 import { CommandArgumentSpecFlag } from '#type/CommandArgumentSpecFlag';
 import { CommandArgumentSpecOperand } from '#type/CommandArgumentSpecOperand';

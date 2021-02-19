@@ -1,5 +1,5 @@
 import { Client, DMChannel, Message, NewsChannel, TextChannel, User } from 'discord.js';
-import { CommandArguments } from '#root/argument/CommandArguments';
+import { CommandArguments } from '#argument/CommandArguments';
 
 /**
  * Represents the context in which a Command is called

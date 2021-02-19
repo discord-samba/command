@@ -1,4 +1,4 @@
-import { ArgumentParseErrorKind } from '#type/ArgumentParseErrorKind';
+import { ArgumentParseErrorKind } from '#error/ArgumentParseErrorKind';
 
 /**
  * Represents an error encountered while parsing Command arguments. Holds a kind

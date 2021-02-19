@@ -5,20 +5,20 @@ export { CommandOptions } from '#type/CommandOptions';
 export { CommandContext } from '#root/CommandContext';
 export { MessageContext } from '#root/MessageContext';
 
-export { CommandArguments } from '#root/argument/CommandArguments';
-export { Argument } from '#root/argument/Argument';
-export { Operand } from '#root/argument/Operand';
-export { Flag } from '#root/argument/Flag';
-export { Option } from '#root/argument/Option';
+export { CommandArguments } from '#argument/CommandArguments';
+export { Argument } from '#argument/Argument';
+export { Operand } from '#argument/Operand';
+export { Flag } from '#argument/Flag';
+export { Option } from '#argument/Option';
 
-export { CommandArgumentError } from '#root/argument/CommandArgumentError';
-export { CommandArgumentErrorKind } from '#type/CommandArgumentErrorKind';
+export { CommandArgumentError } from '#error/CommandArgumentError';
+export { CommandArgumentErrorKind } from '#error/CommandArgumentErrorKind';
 
-export { CommandDispatchError } from '#root/CommandDispatchError';
-export { CommandDispatchErrorKind } from '#type/CommandDispatchErrorKind';
+export { CommandDispatchError } from '#error/CommandDispatchError';
+export { CommandDispatchErrorKind } from '#error/CommandDispatchErrorKind';
 
-export { ArgumentParseError } from '#parse/ArgumentParseError';
-export { ArgumentParseErrorKind } from '#type/ArgumentParseErrorKind';
+export { ArgumentParseError } from '#error/ArgumentParseError';
+export { ArgumentParseErrorKind } from '#error/ArgumentParseErrorKind';
 
 export { Rules } from '#root/Rules';
 export { RuleFunction } from '#type/RuleFunction';

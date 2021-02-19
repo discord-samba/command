@@ -1,7 +1,7 @@
 import { ArgumentContext } from '#resolve/ArgumentContext';
-import { CommandArgumentError } from '#root/argument/CommandArgumentError';
-import { CommandArgumentErrorContext } from '#root/argument/CommandArgumentErrorContext';
-import { CommandArgumentErrorKind } from '#type/CommandArgumentErrorKind';
+import { CommandArgumentError } from '#error/CommandArgumentError';
+import { CommandArgumentErrorContext } from '#error/CommandArgumentErrorContext';
+import { CommandArgumentErrorKind } from '#error/CommandArgumentErrorKind';
 import { Resolver } from '#resolve/Resolver';
 
 /** @hidden */

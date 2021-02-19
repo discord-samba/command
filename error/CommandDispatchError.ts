@@ -1,6 +1,6 @@
 import { Command } from '#root/Command';
 import { CommandContext } from '#root/CommandContext';
-import { CommandDispatchErrorKind } from '#type/CommandDispatchErrorKind';
+import { CommandDispatchErrorKind } from '#error/CommandDispatchErrorKind';
 
 /**
  * Represents an error encountered while dispatching a called Command.
