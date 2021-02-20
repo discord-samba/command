@@ -9,6 +9,7 @@ import { CommandContext } from '#root/CommandContext';
 import { CommandModule } from '#root/CommandModule';
 import { MessageContext } from '#root/MessageContext';
 import { Option } from '#argument/Option';
+import { Result } from '#root/Result';
 import * as Path from 'path';
 import * as Util from 'util';
 
@@ -104,7 +105,7 @@ async function main(): Promise<void>
 	{
 		public constructor()
 		{
-			super({ name: 'foo', regex: /^.*foo/i });
+			super({ name: 'foo' });
 
 			this.middleware.use(
 				// Uppercase all string operands
@@ -123,7 +124,10 @@ async function main(): Promise<void>
 				{
 					ctx.args.options.set('test', new Option('test', 'added by middleware', 'String'));
 					next();
-				}
+				},
+
+				// Cancel this command
+				(_, next) => next(Result.cancel())
 			);
 
 			this.arguments.setParsingStrategy(2);
