@@ -5,6 +5,8 @@ export { CommandOptions } from '#type/CommandOptions';
 export { CommandContext } from '#root/CommandContext';
 export { MessageContext } from '#root/MessageContext';
 
+export { Result } from '#root/Result';
+
 export { CommandArguments } from '#argument/CommandArguments';
 export { Argument } from '#argument/Argument';
 export { Operand } from '#argument/Operand';
