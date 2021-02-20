@@ -59,12 +59,11 @@ export class Result<T = any>
 	 * and should exit silently.
 	 *
 	 * ***NOTE:*** *Rules and Middleware can pass a Cancellation Result to the `next`
-	 * function to exit silently, but Rules and Middleware will also exit silently
-	 * if the `next` function is never called so the Cancellation Result is not
-	 * really necessary for Rules and Middleware. Cancellation Results are primarily
-	 * used to for Argument defaults to signal that a command should be canceled
-	 * (likely because the Argument default uses argument prompting and the prompt
-	 * was canceled)*
+	 * function to exit silently, but they will also exit silently if the `next`
+	 * function is never called, so the Cancellation Result is not really necessary
+	 * for them. Cancellation Results are primarily used for Argument defaults to
+	 * signal that a command should be canceled (Likely because the Argument default
+	 * uses argument prompting and the prompt was canceled).*
 	 */
 	public static cancel(): Result
 	{
@@ -100,7 +99,7 @@ export class Result<T = any>
 	}
 
 	/**
-	 * Whether or not this Result is an Error result. Error Results will always
+	 * Whether or not this Result is an Error Result. Error Results will always
 	 * have a defined `value` field containing the error the Result holds
 	 */
 	public isError(): this is Required<Result<T>>
@@ -109,7 +108,7 @@ export class Result<T = any>
 	}
 
 	/**
-	 * Whether or not this Result is a Cancellation result
+	 * Whether or not this Result is a Cancellation Result
 	 */
 	public isCancellation(): boolean
 	{
