@@ -7,6 +7,7 @@ import { CommandModule } from '#root/CommandModule';
 import { MessageContext } from '#root/MessageContext';
 import { Meta } from '#root/Meta';
 import { MiddlewareFunction } from '#type/MiddlewareFunction';
+import { Result } from './Result';
 import { RuleFunction } from '#type/RuleFunction';
 
 /** @internal */
@@ -43,6 +44,37 @@ export class CommandDispatcher
 	}
 
 	/**
+	 * Determine if rules/dispatch should continue (and handle Error Results)
+	 */
+	private static _shouldContinueRules(result: Result): boolean
+	{
+		if (result.isCancellation())
+			return false;
+
+		// TODO: Route error through global error handler
+		if (result.isError())
+			return false;
+
+		return true;
+	}
+
+	/**
+	 * Determine if middleware/dispatch should continue (and handle Error Results)
+	 */
+	private static _shouldContinueMiddleware(result: Result): boolean
+	{
+		if (result.isCancellation())
+			return false;
+
+		// TODO: Route error through Command error handler or global error handler
+		//       if the command error handler returns a Default Result
+		if (result.isError())
+			return false;
+
+		return true;
+	}
+
+	/**
 	 * Run global module rules and continue if they are all successful
 	 */
 	private async _dispatch(message: Message): Promise<void>
@@ -50,11 +82,18 @@ export class CommandDispatcher
 		const messageContext: MessageContext = new MessageContext(this._client, message);
 
 		const rules: RuleFunction[] = CommandModule.rules.all();
-		let nextFn: Function = () =>
+		let nextFn: Function = (result: Result = Result.ok()) =>
 		{
+			if (!CommandDispatcher._shouldContinueRules(result))
+				return;
+
 			const rule: RuleFunction = rules.shift() ?? ((_, next) => next());
 			if (rules.length < 1)
-				nextFn = async () => this._postRules(messageContext);
+				nextFn = async (finalResult: Result = Result.ok()) =>
+				{
+					if (CommandDispatcher._shouldContinueRules(finalResult))
+						this._postRules(messageContext);
+				};
 
 			rule(messageContext, nextFn);
 		};
@@ -150,11 +189,18 @@ export class CommandDispatcher
 
 		// Run command middleware
 		const middleware: MiddlewareFunction[] = command.middleware.all();
-		let nextFn: Function = () =>
+		let nextFn: Function = (result: Result = Result.ok()) =>
 		{
+			if (!CommandDispatcher._shouldContinueMiddleware(result))
+				return;
+
 			const fn: MiddlewareFunction = middleware.shift() ?? ((_, next) => next());
 			if (middleware.length < 1)
-				nextFn = async () => this._postMiddleware(command, commandContext);
+				nextFn = async (finalResult: Result = Result.ok()) =>
+				{
+					if (CommandDispatcher._shouldContinueMiddleware(finalResult))
+						this._postMiddleware(command, commandContext);
+				};
 
 			fn(commandContext, nextFn);
 		};

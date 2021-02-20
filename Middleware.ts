@@ -50,8 +50,8 @@ export class Middleware
 
 			const missingPerms: PermissionResolvable = permissions.filter(p => !authorPerms.has(p));
 
-			// TODO: Throw error to be handled by error handlers. Include missing
-			//       permissions in the error data
+			// TODO: return next(Result.err(...)) with some sort of to-be-implemented
+			//       middleware error that includes context data (missing perms)
 			if (missingPerms.length > 0)
 				return;
 
@@ -77,8 +77,8 @@ export class Middleware
 
 			const missingPerms: PermissionResolvable = permissions.filter(p => !clientPerms.has(p));
 
-			// TODO: Throw error to be handled by error handlers. Include missing
-			//       permissions in the error data
+			// TODO: return next(Result.err(...)) with some sort of to-be-implemented
+			//       middleware error that includes context data (missing perms)
 			if (missingPerms.length > 0)
 				return;
 
