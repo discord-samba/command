@@ -160,12 +160,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Result.ts#L114">Result.ts:114</a></li>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Result.ts#L113">Result.ts:113</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Whether or not this Result is a Cancellation result</p>
+									<p>Whether or not this Result is a Cancellation Result</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -182,12 +182,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Result.ts#L106">Result.ts:106</a></li>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Result.ts#L105">Result.ts:105</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Whether or not this Result is an Error result. Error Results will always
+									<p>Whether or not this Result is an Error Result. Error Results will always
 									have a defined <code>value</code> field containing the error the Result holds</p>
 								</div>
 							</div>
@@ -205,7 +205,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Result.ts#L97">Result.ts:97</a></li>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Result.ts#L96">Result.ts:96</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -229,7 +229,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Result.ts#L86">Result.ts:86</a></li>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Result.ts#L85">Result.ts:85</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -251,7 +251,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Result.ts#L69">Result.ts:69</a></li>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Result.ts#L68">Result.ts:68</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -261,12 +261,11 @@
 									and should exit silently.</p>
 								</div>
 								<p><em><strong>NOTE:</strong></em> <em>Rules and Middleware can pass a Cancellation Result to the <code>next</code>
-										function to exit silently, but Rules and Middleware will also exit silently
-										if the <code>next</code> function is never called so the Cancellation Result is not
-										really necessary for Rules and Middleware. Cancellation Results are primarily
-										used to for Argument defaults to signal that a command should be canceled
-										(likely because the Argument default uses argument prompting and the prompt
-								was canceled)</em></p>
+										function to exit silently, but they will also exit silently if the <code>next</code>
+										function is never called, so the Cancellation Result is not really necessary
+										for them. Cancellation Results are primarily used for Argument defaults to
+										signal that a command should be canceled (Likely because the Argument default
+								uses argument prompting and the prompt was canceled).</em></p>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="result.html" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
