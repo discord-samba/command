@@ -202,28 +202,25 @@
 					<a name="get" class="tsd-anchor"></a>
 					<h3>get</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">get&lt;T&gt;<span class="tsd-signature-symbol">(</span>ident<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">T</span></li>
+						<li class="tsd-signature tsd-kind-icon">get&lt;T&gt;<span class="tsd-signature-symbol">(</span>ident<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/argument/CommandArguments.ts#L188">argument/CommandArguments.ts:188</a></li>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/argument/CommandArguments.ts#L183">argument/CommandArguments.ts:183</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Gets a Command argument by identifier. Extra operands that were not
-										declared in the spec can be retrieved by numerical index which will
-									first contain the declared operands.</p>
+									<p>Gets a Command argument by identifier (or an Operand by numerical index).
+										Will error if given an argument was not found for the given ident/index.
+										This means that for error-safety you should only use this method to get
+									arguments that were defined in your Command&#39;s argument specification.</p>
 								</div>
-								<p>So for example, if you have 2 declared operands and 1 undeclared operand
-									passed to the Command at call-time, the declared operands will be at
-								indices <code>0</code> and <code>1</code> and the undeclared operand will be at index <code>2</code></p>
-								<p>You can also just access the entire set of operands passed to the Command
-								via the <code>operands</code> field</p>
-								<p>Flags and Options can also be accessed via the <code>flags</code> and <code>options</code>
-								fields, respectively</p>
+								<p>If for whatever reason you want to (relatively) safely access undeclared
+									arguments you can use the <a href="commandarguments.html#operands"><code>operands</code></a> array, the <a href="commandarguments.html#options"><code>options</code></a> map, and
+								the <a href="commandarguments.html#flags"><code>flags</code></a> map, just be sure to check that they exist before using them</p>
 							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
@@ -237,10 +234,7 @@
 									<h5>ident: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span>
-								<span class="tsd-signature-symbol"> | </span>
-								<span class="tsd-signature-type">T</span>
-							</h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span></h4>
 						</li>
 					</ul>
 				</section>
