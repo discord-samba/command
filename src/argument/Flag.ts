@@ -13,8 +13,8 @@ export class Flag extends Argument<boolean, string>
 	public count: number;
 
 	/**
-	 * The value this flag holds. You can expect it to be false if the flag
-	 * was not passed to the command when it was called
+	 * The value this flag holds. You can expect it to be `false` if the flag
+	 * was not passed to the command when it was called, and `true` otherwise
 	 */
 	public value!: boolean;
 

@@ -23,14 +23,22 @@ export class Argument<T, U = string | undefined>
 	 *
 	 * In the case of `Flag` type arguments, the value will always be a boolean
 	 *
-	 * ***NOTE:*** *The value can be undefined in cases of optional operands/options,
-	 * so be sure to use `isSome()` to check if the value is present before trying
-	 * to use the value in your Commands. It's safe to assume the value is present
-	 * in non-optional arguments, however, as an error will be thrown and handled
-	 * for missing required arguments so they will never be accessed with an undefined
-	 * value*
+	 * ***NOTE:*** *The value can be undefined in cases of non-required operands
+	 * and options, so be sure to use `isSome()` to check if the value is present
+	 * before trying to access the value in your Commands. It's safe to assume the
+	 * value is present in required arguments, however, as an error will be thrown
+	 * (and hopefully handled) for missing required arguments so they will never
+	 * be accessed with an undefined value. Typescript users can consider using
+	 * `Required<T>` when accessing required arguments to eliminate the need to
+	 * use `isSome()` like so:*
+	 * ```ts
+	 * const foo: Required<Operand<User>> = context.args.get('foo');
+	 * console.log(foo.value.id);
+	 * // foo.value is known to not be undefined at compile-time so we can safely
+	 * // access its fields without any errors
+	 * ```
 	 */
-	public value: T;
+	public value?: T;
 
 	/**
 	 * The raw argument as returned from the argument parser for this argument.
@@ -65,7 +73,7 @@ export class Argument<T, U = string | undefined>
 	/**
 	 * Returns whether or not this argument holds a [[`value`]]
 	 */
-	public isSome(): boolean
+	public isSome(): this is Required<this>
 	{
 		return typeof this.value !== 'undefined';
 	}

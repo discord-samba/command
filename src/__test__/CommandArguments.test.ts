@@ -234,17 +234,17 @@ describe('CommandArguments tests', () =>
 		const parserOutput: ArgumentParserOutput = ArgumentParser.parse('foo --baz --far 1', spec);
 		const args: CommandArguments = new CommandArguments(spec, parserOutput);
 
-		expect(args.get<Operand<string>>('foo')?.isSome()).toBe(true);
-		expect(args.get<Operand<string>>('bar')?.isSome()).toBe(false);
+		expect(args.get<Operand<string>>('foo').isSome()).toBe(true);
+		expect(args.get<Operand<string>>('bar').isSome()).toBe(false);
 
-		expect(args.get<Flag>('baz')?.isSome()).toBe(true);
+		expect(args.get<Flag>('baz').isSome()).toBe(true);
 
 		// Should be true because unpassed flags still hold a value of `false`,
 		// while isSome() checks for the absence of a value
-		expect(args.get<Flag>('boo')?.isSome()).toBe(true);
+		expect(args.get<Flag>('boo').isSome()).toBe(true);
 
-		expect(args.get<Option<number>>('far')?.isSome()).toBe(true);
-		expect(args.get<Option<number>>('faz')?.isSome()).toBe(false);
+		expect(args.get<Option<number>>('far').isSome()).toBe(true);
+		expect(args.get<Option<number>>('faz').isSome()).toBe(false);
 	});
 
 	it('Should get flag by long or short identifier', () =>
@@ -259,7 +259,7 @@ describe('CommandArguments tests', () =>
 
 		expect(args.get<Flag>('f')).toEqual({ raw, ident: 'f', value: true, count: 1 });
 		expect(args.get<Flag>('foo')).toEqual({ raw, ident: 'f', value: true, count: 1 });
-		expect(args.get<Flag>('f')).toEqual(args.get<Flag>('foo'));
+		expect(args.get<Flag>('f')).toBe(args.get<Flag>('foo'));
 	});
 
 	it('Should get option by long or short identifier', () =>
@@ -274,6 +274,21 @@ describe('CommandArguments tests', () =>
 
 		expect(args.get<Option<string>>('f')).toEqual({ raw, ident: 'f', type: 'String', value: 'bar' });
 		expect(args.get<Option<string>>('foo')).toEqual({ raw, ident: 'f', type: 'String', value: 'bar' });
-		expect(args.get<Option<string>>('f')).toEqual(args.get<Option<string>>('foo'));
+		expect(args.get<Option<string>>('f')).toBe(args.get<Option<string>>('foo'));
+	});
+
+	it('Should error when getting undeclared arguments or out-of-bounds operands', () =>
+	{
+		const spec: CommandArgumentSpec = new CommandArgumentSpec();
+
+		spec.setParsingStrategy(2);
+		spec.defineOperand('foo', 'String');
+
+		const parserOutput: ArgumentParserOutput = ArgumentParser.parse('foo', spec);
+		const args: CommandArguments = new CommandArguments(spec, parserOutput);
+		const err: string = 'Attempted to access undeclared/unpassed argument';
+
+		expect(() => args.get('bar')).toThrow(err);
+		expect(() => args.get('1')).toThrow(err);
 	});
 });
