@@ -171,21 +171,16 @@ export class CommandArguments
 	}
 
 	/**
-	 * Gets a Command argument by identifier. Extra operands that were not
-	 * declared in the spec can be retrieved by numerical index which will
-	 * first contain the declared operands.
+	 * Gets a Command argument by identifier (or an Operand by numerical index).
+	 * Will error if given an argument was not found for the given ident/index.
+	 * This means that for error-safety you should only use this method to get
+	 * arguments that were defined in your Command's argument specification.
 	 *
-	 * So for example, if you have 2 declared operands and 1 undeclared operand
-	 * passed to the Command at call-time, the declared operands will be at
-	 * indices `0` and `1` and the undeclared operand will be at index `2`
-	 *
-	 * You can also just access the entire set of operands passed to the Command
-	 * via the `operands` field
-	 *
-	 * Flags and Options can also be accessed via the `flags` and `options`
-	 * fields, respectively
+	 * If for whatever reason you want to (relatively) safely access undeclared
+	 * arguments you can use the [[`operands`]] array, the [[`options`]] map, and
+	 * the [[`flags`]] map, just be sure to check that they exist before using them
 	 */
-	public get<T extends Argument<any>>(ident: string | number): T | undefined
+	public get<T extends Argument<any>>(ident: string | number): T
 	{
 		let result: Argument<any> | undefined;
 
@@ -208,6 +203,10 @@ export class CommandArguments
 		// Otherwise check option
 		if (typeof result === 'undefined' && this.options.has(ident))
 			result = this.options.get(ident);
+
+		// Error if we don't find any argument for the given ident/index
+		if (typeof result === 'undefined')
+			throw new RangeError('Attempted to access undeclared/unpassed argument');
 
 		return result as T;
 	}
