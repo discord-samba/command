@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Rules | @discord-samba/command</title>
+	<title>MiddlewareCache | @discord-samba/command</title>
 	<meta name="description" content="Documentation for @discord-samba/command">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -64,10 +64,10 @@
 					<a href="../modules.html">@discord-samba/command</a>
 				</li>
 				<li>
-					<a href="rules.html">Rules</a>
+					<a href="middlewarecache.html">MiddlewareCache</a>
 				</li>
 			</ul>
-			<h1>Class Rules</h1>
+			<h1>Class MiddlewareCache</h1>
 		</div>
 	</div>
 </header>
@@ -134,9 +134,24 @@
 					<li class=" tsd-kind-class">
 						<a href="middleware.html" class="tsd-kind-icon">Middleware</a>
 					</li>
-					<li class=" tsd-kind-class">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class">
 						<a href="middlewarecache.html" class="tsd-kind-icon">Middleware<wbr>Cache</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="middlewarecache.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="middlewarecache.html#all" class="tsd-kind-icon">all</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="middlewarecache.html#use" class="tsd-kind-icon">use</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="operand.html" class="tsd-kind-icon">Operand</a>
 					</li>
@@ -152,27 +167,9 @@
 					<li class=" tsd-kind-class">
 						<a href="rulecache.html" class="tsd-kind-icon">Rule<wbr>Cache</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-class">
+					<li class=" tsd-kind-class">
 						<a href="rules.html" class="tsd-kind-icon">Rules</a>
-						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="rules.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
-								<a href="rules.html#checkmentionprefix" class="tsd-kind-icon">check<wbr>Mention<wbr>Prefix</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
-								<a href="rules.html#disallowbots" class="tsd-kind-icon">disallow<wbr>Bots</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="rules.html#allowowner" class="tsd-kind-icon">allow<wbr>Owner</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 				</ul>
 				<h3>Interfaces</h3>
 				<ul>
@@ -195,9 +192,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Container class that holds rules for controlling command execution or modifying
-							command execution behavior. All rules in this class can also be imported directly
-						by name from <code>@discord-samba/command/rules</code></p>
+						<p>A cache that holds the middleware to be used by a single command</p>
 					</div>
 				</div>
 			</section>
@@ -205,7 +200,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Rules</span>
+						<span class="target">MiddlewareCache</span>
 					</li>
 				</ul>
 			</section>
@@ -216,20 +211,14 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="rules.html#constructor" class="tsd-kind-icon">constructor</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Properties</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="rules.html#checkmentionprefix" class="tsd-kind-icon">check<wbr>Mention<wbr>Prefix</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="rules.html#disallowbots" class="tsd-kind-icon">disallow<wbr>Bots</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="middlewarecache.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="rules.html#allowowner" class="tsd-kind-icon">allow<wbr>Owner</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="middlewarecache.html#all" class="tsd-kind-icon">all</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="middlewarecache.html#use" class="tsd-kind-icon">use</a></li>
 							</ul>
 						</section>
 					</div>
@@ -241,89 +230,70 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Rules<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="rules.html" class="tsd-signature-type" data-tsd-kind="Class">Rules</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="rules.html" class="tsd-signature-type" data-tsd-kind="Class">Rules</a></h4>
-						</li>
-					</ul>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
-					<a name="checkmentionprefix" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> check<wbr>Mention<wbr>Prefix</h3>
-					<div class="tsd-signature tsd-kind-icon">check<wbr>Mention<wbr>Prefix<span class="tsd-signature-symbol">:</span> <a href="../modules.html#rulefunction" class="tsd-signature-type" data-tsd-kind="Type alias">RuleFunction</a><span class="tsd-signature-symbol"> = ...</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Rules.ts#L33">Rules.ts:33</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>This rule will check for a mention prefix on messages. Using this rule will
-								enforce the usage of prefixes for all commands (except those triggered by
-								regular expression or function trigger), but the check for whether a prefix
-								was used does not occur until all rules have been run, so this rule will not
-								interrupt command execution. This allows you to use additional rules to check
-								for different kinds of prefixes as well. As long as at least one rule sets
-								<a href="messagecontext.html#prefixused"><code>MessageContext#prefixUsed</code></a> to <code>true</code> then
-							the command will succeed (provided all other rules have passed as well)</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
-					<a name="disallowbots" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> disallow<wbr>Bots</h3>
-					<div class="tsd-signature tsd-kind-icon">disallow<wbr>Bots<span class="tsd-signature-symbol">:</span> <a href="../modules.html#rulefunction" class="tsd-signature-type" data-tsd-kind="Type alias">RuleFunction</a><span class="tsd-signature-symbol"> = ...</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Rules.ts#L15">Rules.ts:15</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>This rule disallows bots from calling commands</p>
-						</div>
-					</div>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="allowowner" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> allow<wbr>Owner</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">allow<wbr>Owner<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>owners<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#rulefunction" class="tsd-signature-type" data-tsd-kind="Type alias">RuleFunction</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Middleware<wbr>Cache<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="middlewarecache.html" class="tsd-signature-type" data-tsd-kind="Class">MiddlewareCache</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Rules.ts#L64">Rules.ts:64</a></li>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/MiddlewareCache.ts#L8">MiddlewareCache.ts:8</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="middlewarecache.html" class="tsd-signature-type" data-tsd-kind="Class">MiddlewareCache</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="all" class="tsd-anchor"></a>
+					<h3>all</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">all<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#middlewarefunction" class="tsd-signature-type" data-tsd-kind="Type alias">MiddlewareFunction</a><span class="tsd-signature-symbol">[]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/MiddlewareCache.ts#L27">MiddlewareCache.ts:27</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>This rule sets the provided user IDs as owners that are allowed to call
-										commands that are marked as owner-only. This rule must be paired with the
-										command middleware <a href="middleware.html#owneronly"><code>Middleware.ownerOnly</code></a> which will make use of the
-									owner IDs set by this rule.</p>
+									<p>Returns a copy of the current registered middleware functions</p>
 								</div>
-								<p><em><strong>NOTE:</strong></em> <em>This rule will only take effect the first time it is passed
-								so be sure to include all owners you want to allow when setting this rule</em></p>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="../modules.html#middlewarefunction" class="tsd-signature-type" data-tsd-kind="Type alias">MiddlewareFunction</a><span class="tsd-signature-symbol">[]</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="use" class="tsd-anchor"></a>
+					<h3>use</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">use<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>fn<span class="tsd-signature-symbol">: </span><a href="../modules.html#middlewarefunction" class="tsd-signature-type" data-tsd-kind="Type alias">MiddlewareFunction</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/MiddlewareCache.ts#L19">MiddlewareCache.ts:19</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Add middleware function(s) that the command module will use for command
+									dispatching. Middleware will be executed in the order they are added</p>
+								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>owners: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>fn: <a href="../modules.html#middlewarefunction" class="tsd-signature-type" data-tsd-kind="Type alias">MiddlewareFunction</a><span class="tsd-signature-symbol">[]</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../modules.html#rulefunction" class="tsd-signature-type" data-tsd-kind="Type alias">RuleFunction</a></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
