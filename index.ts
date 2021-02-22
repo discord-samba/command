@@ -5,6 +5,11 @@ export { CommandOptions } from '#type/CommandOptions';
 export { CommandContext } from '#root/CommandContext';
 export { MessageContext } from '#root/MessageContext';
 
+export { CommandCache } from '#root/CommandCache';
+export { ResolverCache } from '#resolve/ResolverCache';
+export { RuleCache } from '#root/RuleCache';
+export { MiddlewareCache } from '#root/MiddlewareCache';
+
 export { Result } from '#root/Result';
 
 export { CommandArguments } from '#argument/CommandArguments';
