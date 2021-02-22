@@ -17,6 +17,7 @@ export class ResolverCache
 		ResolverCache._staticInstance = this;
 	}
 
+	/** @internal */
 	private static get _instance(): ResolverCache
 	{
 		return ResolverCache._staticInstance ?? new ResolverCache();

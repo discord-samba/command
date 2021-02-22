@@ -17,6 +17,7 @@ export class RuleCache
 		RuleCache._staticInstance = this;
 	}
 
+	/** @internal */
 	private static get _instance(): RuleCache
 	{
 		return RuleCache._staticInstance ?? new RuleCache();
