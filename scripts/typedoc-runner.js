@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/typedef */
+require('@discord-samba/typedoc-patch')(require('handlebars'));
 
 const { Application, TSConfigReader, ParameterType } = require('typedoc');
 const Path = require('path');

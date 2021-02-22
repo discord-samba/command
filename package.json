@@ -38,6 +38,7 @@
 		"@commitlint/cli": "^11.0.0",
 		"@commitlint/config-angular": "^11.0.0",
 		"@discord-samba/eslint-config": "github:discord-samba/eslint-config",
+		"@discord-samba/typedoc-patch": "github:discord-samba/typedoc-patch",
 		"@types/glob": "^7.1.1",
 		"@types/jest": "^26.0.9",
 		"@types/node": "^14.14.14",
