@@ -7,6 +7,7 @@ import { CommandModule } from '#root/CommandModule';
 import { MessageContext } from '#root/MessageContext';
 import { Meta } from '#root/Meta';
 import { MiddlewareFunction } from '#type/MiddlewareFunction';
+import { NextFunction } from '#type/NextFunction';
 import { Result } from './Result';
 import { RuleFunction } from '#type/RuleFunction';
 
@@ -82,12 +83,13 @@ export class CommandDispatcher
 		const messageContext: MessageContext = new MessageContext(this._client, message);
 
 		const rules: RuleFunction[] = CommandModule.rules.all();
-		let nextFn: Function = (result: Result = Result.ok()) =>
+		let nextFn: NextFunction = (result: Result = Result.ok()) =>
 		{
 			if (!CommandDispatcher._shouldContinueRules(result))
 				return;
 
 			const rule: RuleFunction = rules.shift() ?? ((_, next) => next());
+
 			if (rules.length < 1)
 				nextFn = async (finalResult: Result = Result.ok()) =>
 				{
@@ -189,12 +191,13 @@ export class CommandDispatcher
 
 		// Run command middleware
 		const middleware: MiddlewareFunction[] = command.middleware.all();
-		let nextFn: Function = (result: Result = Result.ok()) =>
+		let nextFn: NextFunction = (result: Result = Result.ok()) =>
 		{
 			if (!CommandDispatcher._shouldContinueMiddleware(result))
 				return;
 
 			const fn: MiddlewareFunction = middleware.shift() ?? ((_, next) => next());
+
 			if (middleware.length < 1)
 				nextFn = async (finalResult: Result = Result.ok()) =>
 				{
