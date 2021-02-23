@@ -17,7 +17,6 @@ export class CommandCache
 		CommandCache._staticInstance = this;
 	}
 
-	/** @internal */
 	private static get _instance(): CommandCache
 	{
 		return CommandCache._staticInstance ?? new CommandCache();
