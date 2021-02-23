@@ -334,15 +334,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandModule.ts#L44">CommandModule.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandModule.ts#L43">CommandModule.ts:43</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Tells the command module to enforce usage of prefixes in commands. This will
-										prevent commands from running if some rule does not set
-										<a href="messagecontext.html#prefixused"><code>MessageContext.prefixUsed</code></a> to <code>true</code> (presumably because a prefix was
-									used)</p>
+										prevent commands from running if some rule does not set <a href="messagecontext.html#prefixused"><code>MessageContext.prefixUsed</code></a>
+									to <code>true</code> (presumably because a prefix was used)</p>
 								</div>
 								<p><em><strong>NOTE:</strong></em> <em>The <code>checkMentionPrefix</code> rule will call this automatically when
 										it is run. If you write your own prefix rule, be sure to call this somewhere
@@ -362,13 +361,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandModule.ts#L53">CommandModule.ts:53</a></li>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandModule.ts#L54">CommandModule.ts:54</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Register your client instance with the command module. This will register
-									it with the command dispatcher so that it may begin handling commands</p>
+									<p>Register your client instance with the command module. This will initialize
+										all loaded commands and register the client with the Command dispatcher once
+										the client emits the <a href="https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-ready"><code>ready</code></a>
+									event</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
