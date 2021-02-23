@@ -32,7 +32,7 @@ export class RuleCache
 	}
 
 	/**
-	 * Returns a copy of the current registered rule functions
+	 * Returns a copy of the currently registered rule functions
 	 */
 	public static all(): RuleFunction[]
 	{

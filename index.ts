@@ -31,3 +31,4 @@ export { Rules } from '#root/Rules';
 export { RuleFunction } from '#type/RuleFunction';
 export { Middleware } from '#root/Middleware';
 export { MiddlewareFunction } from '#type/MiddlewareFunction';
+export { NextFunction } from '#type/NextFunction';
