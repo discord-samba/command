@@ -157,7 +157,7 @@ export class CommandDispatcher
 		// we don't have a command from triggers
 		else if (!triggerMatch)
 		{
-			const commandName: string = context.content.trim().split(' ')[0];
+			const commandName: string = context.content.trim().split(/\s/)[0];
 			command = CommandModule.commands.get(commandName)!;
 
 			// Cancel dispatch if we don't find a command
