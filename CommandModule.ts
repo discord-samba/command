@@ -33,9 +33,8 @@ export class CommandModule
 
 	/**
 	 * Tells the command module to enforce usage of prefixes in commands. This will
-	 * prevent commands from running if some rule does not set
-	 * [[`MessageContext.prefixUsed`]] to `true` (presumably because a prefix was
-	 * used)
+	 * prevent commands from running if some rule does not set [[`MessageContext.prefixUsed`]]
+	 * to `true` (presumably because a prefix was used)
 	 *
 	 * ***NOTE:*** *The `checkMentionPrefix` rule will call this automatically when
 	 * it is run. If you write your own prefix rule, be sure to call this somewhere
@@ -47,8 +46,10 @@ export class CommandModule
 	}
 
 	/**
-	 * Register your client instance with the command module. This will register
-	 * it with the command dispatcher so that it may begin handling commands
+	 * Register your client instance with the command module. This will initialize
+	 * all loaded commands and register the client with the Command dispatcher once
+	 * the client emits the [`ready`](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-ready)
+	 * event
 	 */
 	public static registerClient(client: Client): void
 	{
