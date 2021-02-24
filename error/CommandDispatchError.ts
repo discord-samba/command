@@ -6,7 +6,7 @@ import { CommandDispatchErrorKind } from '#error/CommandDispatchErrorKind';
  * Represents an error encountered while dispatching a called Command.
  * Holds an error kind and the Command that triggered the error
  */
-export class CommandDispatchError
+export class CommandDispatchError extends Error
 {
 	/**
 	 * The kind of dispatch error encountered
@@ -26,6 +26,7 @@ export class CommandDispatchError
 
 	public constructor(kind: CommandDispatchErrorKind, command: Command, commandCtx: CommandContext)
 	{
+		super();
 		this.kind = kind;
 		this.command = command;
 		this.commandCtx = commandCtx;
