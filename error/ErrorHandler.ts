@@ -1,5 +1,5 @@
 import { CustomErrorConstructor } from '#type/CustomErrorConstructor';
-import { Result } from './Result';
+import { Result } from '#root/Result';
 
 /**
  * Fluent builder class used for creating reusable error handlers for different
