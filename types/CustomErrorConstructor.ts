@@ -2,4 +2,4 @@
  * Represents any custom error class that extends Error
  * @internal
  */
-export type CustomErrorConstructor = new <T extends Error>(...args: any[]) => T;
+export type CustomErrorConstructor<T extends Error> = new (...args: any[]) => T;
