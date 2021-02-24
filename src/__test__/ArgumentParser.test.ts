@@ -634,9 +634,9 @@ describe('ArgumentParser tests', () =>
 		spec.defineOption('f', 'Number');
 		spec.defineFlag('b');
 
-		expect(getErr(() => ArgumentParser.parse('-fb', spec))).toEqual({ kind: 1, index: 0 });
-		expect(getErr(() => ArgumentParser.parse('foo -fb', spec))).toEqual({ kind: 1, index: 1 });
-		expect(getErr(() => ArgumentParser.parse('foo bar -fb', spec))).toEqual({ kind: 1, index: 2 });
+		expect(getErr(() => ArgumentParser.parse('-fb', spec))).toMatchObject({ kind: 1, index: 0 });
+		expect(getErr(() => ArgumentParser.parse('foo -fb', spec))).toMatchObject({ kind: 1, index: 1 });
+		expect(getErr(() => ArgumentParser.parse('foo bar -fb', spec))).toMatchObject({ kind: 1, index: 2 });
 	});
 
 	it('Should error on unterminated quoted operands', () =>
@@ -644,11 +644,12 @@ describe('ArgumentParser tests', () =>
 		const spec: CommandArgumentSpec = new CommandArgumentSpec();
 		spec.setParsingStrategy(2);
 
-		expect(getErr(() => ArgumentParser.parse('"foo bar baz', spec))).toEqual({ kind: 0, index: 0 });
-		expect(getErr(() => ArgumentParser.parse('foo --foo "foo bar baz', spec))).toEqual({ kind: 0, index: 2 });
-		expect(getErr(() => ArgumentParser.parse('foo -f --bar "foo bar baz', spec))).toEqual({ kind: 0, index: 3 });
+		expect(getErr(() => ArgumentParser.parse('"foo bar baz', spec))).toMatchObject({ kind: 0, index: 0 });
+		expect(getErr(() => ArgumentParser.parse('foo --foo "foo bar baz', spec))).toMatchObject({ kind: 0, index: 2 });
+		expect(getErr(() => ArgumentParser.parse('foo -f --bar "foo bar baz', spec)))
+			.toMatchObject({ kind: 0, index: 3 });
 
 		spec.defineOption('b', 'String', { long: 'bar' });
-		expect(getErr(() => ArgumentParser.parse('-f --bar "foo bar baz', spec))).toEqual({ kind: 0, index: 2 });
+		expect(getErr(() => ArgumentParser.parse('-f --bar "foo bar baz', spec))).toMatchObject({ kind: 0, index: 2 });
 	});
 });

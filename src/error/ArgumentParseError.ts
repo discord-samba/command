@@ -8,7 +8,7 @@ import { ArgumentParseErrorKind } from '#error/ArgumentParseErrorKind';
  * TODO: Write a way to provide error handlers which will be given the same
  *       command context given to the Command call that threw the error
  */
-export class ArgumentParseError
+export class ArgumentParseError extends Error
 {
 	/**
 	 * The kind of parse error encountered
@@ -22,6 +22,7 @@ export class ArgumentParseError
 
 	public constructor(kind: ArgumentParseErrorKind, index: number)
 	{
+		super();
 		this.kind = kind;
 		this.index = index;
 	}

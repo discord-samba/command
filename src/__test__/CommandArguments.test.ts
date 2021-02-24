@@ -154,7 +154,7 @@ describe('CommandArguments tests', () =>
 		const parserOutput: ArgumentParserOutput = ArgumentParser.parse('', spec);
 
 		expect(getErr(() => new CommandArguments(spec, parserOutput)))
-			.toEqual({
+			.toMatchObject({
 				kind: 0,
 				context: {
 					kind: 2,
@@ -175,7 +175,7 @@ describe('CommandArguments tests', () =>
 		const parserOutput: ArgumentParserOutput = ArgumentParser.parse('', spec);
 
 		expect(getErr(() => new CommandArguments(spec, parserOutput)))
-			.toEqual({
+			.toMatchObject({
 				kind: 0,
 				context: {
 					kind: 1,
@@ -195,7 +195,7 @@ describe('CommandArguments tests', () =>
 		let parserOutput: ArgumentParserOutput = ArgumentParser.parse('-a', spec);
 
 		expect(getErr(() => new CommandArguments(spec, parserOutput)))
-			.toEqual({
+			.toMatchObject({
 				kind: 0,
 				context: {
 					kind: 1,
@@ -208,7 +208,7 @@ describe('CommandArguments tests', () =>
 		parserOutput = ArgumentParser.parse('--foo', spec);
 
 		expect(getErr(() => new CommandArguments(spec, parserOutput)))
-			.toEqual({
+			.toMatchObject({
 				kind: 0,
 				context: {
 					kind: 1,

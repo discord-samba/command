@@ -12,6 +12,9 @@ import { Option } from '#argument/Option';
 import { Result } from '#root/Result';
 import * as Path from 'path';
 import * as Util from 'util';
+import { ErrorHandler } from '#root/ErrorHandler';
+import { CommandArgumentError } from '#error/CommandArgumentError';
+import { ArgumentParseError } from '#error/ArgumentParseError';
 
 // import { CommandArgumentSpec } from '#argument/CommandArgumentSpec';
 // import { ArgumentParser } from '#parse/ArgumentParser';
@@ -155,6 +158,15 @@ async function main(): Promise<void>
 			ctx.message.channel.send(Util.inspect(ctx.args, { depth: 2 }), { code: 'js' });
 		}
 	});
+
+	const errorHandler: ErrorHandler = ErrorHandler
+		.use(CommandArgumentError, err => console.log('CommandArgumentError: ', err))
+		.use(ArgumentParseError, err => console.log('ArgumentParseError: ', err))
+		.use(Error, err => console.log('Catch-all Error: ', err));
+
+	console.log(
+		await errorHandler.handle(new CommandArgumentError(0, { kind: 2, ident: 'foo', type: 'String' }))
+	);
 }
 
 main().catch(e => console.log(e));

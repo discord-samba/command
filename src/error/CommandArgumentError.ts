@@ -6,7 +6,7 @@ import { CommandArgumentErrorKind } from '#error/CommandArgumentErrorKind';
  * Holds an error kind, and a context object containing all the information available
  * that you can use to build an error message of some kind to send to Discord
  */
-export class CommandArgumentError
+export class CommandArgumentError extends Error
 {
 	/**
 	 * The kind of command argument error encountered
@@ -20,6 +20,7 @@ export class CommandArgumentError
 
 	public constructor(errorKind: CommandArgumentErrorKind, context: CommandArgumentErrorContext)
 	{
+		super();
 		this.kind = errorKind;
 		this.context = context;
 	}
