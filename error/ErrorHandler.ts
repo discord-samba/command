@@ -31,7 +31,7 @@ export class ErrorHandler
 	 */
 	public static use<T extends Error>(
 		errClass: new (...args: any[]) => T,
-		handler: (err: T) => void | Promise<void>
+		handler: (err: T, ...args: any[]) => void | Promise<void>
 	): ErrorHandler
 	{
 		const newHandler: ErrorHandler = new ErrorHandler();
@@ -57,7 +57,7 @@ export class ErrorHandler
 	 */
 	public use<T extends Error>(
 		errClass: new (...args: any[]) => T,
-		handler: (err: T) => void | Promise<void>
+		handler: (err: T, ...args: any[]) => void | Promise<void>
 	): this
 	{
 		this._handlers.push([errClass as CustomErrorConstructor, handler]);
@@ -67,16 +67,19 @@ export class ErrorHandler
 	/**
 	 * Runs the given error through the matching handler function for its type.
 	 * Returns [[`Result.ok | Result.ok()`]] if the error was successfully handled
-	 * or [[`Result.err | Result.err()`]] if not or if there was an error handling
-	 * the error (in which case the result value will be the error thrown)
+	 * or [[`Result.err | Result.err()`]] if not, or if there was an error handling
+	 * the error (in which case the result value will be the error thrown).
+	 *
+	 * Additional arguments can be passed which will be passed to the matching error
+	 * handler function
 	 */
-	public async handle(err: Error): Promise<Result>
+	public async handle(err: Error, ...args: any[]): Promise<Result>
 	{
 		for (const handler of this._handlers)
 		{
 			if (err instanceof handler[0])
 			{
-				try { await handler[1](err); }
+				try { await handler[1](err, ...args); }
 				catch (e) { return Result.err(e); }
 
 				return Result.ok();
