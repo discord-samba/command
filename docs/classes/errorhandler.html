@@ -137,10 +137,10 @@
 								<a href="errorhandler.html#handle" class="tsd-kind-icon">handle</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-								<a href="errorhandler.html#use" class="tsd-kind-icon">use</a>
+								<a href="errorhandler.html#match" class="tsd-kind-icon">match</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-								<a href="errorhandler.html#use-1" class="tsd-kind-icon">use</a>
+								<a href="errorhandler.html#match-1" class="tsd-kind-icon">match</a>
 							</li>
 						</ul>
 					</li>
@@ -229,8 +229,8 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="errorhandler.html#handle" class="tsd-kind-icon">handle</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="errorhandler.html#use" class="tsd-kind-icon">use</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="errorhandler.html#use-1" class="tsd-kind-icon">use</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="errorhandler.html#match" class="tsd-kind-icon">match</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="errorhandler.html#match-1" class="tsd-kind-icon">match</a></li>
 							</ul>
 						</section>
 					</div>
@@ -295,10 +295,10 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a name="use" class="tsd-anchor"></a>
-					<h3>use</h3>
+					<a name="match" class="tsd-anchor"></a>
+					<h3>match</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">use&lt;T&gt;<span class="tsd-signature-symbol">(</span>errClass<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">T</span>, handler<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, <span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="errorhandler.html" class="tsd-signature-type" data-tsd-kind="Class">ErrorHandler</a></li>
+						<li class="tsd-signature tsd-kind-icon">match&lt;T&gt;<span class="tsd-signature-symbol">(</span>errClass<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">T</span>, handler<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, <span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="errorhandler.html" class="tsd-signature-type" data-tsd-kind="Class">ErrorHandler</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -309,18 +309,18 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Tells this error handler to use the given function for the given Error kind.
-										Expects a class that extends Error and a function that will handle errors
-									of that kind. Returns this error handler.</p>
+									<p>Creates a matcher for this ErrorHandler for the given error class that tells
+										the ErrorHandler to use the given function to handle errors matching that error
+									class. Returns this ErrorHandler.</p>
 								</div>
 								<pre><code class="language-ts"><span style="color: #001080">ErrorHandler</span>
-<span style="color: #000000">    .</span><span style="color: #795E26">use</span><span style="color: #000000">(</span><span style="color: #267F99">RangeError</span><span style="color: #000000">, </span><span style="color: #001080">err</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">err</span><span style="color: #000000">))</span>
-<span style="color: #000000">    .</span><span style="color: #795E26">use</span><span style="color: #000000">(</span><span style="color: #267F99">Error</span><span style="color: #000000">, </span><span style="color: #001080">err</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">err</span><span style="color: #000000">));</span>
+<span style="color: #000000">    .</span><span style="color: #795E26">match</span><span style="color: #000000">(</span><span style="color: #267F99">RangeError</span><span style="color: #000000">, </span><span style="color: #001080">err</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">err</span><span style="color: #000000">))</span>
+<span style="color: #000000">    .</span><span style="color: #795E26">match</span><span style="color: #000000">(</span><span style="color: #267F99">Error</span><span style="color: #000000">, </span><span style="color: #001080">err</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">err</span><span style="color: #000000">));</span>
 </code></pre>
-								<p><em><strong>NOTE:</strong></em> <em>Because all error classes inherit from <code>Error</code>, and error kinds
-										will be checked against in the order in which they were added, <code>Error</code> will
-										act as a catch-all for error <code>instanceof</code> checks, so if you want to add a
-								catch-all handler, be sure to add <code>Error</code> as the final handler</em></p>
+								<p><em><strong>NOTE:</strong></em> <em>Because all error classes inherit from <code>Error</code>, and error matchers
+										will be checked in the order in which they were added, <code>Error</code> should be added
+										as the final matcher to match all other possible errors that don&#39;t match any
+								other matchers</em></p>
 							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
@@ -381,10 +381,10 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-					<a name="use-1" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> use</h3>
+					<a name="match-1" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> match</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">use&lt;T&gt;<span class="tsd-signature-symbol">(</span>errClass<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">T</span>, handler<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, <span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="errorhandler.html" class="tsd-signature-type" data-tsd-kind="Class">ErrorHandler</a></li>
+						<li class="tsd-signature tsd-kind-icon">match&lt;T&gt;<span class="tsd-signature-symbol">(</span>errClass<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">T</span>, handler<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, <span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="errorhandler.html" class="tsd-signature-type" data-tsd-kind="Class">ErrorHandler</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -395,16 +395,16 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Creates a new error handler and tells it to use the given function to handle
-										errors of the given Error kind. Expects a class that extends Error and a
-									function that will handle errors of that kind. Returns the new error handler.</p>
+									<p>Creates a new ErrorHandler and assigns a matcher for the given error class
+										that tells the ErrorHandler to use the given function to handle errors matching
+									that error class. Returns the new ErrorHandler.</p>
 								</div>
-								<pre><code class="language-ts"><span style="color: #001080">ErrorHandler</span><span style="color: #000000">.</span><span style="color: #795E26">use</span><span style="color: #000000">(</span><span style="color: #267F99">RangeError</span><span style="color: #000000">, </span><span style="color: #001080">err</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">err</span><span style="color: #000000">));</span>
+								<pre><code class="language-ts"><span style="color: #001080">ErrorHandler</span><span style="color: #000000">.</span><span style="color: #795E26">match</span><span style="color: #000000">(</span><span style="color: #267F99">RangeError</span><span style="color: #000000">, </span><span style="color: #001080">err</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">err</span><span style="color: #000000">));</span>
 </code></pre>
-								<p><em><strong>NOTE:</strong></em> <em>Because all error classes inherit from <code>Error</code>, and error kinds
-										will be checked against in the order in which they were added, <code>Error</code> will
-										act as a catch-all for error <code>instanceof</code> checks, so if you want to add a
-								catch-all handler, be sure to add <code>Error</code> as the final handler</em></p>
+								<p><em><strong>NOTE:</strong></em> <em>Because all error classes inherit from <code>Error</code>, and error matchers
+										will be checked in the order in which they were added, <code>Error</code> should be added
+										as the final matcher to match all other possible errors that don&#39;t match any
+								other matchers</em></p>
 							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
