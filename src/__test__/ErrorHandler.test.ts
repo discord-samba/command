@@ -2,7 +2,7 @@ import { ErrorHandler } from '#error/ErrorHandler';
 
 describe('ErrorHandler tests', () =>
 {
-	it('Should call the appropriate handler for the given error kind', async () =>
+	it('Should match the correct error class', async () =>
 	{
 		const defaultErrFn: jest.Mock = jest.fn();
 		const rangeErrFn: jest.Mock = jest.fn();
@@ -27,5 +27,19 @@ describe('ErrorHandler tests', () =>
 		expect(rangeErrFn).toBeCalledTimes(1);
 		expect(typeErrFn).toBeCalledTimes(1);
 		expect(defaultErrFn).toBeCalledTimes(1);
+	});
+
+	it('Should override existing matchers', async () =>
+	{
+		const firstErrFn: jest.Mock = jest.fn();
+		const secondErrFn: jest.Mock = jest.fn();
+
+		const errorHandler: ErrorHandler = ErrorHandler
+			.match(TypeError, firstErrFn)
+			.match(TypeError, secondErrFn);
+
+		await errorHandler.handle(new TypeError());
+		expect(firstErrFn).not.toBeCalled();
+		expect(secondErrFn).toBeCalledTimes(1);
 	});
 });

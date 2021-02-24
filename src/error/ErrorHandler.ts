@@ -1,4 +1,5 @@
 import { CustomErrorConstructor } from '#type/CustomErrorConstructor';
+import { ErrorMatcher } from '#type/ErrorMatcher';
 import { Result } from '#root/Result';
 
 /**
@@ -8,7 +9,7 @@ import { Result } from '#root/Result';
  */
 export class ErrorHandler
 {
-	private _matchers: [CustomErrorConstructor, Function][];
+	private _matchers: ErrorMatcher[];
 
 	public constructor()
 	{
@@ -30,12 +31,12 @@ export class ErrorHandler
 	 * other matchers*
 	 */
 	public static match<T extends Error>(
-		errClass: new (...args: any[]) => T,
+		errClass: CustomErrorConstructor<T>,
 		handler: (err: T, ...args: any[]) => void | Promise<void>
 	): ErrorHandler
 	{
 		const newHandler: ErrorHandler = new ErrorHandler();
-		newHandler._matchers.push([errClass as CustomErrorConstructor, handler]);
+		newHandler._matchers.push([errClass, handler]);
 		return newHandler;
 	}
 
@@ -50,17 +51,32 @@ export class ErrorHandler
 	 *     .match(Error, err => console.log(err));
 	 * ```
 	 *
+	 * If given a matcher for an Error class that already has a matcher, the existing
+	 * matcher will be overridden by the newest one.
+	 *
 	 * ***NOTE:*** *Because all error classes inherit from `Error`, and error matchers
 	 * will be checked in the order in which they were added, `Error` should be added
 	 * as the final matcher to match all other possible errors that don't match any
 	 * other matchers*
 	 */
 	public match<T extends Error>(
-		errClass: new (...args: any[]) => T,
+		errClass: CustomErrorConstructor<T>,
 		handler: (err: T, ...args: any[]) => void | Promise<void>
 	): this
 	{
-		this._matchers.push([errClass as CustomErrorConstructor, handler]);
+		const matcher: ErrorMatcher = [errClass, handler];
+		const existingIndex: number = this
+			._matchers
+			.findIndex(([matchClass]) => matchClass === errClass);
+
+		// Overwrite existing matcher
+		if (existingIndex > -1)
+			this._matchers[existingIndex] = matcher;
+
+		// Else push new matcher
+		else
+			this._matchers.push(matcher);
+
 		return this;
 	}
 
@@ -86,6 +102,6 @@ export class ErrorHandler
 			}
 		}
 
-		return Result.err(new Error('Failed to handle error (no handler for given error)'));
+		return Result.err(new Error('Failed to handle error (no handler for given error type)'));
 	}
 }
