@@ -69,7 +69,7 @@ export class ErrorHandler
 			._matchers
 			.findIndex(([matchClass]) => matchClass === errClass);
 
-		// Overwrite existing matcher
+		// Override existing matcher
 		if (existingIndex > -1)
 			this._matchers[existingIndex] = matcher;
 
