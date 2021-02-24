@@ -9,9 +9,9 @@ describe('ErrorHandler tests', () =>
 		const typeErrFn: jest.Mock = jest.fn();
 
 		const errorHandler: ErrorHandler = ErrorHandler
-			.use(RangeError, rangeErrFn)
-			.use(TypeError, typeErrFn)
-			.use(Error, defaultErrFn);
+			.match(RangeError, rangeErrFn)
+			.match(TypeError, typeErrFn)
+			.match(Error, defaultErrFn);
 
 		await errorHandler.handle(new RangeError());
 		expect(rangeErrFn).toBeCalledTimes(1);

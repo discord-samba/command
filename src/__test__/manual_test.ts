@@ -160,9 +160,9 @@ async function main(): Promise<void>
 	});
 
 	const errorHandler: ErrorHandler = ErrorHandler
-		.use(CommandArgumentError, err => console.log('CommandArgumentError: ', err))
-		.use(ArgumentParseError, err => console.log('ArgumentParseError: ', err))
-		.use(Error, err => console.log('Catch-all Error: ', err));
+		.match(CommandArgumentError, err => console.log('CommandArgumentError: ', err))
+		.match(ArgumentParseError, err => console.log('ArgumentParseError: ', err))
+		.match(Error, err => console.log('Catch-all Error: ', err));
 
 	console.log(
 		await errorHandler.handle(new CommandArgumentError(0, { kind: 2, ident: 'foo', type: 'String' }))

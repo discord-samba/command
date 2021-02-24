@@ -8,59 +8,59 @@ import { Result } from '#root/Result';
  */
 export class ErrorHandler
 {
-	private _handlers: [CustomErrorConstructor, Function][];
+	private _matchers: [CustomErrorConstructor, Function][];
 
 	public constructor()
 	{
-		this._handlers = [];
+		this._matchers = [];
 	}
 
 	/**
-	 * Creates a new error handler and tells it to use the given function to handle
-	 * errors of the given Error kind. Expects a class that extends Error and a
-	 * function that will handle errors of that kind. Returns the new error handler.
+	 * Creates a new ErrorHandler and assigns a matcher for the given error class
+	 * that tells the ErrorHandler to use the given function to handle errors matching
+	 * that error class. Returns the new ErrorHandler.
 	 *
 	 * ```ts
-	 * ErrorHandler.use(RangeError, err => console.log(err));
+	 * ErrorHandler.match(RangeError, err => console.log(err));
 	 * ```
 	 *
-	 * ***NOTE:*** *Because all error classes inherit from `Error`, and error kinds
-	 * will be checked against in the order in which they were added, `Error` will
-	 * act as a catch-all for error `instanceof` checks, so if you want to add a
-	 * catch-all handler, be sure to add `Error` as the final handler*
+	 * ***NOTE:*** *Because all error classes inherit from `Error`, and error matchers
+	 * will be checked in the order in which they were added, `Error` should be added
+	 * as the final matcher to match all other possible errors that don't match any
+	 * other matchers*
 	 */
-	public static use<T extends Error>(
+	public static match<T extends Error>(
 		errClass: new (...args: any[]) => T,
 		handler: (err: T, ...args: any[]) => void | Promise<void>
 	): ErrorHandler
 	{
 		const newHandler: ErrorHandler = new ErrorHandler();
-		newHandler._handlers.push([errClass as CustomErrorConstructor, handler]);
+		newHandler._matchers.push([errClass as CustomErrorConstructor, handler]);
 		return newHandler;
 	}
 
 	/**
-	 * Tells this error handler to use the given function for the given Error kind.
-	 * Expects a class that extends Error and a function that will handle errors
-	 * of that kind. Returns this error handler.
+	 * Creates a matcher for this ErrorHandler for the given error class that tells
+	 * the ErrorHandler to use the given function to handle errors matching that error
+	 * class. Returns this ErrorHandler.
 	 *
 	 * ```ts
 	 * ErrorHandler
-	 *     .use(RangeError, err => console.log(err))
-	 *     .use(Error, err => console.log(err));
+	 *     .match(RangeError, err => console.log(err))
+	 *     .match(Error, err => console.log(err));
 	 * ```
 	 *
-	 * ***NOTE:*** *Because all error classes inherit from `Error`, and error kinds
-	 * will be checked against in the order in which they were added, `Error` will
-	 * act as a catch-all for error `instanceof` checks, so if you want to add a
-	 * catch-all handler, be sure to add `Error` as the final handler*
+	 * ***NOTE:*** *Because all error classes inherit from `Error`, and error matchers
+	 * will be checked in the order in which they were added, `Error` should be added
+	 * as the final matcher to match all other possible errors that don't match any
+	 * other matchers*
 	 */
-	public use<T extends Error>(
+	public match<T extends Error>(
 		errClass: new (...args: any[]) => T,
 		handler: (err: T, ...args: any[]) => void | Promise<void>
 	): this
 	{
-		this._handlers.push([errClass as CustomErrorConstructor, handler]);
+		this._matchers.push([errClass as CustomErrorConstructor, handler]);
 		return this;
 	}
 
@@ -75,11 +75,11 @@ export class ErrorHandler
 	 */
 	public async handle(err: Error, ...args: any[]): Promise<Result>
 	{
-		for (const handler of this._handlers)
+		for (const [match, handler] of this._matchers)
 		{
-			if (err instanceof handler[0])
+			if (err instanceof match)
 			{
-				try { await handler[1](err, ...args); }
+				try { await handler(err, ...args); }
 				catch (e) { return Result.err(e); }
 
 				return Result.ok();
