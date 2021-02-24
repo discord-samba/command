@@ -268,7 +268,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/error/ErrorHandler.ts#L92">src/error/ErrorHandler.ts:92</a></li>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/error/ErrorHandler.ts#L124">src/error/ErrorHandler.ts:124</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -304,7 +304,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/error/ErrorHandler.ts#L62">src/error/ErrorHandler.ts:62</a></li>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/error/ErrorHandler.ts#L94">src/error/ErrorHandler.ts:94</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -319,10 +319,23 @@
 </code></pre>
 								<p>If given a matcher for an Error class that already has a matcher, the existing
 								matcher will be overridden by the newest one.</p>
-								<p><em><strong>NOTE:</strong></em> <em>Because all error classes inherit from <code>Error</code>, and error matchers
-										will be checked in the order in which they were added, <code>Error</code> should be added
-										as the final matcher to match all other possible errors that don&#39;t match any
-								other matchers</em></p>
+								<p><em><strong>NOTE:</strong></em> <em>Matchers with lower specificity (<code>Error</code> being the lowest as
+										the base <code>Error</code> class) should come after matchers with higher specificity,
+										because errors that inherit from any other error class will also be matched
+								by a matcher for the class they inherit from.</em></p>
+								<pre><code class="language-js"><span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">FooError</span><span style="color: #000000"> </span><span style="color: #0000FF">extends</span><span style="color: #000000"> </span><span style="color: #267F99">Error</span><span style="color: #000000"> {}</span>
+<span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">BarError</span><span style="color: #000000"> </span><span style="color: #0000FF">extends</span><span style="color: #000000"> </span><span style="color: #267F99">FooError</span><span style="color: #000000"> {}</span>
+<span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">BazError</span><span style="color: #000000"> </span><span style="color: #0000FF">extends</span><span style="color: #000000"> </span><span style="color: #267F99">FooError</span><span style="color: #000000"> {}</span>
+
+<span style="color: #001080">ErrorHandler</span>
+<span style="color: #000000">    .</span><span style="color: #795E26">match</span><span style="color: #000000">(</span><span style="color: #001080">FooError</span><span style="color: #000000">, ...)</span>
+<span style="color: #000000">    .</span><span style="color: #795E26">match</span><span style="color: #000000">(</span><span style="color: #001080">BarError</span><span style="color: #000000">, ...)</span>
+<span style="color: #000000">    .</span><span style="color: #795E26">match</span><span style="color: #000000">(</span><span style="color: #001080">BazError</span><span style="color: #000000">, ...)</span>
+<span style="color: #000000">    .</span><span style="color: #795E26">handle</span><span style="color: #000000">(</span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">BazError</span><span style="color: #000000">());</span>
+</code></pre>
+								<p><em>Using the example above, the <code>BazError</code> handler will never be called, because
+										the <code>FooError</code> matcher has lower specificity, since it has error classes that
+								inherit from it</em></p>
 							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
@@ -374,7 +387,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/error/ErrorHandler.ts#L33">src/error/ErrorHandler.ts:33</a></li>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/error/ErrorHandler.ts#L49">src/error/ErrorHandler.ts:49</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -385,10 +398,23 @@
 								</div>
 								<pre><code class="language-ts"><span style="color: #001080">ErrorHandler</span><span style="color: #000000">.</span><span style="color: #795E26">match</span><span style="color: #000000">(</span><span style="color: #267F99">RangeError</span><span style="color: #000000">, </span><span style="color: #001080">err</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">err</span><span style="color: #000000">));</span>
 </code></pre>
-								<p><em><strong>NOTE:</strong></em> <em>Because all error classes inherit from <code>Error</code>, and error matchers
-										will be checked in the order in which they were added, <code>Error</code> should be added
-										as the final matcher to match all other possible errors that don&#39;t match any
-								other matchers</em></p>
+								<p><em><strong>NOTE:</strong></em> <em>Matchers with lower specificity (<code>Error</code> being the lowest as
+										the base <code>Error</code> class) should come after matchers with higher specificity,
+										because errors that inherit from any other error class will also be matched
+								by a matcher for the class they inherit from.</em></p>
+								<pre><code class="language-js"><span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">FooError</span><span style="color: #000000"> </span><span style="color: #0000FF">extends</span><span style="color: #000000"> </span><span style="color: #267F99">Error</span><span style="color: #000000"> {}</span>
+<span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">BarError</span><span style="color: #000000"> </span><span style="color: #0000FF">extends</span><span style="color: #000000"> </span><span style="color: #267F99">FooError</span><span style="color: #000000"> {}</span>
+<span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">BazError</span><span style="color: #000000"> </span><span style="color: #0000FF">extends</span><span style="color: #000000"> </span><span style="color: #267F99">FooError</span><span style="color: #000000"> {}</span>
+
+<span style="color: #001080">ErrorHandler</span>
+<span style="color: #000000">    .</span><span style="color: #795E26">match</span><span style="color: #000000">(</span><span style="color: #001080">FooError</span><span style="color: #000000">, ...)</span>
+<span style="color: #000000">    .</span><span style="color: #795E26">match</span><span style="color: #000000">(</span><span style="color: #001080">BarError</span><span style="color: #000000">, ...)</span>
+<span style="color: #000000">    .</span><span style="color: #795E26">match</span><span style="color: #000000">(</span><span style="color: #001080">BazError</span><span style="color: #000000">, ...)</span>
+<span style="color: #000000">    .</span><span style="color: #795E26">handle</span><span style="color: #000000">(</span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">BazError</span><span style="color: #000000">());</span>
+</code></pre>
+								<p><em>Using the example above, the <code>BazError</code> handler will never be called, because
+										the <code>FooError</code> matcher has lower specificity, since it has error classes that
+								inherit from it</em></p>
 							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
