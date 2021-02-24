@@ -42,8 +42,8 @@ export class ErrorHandler
 	 *     .handle(new BazError());
 	 * ```
 	 *
-	 * *Using the example above, the `BazError` handler will never be called, because
-	 * the `FooError` matcher has lower specificity, since it has error classes that
+	 * *Using the example above, the `BazError` handler will never be called because
+	 * the `FooError` matcher has lower specificity since it has error classes that
 	 * inherit from it*
 	 */
 	public static match<T extends Error>(
@@ -87,8 +87,8 @@ export class ErrorHandler
 	 *     .handle(new BazError());
 	 * ```
 	 *
-	 * *Using the example above, the `BazError` handler will never be called, because
-	 * the `FooError` matcher has lower specificity, since it has error classes that
+	 * *Using the example above, the `BazError` handler will never be called because
+	 * the `FooError` matcher has lower specificity since it has error classes that
 	 * inherit from it*
 	 */
 	public match<T extends Error>(
