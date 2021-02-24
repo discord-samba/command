@@ -22,6 +22,14 @@ export abstract class Resolver
 	}
 
 	/**
+	 * The name for this Resolver. Will be the first identifier supplied to `super()`
+	 */
+	public get name(): string
+	{
+		return this.types[0];
+	}
+
+	/**
 	 * Method your Resolver must implement to provide resolved types for the given input.
 	 * Will receive [[`ArgumentContext`]] containing the raw input, and [[`CommandContext`]]
 	 * to aid in value resolution.
