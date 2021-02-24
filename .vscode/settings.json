@@ -2,6 +2,7 @@
 	"typescript.tsdk": "node_modules/typescript/lib",
 	"editor.insertSpaces": false,
 	"editor.detectIndentation": false,
+	"jest.pathToConfig": "./.jestrc.json",
 	"eslint.validate": [
 		"javascript",
 		"javascriptreact",

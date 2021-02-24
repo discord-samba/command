@@ -12,7 +12,7 @@ export { MiddlewareCache } from '#root/MiddlewareCache';
 
 export { Result } from '#root/Result';
 
-export { ErrorHandler } from '#root/ErrorHandler';
+export { ErrorHandler } from '#error/ErrorHandler';
 
 export { CommandArguments } from '#argument/CommandArguments';
 export { Argument } from '#argument/Argument';

@@ -1,4 +1,4 @@
-import { ErrorHandler } from '#root/ErrorHandler';
+import { ErrorHandler } from '#error/ErrorHandler';
 
 describe('ErrorHandler tests', () =>
 {

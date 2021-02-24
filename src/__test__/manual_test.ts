@@ -12,7 +12,7 @@ import { Option } from '#argument/Option';
 import { Result } from '#root/Result';
 import * as Path from 'path';
 import * as Util from 'util';
-import { ErrorHandler } from '#root/ErrorHandler';
+import { ErrorHandler } from '#error/ErrorHandler';
 import { CommandArgumentError } from '#error/CommandArgumentError';
 import { ArgumentParseError } from '#error/ArgumentParseError';
 
