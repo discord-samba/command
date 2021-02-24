@@ -25,10 +25,26 @@ export class ErrorHandler
 	 * ErrorHandler.match(RangeError, err => console.log(err));
 	 * ```
 	 *
-	 * ***NOTE:*** *Because all error classes inherit from `Error`, and error matchers
-	 * will be checked in the order in which they were added, `Error` should be added
-	 * as the final matcher to match all other possible errors that don't match any
-	 * other matchers*
+	 * ***NOTE:*** *Matchers with lower specificity (`Error` being the lowest as
+	 * the base `Error` class) should come after matchers with higher specificity,
+	 * because errors that inherit from any other error class will also be matched
+	 * by a matcher for the class they inherit from.*
+	 *
+	 * ```js
+	 * class FooError extends Error {}
+	 * class BarError extends FooError {}
+	 * class BazError extends FooError {}
+	 *
+	 * ErrorHandler
+	 *     .match(FooError, ...)
+	 *     .match(BarError, ...)
+	 *     .match(BazError, ...)
+	 *     .handle(new BazError());
+	 * ```
+	 *
+	 * *Using the example above, the `BazError` handler will never be called, because
+	 * the `FooError` matcher has lower specificity, since it has error classes that
+	 * inherit from it*
 	 */
 	public static match<T extends Error>(
 		errClass: CustomErrorConstructor<T>,
@@ -54,10 +70,26 @@ export class ErrorHandler
 	 * If given a matcher for an Error class that already has a matcher, the existing
 	 * matcher will be overridden by the newest one.
 	 *
-	 * ***NOTE:*** *Because all error classes inherit from `Error`, and error matchers
-	 * will be checked in the order in which they were added, `Error` should be added
-	 * as the final matcher to match all other possible errors that don't match any
-	 * other matchers*
+	 * ***NOTE:*** *Matchers with lower specificity (`Error` being the lowest as
+	 * the base `Error` class) should come after matchers with higher specificity,
+	 * because errors that inherit from any other error class will also be matched
+	 * by a matcher for the class they inherit from.*
+	 *
+	 * ```js
+	 * class FooError extends Error {}
+	 * class BarError extends FooError {}
+	 * class BazError extends FooError {}
+	 *
+	 * ErrorHandler
+	 *     .match(FooError, ...)
+	 *     .match(BarError, ...)
+	 *     .match(BazError, ...)
+	 *     .handle(new BazError());
+	 * ```
+	 *
+	 * *Using the example above, the `BazError` handler will never be called, because
+	 * the `FooError` matcher has lower specificity, since it has error classes that
+	 * inherit from it*
 	 */
 	public match<T extends Error>(
 		errClass: CustomErrorConstructor<T>,
