@@ -1,4 +1,4 @@
-import { ResultToken } from '#type/ResultToken';
+import { ResultKind } from '#type/ResultKind';
 
 /**
  * Represents the result of some operation. Can hold a value. Use [[`isSome | isSome()`]]
@@ -16,11 +16,11 @@ export class Result<T = any>
 	 */
 	public value?: T;
 
-	private _token: ResultToken;
+	public kind: string;
 
-	private constructor(token: ResultToken, value?: T)
+	private constructor(kind: ResultKind, value?: T)
 	{
-		this._token = token;
+		this.kind = kind;
 		this.value = value;
 	}
 
@@ -31,7 +31,7 @@ export class Result<T = any>
 	 */
 	public static default(): Result
 	{
-		return new Result(ResultToken.Default);
+		return new Result(ResultKind.Default);
 	}
 
 	/**
@@ -40,7 +40,7 @@ export class Result<T = any>
 	 */
 	public static ok<U>(value?: U): Result<U>
 	{
-		return new Result(ResultToken.Ok, value);
+		return new Result(ResultKind.Ok, value);
 	}
 
 	/**
@@ -50,7 +50,7 @@ export class Result<T = any>
 	 */
 	public static err<U extends Error>(error: U): Result<U>
 	{
-		return new Result(ResultToken.Err, error ?? new Error('No error given'));
+		return new Result(ResultKind.Err, error ?? new Error('No error given'));
 	}
 
 	/**
@@ -67,7 +67,7 @@ export class Result<T = any>
 	 */
 	public static cancel(): Result
 	{
-		return new Result(ResultToken.Cancellation);
+		return new Result(ResultKind.Cancellation);
 	}
 
 	/**
@@ -76,7 +76,7 @@ export class Result<T = any>
 	 */
 	public isDefault(): boolean
 	{
-		return this._token === ResultToken.Default;
+		return this.kind === ResultKind.Default;
 	}
 
 	/**
@@ -95,7 +95,7 @@ export class Result<T = any>
 	 */
 	public isOk(): boolean
 	{
-		return this._token === ResultToken.Ok;
+		return this.kind === ResultKind.Ok;
 	}
 
 	/**
@@ -104,7 +104,7 @@ export class Result<T = any>
 	 */
 	public isError(): this is Required<Result<T>>
 	{
-		return this._token === ResultToken.Err;
+		return this.kind === ResultKind.Err;
 	}
 
 	/**
@@ -112,6 +112,6 @@ export class Result<T = any>
 	 */
 	public isCancellation(): boolean
 	{
-		return this._token === ResultToken.Cancellation;
+		return this.kind === ResultKind.Cancellation;
 	}
 }
