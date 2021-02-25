@@ -118,7 +118,8 @@ export class ErrorHandler
 	 * (Meaning a matcher exists for the error type that was given and the matched
 	 * function did not throw any errors). In the event that an error is thrown
 	 * in a matched function, `handle()` will return [[`Result.err` | Result.err()`]],
-	 * where the result value is the thrown error.
+	 * where the result value is the thrown error. In the event that no handler
+	 * matches the input, `Result.err()` will be returned with an error saying so.
 	 *
 	 * Additional arguments can be passed which will be passed to the matching error
 	 * handler function
