@@ -268,15 +268,17 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/error/ErrorHandler.ts#L124">src/error/ErrorHandler.ts:124</a></li>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/error/ErrorHandler.ts#L126">src/error/ErrorHandler.ts:126</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Runs the given error through the matching handler function for its type.
 										Returns <a href="result.html#ok"><code>Result.ok()</code></a> if the error was successfully handled
-										or <a href="result.html#err"><code>Result.err()</code></a> if not, or if there was an error handling
-									the error (in which case the result value will be the error thrown).</p>
+										(Meaning a matcher exists for the error type that was given and the matched
+										function did not throw any errors). In the event that an error is thrown
+										in a matched function, <code>handle()</code> will return [[<code>Result.err</code> | Result.err()`]],
+									where the result value is the thrown error.</p>
 								</div>
 								<p>Additional arguments can be passed which will be passed to the matching error
 								handler function</p>
