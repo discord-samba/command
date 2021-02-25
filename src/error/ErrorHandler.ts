@@ -48,7 +48,7 @@ export class ErrorHandler
 	 */
 	public static match<T extends Error>(
 		errClass: CustomErrorConstructor<T>,
-		handler: (err: T, ...args: any[]) => void | Promise<void>
+		handler: (err: T, ...args: any[]) => any | Promise<any>
 	): ErrorHandler
 	{
 		const newHandler: ErrorHandler = new ErrorHandler();
@@ -93,7 +93,7 @@ export class ErrorHandler
 	 */
 	public match<T extends Error>(
 		errClass: CustomErrorConstructor<T>,
-		handler: (err: T, ...args: any[]) => void | Promise<void>
+		handler: (err: T, ...args: any[]) => any | Promise<any>
 	): this
 	{
 		const matcher: ErrorMatcher = [errClass, handler];
