@@ -115,8 +115,10 @@ export class ErrorHandler
 	/**
 	 * Runs the given error through the matching handler function for its type.
 	 * Returns [[`Result.ok | Result.ok()`]] if the error was successfully handled
-	 * or [[`Result.err | Result.err()`]] if not, or if there was an error handling
-	 * the error (in which case the result value will be the error thrown).
+	 * (Meaning a matcher exists for the error type that was given and the matched
+	 * function did not throw any errors). In the event that an error is thrown
+	 * in a matched function, `handle()` will return [[`Result.err` | Result.err()`]],
+	 * where the result value is the thrown error.
 	 *
 	 * Additional arguments can be passed which will be passed to the matching error
 	 * handler function
