@@ -4,6 +4,7 @@ import { CommandContext } from '#root/CommandContext';
 import { CommandOptions } from '#type/CommandOptions';
 import { MessageContext } from '#root/MessageContext';
 import { MiddlewareCache } from '#root/MiddlewareCache';
+import { Result } from './Result';
 
 /**
  * The base Command class you will extend when creating Commands for your
@@ -126,4 +127,19 @@ export abstract class Command<T extends Client = Client>
 	 * [[`CommandContext`]] object when called
 	 */
 	public abstract action(ctx: CommandContext<T>): void | Promise<void>;
+
+	/**
+	 * Commands may implement an `onError()` method that will be called when there
+	 * is an error parsing or resolving arguments, an error from a middleware function,
+	 * or an uncaught error in the Command's `action()` method. This method will
+	 * receive an error object and a [[`CommandContext`]] object. This method must
+	 * return [[`Result.ok | Result.ok()`]] to signify that the error was handled.
+	 *
+	 * If there is an error processing the given error, you should return it as
+	 * an Error Result with [[`Result.error | Result.error()`]]
+	 */
+	public onError(_error: Error, _ctx: CommandContext<T>): Result | Promise<Result>
+	{
+		return Result.default();
+	}
 }

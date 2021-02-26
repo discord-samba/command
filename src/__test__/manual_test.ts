@@ -81,7 +81,8 @@ async function main(): Promise<void>
 	CommandModule.rules.use(
 		disallowBots,
 		checkMentionPrefix,
-		allowOwner('214628307201687552')
+		allowOwner('214628307201687552'),
+		// (_, next) => next(Result.error(new Error('Rule failed')))
 	);
 
 	CommandModule.commands.add(class extends Command
@@ -130,7 +131,7 @@ async function main(): Promise<void>
 				},
 
 				// Cancel this command
-				(_, next) => next(Result.cancel())
+				(_, next) => next(Result.error(new Error('Middleware failed')))
 			);
 
 			this.arguments.setParsingStrategy(2);
@@ -157,6 +158,13 @@ async function main(): Promise<void>
 		{
 			ctx.message.channel.send(Util.inspect(ctx.args, { depth: 2 }), { code: 'js' });
 		}
+
+		// public async onError(error: Error, _ctx: CommandContext): Promise<Result>
+		// {
+		// 	return ErrorHandler
+		// 		.match(TypeError, async _err => { throw new Error('Boo far faz'); })
+		// 		.handle(error);
+		// }
 	});
 
 	const errorHandler: ErrorHandler = ErrorHandler
@@ -167,6 +175,9 @@ async function main(): Promise<void>
 	console.log(
 		await errorHandler.handle(new CommandArgumentError(0, { kind: 2, ident: 'foo', type: 'String' }))
 	);
+
+	// client.on('error', err => console.log('Unhandled error:', err));
+	CommandModule.getGlobalErrorHandler().match(Error, err => console.log('Global error:', err));
 }
 
 main().catch(e => console.log(e));

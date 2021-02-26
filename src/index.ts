@@ -13,6 +13,7 @@ export { MiddlewareCache } from '#root/MiddlewareCache';
 export { Result } from '#root/Result';
 
 export { ErrorHandler } from '#error/ErrorHandler';
+export { ErrorHandlerError } from '#error/ErrorHandlerError';
 
 export { CommandArguments } from '#argument/CommandArguments';
 export { Argument } from '#argument/Argument';
