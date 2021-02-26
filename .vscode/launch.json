@@ -8,6 +8,7 @@
 			"type": "node",
 			"request": "launch",
 			"name": "Launch Program",
+			"runtimeArgs": ["-r", "source-map-support/register"],
 			"program": "bin/__test__/manual_test.js",
 			"cwd": "${workspaceRoot}",
 			"preLaunchTask": "build:nolint",
