@@ -129,6 +129,9 @@
 						<a href="errorhandler.html" class="tsd-kind-icon">Error<wbr>Handler</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="errorhandlererror.html" class="tsd-kind-icon">Error<wbr>Handler<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="flag.html" class="tsd-kind-icon">Flag</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter">
@@ -176,7 +179,7 @@
 								<a href="result.html#cancel" class="tsd-kind-icon">cancel</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-								<a href="result.html#err" class="tsd-kind-icon">err</a>
+								<a href="result.html#error" class="tsd-kind-icon">error</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
 								<a href="result.html#ok" class="tsd-kind-icon">ok</a>
@@ -259,7 +262,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="result.html#isok" class="tsd-kind-icon">is<wbr>Ok</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="result.html#issome" class="tsd-kind-icon">is<wbr>Some</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="result.html#cancel" class="tsd-kind-icon">cancel</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="result.html#err" class="tsd-kind-icon">err</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="result.html#error" class="tsd-kind-icon">error</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="result.html#ok" class="tsd-kind-icon">ok</a></li>
 							</ul>
 						</section>
@@ -419,10 +422,10 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-					<a name="err" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> err</h3>
+					<a name="error" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> error</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">err&lt;U&gt;<span class="tsd-signature-symbol">(</span>error<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">U</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="result.html" class="tsd-signature-type" data-tsd-kind="Class">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">U</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">error&lt;U&gt;<span class="tsd-signature-symbol">(</span>error<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">U</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="result.html" class="tsd-signature-type" data-tsd-kind="Class">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">U</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -433,9 +436,9 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Creates an Err Result. Must be given an Error. Err Results are used for passing
-										errors from Rules, Middleware, and Argument resolvers so that they can more
-									easily be passed around to error handlers</p>
+									<p>Creates an Error Result. Must be given an Error. Error Results are used for
+										passing errors from Rules, Middleware, and Argument resolvers so that they
+									can more easily be passed around to error handlers</p>
 								</div>
 							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>

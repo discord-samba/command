@@ -146,7 +146,13 @@
 								<a href="commandmodule.html#enforceprefixes" class="tsd-kind-icon">enforce<wbr>Prefixes</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="commandmodule.html#getglobalerrorhandler" class="tsd-kind-icon">get<wbr>Global<wbr>Error<wbr>Handler</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="commandmodule.html#registerclient" class="tsd-kind-icon">register<wbr>Client</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="commandmodule.html#registerglobalerrorhandler" class="tsd-kind-icon">register<wbr>Global<wbr>Error<wbr>Handler</a>
 							</li>
 						</ul>
 					</li>
@@ -154,6 +160,9 @@
 				<ul class="after-current">
 					<li class=" tsd-kind-class">
 						<a href="errorhandler.html" class="tsd-kind-icon">Error<wbr>Handler</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="errorhandlererror.html" class="tsd-kind-icon">Error<wbr>Handler<wbr>Error</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="flag.html" class="tsd-kind-icon">Flag</a>
@@ -238,7 +247,9 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="commandmodule.html#enforceprefixes" class="tsd-kind-icon">enforce<wbr>Prefixes</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="commandmodule.html#getglobalerrorhandler" class="tsd-kind-icon">get<wbr>Global<wbr>Error<wbr>Handler</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="commandmodule.html#registerclient" class="tsd-kind-icon">register<wbr>Client</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="commandmodule.html#registerglobalerrorhandler" class="tsd-kind-icon">register<wbr>Global<wbr>Error<wbr>Handler</a></li>
 							</ul>
 						</section>
 					</div>
@@ -269,7 +280,7 @@
 					<div class="tsd-signature tsd-kind-icon">commands<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><a href="commandcache.html" class="tsd-signature-type" data-tsd-kind="Class">CommandCache</a><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandModule.ts#L21">src/CommandModule.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandModule.ts#L22">src/CommandModule.ts:22</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -284,7 +295,7 @@
 					<div class="tsd-signature tsd-kind-icon">meta<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandModule.ts#L32">src/CommandModule.ts:32</a></li>
+							<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandModule.ts#L33">src/CommandModule.ts:33</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -300,7 +311,7 @@
 					<div class="tsd-signature tsd-kind-icon">resolvers<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><a href="resolvercache.html" class="tsd-signature-type" data-tsd-kind="Class">ResolverCache</a><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandModule.ts#L16">src/CommandModule.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandModule.ts#L17">src/CommandModule.ts:17</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -315,7 +326,7 @@
 					<div class="tsd-signature tsd-kind-icon">rules<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><a href="rulecache.html" class="tsd-signature-type" data-tsd-kind="Class">RuleCache</a><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandModule.ts#L26">src/CommandModule.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandModule.ts#L27">src/CommandModule.ts:27</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -337,7 +348,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandModule.ts#L43">src/CommandModule.ts:43</a></li>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandModule.ts#L44">src/CommandModule.ts:44</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -355,6 +366,29 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="getglobalerrorhandler" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> get<wbr>Global<wbr>Error<wbr>Handler</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Global<wbr>Error<wbr>Handler<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="errorhandler.html" class="tsd-signature-type" data-tsd-kind="Class">ErrorHandler</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandModule.ts#L96">src/CommandModule.ts:96</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the currently registered global <a href="errorhandler.html"><code>ErrorHandler</code></a>. Will create, cache,
+									and return a new one if one does not already exist</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="errorhandler.html" class="tsd-signature-type" data-tsd-kind="Class">ErrorHandler</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
 					<a name="registerclient" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> register<wbr>Client</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
@@ -364,7 +398,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandModule.ts#L54">src/CommandModule.ts:54</a></li>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandModule.ts#L55">src/CommandModule.ts:55</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -379,6 +413,50 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>client: <span class="tsd-signature-type">Client</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="registerglobalerrorhandler" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> register<wbr>Global<wbr>Error<wbr>Handler</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">register<wbr>Global<wbr>Error<wbr>Handler<span class="tsd-signature-symbol">(</span>handler<span class="tsd-signature-symbol">?: </span><a href="errorhandler.html" class="tsd-signature-type" data-tsd-kind="Class">ErrorHandler</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandModule.ts#L87">src/CommandModule.ts:87</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets the global error handler that will be used for handling Rule errors
+										and any middleware/command errors that are not handled by individual Command
+									error handling methods.</p>
+								</div>
+								<p>If called without an <a href="errorhandler.html"><code>ErrorHandler</code></a> argument, a blank error handler will
+									be generated and cached. You can fetch it with <a href="commandmodule.html#getglobalerrorhandler"><code>getGlobalErrorHandler</code></a>
+								to append/override error matchers at a later time.</p>
+								<p>Global error handlers will be given a <a href="messagecontext.html"><code>MessageContext</code></a> or <a href="commandcontext.html"><code>CommandContext</code></a>
+									object if the error being given is from Rules or Middleware respectively.
+									Additionally, a <a href="commandcontext.html"><code>CommandContext</code></a> object will be given if an error is
+									thrown during argument parsing, resolving, or if there was an uncaught error
+									in a command action. You can reasonably expect the context objects to be
+								present for the following error types:</p>
+								<ul>
+									<li><a href="argumentparseerror.html">ArgumentParseError</a></li>
+									<li><a href="commandargumenterror.html">CommandArgumentError</a></li>
+									<li><a href="commanddispatcherror.html">CommandDispatchError</a></li>
+								</ul>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> handler: <a href="errorhandler.html" class="tsd-signature-type" data-tsd-kind="Class">ErrorHandler</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Middleware | @discord-samba/command</title>
+	<title>ErrorHandlerError | @discord-samba/command</title>
 	<meta name="description" content="Documentation for @discord-samba/command">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -64,10 +64,10 @@
 					<a href="../modules.html">@discord-samba/command</a>
 				</li>
 				<li>
-					<a href="middleware.html">Middleware</a>
+					<a href="errorhandlererror.html">ErrorHandlerError</a>
 				</li>
 			</ul>
-			<h1>Class Middleware</h1>
+			<h1>Class ErrorHandlerError</h1>
 		</div>
 	</div>
 </header>
@@ -128,39 +128,48 @@
 					<li class=" tsd-kind-class">
 						<a href="errorhandler.html" class="tsd-kind-icon">Error<wbr>Handler</a>
 					</li>
-					<li class=" tsd-kind-class">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class">
 						<a href="errorhandlererror.html" class="tsd-kind-icon">Error<wbr>Handler<wbr>Error</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="errorhandlererror.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="errorhandlererror.html#message" class="tsd-kind-icon">message</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="errorhandlererror.html#name" class="tsd-kind-icon">name</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="errorhandlererror.html#original" class="tsd-kind-icon">original</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="errorhandlererror.html#stack" class="tsd-kind-icon">stack</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-external">
+								<a href="errorhandlererror.html#preparestacktrace" class="tsd-kind-icon">prepare<wbr>Stack<wbr>Trace</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-external">
+								<a href="errorhandlererror.html#stacktracelimit" class="tsd-kind-icon">stack<wbr>Trace<wbr>Limit</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-external">
+								<a href="errorhandlererror.html#capturestacktrace" class="tsd-kind-icon">capture<wbr>Stack<wbr>Trace</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-class">
 						<a href="flag.html" class="tsd-kind-icon">Flag</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="messagecontext.html" class="tsd-kind-icon">Message<wbr>Context</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-class">
+					<li class=" tsd-kind-class">
 						<a href="middleware.html" class="tsd-kind-icon">Middleware</a>
-						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="middleware.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
-								<a href="middleware.html#guildonly" class="tsd-kind-icon">guild<wbr>Only</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
-								<a href="middleware.html#owneronly" class="tsd-kind-icon">owner<wbr>Only</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="middleware.html#callerpermissions" class="tsd-kind-icon">caller<wbr>Permissions</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="middleware.html#clientpermissions" class="tsd-kind-icon">client<wbr>Permissions</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-class">
 						<a href="middlewarecache.html" class="tsd-kind-icon">Middleware<wbr>Cache</a>
 					</li>
@@ -207,9 +216,8 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Container class that holds middleware for controlling command execution or
-							modifying command execution behavior. All middleware in this class can also
-						be imported directly by name from <code>@discord-samba/command/middleware</code></p>
+						<p>An error that will be returned by an <a href="errorhandler.html"><code>ErrorHandler</code></a> that fails to match the
+						error it was instructed to <a href="errorhandler.html#handle">handle</a></p>
 					</div>
 				</div>
 			</section>
@@ -217,7 +225,12 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Middleware</span>
+						<span class="tsd-signature-type">Error</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">ErrorHandlerError</span>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -228,21 +241,24 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="middleware.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="errorhandlererror.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="middleware.html#guildonly" class="tsd-kind-icon">guild<wbr>Only</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="middleware.html#owneronly" class="tsd-kind-icon">owner<wbr>Only</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="errorhandlererror.html#message" class="tsd-kind-icon">message</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="errorhandlererror.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="errorhandlererror.html#original" class="tsd-kind-icon">original</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="errorhandlererror.html#stack" class="tsd-kind-icon">stack</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-external"><a href="errorhandlererror.html#preparestacktrace" class="tsd-kind-icon">prepare<wbr>Stack<wbr>Trace</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-external"><a href="errorhandlererror.html#stacktracelimit" class="tsd-kind-icon">stack<wbr>Trace<wbr>Limit</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section ">
+						<section class="tsd-index-section tsd-is-external">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="middleware.html#callerpermissions" class="tsd-kind-icon">caller<wbr>Permissions</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="middleware.html#clientpermissions" class="tsd-kind-icon">client<wbr>Permissions</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-external"><a href="errorhandlererror.html#capturestacktrace" class="tsd-kind-icon">capture<wbr>Stack<wbr>Trace</a></li>
 							</ul>
 						</section>
 					</div>
@@ -254,114 +270,135 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Middleware<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="middleware.html" class="tsd-signature-type" data-tsd-kind="Class">Middleware</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Error<wbr>Handler<wbr>Error<span class="tsd-signature-symbol">(</span>error<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Error</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="errorhandlererror.html" class="tsd-signature-type" data-tsd-kind="Class">ErrorHandlerError</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/error/ErrorHandlerError.ts#L11">src/error/ErrorHandlerError.ts:11</a></li>
+								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="middleware.html" class="tsd-signature-type" data-tsd-kind="Class">Middleware</a></h4>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>error: <span class="tsd-signature-type">Error</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="errorhandlererror.html" class="tsd-signature-type" data-tsd-kind="Class">ErrorHandlerError</a></h4>
 						</li>
 					</ul>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
-					<a name="guildonly" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> guild<wbr>Only</h3>
-					<div class="tsd-signature tsd-kind-icon">guild<wbr>Only<span class="tsd-signature-symbol">:</span> <a href="../modules.html#middlewarefunction" class="tsd-signature-type" data-tsd-kind="Type alias">MiddlewareFunction</a><span class="tsd-signature-symbol"> = ...</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="message" class="tsd-anchor"></a>
+					<h3>message</h3>
+					<div class="tsd-signature tsd-kind-icon">message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Middleware.ts#L16">src/Middleware.ts:16</a></li>
+							<li>Defined in node_modules/typescript/lib/lib.es5.d.ts:974</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="name" class="tsd-anchor"></a>
+					<h3>name</h3>
+					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/typescript/lib/lib.es5.d.ts:973</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="original" class="tsd-anchor"></a>
+					<h3>original</h3>
+					<div class="tsd-signature tsd-kind-icon">original<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Error</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/error/ErrorHandlerError.ts#L11">src/error/ErrorHandlerError.ts:11</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Prevent command from being called if it is called in a DM</p>
+							<p>The original error that was unhandled by the <a href="errorhandler.html"><code>ErrorHandler</code></a> that returned
+							this error</p>
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
-					<a name="owneronly" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> owner<wbr>Only</h3>
-					<div class="tsd-signature tsd-kind-icon">owner<wbr>Only<span class="tsd-signature-symbol">:</span> <a href="../modules.html#middlewarefunction" class="tsd-signature-type" data-tsd-kind="Type alias">MiddlewareFunction</a><span class="tsd-signature-symbol"> = ...</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="stack" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> stack</h3>
+					<div class="tsd-signature tsd-kind-icon">stack<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Middleware.ts#L28">src/Middleware.ts:28</a></li>
+							<li>Defined in node_modules/typescript/lib/lib.es5.d.ts:975</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-external">
+					<a name="preparestacktrace" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> <span class="tsd-flag ts-flagStatic">Static</span> prepare<wbr>Stack<wbr>Trace</h3>
+					<div class="tsd-signature tsd-kind-icon">prepare<wbr>Stack<wbr>Trace<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Error</span>, stackTraces<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CallSite</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/node/globals.d.ts:11</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Prevent command from being called if the caller is not registered as an owner.
-							This middleware must be paired with the <a href="rules.html#allowowner"><code>Rules.allowOwner</code></a> rule to function</p>
+							<p>Optional override for formatting stack traces</p>
 						</div>
+						<dl class="tsd-comment-tags">
+							<dt>see</dt>
+							<dd><p><a href="https://github.com/v8/v8/wiki/Stack%20Trace%20API#customizing-stack-traces">https://github.com/v8/v8/wiki/Stack%20Trace%20API#customizing-stack-traces</a></p>
+							</dd>
+						</dl>
 					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-external">
+					<a name="stacktracelimit" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> stack<wbr>Trace<wbr>Limit</h3>
+					<div class="tsd-signature tsd-kind-icon">stack<wbr>Trace<wbr>Limit<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/node/globals.d.ts:13</li>
+						</ul>
+					</aside>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group ">
+			<section class="tsd-panel-group tsd-member-group tsd-is-external">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="callerpermissions" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> caller<wbr>Permissions</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">caller<wbr>Permissions<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>permissions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BitFieldResolvable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PermissionString</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#middlewarefunction" class="tsd-signature-type" data-tsd-kind="Type alias">MiddlewareFunction</a></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-external">
+					<a name="capturestacktrace" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> capture<wbr>Stack<wbr>Trace</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">capture<wbr>Stack<wbr>Trace<span class="tsd-signature-symbol">(</span>targetObject<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span>, constructorOpt<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Middleware.ts#L43">src/Middleware.ts:43</a></li>
+									<li>Defined in node_modules/@types/node/globals.d.ts:4</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Prevent command from being called if the caller does not have all of the
-									given permissions for the channel in which the command was called.</p>
+									<p>Create .stack property on a target object</p>
 								</div>
-								<p><em><strong>NOTE:</strong></em> <em>This middleware should only be used when you can guarantee the
-										command will be called in a guild context. You can accomplish this by using
-								the <a href="middleware.html#guildonly"><code>guildOnly</code></a> middleware first</em></p>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>permissions: <span class="tsd-signature-type">BitFieldResolvable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PermissionString</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h5>
+									<h5>targetObject: <span class="tsd-signature-type">object</span></h5>
 								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../modules.html#middlewarefunction" class="tsd-signature-type" data-tsd-kind="Type alias">MiddlewareFunction</a></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="clientpermissions" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> client<wbr>Permissions</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">client<wbr>Permissions<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>permissions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BitFieldResolvable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PermissionString</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#middlewarefunction" class="tsd-signature-type" data-tsd-kind="Type alias">MiddlewareFunction</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/Middleware.ts#L70">src/Middleware.ts:70</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Prevent command from being called if the client does not have all of the
-									given permissions for the channel in which the command was called</p>
-								</div>
-								<p><em><strong>NOTE:</strong></em> <em>This middleware should only be used when you can guarantee the
-										command will be called in a guild context. You can accomplish this by using
-								the <a href="middleware.html#guildonly"><code>guildOnly</code></a> middleware first</em></p>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>permissions: <span class="tsd-signature-type">BitFieldResolvable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PermissionString</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> constructorOpt: <span class="tsd-signature-type">Function</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../modules.html#middlewarefunction" class="tsd-signature-type" data-tsd-kind="Type alias">MiddlewareFunction</a></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>

@@ -134,6 +134,9 @@
 								<a href="commandcontext.html#client" class="tsd-kind-icon">client</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="commandcontext.html#command" class="tsd-kind-icon">command</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="commandcontext.html#message" class="tsd-kind-icon">message</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
@@ -151,6 +154,9 @@
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="errorhandler.html" class="tsd-kind-icon">Error<wbr>Handler</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="errorhandlererror.html" class="tsd-kind-icon">Error<wbr>Handler<wbr>Error</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="flag.html" class="tsd-kind-icon">Flag</a>
@@ -243,6 +249,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="commandcontext.html#args" class="tsd-kind-icon">args</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="commandcontext.html#author" class="tsd-kind-icon">author</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="commandcontext.html#client" class="tsd-kind-icon">client</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="commandcontext.html#command" class="tsd-kind-icon">command</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="commandcontext.html#message" class="tsd-kind-icon">message</a></li>
 							</ul>
 						</section>
@@ -261,13 +268,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Command<wbr>Context&lt;T&gt;<span class="tsd-signature-symbol">(</span>client<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Message</span>, args<span class="tsd-signature-symbol">: </span><a href="commandarguments.html" class="tsd-signature-type" data-tsd-kind="Class">CommandArguments</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="commandcontext.html" class="tsd-signature-type" data-tsd-kind="Class">CommandContext</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Command<wbr>Context&lt;T&gt;<span class="tsd-signature-symbol">(</span>client<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, command<span class="tsd-signature-symbol">: </span><a href="command.html" class="tsd-signature-type" data-tsd-kind="Class">Command</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Client</span><span class="tsd-signature-symbol">&gt;</span>, message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Message</span>, args<span class="tsd-signature-symbol">: </span><a href="commandarguments.html" class="tsd-signature-type" data-tsd-kind="Class">CommandArguments</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="commandcontext.html" class="tsd-signature-type" data-tsd-kind="Class">CommandContext</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandContext.ts#L27">src/CommandContext.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandContext.ts#L33">src/CommandContext.ts:33</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -280,6 +287,9 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>client: <span class="tsd-signature-type">T</span></h5>
+								</li>
+								<li>
+									<h5>command: <a href="command.html" class="tsd-signature-type" data-tsd-kind="Class">Command</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Client</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5>message: <span class="tsd-signature-type">Message</span></h5>
@@ -301,7 +311,7 @@
 					<div class="tsd-signature tsd-kind-icon">args<span class="tsd-signature-symbol">:</span> <a href="commandarguments.html" class="tsd-signature-type" data-tsd-kind="Class">CommandArguments</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandContext.ts#L27">src/CommandContext.ts:27</a></li>
+							<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandContext.ts#L33">src/CommandContext.ts:33</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -316,7 +326,7 @@
 					<div class="tsd-signature tsd-kind-icon">author<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">User</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandContext.ts#L22">src/CommandContext.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandContext.ts#L28">src/CommandContext.ts:28</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -331,7 +341,7 @@
 					<div class="tsd-signature tsd-kind-icon">client<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandContext.ts#L12">src/CommandContext.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandContext.ts#L13">src/CommandContext.ts:13</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -341,12 +351,27 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="command" class="tsd-anchor"></a>
+					<h3>command</h3>
+					<div class="tsd-signature tsd-kind-icon">command<span class="tsd-signature-symbol">:</span> <a href="command.html" class="tsd-signature-type" data-tsd-kind="Class">Command</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandContext.ts#L18">src/CommandContext.ts:18</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The command this context is for</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="message" class="tsd-anchor"></a>
 					<h3>message</h3>
 					<div class="tsd-signature tsd-kind-icon">message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Message</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandContext.ts#L17">src/CommandContext.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandContext.ts#L23">src/CommandContext.ts:23</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -368,7 +393,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandContext.ts#L56">src/CommandContext.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/CommandContext.ts#L63">src/CommandContext.ts:63</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">

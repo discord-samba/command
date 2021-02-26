@@ -121,6 +121,9 @@
 						<a href="classes/errorhandler.html" class="tsd-kind-icon">Error<wbr>Handler</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="classes/errorhandlererror.html" class="tsd-kind-icon">Error<wbr>Handler<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="classes/flag.html" class="tsd-kind-icon">Flag</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter">
@@ -197,6 +200,7 @@
 								<li class="tsd-kind-class"><a href="classes/commanddispatcherror.html" class="tsd-kind-icon">Command<wbr>Dispatch<wbr>Error</a></li>
 								<li class="tsd-kind-class"><a href="classes/commandmodule.html" class="tsd-kind-icon">Command<wbr>Module</a></li>
 								<li class="tsd-kind-class"><a href="classes/errorhandler.html" class="tsd-kind-icon">Error<wbr>Handler</a></li>
+								<li class="tsd-kind-class"><a href="classes/errorhandlererror.html" class="tsd-kind-icon">Error<wbr>Handler<wbr>Error</a></li>
 								<li class="tsd-kind-class"><a href="classes/flag.html" class="tsd-kind-icon">Flag</a></li>
 								<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/messagecontext.html" class="tsd-kind-icon">Message<wbr>Context</a></li>
 								<li class="tsd-kind-class"><a href="classes/middleware.html" class="tsd-kind-icon">Middleware</a></li>
@@ -234,7 +238,7 @@
 					<div class="tsd-signature tsd-kind-icon">Middleware<wbr>Function<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>commandContext<span class="tsd-signature-symbol">: </span><a href="classes/commandcontext.html" class="tsd-signature-type" data-tsd-kind="Class">CommandContext</a>, next<span class="tsd-signature-symbol">: </span><a href="modules.html#nextfunction" class="tsd-signature-type" data-tsd-kind="Type alias">NextFunction</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/types/MiddlewareFunction.ts#L12">src/types/MiddlewareFunction.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/types/MiddlewareFunction.ts#L24">src/types/MiddlewareFunction.ts:24</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -244,7 +248,17 @@
 							Will be run after arguments have been parsed.</p>
 						</div>
 						<p>A middleware function must call <code>next()</code> in order for command execution to progress.
-						If <code>next()</code> is not called, execution of the command will halt silently</p>
+							If <code>next()</code> is not called, execution of the command will halt silently. Middleware
+							functions can also pass <a href="classes/result.html#cancel"><code>Result.cancel()</code></a> to <code>next()</code> to
+						silently cancel execution.</p>
+						<p>If the middleware is designed to inhibit execution (Like a middleware that dictates
+							what permissions the command caller should have in order to call the command),
+							<a href="classes/result.html#error"><code>Result.error()</code></a> should be returned with some type of error that
+						can then be handled by the Command&#39;s <code>onError()</code> method or the global error handler.</p>
+						<p><em><strong>NOTE:</strong></em> <em>The above is only really important if you are designing a middleware
+								to be used by others and you want others to choose how to handle the result of
+								the middleware. If it&#39;s just a middleware for a personal bot, you can just handle
+						the result in the middleware itself (like sending a response to discord, etc.)</em></p>
 					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
@@ -284,7 +298,7 @@
 						<div class="lead">
 							<p>Represents a the <code>next</code> function that is given to Command Rules and Middleware
 								that will call the next Rule/Middleware in sequence to continue execution. Will
-								cancel execution if given <a href="classes/result.html#cancel"><code>Result.cancel()</code></a> or <a href="classes/result.html#err"><code>Result.err()</code></a>. <a href="classes/result.html#ok"><code>Result.ok()</code></a> will allow Rules/Middleware/dispatch
+								cancel execution if given <a href="classes/result.html#cancel"><code>Result.cancel()</code></a> or <a href="classes/result.html#error"><code>Result.error()</code></a>. <a href="classes/result.html#ok"><code>Result.ok()</code></a> will allow Rules/Middleware/dispatch
 							to continue. Defaults to <code>Result.ok()</code> if no <code>Result</code> is passed</p>
 						</div>
 					</div>
