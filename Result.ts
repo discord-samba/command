@@ -44,11 +44,11 @@ export class Result<T = any>
 	}
 
 	/**
-	 * Creates an Err Result. Must be given an Error. Err Results are used for passing
-	 * errors from Rules, Middleware, and Argument resolvers so that they can more
-	 * easily be passed around to error handlers
+	 * Creates an Error Result. Must be given an Error. Error Results are used for
+	 * passing errors from Rules, Middleware, and Argument resolvers so that they
+	 * can more easily be passed around to error handlers
 	 */
-	public static err<U extends Error>(error: U): Result<U>
+	public static error<U extends Error>(error: U): Result<U>
 	{
 		return new Result(ResultKind.Err, error ?? new Error('No error given'));
 	}

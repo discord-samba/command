@@ -2,5 +2,6 @@
 export const enum Meta
 {
 	EnforcePrefixes = '__enforcePrefixes',
-	Owner = '__owner'
+	Owner = '__owner',
+	GlobalErrorHandler = '__globalErrorHandler'
 }

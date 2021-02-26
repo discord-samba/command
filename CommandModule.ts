@@ -2,6 +2,7 @@ import { BooleanResolver } from '#resolve/resolvers/BooleanResolver';
 import { Client } from 'discord.js';
 import { CommandCache } from '#root/CommandCache';
 import { CommandDispatcher } from '#root/CommandDispatcher';
+import { ErrorHandler } from '#error/ErrorHandler';
 import { Meta } from '#root/Meta';
 import { NumberResolver } from '#resolve/resolvers/NumberResolver';
 import { ResolverCache } from '#resolve/ResolverCache';
@@ -61,6 +62,43 @@ export class CommandModule
 
 			CommandDispatcher.registerClient(client);
 		});
+	}
+
+	/**
+	 * Sets the global error handler that will be used for handling Rule errors
+	 * and any middleware/command errors that are not handled by individual Command
+	 * error handling methods.
+	 *
+	 * If called without an [[`ErrorHandler`]] argument, a blank error handler will
+	 * be generated and cached. You can fetch it with [[`getGlobalErrorHandler`]]
+	 * to append/override error matchers at a later time.
+	 *
+	 * Global error handlers will be given a [[`MessageContext`]] or [[`CommandContext`]]
+	 * object if the error being given is from Rules or Middleware respectively.
+	 * Additionally, a [[`CommandContext`]] object will be given if an error is
+	 * thrown during argument parsing, resolving, or if there was an uncaught error
+	 * in a command action. You can reasonably expect the context objects to be
+	 * present for the following error types:
+	 *
+	 * - [[ArgumentParseError]]
+	 * - [[CommandArgumentError]]
+	 * - [[CommandDispatchError]]
+	 */
+	public static registerGlobalErrorHandler(handler?: ErrorHandler): void
+	{
+		CommandModule.meta.set(Meta.GlobalErrorHandler, handler ?? new ErrorHandler());
+	}
+
+	/**
+	 * Returns the currently registered global [[`ErrorHandler`]]. Will create, cache,
+	 * and return a new one if one does not already exist
+	 */
+	public static getGlobalErrorHandler(): ErrorHandler
+	{
+		if (!CommandModule.meta.has(Meta.GlobalErrorHandler))
+			CommandModule.meta.set(Meta.GlobalErrorHandler, new ErrorHandler());
+
+		return CommandModule.meta.get(Meta.GlobalErrorHandler);
 	}
 }
 

@@ -4,6 +4,7 @@ import { Command } from '#root/Command';
 import { CommandArguments } from '#argument/CommandArguments';
 import { CommandContext } from '#root/CommandContext';
 import { CommandModule } from '#root/CommandModule';
+import { ErrorHandlerError } from '#error/ErrorHandlerError';
 import { MessageContext } from '#root/MessageContext';
 import { Meta } from '#root/Meta';
 import { MiddlewareFunction } from '#type/MiddlewareFunction';
@@ -40,21 +41,42 @@ export class CommandDispatcher
 
 		client.on('message', async message => CommandDispatcher._instance._dispatch(message));
 		client.on('messageUpdate', async (_, message) =>
-			CommandDispatcher._instance
+			CommandDispatcher
+				._instance
 				._dispatch(await message.channel.messages.fetch(message.id)));
 	}
 
 	/**
 	 * Determine if rules/dispatch should continue (and handle Error Results)
 	 */
-	private static _shouldContinueRules(result: Result): boolean
+	private static async _shouldContinueRules(context: MessageContext, result: Result): Promise<boolean>
 	{
 		if (result.isCancellation())
 			return false;
 
-		// TODO: Route error through global error handler
 		if (result.isError())
+		{
+			// Run error through global error handler
+			const errorHandle: Result = await CommandModule
+				.getGlobalErrorHandler()
+				.handle(result.value, context);
+
+			// Error was handled by global error handler, silently exit dispatch
+			if (!errorHandle.isError())
+				return false;
+
+			// If error was unhandled, emit the original unhandled error, otheriwse
+			// emit whatever error was thrown during handling
+			context.client.emit(
+				'error',
+				errorHandle.value instanceof ErrorHandlerError
+					? errorHandle.value.original
+					: errorHandle.value
+			);
+
+			// Silently exit dispatch
 			return false;
+		}
 
 		return true;
 	}
@@ -62,15 +84,48 @@ export class CommandDispatcher
 	/**
 	 * Determine if middleware/dispatch should continue (and handle Error Results)
 	 */
-	private static _shouldContinueMiddleware(result: Result): boolean
+	private static async _shouldContinueMiddleware(context: CommandContext, result: Result): Promise<boolean>
 	{
 		if (result.isCancellation())
 			return false;
 
-		// TODO: Route error through Command error handler or global error handler
-		//       if the command error handler returns a Default Result
 		if (result.isError())
+		{
+			let errorHandle: Result = await context.command.onError(result.value, context) ?? Result.ok();
+
+			// Error was handled by command error handler, silently exit dispatch
+			if (!errorHandle.isDefault() && !errorHandle.isError())
+				return false;
+
+			// Run original error through global handler if no handler matched the
+			// error in the command error handler or if command error handler defaulted
+			errorHandle = await CommandModule
+				.getGlobalErrorHandler()
+				.handle(
+					errorHandle.value instanceof ErrorHandlerError
+						? errorHandle.value.original
+						: errorHandle.isDefault()
+							? result.value
+							: errorHandle.value,
+					context
+				);
+
+			// Error was handled by global error handler, silently exit dispatch
+			if (!errorHandle.isError())
+				return false;
+
+			// If error was unhandled, emit the original unhandled error, otheriwse
+			// emit whatever error was thrown during handling
+			context.client.emit(
+				'error',
+				errorHandle.value instanceof ErrorHandlerError
+					? errorHandle.value.original
+					: errorHandle.value
+			);
+
+			// Silently exit dispatch
 			return false;
+		}
 
 		return true;
 	}
@@ -83,9 +138,9 @@ export class CommandDispatcher
 		const messageContext: MessageContext = new MessageContext(this._client, message);
 
 		const rules: RuleFunction[] = CommandModule.rules.all();
-		let nextFn: NextFunction = (result: Result = Result.ok()) =>
+		let nextFn: NextFunction = async (result: Result = Result.ok()) =>
 		{
-			if (!CommandDispatcher._shouldContinueRules(result))
+			if (!await CommandDispatcher._shouldContinueRules(messageContext, result))
 				return;
 
 			const rule: RuleFunction = rules.shift() ?? ((_, next) => next());
@@ -93,7 +148,7 @@ export class CommandDispatcher
 			if (rules.length < 1)
 				nextFn = async (finalResult: Result = Result.ok()) =>
 				{
-					if (CommandDispatcher._shouldContinueRules(finalResult))
+					if (await CommandDispatcher._shouldContinueRules(messageContext, finalResult))
 						this._postRules(messageContext);
 				};
 
@@ -183,7 +238,12 @@ export class CommandDispatcher
 			ArgumentParser.parse(context.content, command.arguments)
 		);
 
-		const commandContext: CommandContext = new CommandContext(context.client, context.message, commandArguments);
+		const commandContext: CommandContext = new CommandContext(
+			context.client,
+			command,
+			context.message,
+			commandArguments
+		);
 
 		// TODO: Route argument resolution errors to appropriate error handlers,
 		//       or emit if no handler exists
@@ -191,9 +251,9 @@ export class CommandDispatcher
 
 		// Run command middleware
 		const middleware: MiddlewareFunction[] = command.middleware.all();
-		let nextFn: NextFunction = (result: Result = Result.ok()) =>
+		let nextFn: NextFunction = async (result: Result = Result.ok()) =>
 		{
-			if (!CommandDispatcher._shouldContinueMiddleware(result))
+			if (!await CommandDispatcher._shouldContinueMiddleware(commandContext, result))
 				return;
 
 			const fn: MiddlewareFunction = middleware.shift() ?? ((_, next) => next());
@@ -201,7 +261,7 @@ export class CommandDispatcher
 			if (middleware.length < 1)
 				nextFn = async (finalResult: Result = Result.ok()) =>
 				{
-					if (CommandDispatcher._shouldContinueMiddleware(finalResult))
+					if (await CommandDispatcher._shouldContinueMiddleware(commandContext, finalResult))
 						this._postMiddleware(command, commandContext);
 				};
 
@@ -216,6 +276,7 @@ export class CommandDispatcher
 	 */
 	private async _postMiddleware(command: Command, context: CommandContext): Promise<void>
 	{
+		// TODO: Capture command action errors and run through command error handler
 		await command.action(context);
 	}
 }

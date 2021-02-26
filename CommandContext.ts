@@ -1,4 +1,5 @@
 import { Client, DMChannel, Message, NewsChannel, TextChannel, User } from 'discord.js';
+import { Command } from './Command';
 import { CommandArguments } from '#argument/CommandArguments';
 
 /**
@@ -10,6 +11,11 @@ export class CommandContext<T extends Client = Client>
 	 * The Client instance your Command is registered with
 	 */
 	public client: T;
+
+	/**
+	 * The command this context is for
+	 */
+	public command: Command<T>;
 
 	/**
 	 * The Discord.js Message that triggered the Command
@@ -26,9 +32,10 @@ export class CommandContext<T extends Client = Client>
 	 */
 	public args: CommandArguments;
 
-	public constructor(client: T, message: Message, args: CommandArguments)
+	public constructor(client: T, command: Command, message: Message, args: CommandArguments)
 	{
 		this.client = client;
+		this.command = command;
 		this.message = message;
 		this.author = message.author;
 		this.args = args;
