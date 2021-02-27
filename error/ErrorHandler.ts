@@ -118,7 +118,7 @@ export class ErrorHandler
 	 * Returns [[`Result.ok | Result.ok()`]] if the error was successfully handled
 	 * (Meaning a matcher exists for the error type that was given and the matched
 	 * function did not throw any errors). In the event that an error is thrown
-	 * in a matched function, `handle()` will return [[`Result.error` | Result.error()`]],
+	 * in a matched function, `handle()` will return [[`Result.error | Result.error()`]],
 	 * where the result value is the thrown error. In the event that no handler
 	 * matches the input, `Result.error()` will be returned with an [[`ErrorHandlerError`]]
 	 * which will contain the original error that was unhandled.
