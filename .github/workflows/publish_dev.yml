@@ -40,6 +40,9 @@ jobs:
           # Copy src files to staging
           cp -a src/. ../staging/.
 
+          # Copy package.json to staging (Package changes warrant rebuild)
+          cp package.json ../staging/package.json
+
           # Remove tests from staging, dont need to publish new build for test changes
           rm -rf ../staging/__test__
 
