@@ -148,20 +148,40 @@ export class CommandArgumentSpec
 	 * <Command>.arguments.defineOperand('bar', 'String', { required: false });
 	 * ```
 	 *
-	 * ***NOTE:*** *If the parsing strategy is set to `AllowQuoting` (`1`) or higher and a quoted
-	 * operand is going to be parsed but the spec says it should be a rest argument then the quotes
-	 * will be preserved in the operand value.*
+	 * ***NOTE:*** *If the parsing strategy is set to `AllowQuoting` (`1`) or higher
+	 * and a quoted operand is going to be parsed but the spec says it should be a
+	 * rest argument then the quotes will be preserved in the operand value.*
 	 *
-	 * ***NOTE:*** *Rest operands will supercede any other kind of argument when parsing for that operand
-	 * begins. If the parsing strategy is `Advanced` (`2`) but the parser encounters something that
-	 * would otherwise be parsed as a flag or option it will still be parsed as part
-	 * of the rest operand. Note this is only the case when the parser is currently consuming a
-	 * rest operand.*
+	 * ***NOTE:*** *Rest operands will supercede any other kind of argument when
+	 * parsing for that operand begins. If the parsing strategy is `Advanced` (`2`)
+	 * but the parser encounters something that would otherwise be parsed as a flag
+	 * or option it will still be parsed as part of the rest operand. Note this
+	 * is only the case when the parser is currently consuming a rest operand.*
 	 *
-	 * ***NOTE:*** *If the parsing strategy is not set to `Advanced` (`2`) then every argument
-	 * encountered will be treated as an operand. If an argument follows a flag and that
-	 * flag is not defined as an Option via `defineOption()` then the
-	 * argument will be parsed as an operand and the flag will be parsed as a flag as expected*
+	 * ***NOTE:*** *If the parsing strategy is not set to `Advanced` (`2`) then
+	 * every argument encountered will be treated as an operand. If an argument
+	 * follows a flag and that flag is not defined as an Option via `defineOption()`
+	 * then the argument will be parsed as an operand and the flag will be parsed
+	 * as a flag as expected*
+	 *
+	 * @param options.required
+	 * Whether or not this operand is a required argument (Defaults to `true`)
+	 *
+	 * @param options.rest
+	 * Whether or not this operand is a rest operand (Defaults to `false`)
+	 *
+	 * @param options.bindTo
+	 * The identifier of the argument this argument should bind to. Arguments that
+	 * are bound to another will fill that argument's value with theirs in the event
+	 * that that argument has no value
+	 *
+	 * > ```ts
+	 * > <Command>.arguments.defineOperand('A', 'String', { bindTo: 'B' });
+	 * > <Command>.arguments.defineOption('B', 'String')
+	 * > ```
+	 * > In the above example, argument `A` is bound to argument `B`. Whenever a value
+	 * > is passed for `A` (a positional operand in this case), that value will be
+	 * > mirrored to argument `B`, provided argument `B`'s value is undefined
 	 */
 	public defineOperand(
 		ident: string,
@@ -227,6 +247,22 @@ export class CommandArgumentSpec
 	 *
 	 * ***NOTE:*** *If a flag is found and the parsing strategy is not set to
 	 * `Advanced` (`2`) then it will be treated as an operand*
+	 *
+	 * @param options.long
+	 * A long-identifier for this Option (to be used like `--long foo`)
+	 *
+	 * @param options.bindTo
+	 * The identifier of the argument this argument should bind to. Arguments that
+	 * are bound to another will fill that argument's value with theirs in the event
+	 * that that argument has no value
+	 *
+	 * > ```ts
+	 * > <Command>.arguments.defineOperand('A', 'String', { bindTo: 'B' });
+	 * > <Command>.arguments.defineOption('B', 'String')
+	 * > ```
+	 * > In the above example, argument `A` is bound to argument `B`. Whenever a value
+	 * > is passed for `A` (a positional operand in this case), that value will be
+	 * > mirrored to argument `B`, provided argument `B`'s value is undefined
 	 */
 	public defineFlag(
 		ident: string,
@@ -290,15 +326,34 @@ export class CommandArgumentSpec
 	 * may only be a single character. Examples:
 	 *
 	 * ```js
-	 * <Command>.spec.defineOption('f', 'String');
-	 * <Command>.spec.defineOption('bar', 'String');
-	 * <Command>.spec.defineOption('b', 'String', { long: 'baz' });
+	 * <Command>.arguments.defineOption('f', 'String');
+	 * <Command>.arguments.defineOption('bar', 'String');
+	 * <Command>.arguments.defineOption('b', 'String', { long: 'baz' });
 	 * ```
 	 *
 	 * ***NOTE:*** *If an option is found and the parsing strategy is not set to `Advanced` (`2`)
 	 * then it will be treated as an operand. If an argument that can be parsed as an option
 	 * is found in a Command's input but the option is not declared then it will be treated
 	 * as a long flag and the argument passed to it will be treated as an operand*
+	 *
+	 * @param options.long
+	 * A long-identifier for this Option (to be used like `--long foo` or `--long=foo`)
+	 *
+	 * @param options.required
+	 * Whether or not this option is required (Defaults to `false`)
+	 *
+	 * @param options.bindTo
+	 * The identifier of the argument this argument should bind to. Arguments that
+	 * are bound to another will fill that argument's value with theirs in the event
+	 * that that argument has no value
+	 *
+	 * > ```ts
+	 * > <Command>.arguments.defineOperand('A', 'String', { bindTo: 'B' });
+	 * > <Command>.arguments.defineOption('B', 'String')
+	 * > ```
+	 * > In the above example, argument `A` is bound to argument `B`. Whenever a value
+	 * > is passed for `A` (a positional operand in this case), that value will be
+	 * > mirrored to argument `B`, provided argument `B`'s value is undefined
 	 */
 	public defineOption(
 		ident: string,

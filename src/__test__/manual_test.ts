@@ -138,9 +138,10 @@ async function main(): Promise<void>
 			);
 
 			this.arguments.setParsingStrategy(2);
-			this.arguments.defineOption('foo', 'String', { bindTo: 'baz' });
-			this.arguments.defineOperand('bar', 'String', { required: false });
-			this.arguments.defineOperand('baz', 'String', { required: false, bindTo: 'foo' });
+			this.arguments.defineOption('foo', 'String', { bindTo: 'bar' });
+			this.arguments.defineOperand('bar', 'String', { required: false, bindTo: 'foo' });
+			this.arguments.defineOperand('baz', 'Boolean', { required: false, bindTo: 'f' });
+			this.arguments.defineFlag('f');
 		}
 
 		public trigger(ctx: MessageContext): boolean
@@ -186,7 +187,7 @@ async function main(): Promise<void>
 
 	const spec: CommandArgumentSpec = CommandModule.commands.get('foo')?.arguments!;
 	console.log(new CommandArguments(spec, ArgumentParser.parse('--foo bar', spec)));
-	console.log(new CommandArguments(spec, ArgumentParser.parse('bar baz', spec)));
+	console.log(new CommandArguments(spec, ArgumentParser.parse('bar true', spec)));
 
 	// TODO: Write automated tests for argument binding
 }
