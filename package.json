@@ -16,6 +16,7 @@
 		"./rules": "./bin/rules.js"
 	},
 	"scripts": {
+		"prepare": "husky install",
 		"clean": "rm -rf bin",
 		"build": "tsc --extendedDiagnostics",
 		"prebuild": "npm run clean",
