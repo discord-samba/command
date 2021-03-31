@@ -10,11 +10,14 @@ import { CommandModule } from '#root/CommandModule';
 import { MessageContext } from '#root/MessageContext';
 import { Option } from '#argument/Option';
 import { Result } from '#root/Result';
-import * as Path from 'path';
+// import * as Path from 'path';
 import * as Util from 'util';
 import { ErrorHandler } from '#error/ErrorHandler';
 import { CommandArgumentError } from '#error/CommandArgumentError';
 import { ArgumentParseError } from '#error/ArgumentParseError';
+import { CommandArguments } from '#argument/CommandArguments';
+import { ArgumentParser } from '#parse/ArgumentParser';
+import { CommandArgumentSpec } from '#argument/CommandArgumentSpec';
 
 // import { CommandArgumentSpec } from '#argument/CommandArgumentSpec';
 // import { ArgumentParser } from '#parse/ArgumentParser';
@@ -75,7 +78,7 @@ async function main(): Promise<void>
 	// console.log(/^--$/.test(reader.peekSegment(5)));
 
 	const client: Client = new Client();
-	client.login(require(Path.join(__dirname, './config.json')).token);
+	// client.login(require(Path.join(__dirname, './config.json')).token);
 	CommandModule.registerClient(client);
 
 	CommandModule.rules.use(
@@ -178,6 +181,14 @@ async function main(): Promise<void>
 
 	// client.on('error', err => console.log('Unhandled error:', err));
 	CommandModule.getGlobalErrorHandler().match(Error, err => console.log('Global error:', err));
+
+	CommandModule.finalizeCommandArgBindings();
+
+	const spec: CommandArgumentSpec = CommandModule.commands.get('foo')?.arguments!;
+	console.log(new CommandArguments(spec, ArgumentParser.parse('--foo bar', spec)));
+	console.log(new CommandArguments(spec, ArgumentParser.parse('bar baz', spec)));
+
+	// TODO: Write automated tests for argument binding
 }
 
 main().catch(e => console.log(e));

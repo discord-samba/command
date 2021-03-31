@@ -73,16 +73,21 @@ export class CommandArgumentSpec
 
 	/**
 	 * Matches arguments to their bindings, erroring if the bound argument does
-	 * not exist
+	 * not exist. This should be called before commands are allowed to be run
 	 */
 	public finalizeBindings(): void
 	{
 		for (const [ident, binding] of this._rawBindings.entries())
 		{
-			const arg: CommandArgumentSpecEntry = this.get(ident)!;
-			const boundArg: CommandArgumentSpecEntry | undefined = this.get(binding);
+			// It should be impossible for this to be undefined
+			const arg: CommandArgumentSpecEntry = this.get(ident)
+				?? this.operands.find(o => o.ident === ident)!;
+
+			const boundArg: CommandArgumentSpecEntry | undefined = this.get(binding)
+				?? this.operands.find(o => o.ident === binding);
+
 			if (typeof boundArg === 'undefined')
-				throw new ReferenceError(`Could not find argument '${binding}' to bind to argument '${ident}'`);
+				throw new ReferenceError(`Could not find argument '${binding}' to bind argument '${ident}' to`);
 
 			if (boundArg.kind === CommandArgumentKind.Flag
 				&& arg.kind !== CommandArgumentKind.Flag
