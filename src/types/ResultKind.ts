@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/indent */
+
 export enum ResultKind
 {
 	Default = 'default',

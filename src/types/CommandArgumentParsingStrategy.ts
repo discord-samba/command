@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/indent */
+
 /**
  * Enum containing the different Command argument parsing strategies
  */

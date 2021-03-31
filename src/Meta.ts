@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/indent */
+
 /** @internal */
 export const enum Meta
 {
