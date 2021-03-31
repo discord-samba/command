@@ -168,6 +168,9 @@ export class CommandArguments
 			const arg: Argument<any> = this.get(ident);
 			const boundArg: Argument<any> = this.get(binding.ident);
 
+			if (typeof arg.value === 'undefined')
+				continue;
+
 			if (typeof boundArg.value === 'undefined')
 				boundArg.value = arg.value;
 
