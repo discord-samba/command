@@ -1,6 +1,7 @@
 import { CommandArgumentKind } from '#type/CommandArgumentKind';
 import { CommandArgumentParsingStrategy } from '#type/CommandArgumentParsingStrategy';
 import { CommandArgumentSpecConflict } from '#type/CommandArgumentSpecConflict';
+import { CommandArgumentSpecEntry } from '#type/CommandArgumentSpecEntry';
 import { CommandArgumentSpecFlag } from '#type/CommandArgumentSpecFlag';
 import { CommandArgumentSpecOperand } from '#type/CommandArgumentSpecOperand';
 import { CommandArgumentSpecOption } from '#type/CommandArgumentSpecOption';
@@ -15,7 +16,10 @@ export class CommandArgumentSpec
 	public operands: CommandArgumentSpecOperand[] = [];
 	public flags: Map<string, CommandArgumentSpecFlag> = new Map();
 	public options: Map<string, CommandArgumentSpecOption> = new Map();
+	public bindings: Map<string, CommandArgumentSpecEntry> = new Map();
 	public parsingStrategy: CommandArgumentParsingStrategy = CommandArgumentParsingStrategy.Basic;
+
+	private _rawBindings: Map<string, string> = new Map();
 
 	private static _longIdent: RegExp = /^(?=[a-zA-Z][\w-]*[a-zA-Z0-9]$)[\w-]+/;
 
@@ -28,6 +32,7 @@ export class CommandArgumentSpec
 		clone.operands = Array.from(this.operands.values());
 		clone.flags = new Map(this.flags.entries());
 		clone.options = new Map(this.options.entries());
+		clone.bindings = new Map(this.bindings.entries());
 		clone.parsingStrategy = this.parsingStrategy;
 		return clone;
 	}
@@ -64,6 +69,30 @@ export class CommandArgumentSpec
 	public setParsingStrategy(strategy: CommandArgumentParsingStrategy): void
 	{
 		this.parsingStrategy = strategy;
+	}
+
+	/**
+	 * Matches arguments to their bindings, erroring if the bound argument does
+	 * not exist
+	 */
+	public finalizeBindings(): void
+	{
+		for (const [ident, binding] of this._rawBindings.entries())
+		{
+			const arg: CommandArgumentSpecEntry = this.get(ident)!;
+			const boundArg: CommandArgumentSpecEntry | undefined = this.get(binding);
+			if (typeof boundArg === 'undefined')
+				throw new ReferenceError(`Could not find argument '${binding}' to bind to argument '${ident}'`);
+
+			if (boundArg.kind === CommandArgumentKind.Flag
+				&& arg.kind !== CommandArgumentKind.Flag
+				&& !['boolean', 'bool'].includes(arg.type.toLowerCase()))
+				throw new TypeError(
+					`Argument '${ident}' is bound to Flag '${binding}' but is not of type 'boolean'`
+				);
+
+			this.bindings.set(ident, boundArg);
+		}
 	}
 
 	/**
@@ -129,7 +158,11 @@ export class CommandArgumentSpec
 	 * flag is not defined as an Option via `defineOption()` then the
 	 * argument will be parsed as an operand and the flag will be parsed as a flag as expected*
 	 */
-	public defineOperand(ident: string, type: string, options: { required?: boolean, rest?: boolean } = {}): void
+	public defineOperand(
+		ident: string,
+		type: string,
+		options: { required?: boolean, rest?: boolean, bindTo?: string } = {}
+	): void
 	{
 		if (ident.length < 2)
 			throw new Error('Operand identifiers must be at least 2 characters');
@@ -166,6 +199,9 @@ export class CommandArgumentSpec
 
 			case CommandArgumentSpecConflict.None:
 				this.operands.push(operand);
+
+				if (typeof options.bindTo !== 'undefined')
+					this._rawBindings.set(ident, options.bindTo);
 		}
 	}
 
@@ -187,7 +223,10 @@ export class CommandArgumentSpec
 	 * ***NOTE:*** *If a flag is found and the parsing strategy is not set to
 	 * `Advanced` (`2`) then it will be treated as an operand*
 	 */
-	public defineFlag(ident: string, options: { long?: string } = {}): void
+	public defineFlag(
+		ident: string,
+		options: { long?: string, bindTo?: string } = {}
+	): void
 	{
 		if (typeof options.long === 'undefined')
 		{
@@ -230,6 +269,9 @@ export class CommandArgumentSpec
 				this.flags.set(ident, flag);
 				if (typeof options.long !== 'undefined')
 					this.flags.set(options.long, flag);
+
+				if (typeof options.bindTo !== 'undefined')
+					this._rawBindings.set(ident, options.bindTo);
 		}
 	}
 
@@ -253,7 +295,11 @@ export class CommandArgumentSpec
 	 * is found in a Command's input but the option is not declared then it will be treated
 	 * as a long flag and the argument passed to it will be treated as an operand*
 	 */
-	public defineOption(ident: string, type: string, options: { long?: string, required?: boolean} = {}): void
+	public defineOption(
+		ident: string,
+		type: string,
+		options: { long?: string, required?: boolean, bindTo?: string } = {}
+	): void
 	{
 		if (typeof options.long === 'undefined')
 		{
@@ -305,6 +351,9 @@ export class CommandArgumentSpec
 				this.options.set(ident, option);
 				if (typeof options.long !== 'undefined')
 					this.options.set(options.long, option);
+
+				if (typeof options.bindTo !== 'undefined')
+					this._rawBindings.set(ident, options.bindTo);
 		}
 	}
 
@@ -317,9 +366,9 @@ export class CommandArgumentSpec
 	 * ***WARNING:*** *Be sure to only operate on cloned specs. We do not want
 	 * to shift the operand specs out of the original specification*
 	 */
-	public get<T extends { kind: CommandArgumentKind }>(ident: string): T | undefined
+	public get<T extends CommandArgumentSpecEntry>(ident: string): T | undefined
 	{
-		let result: { kind: CommandArgumentKind } | undefined;
+		let result: CommandArgumentSpecEntry | undefined;
 
 		// Check flags for the identifier
 		if (this.flags.has(ident))

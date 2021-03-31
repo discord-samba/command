@@ -1,7 +1,12 @@
-import { CommandArgumentKind } from '#type/CommandArgumentKind';
+import { CommandArgumentSpecFlag } from './CommandArgumentSpecFlag';
+import { CommandArgumentSpecOperand } from './CommandArgumentSpecOperand';
+import { CommandArgumentSpecOption } from './CommandArgumentSpecOption';
 
 /**
  * Represents any value retrieved from `CommandArgumentSpec`
  * @internal
  */
-export type CommandArgumentSpecEntry = { kind: CommandArgumentKind } | undefined;
+export type CommandArgumentSpecEntry =
+	| CommandArgumentSpecOperand
+	| CommandArgumentSpecOption
+	| CommandArgumentSpecFlag;

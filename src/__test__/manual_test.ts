@@ -135,9 +135,9 @@ async function main(): Promise<void>
 			);
 
 			this.arguments.setParsingStrategy(2);
-			this.arguments.defineOption('foo', 'String');
+			this.arguments.defineOption('foo', 'String', { bindTo: 'baz' });
 			this.arguments.defineOperand('bar', 'String', { required: false });
-			this.arguments.defineOperand('baz', 'String', { required: false });
+			this.arguments.defineOperand('baz', 'String', { required: false, bindTo: 'foo' });
 		}
 
 		public trigger(ctx: MessageContext): boolean

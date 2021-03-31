@@ -474,7 +474,7 @@ export class ArgumentParser
 		// Handle Flag and Option
 		if (ident.length === 1)
 		{
-			const spec: CommandArgumentSpecEntry = state.spec.get(ident);
+			const spec: CommandArgumentSpecEntry | undefined = state.spec.get(ident);
 
 			// Assume that the kind is Flag if there is no spec for the given identifier,
 			// Unless the flag is followed by `=`, then treat as undeclared Option
@@ -498,7 +498,7 @@ export class ArgumentParser
 		{
 			for (const [i, opt] of ident.split('').entries())
 			{
-				const spec: CommandArgumentSpecEntry = state.spec.get(opt);
+				const spec: CommandArgumentSpecEntry | undefined = state.spec.get(opt);
 
 				if (spec?.kind === CommandArgumentKind.Option && i !== ident.length - 1)
 					return ArgumentStringChunkKind.InvalidMultiFlag;
