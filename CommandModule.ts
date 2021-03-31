@@ -47,6 +47,17 @@ export class CommandModule
 	}
 
 	/**
+	 * Finalize argument bindings for all loaded commands. Should be called at any
+	 * point after all desired commands have been loaded but before commands are
+	 * allowed to be run (e.g. before calling `<Client>#login()`)
+	 */
+	public static finalizeCommandArgBindings(): void
+	{
+		for (const command of CommandModule.commands.all())
+			command.arguments.finalizeBindings();
+	}
+
+	/**
 	 * Register your client instance with the command module. This will initialize
 	 * all loaded commands and register the client with the Command dispatcher once
 	 * the client emits the [`ready`](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-ready)

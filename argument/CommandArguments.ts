@@ -7,6 +7,7 @@ import { CommandArgumentKind } from '#type/CommandArgumentKind';
 import { CommandArgumentSpec } from '#argument/CommandArgumentSpec';
 import { CommandArgumentSpecOption } from '#type/CommandArgumentSpecOption';
 import { CommandContext } from '#root/CommandContext';
+import { CommandModule } from '#root/CommandModule';
 import { Flag } from '#argument/Flag';
 import { Operand } from '#argument/Operand';
 import { Option } from '#argument/Option';
@@ -40,6 +41,7 @@ export class CommandArguments
 		this._compileOperands(spec, parsedArgs);
 		this._compileFlags(spec, parsedArgs);
 		this._compileOptions(spec, parsedArgs);
+		this._runBindings(spec);
 	}
 
 	/**
@@ -153,6 +155,30 @@ export class CommandArguments
 
 			if (typeof optionSpec.long !== 'undefined' && !this.options.has(optionSpec.long))
 				this.options.set(optionSpec.long, option);
+		}
+	}
+
+	/**
+	 * Iterate over binding entries, assigning argument values to their bound counterparts
+	 */
+	private _runBindings(spec: CommandArgumentSpec): void
+	{
+		for (const [ident, binding] of spec.bindings.entries())
+		{
+			const arg: Argument<any> = this.get(ident);
+			const boundArg: Argument<any> = this.get(binding.ident);
+
+			if (typeof arg.value === 'undefined')
+				continue;
+
+			if (typeof boundArg.value === 'undefined')
+				boundArg.value = arg.value;
+
+			if (boundArg instanceof Flag)
+			{
+				if (CommandModule.resolvers.get('Boolean')?.safeResolve(arg.value))
+					boundArg.increment();
+			}
 		}
 	}
 

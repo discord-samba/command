@@ -15,6 +15,7 @@ export { Result } from '#root/Result';
 export { ErrorHandler } from '#error/ErrorHandler';
 export { ErrorHandlerError } from '#error/ErrorHandlerError';
 
+export { CommandArgumentSpec } from '#argument/CommandArgumentSpec';
 export { CommandArguments } from '#argument/CommandArguments';
 export { Argument } from '#argument/Argument';
 export { Operand } from '#argument/Operand';
