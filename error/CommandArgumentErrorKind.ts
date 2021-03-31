@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/indent */
+
 /**
  * Enum containing the different kinds of errors we can expect to encounter
  * when compiling command arguments at call-time
