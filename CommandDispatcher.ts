@@ -233,8 +233,7 @@ export class CommandDispatcher
 
 		// TODO: Route argument parsing errors to appropriate error handlers,
 		//       or emit if no handler exists
-		const commandArguments: CommandArguments = new CommandArguments(
-			command.arguments,
+		const commandArguments: CommandArguments = CommandArguments.fromParse(
 			ArgumentParser.parse(context.content, command.arguments)
 		);
 

@@ -22,7 +22,7 @@ export class ArgumentParser
 	 */
 	public static parse(input: string, spec: CommandArgumentSpec): ArgumentParserOutput
 	{
-		const out: ArgumentParserOutput = new ArgumentParserOutput();
+		const out: ArgumentParserOutput = new ArgumentParserOutput(spec);
 		const state: ArgumentParserState = new ArgumentParserState(input, spec);
 
 		if (state.spec.parsingStrategy === CommandArgumentParsingStrategy.Basic)
