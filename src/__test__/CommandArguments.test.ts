@@ -291,4 +291,31 @@ describe('CommandArguments tests', () =>
 		expect(() => args.get('bar')).toThrow(err);
 		expect(() => args.get('1')).toThrow(err);
 	});
+
+	it('Should properly link values to bound arguments', () =>
+	{
+		let spec: CommandArgumentSpec = new CommandArgumentSpec();
+		spec.setParsingStrategy(2);
+		spec.defineOperand('foo', 'String', { required: false, bindTo: 'bar' });
+		spec.defineOption('bar', 'String', { bindTo: 'foo' });
+		spec.finalizeBindings();
+
+		let args: CommandArguments = new CommandArguments(spec, ArgumentParser.parse('foo', spec));
+		expect(args.get<Option<string>>('bar')).toEqual({ ident: 'bar', type: 'String', value: 'foo' });
+
+		args = new CommandArguments(spec, ArgumentParser.parse('--bar foo', spec));
+		expect(args.get<Operand<string>>('foo')).toEqual({ ident: 'foo', type: 'String', value: 'foo' });
+
+		spec = new CommandArgumentSpec();
+		spec.setParsingStrategy(2);
+		spec.defineOperand('foo', 'boolean', { required: false, bindTo: 'bar' });
+		spec.defineFlag('bar', { bindTo: 'foo' });
+		spec.finalizeBindings();
+
+		args = new CommandArguments(spec, ArgumentParser.parse('true', spec));
+		expect(args.get<Flag>('bar')).toEqual({ ident: 'bar', value: true, count: 1 });
+
+		args = new CommandArguments(spec, ArgumentParser.parse('--bar', spec));
+		expect(args.get<Operand<boolean>>('foo')).toEqual({ ident: 'foo', type: 'boolean', value: true });
+	});
 });
