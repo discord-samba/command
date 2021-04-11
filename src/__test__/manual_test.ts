@@ -61,7 +61,7 @@ async function main(): Promise<void>
 	// 	spec
 	// );
 
-	// const args: CommandArguments = new CommandArguments(spec, output);
+	// const args: CommandArguments = CommandArguments.fromParse(output);
 	// const end: number = now();
 
 	// console.log(end - start);
@@ -186,8 +186,8 @@ async function main(): Promise<void>
 	CommandModule.finalizeCommandArgBindings();
 
 	const spec: CommandArgumentSpec = CommandModule.commands.get('foo')?.arguments!;
-	console.log(new CommandArguments(spec, ArgumentParser.parse('--foo bar', spec)));
-	console.log(new CommandArguments(spec, ArgumentParser.parse('bar true', spec)));
+	console.log(CommandArguments.fromParse(ArgumentParser.parse('--foo bar', spec)));
+	console.log(CommandArguments.fromParse(ArgumentParser.parse('bar true', spec)));
 
 	// TODO: Write automated tests for argument binding
 }
