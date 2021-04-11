@@ -32,27 +32,56 @@ export class CommandArguments
 	 */
 	public options: Map<string, Option<any>>;
 
-	public constructor(spec: CommandArgumentSpec, parsedArgs: ArgumentParserOutput)
+	private constructor()
 	{
 		this.operands = [];
 		this.flags = new Map();
 		this.options = new Map();
+	}
 
-		this._compileOperands(spec, parsedArgs);
-		this._compileFlags(spec, parsedArgs);
-		this._compileOptions(spec, parsedArgs);
-		this._runBindings(spec);
+	/**
+	 * Creates a CommandArguments object using the given argument parser output
+	 */
+	public static fromParse(parsedArgs: ArgumentParserOutput): CommandArguments
+	{
+		const result: CommandArguments = new CommandArguments();
+
+		result._compileOperands(parsedArgs);
+		result._compileFlags(parsedArgs);
+		result._compileOptions(parsedArgs);
+
+		result.runBindings(parsedArgs.spec);
+
+		return result;
+	}
+
+	/**
+	 * Returns an empty CommandArguments object to be used for manually creating
+	 * a complete set of arguments. Be sure to call [[`compileMissingArgs | compileMissingArgs()`]]
+	 * and [[`runBindings | runBindings()`]] if using a CommandArgumentSpec that
+	 * leverages those things
+	 */
+	public static empty(): CommandArguments
+	{
+		return new CommandArguments();
 	}
 
 	/**
 	 * Compile parsed operands and missing non-required operands from spec
 	 */
-	private _compileOperands(spec: CommandArgumentSpec, parsedArgs: ArgumentParserOutput): void
+	private _compileOperands(parsedArgs: ArgumentParserOutput): void
 	{
 		for (const operand of parsedArgs.operands)
 			this.operands.push(new Operand(operand.value, operand.ident, operand.type, operand));
 
-		// Check for missing required operands and compile missing non-required operands from spec
+		this._compileMissingOperands(parsedArgs.spec);
+	}
+
+	/**
+	 * Check for missing required operands and compile missing non-required operands from spec
+	 */
+	private _compileMissingOperands(spec: CommandArgumentSpec): void
+	{
 		for (const operand of spec.operands)
 		{
 			if (!this.operands.some(o => o.ident === operand.ident))
@@ -73,7 +102,7 @@ export class CommandArguments
 	/**
 	 * Compile parsed flags and missing flags from spec
 	 */
-	private _compileFlags(spec: CommandArgumentSpec, parsedArgs: ArgumentParserOutput): void
+	private _compileFlags(parsedArgs: ArgumentParserOutput): void
 	{
 		for (const parsedFlag of parsedArgs.flags.values())
 		{
@@ -89,7 +118,14 @@ export class CommandArguments
 				this.flags.set(parsedFlag.long, flag);
 		}
 
-		// Compile missing flags using the declared flags from spec
+		this._compileMissingFlags(parsedArgs.spec);
+	}
+
+	/**
+	 * Compile missing flags using the declared flags from spec
+	 */
+	private _compileMissingFlags(spec: CommandArgumentSpec): void
+	{
 		for (const flagSpec of spec.flags.values())
 		{
 			const flag: Flag = new Flag(flagSpec.ident);
@@ -104,7 +140,7 @@ export class CommandArguments
 	/**
 	 * Compile parsed options and missing non-required operands from spec
 	 */
-	private _compileOptions(spec: CommandArgumentSpec, parsedArgs: ArgumentParserOutput): void
+	private _compileOptions(parsedArgs: ArgumentParserOutput): void
 	{
 		// Compile options
 		for (const parsedOption of parsedArgs.options.values())
@@ -117,7 +153,7 @@ export class CommandArguments
 			);
 
 			// Error on missing required option value (option was passed but failed to receive a value)
-			if (spec.get<CommandArgumentSpecOption>(parsedOption.ident)?.required
+			if (parsedArgs.spec.get<CommandArgumentSpecOption>(parsedOption.ident)?.required
 				&& typeof parsedOption.value === 'undefined')
 				throw new CommandArgumentError(
 					CommandArgumentErrorKind.MissingRequiredArgument,
@@ -130,7 +166,14 @@ export class CommandArguments
 				this.options.set(parsedOption.long, option);
 		}
 
-		// Check for missing required options and compile missing non-required options from spec
+		this._compileMissingOptions(parsedArgs.spec);
+	}
+
+	/**
+	 * Check for missing required options and compile missing non-required options from spec
+	 */
+	private _compileMissingOptions(spec: CommandArgumentSpec): void
+	{
 		for (const optionSpec of spec.options.values())
 		{
 			let value!: any;
@@ -159,9 +202,19 @@ export class CommandArguments
 	}
 
 	/**
-	 * Iterate over binding entries, assigning argument values to their bound counterparts
+	 * Compile all missing arguments using the given spec
 	 */
-	private _runBindings(spec: CommandArgumentSpec): void
+	public compileMissingArgs(spec: CommandArgumentSpec): void
+	{
+		this._compileMissingOperands(spec);
+		this._compileMissingFlags(spec);
+		this._compileMissingOptions(spec);
+	}
+
+	/**
+	 * Map argument values to their bound counterparts based on the given spec
+	 */
+	public runBindings(spec: CommandArgumentSpec): void
 	{
 		for (const [ident, binding] of spec.bindings.entries())
 		{
