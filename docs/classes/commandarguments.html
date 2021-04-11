@@ -118,9 +118,6 @@
 					<li class="current tsd-kind-class">
 						<a href="commandarguments.html" class="tsd-kind-icon">Command<wbr>Arguments</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="commandarguments.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="commandarguments.html#flags" class="tsd-kind-icon">flags</a>
 							</li>
@@ -130,8 +127,20 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="commandarguments.html#options" class="tsd-kind-icon">options</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="commandarguments.html#compilemissingargs" class="tsd-kind-icon">compile<wbr>Missing<wbr>Args</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 								<a href="commandarguments.html#get" class="tsd-kind-icon">get</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="commandarguments.html#runbindings" class="tsd-kind-icon">run<wbr>Bindings</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="commandarguments.html#empty" class="tsd-kind-icon">empty</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="commandarguments.html#fromparse" class="tsd-kind-icon">from<wbr>Parse</a>
 							</li>
 						</ul>
 					</li>
@@ -227,12 +236,6 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Constructors</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="commandarguments.html#constructor" class="tsd-kind-icon">constructor</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="commandarguments.html#flags" class="tsd-kind-icon">flags</a></li>
@@ -243,39 +246,14 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="commandarguments.html#compilemissingargs" class="tsd-kind-icon">compile<wbr>Missing<wbr>Args</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="commandarguments.html#get" class="tsd-kind-icon">get</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="commandarguments.html#runbindings" class="tsd-kind-icon">run<wbr>Bindings</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="commandarguments.html#empty" class="tsd-kind-icon">empty</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="commandarguments.html#fromparse" class="tsd-kind-icon">from<wbr>Parse</a></li>
 							</ul>
 						</section>
 					</div>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
-					<a name="constructor" class="tsd-anchor"></a>
-					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Command<wbr>Arguments<span class="tsd-signature-symbol">(</span>spec<span class="tsd-signature-symbol">: </span><a href="commandargumentspec.html" class="tsd-signature-type" data-tsd-kind="Class">CommandArgumentSpec</a>, parsedArgs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ArgumentParserOutput</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="commandarguments.html" class="tsd-signature-type" data-tsd-kind="Class">CommandArguments</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/argument/CommandArguments.ts#L33">src/argument/CommandArguments.ts:33</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>spec: <a href="commandargumentspec.html" class="tsd-signature-type" data-tsd-kind="Class">CommandArgumentSpec</a></h5>
-								</li>
-								<li>
-									<h5>parsedArgs: <span class="tsd-signature-type">ArgumentParserOutput</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="commandarguments.html" class="tsd-signature-type" data-tsd-kind="Class">CommandArguments</a></h4>
-						</li>
-					</ul>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -328,6 +306,34 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="compilemissingargs" class="tsd-anchor"></a>
+					<h3>compile<wbr>Missing<wbr>Args</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">compile<wbr>Missing<wbr>Args<span class="tsd-signature-symbol">(</span>spec<span class="tsd-signature-symbol">: </span><a href="commandargumentspec.html" class="tsd-signature-type" data-tsd-kind="Class">CommandArgumentSpec</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/argument/CommandArguments.ts#L207">src/argument/CommandArguments.ts:207</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Compile all missing arguments using the given spec</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>spec: <a href="commandargumentspec.html" class="tsd-signature-type" data-tsd-kind="Class">CommandArgumentSpec</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 					<a name="get" class="tsd-anchor"></a>
 					<h3>get</h3>
@@ -338,7 +344,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/argument/CommandArguments.ts#L209">src/argument/CommandArguments.ts:209</a></li>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/argument/CommandArguments.ts#L262">src/argument/CommandArguments.ts:262</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -365,6 +371,87 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="runbindings" class="tsd-anchor"></a>
+					<h3>run<wbr>Bindings</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">run<wbr>Bindings<span class="tsd-signature-symbol">(</span>spec<span class="tsd-signature-symbol">: </span><a href="commandargumentspec.html" class="tsd-signature-type" data-tsd-kind="Class">CommandArgumentSpec</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/argument/CommandArguments.ts#L217">src/argument/CommandArguments.ts:217</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Map argument values to their bound counterparts based on the given spec</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>spec: <a href="commandargumentspec.html" class="tsd-signature-type" data-tsd-kind="Class">CommandArgumentSpec</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="empty" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> empty</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">empty<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="commandarguments.html" class="tsd-signature-type" data-tsd-kind="Class">CommandArguments</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/argument/CommandArguments.ts#L64">src/argument/CommandArguments.ts:64</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns an empty CommandArguments object to be used for manually creating
+										a complete set of arguments. Be sure to call <a href="commandarguments.html#compilemissingargs"><code>compileMissingArgs()</code></a>
+										and <a href="commandarguments.html#runbindings"><code>runBindings()</code></a> if using a CommandArgumentSpec that
+									leverages those things</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="commandarguments.html" class="tsd-signature-type" data-tsd-kind="Class">CommandArguments</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="fromparse" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> from<wbr>Parse</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">from<wbr>Parse<span class="tsd-signature-symbol">(</span>parsedArgs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ArgumentParserOutput</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="commandarguments.html" class="tsd-signature-type" data-tsd-kind="Class">CommandArguments</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/discord-samba/command/blob/main/src/argument/CommandArguments.ts#L45">src/argument/CommandArguments.ts:45</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates a CommandArguments object using the given argument parser output</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>parsedArgs: <span class="tsd-signature-type">ArgumentParserOutput</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="commandarguments.html" class="tsd-signature-type" data-tsd-kind="Class">CommandArguments</a></h4>
 						</li>
 					</ul>
 				</section>
