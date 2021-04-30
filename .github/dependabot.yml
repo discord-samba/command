@@ -1,0 +1,27 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: weekly
+    time: "06:00"
+    timezone: America/Mexico_City
+  open-pull-requests-limit: 99
+  versioning-strategy: increase
+  ignore:
+  - dependency-name: "@types/node"
+    versions:
+    - 14.14.41
+  - dependency-name: typedoc
+    versions:
+    - 0.20.19
+    - 0.20.20
+    - 0.20.23
+    - 0.20.27
+    - 0.20.28
+  - dependency-name: husky
+    versions:
+    - 5.1.0
+  - dependency-name: eslint
+    versions:
+    - 7.19.0
