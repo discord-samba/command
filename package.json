@@ -42,7 +42,7 @@
 		"@discord-samba/typedoc-patch": "github:discord-samba/typedoc-patch",
 		"@types/glob": "^7.1.1",
 		"@types/jest": "^26.0.23",
-		"@types/node": "^15.0.2",
+		"@types/node": "^16.11.6",
 		"discord.js": "^12.5.1",
 		"eslint": "^7.26.0",
 		"husky": "^6.0.0",
