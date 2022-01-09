@@ -36,7 +36,7 @@
 	},
 	"homepage": "https://github.com/discord-samba/command#readme",
 	"devDependencies": {
-		"@commitlint/cli": "^12.0.1",
+		"@commitlint/cli": "^16.0.2",
 		"@commitlint/config-angular": "^12.0.1",
 		"@discord-samba/eslint-config": "github:discord-samba/eslint-config",
 		"@discord-samba/typedoc-patch": "github:discord-samba/typedoc-patch",
