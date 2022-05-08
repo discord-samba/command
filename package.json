@@ -41,7 +41,7 @@
 		"@discord-samba/eslint-config": "github:discord-samba/eslint-config",
 		"@discord-samba/typedoc-patch": "github:discord-samba/typedoc-patch",
 		"@types/glob": "^7.1.1",
-		"@types/jest": "^26.0.23",
+		"@types/jest": "^27.5.0",
 		"@types/node": "^15.0.2",
 		"discord.js": "^12.5.1",
 		"eslint": "^7.26.0",
